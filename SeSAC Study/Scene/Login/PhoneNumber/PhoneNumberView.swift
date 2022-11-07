@@ -31,7 +31,7 @@ final class PhoneNumberView: BaseView {
     
     let lineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lineViewColor
+        view.backgroundColor = .grayThree
         
         return view
     }()
@@ -40,8 +40,8 @@ final class PhoneNumberView: BaseView {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
         configuration.title = ButtonTitle.authButtonTitle
-        configuration.baseForegroundColor = .buttonDisabledTitleColor
-        configuration.baseBackgroundColor = .buttonDisabledBackgroundColor
+        configuration.baseForegroundColor = .grayThree
+        configuration.baseBackgroundColor = .graySix
         configuration.cornerStyle = .medium
         
         button.configuration = configuration
@@ -70,7 +70,7 @@ final class PhoneNumberView: BaseView {
         }
         
         numberTextField.snp.makeConstraints { make in
-            make.top.equalTo(messageLabel.snp.bottom).offset(72)
+            make.top.equalToSuperview().offset(300)
             make.horizontalEdges.equalToSuperview().inset(28)
         }
         
@@ -81,7 +81,7 @@ final class PhoneNumberView: BaseView {
         }
         
         doneButton.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(72)
+            make.top.equalToSuperview().offset(400) //위치 똑같이 만들어주기 위해
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(48)
         }
