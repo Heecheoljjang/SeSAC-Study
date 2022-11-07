@@ -9,21 +9,42 @@
 /* Begin PBXBuildFile section */
 		9796DE912918A36F00D8C915 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DE902918A36F00D8C915 /* AppDelegate.swift */; };
 		9796DE932918A36F00D8C915 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DE922918A36F00D8C915 /* SceneDelegate.swift */; };
-		9796DE952918A36F00D8C915 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DE942918A36F00D8C915 /* ViewController.swift */; };
-		9796DE982918A36F00D8C915 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9796DE962918A36F00D8C915 /* Main.storyboard */; };
 		9796DE9A2918A37000D8C915 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9796DE992918A37000D8C915 /* Assets.xcassets */; };
 		9796DE9D2918A37000D8C915 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9796DE9B2918A37000D8C915 /* LaunchScreen.storyboard */; };
+		9796DEA52918FB2B00D8C915 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9796DEA42918FB2B00D8C915 /* .gitignore */; };
+		9796DEAF2919131900D8C915 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9796DEAE2919131900D8C915 /* SnapKit */; };
+		9796DEB22919132B00D8C915 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9796DEB12919132B00D8C915 /* RxCocoa */; };
+		9796DEB42919132B00D8C915 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9796DEB32919132B00D8C915 /* RxSwift */; };
+		9796DEB82919136B00D8C915 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEB72919136B00D8C915 /* OnboardingView.swift */; };
+		9796DEBA2919137500D8C915 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEB92919137500D8C915 /* OnboardingViewController.swift */; };
+		9796DEBC2919138400D8C915 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEBB2919138400D8C915 /* OnboardingViewModel.swift */; };
+		9796DEC72919182300D8C915 /* PhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEC62919182300D8C915 /* PhoneNumberView.swift */; };
+		9796DEC92919182D00D8C915 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEC82919182D00D8C915 /* PhoneNumberViewController.swift */; };
+		9796DECB2919183800D8C915 /* PhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DECA2919183800D8C915 /* PhoneNumberViewModel.swift */; };
+		9796DECF29191BE800D8C915 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DECE29191BE800D8C915 /* BaseViewController.swift */; };
+		9796DED129191BEE00D8C915 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DED029191BEE00D8C915 /* BaseView.swift */; };
+		9796DED4291920BD00D8C915 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DED3291920BD00D8C915 /* Text.swift */; };
+		9796DED72919233600D8C915 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DED62919233600D8C915 /* UIColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9796DE8D2918A36F00D8C915 /* SeSAC Study.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SeSAC Study.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9796DE902918A36F00D8C915 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9796DE922918A36F00D8C915 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9796DE942918A36F00D8C915 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9796DE972918A36F00D8C915 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9796DE992918A37000D8C915 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9796DE9C2918A37000D8C915 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9796DE9E2918A37000D8C915 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9796DEA42918FB2B00D8C915 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9796DEB72919136B00D8C915 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		9796DEB92919137500D8C915 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		9796DEBB2919138400D8C915 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		9796DEC62919182300D8C915 /* PhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberView.swift; sourceTree = "<group>"; };
+		9796DEC82919182D00D8C915 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
+		9796DECA2919183800D8C915 /* PhoneNumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewModel.swift; sourceTree = "<group>"; };
+		9796DECE29191BE800D8C915 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		9796DED029191BEE00D8C915 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		9796DED3291920BD00D8C915 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		9796DED62919233600D8C915 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +52,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9796DEB42919132B00D8C915 /* RxSwift in Frameworks */,
+				9796DEB22919132B00D8C915 /* RxCocoa in Frameworks */,
+				9796DEAF2919131900D8C915 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +64,7 @@
 		9796DE842918A36F00D8C915 = {
 			isa = PBXGroup;
 			children = (
+				9796DEA42918FB2B00D8C915 /* .gitignore */,
 				9796DE8F2918A36F00D8C915 /* SeSAC Study */,
 				9796DE8E2918A36F00D8C915 /* Products */,
 			);
@@ -56,15 +81,127 @@
 		9796DE8F2918A36F00D8C915 /* SeSAC Study */ = {
 			isa = PBXGroup;
 			children = (
+				9796DED2291920AE00D8C915 /* Model */,
+				9796DECC29191B5E00D8C915 /* Utility */,
+				9796DEB52919133D00D8C915 /* Scene */,
 				9796DE902918A36F00D8C915 /* AppDelegate.swift */,
 				9796DE922918A36F00D8C915 /* SceneDelegate.swift */,
-				9796DE942918A36F00D8C915 /* ViewController.swift */,
-				9796DE962918A36F00D8C915 /* Main.storyboard */,
 				9796DE992918A37000D8C915 /* Assets.xcassets */,
 				9796DE9B2918A37000D8C915 /* LaunchScreen.storyboard */,
 				9796DE9E2918A37000D8C915 /* Info.plist */,
 			);
 			path = "SeSAC Study";
+			sourceTree = "<group>";
+		};
+		9796DEA6291912B700D8C915 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9796DEBE2919175A00D8C915 /* PhoneNumber */,
+				9796DEBF2919177900D8C915 /* PhoneAuth */,
+				9796DEC02919178900D8C915 /* Nickname */,
+				9796DEC12919179200D8C915 /* Birthday */,
+				9796DEC2291917A200D8C915 /* Email */,
+				9796DEC3291917AA00D8C915 /* Gender */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		9796DEB52919133D00D8C915 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				9796DEB62919134B00D8C915 /* Onboarding */,
+				9796DEA6291912B700D8C915 /* Login */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		9796DEB62919134B00D8C915 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				9796DEB72919136B00D8C915 /* OnboardingView.swift */,
+				9796DEB92919137500D8C915 /* OnboardingViewController.swift */,
+				9796DEBB2919138400D8C915 /* OnboardingViewModel.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		9796DEBE2919175A00D8C915 /* PhoneNumber */ = {
+			isa = PBXGroup;
+			children = (
+				9796DEC62919182300D8C915 /* PhoneNumberView.swift */,
+				9796DEC82919182D00D8C915 /* PhoneNumberViewController.swift */,
+				9796DECA2919183800D8C915 /* PhoneNumberViewModel.swift */,
+			);
+			path = PhoneNumber;
+			sourceTree = "<group>";
+		};
+		9796DEBF2919177900D8C915 /* PhoneAuth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PhoneAuth;
+			sourceTree = "<group>";
+		};
+		9796DEC02919178900D8C915 /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Nickname;
+			sourceTree = "<group>";
+		};
+		9796DEC12919179200D8C915 /* Birthday */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Birthday;
+			sourceTree = "<group>";
+		};
+		9796DEC2291917A200D8C915 /* Email */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Email;
+			sourceTree = "<group>";
+		};
+		9796DEC3291917AA00D8C915 /* Gender */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Gender;
+			sourceTree = "<group>";
+		};
+		9796DECC29191B5E00D8C915 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				9796DED52919228800D8C915 /* Extension */,
+				9796DECD29191BE000D8C915 /* Base */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		9796DECD29191BE000D8C915 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				9796DECE29191BE800D8C915 /* BaseViewController.swift */,
+				9796DED029191BEE00D8C915 /* BaseView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		9796DED2291920AE00D8C915 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9796DED3291920BD00D8C915 /* Text.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9796DED52919228800D8C915 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9796DED62919233600D8C915 /* UIColor+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +220,11 @@
 			dependencies = (
 			);
 			name = "SeSAC Study";
+			packageProductDependencies = (
+				9796DEAE2919131900D8C915 /* SnapKit */,
+				9796DEB12919132B00D8C915 /* RxCocoa */,
+				9796DEB32919132B00D8C915 /* RxSwift */,
+			);
 			productName = "SeSAC Study";
 			productReference = 9796DE8D2918A36F00D8C915 /* SeSAC Study.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +253,10 @@
 				Base,
 			);
 			mainGroup = 9796DE842918A36F00D8C915;
+			packageReferences = (
+				9796DEAD2919131900D8C915 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				9796DEB02919132B00D8C915 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 9796DE8E2918A36F00D8C915 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,9 +271,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9796DEA52918FB2B00D8C915 /* .gitignore in Resources */,
 				9796DE9D2918A37000D8C915 /* LaunchScreen.storyboard in Resources */,
 				9796DE9A2918A37000D8C915 /* Assets.xcassets in Resources */,
-				9796DE982918A36F00D8C915 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +284,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9796DE952918A36F00D8C915 /* ViewController.swift in Sources */,
+				9796DEC72919182300D8C915 /* PhoneNumberView.swift in Sources */,
 				9796DE912918A36F00D8C915 /* AppDelegate.swift in Sources */,
+				9796DEBC2919138400D8C915 /* OnboardingViewModel.swift in Sources */,
+				9796DED72919233600D8C915 /* UIColor+Extension.swift in Sources */,
+				9796DEB82919136B00D8C915 /* OnboardingView.swift in Sources */,
+				9796DECB2919183800D8C915 /* PhoneNumberViewModel.swift in Sources */,
+				9796DECF29191BE800D8C915 /* BaseViewController.swift in Sources */,
+				9796DEC92919182D00D8C915 /* PhoneNumberViewController.swift in Sources */,
+				9796DED129191BEE00D8C915 /* BaseView.swift in Sources */,
+				9796DEBA2919137500D8C915 /* OnboardingViewController.swift in Sources */,
+				9796DED4291920BD00D8C915 /* Text.swift in Sources */,
 				9796DE932918A36F00D8C915 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +302,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9796DE962918A36F00D8C915 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9796DE972918A36F00D8C915 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9796DE9B2918A37000D8C915 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,9 +439,9 @@
 				INFOPLIST_FILE = "SeSAC Study/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,9 +449,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hee.SeSAC-Study";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -320,9 +470,9 @@
 				INFOPLIST_FILE = "SeSAC Study/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,9 +480,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hee.SeSAC-Study";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -358,6 +511,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9796DEAD2919131900D8C915 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		9796DEB02919132B00D8C915 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9796DEAE2919131900D8C915 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9796DEAD2919131900D8C915 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		9796DEB12919132B00D8C915 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9796DEB02919132B00D8C915 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		9796DEB32919132B00D8C915 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9796DEB02919132B00D8C915 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9796DE852918A36F00D8C915 /* Project object */;
 }
