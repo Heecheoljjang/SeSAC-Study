@@ -6,14 +6,18 @@
 //
 
 import UIKit
+import FirebaseCore
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound,.alert], completionHandler: { (granted,error) in })
+        application.registerForRemoteNotifications()
+
         
         UINavigationBar.appearance().tintColor = .black
         return true

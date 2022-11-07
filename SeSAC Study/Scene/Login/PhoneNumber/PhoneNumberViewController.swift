@@ -22,11 +22,7 @@ final class PhoneNumberViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainView.doneButton.rx.tap
-            .bind(onNext: { _ in
-                self.navigationController?.pushViewController(PhoneAuthViewController(), animated: true)
-            })
-            .disposed(by: disposeBag)
+        bind()
     }
     
     override func configure() {
@@ -40,9 +36,27 @@ final class PhoneNumberViewController: BaseViewController {
     }
     
     private func bind() {
+        //MARK: - 다시 디테일하게 해야함
+        //일단 앞이 01이고 10자리가 넘으면 버튼활성화
         mainView.numberTextField.rx.text
-//            .map{ $0.method } //번호 이쁘게 만들어주는 메서드 만들어서 매핑으로 스트링타입으로 변형
-
-            
+            .orEmpty
+            .map{ $0.count >= 10 && $0[0] == "0" && $0[1] == "1"}
+            .bind(to: mainView.doneButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        mainView.numberTextField.rx.text
+            .orEmpty
+            .bind(onNext: { [weak self] value in
+                print("value: \(value)")
+                self?.viewModel.setPhoneNumber(number: value)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.doneButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                self?.viewModel.sendPhoneAuth()
+                
+            })
+            .disposed(by: disposeBag)
     }
  }

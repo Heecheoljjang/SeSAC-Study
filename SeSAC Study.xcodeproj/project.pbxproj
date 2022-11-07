@@ -15,16 +15,22 @@
 		9796DEAF2919131900D8C915 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9796DEAE2919131900D8C915 /* SnapKit */; };
 		9796DEB22919132B00D8C915 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9796DEB12919132B00D8C915 /* RxCocoa */; };
 		9796DEB42919132B00D8C915 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9796DEB32919132B00D8C915 /* RxSwift */; };
-		9796DEB82919136B00D8C915 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEB72919136B00D8C915 /* OnboardingView.swift */; };
-		9796DEBA2919137500D8C915 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEB92919137500D8C915 /* OnboardingViewController.swift */; };
-		9796DEBC2919138400D8C915 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEBB2919138400D8C915 /* OnboardingViewModel.swift */; };
-		9796DEC72919182300D8C915 /* PhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEC62919182300D8C915 /* PhoneNumberView.swift */; };
-		9796DEC92919182D00D8C915 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEC82919182D00D8C915 /* PhoneNumberViewController.swift */; };
-		9796DECB2919183800D8C915 /* PhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DECA2919183800D8C915 /* PhoneNumberViewModel.swift */; };
 		9796DECF29191BE800D8C915 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DECE29191BE800D8C915 /* BaseViewController.swift */; };
 		9796DED129191BEE00D8C915 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DED029191BEE00D8C915 /* BaseView.swift */; };
 		9796DED4291920BD00D8C915 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DED3291920BD00D8C915 /* Text.swift */; };
 		9796DED72919233600D8C915 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DED62919233600D8C915 /* UIColor+Extension.swift */; };
+		9796DEDF291938B300D8C915 /* PhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEDE291938B300D8C915 /* PhoneNumberView.swift */; };
+		9796DEE12919390600D8C915 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEE02919390600D8C915 /* PhoneNumberViewController.swift */; };
+		9796DEE32919391100D8C915 /* PhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEE22919391100D8C915 /* PhoneNumberViewModel.swift */; };
+		9796DEE5291943CF00D8C915 /* PhoneAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEE4291943CF00D8C915 /* PhoneAuthView.swift */; };
+		9796DEE7291943D900D8C915 /* PhoneAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEE6291943D900D8C915 /* PhoneAuthViewController.swift */; };
+		9796DEE9291943E400D8C915 /* PhoneAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEE8291943E400D8C915 /* PhoneAuthViewModel.swift */; };
+		97E79DE429196B8100254AC8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E79DE329196B8100254AC8 /* String+Extension.swift */; };
+		97E79DE92919736B00254AC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97E79DE82919736B00254AC8 /* GoogleService-Info.plist */; };
+		97E79DEC2919749B00254AC8 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 97E79DEB2919749B00254AC8 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		97E79DEE2919749B00254AC8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 97E79DED2919749B00254AC8 /* FirebaseAuth */; };
+		97E79DF12919846800254AC8 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E79DF02919846800254AC8 /* UIViewController+Extension.swift */; };
+		97E79DF5291987E200254AC8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E79DF4291987E200254AC8 /* Error.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,16 +41,21 @@
 		9796DE9C2918A37000D8C915 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9796DE9E2918A37000D8C915 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9796DEA42918FB2B00D8C915 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		9796DEB72919136B00D8C915 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		9796DEB92919137500D8C915 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		9796DEBB2919138400D8C915 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
-		9796DEC62919182300D8C915 /* PhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberView.swift; sourceTree = "<group>"; };
-		9796DEC82919182D00D8C915 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
-		9796DECA2919183800D8C915 /* PhoneNumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewModel.swift; sourceTree = "<group>"; };
 		9796DECE29191BE800D8C915 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9796DED029191BEE00D8C915 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		9796DED3291920BD00D8C915 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		9796DED62919233600D8C915 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		9796DEDE291938B300D8C915 /* PhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberView.swift; sourceTree = "<group>"; };
+		9796DEE02919390600D8C915 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
+		9796DEE22919391100D8C915 /* PhoneNumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewModel.swift; sourceTree = "<group>"; };
+		9796DEE4291943CF00D8C915 /* PhoneAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthView.swift; sourceTree = "<group>"; };
+		9796DEE6291943D900D8C915 /* PhoneAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthViewController.swift; sourceTree = "<group>"; };
+		9796DEE8291943E400D8C915 /* PhoneAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthViewModel.swift; sourceTree = "<group>"; };
+		97E79DE329196B8100254AC8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		97E79DE82919736B00254AC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		97E79DEF291977B100254AC8 /* SeSAC Study.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SeSAC Study.entitlements"; sourceTree = "<group>"; };
+		97E79DF02919846800254AC8 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		97E79DF4291987E200254AC8 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +64,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9796DEB42919132B00D8C915 /* RxSwift in Frameworks */,
+				97E79DEE2919749B00254AC8 /* FirebaseAuth in Frameworks */,
 				9796DEB22919132B00D8C915 /* RxCocoa in Frameworks */,
 				9796DEAF2919131900D8C915 /* SnapKit in Frameworks */,
+				97E79DEC2919749B00254AC8 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +94,7 @@
 		9796DE8F2918A36F00D8C915 /* SeSAC Study */ = {
 			isa = PBXGroup;
 			children = (
+				97E79DEF291977B100254AC8 /* SeSAC Study.entitlements */,
 				9796DED2291920AE00D8C915 /* Model */,
 				9796DECC29191B5E00D8C915 /* Utility */,
 				9796DEB52919133D00D8C915 /* Scene */,
@@ -89,85 +103,18 @@
 				9796DE992918A37000D8C915 /* Assets.xcassets */,
 				9796DE9B2918A37000D8C915 /* LaunchScreen.storyboard */,
 				9796DE9E2918A37000D8C915 /* Info.plist */,
+				97E79DE82919736B00254AC8 /* GoogleService-Info.plist */,
 			);
 			path = "SeSAC Study";
-			sourceTree = "<group>";
-		};
-		9796DEA6291912B700D8C915 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				9796DEBE2919175A00D8C915 /* PhoneNumber */,
-				9796DEBF2919177900D8C915 /* PhoneAuth */,
-				9796DEC02919178900D8C915 /* Nickname */,
-				9796DEC12919179200D8C915 /* Birthday */,
-				9796DEC2291917A200D8C915 /* Email */,
-				9796DEC3291917AA00D8C915 /* Gender */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		9796DEB52919133D00D8C915 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				9796DEB62919134B00D8C915 /* Onboarding */,
-				9796DEA6291912B700D8C915 /* Login */,
+				9796DEDA2919384600D8C915 /* Onboarding */,
+				9796DEDB2919386800D8C915 /* Login */,
 			);
 			path = Scene;
-			sourceTree = "<group>";
-		};
-		9796DEB62919134B00D8C915 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				9796DEB72919136B00D8C915 /* OnboardingView.swift */,
-				9796DEB92919137500D8C915 /* OnboardingViewController.swift */,
-				9796DEBB2919138400D8C915 /* OnboardingViewModel.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		9796DEBE2919175A00D8C915 /* PhoneNumber */ = {
-			isa = PBXGroup;
-			children = (
-				9796DEC62919182300D8C915 /* PhoneNumberView.swift */,
-				9796DEC82919182D00D8C915 /* PhoneNumberViewController.swift */,
-				9796DECA2919183800D8C915 /* PhoneNumberViewModel.swift */,
-			);
-			path = PhoneNumber;
-			sourceTree = "<group>";
-		};
-		9796DEBF2919177900D8C915 /* PhoneAuth */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PhoneAuth;
-			sourceTree = "<group>";
-		};
-		9796DEC02919178900D8C915 /* Nickname */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Nickname;
-			sourceTree = "<group>";
-		};
-		9796DEC12919179200D8C915 /* Birthday */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Birthday;
-			sourceTree = "<group>";
-		};
-		9796DEC2291917A200D8C915 /* Email */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Email;
-			sourceTree = "<group>";
-		};
-		9796DEC3291917AA00D8C915 /* Gender */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Gender;
 			sourceTree = "<group>";
 		};
 		9796DECC29191B5E00D8C915 /* Utility */ = {
@@ -192,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				9796DED3291920BD00D8C915 /* Text.swift */,
+				97E79DF4291987E200254AC8 /* Error.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -200,8 +148,46 @@
 			isa = PBXGroup;
 			children = (
 				9796DED62919233600D8C915 /* UIColor+Extension.swift */,
+				97E79DE329196B8100254AC8 /* String+Extension.swift */,
+				97E79DF02919846800254AC8 /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		9796DEDA2919384600D8C915 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		9796DEDB2919386800D8C915 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9796DEDC2919388300D8C915 /* PhoneNumber */,
+				9796DEDD2919388C00D8C915 /* PhoneAuth */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		9796DEDC2919388300D8C915 /* PhoneNumber */ = {
+			isa = PBXGroup;
+			children = (
+				9796DEDE291938B300D8C915 /* PhoneNumberView.swift */,
+				9796DEE02919390600D8C915 /* PhoneNumberViewController.swift */,
+				9796DEE22919391100D8C915 /* PhoneNumberViewModel.swift */,
+			);
+			path = PhoneNumber;
+			sourceTree = "<group>";
+		};
+		9796DEDD2919388C00D8C915 /* PhoneAuth */ = {
+			isa = PBXGroup;
+			children = (
+				9796DEE4291943CF00D8C915 /* PhoneAuthView.swift */,
+				9796DEE6291943D900D8C915 /* PhoneAuthViewController.swift */,
+				9796DEE8291943E400D8C915 /* PhoneAuthViewModel.swift */,
+			);
+			path = PhoneAuth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +210,8 @@
 				9796DEAE2919131900D8C915 /* SnapKit */,
 				9796DEB12919132B00D8C915 /* RxCocoa */,
 				9796DEB32919132B00D8C915 /* RxSwift */,
+				97E79DEB2919749B00254AC8 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				97E79DED2919749B00254AC8 /* FirebaseAuth */,
 			);
 			productName = "SeSAC Study";
 			productReference = 9796DE8D2918A36F00D8C915 /* SeSAC Study.app */;
@@ -256,6 +244,7 @@
 			packageReferences = (
 				9796DEAD2919131900D8C915 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				9796DEB02919132B00D8C915 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				97E79DEA2919749B00254AC8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 9796DE8E2918A36F00D8C915 /* Products */;
 			projectDirPath = "";
@@ -272,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9796DEA52918FB2B00D8C915 /* .gitignore in Resources */,
+				97E79DE92919736B00254AC8 /* GoogleService-Info.plist in Resources */,
 				9796DE9D2918A37000D8C915 /* LaunchScreen.storyboard in Resources */,
 				9796DE9A2918A37000D8C915 /* Assets.xcassets in Resources */,
 			);
@@ -284,18 +274,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9796DEC72919182300D8C915 /* PhoneNumberView.swift in Sources */,
 				9796DE912918A36F00D8C915 /* AppDelegate.swift in Sources */,
-				9796DEBC2919138400D8C915 /* OnboardingViewModel.swift in Sources */,
+				9796DEE32919391100D8C915 /* PhoneNumberViewModel.swift in Sources */,
 				9796DED72919233600D8C915 /* UIColor+Extension.swift in Sources */,
-				9796DEB82919136B00D8C915 /* OnboardingView.swift in Sources */,
-				9796DECB2919183800D8C915 /* PhoneNumberViewModel.swift in Sources */,
+				9796DEE9291943E400D8C915 /* PhoneAuthViewModel.swift in Sources */,
+				97E79DF12919846800254AC8 /* UIViewController+Extension.swift in Sources */,
 				9796DECF29191BE800D8C915 /* BaseViewController.swift in Sources */,
-				9796DEC92919182D00D8C915 /* PhoneNumberViewController.swift in Sources */,
+				9796DEE7291943D900D8C915 /* PhoneAuthViewController.swift in Sources */,
+				97E79DE429196B8100254AC8 /* String+Extension.swift in Sources */,
+				9796DEDF291938B300D8C915 /* PhoneNumberView.swift in Sources */,
+				9796DEE12919390600D8C915 /* PhoneNumberViewController.swift in Sources */,
 				9796DED129191BEE00D8C915 /* BaseView.swift in Sources */,
-				9796DEBA2919137500D8C915 /* OnboardingViewController.swift in Sources */,
 				9796DED4291920BD00D8C915 /* Text.swift in Sources */,
 				9796DE932918A36F00D8C915 /* SceneDelegate.swift in Sources */,
+				97E79DF5291987E200254AC8 /* Error.swift in Sources */,
+				9796DEE5291943CF00D8C915 /* PhoneAuthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SeSAC Study/SeSAC Study.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3C6U386B4C;
@@ -447,7 +441,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hee.SeSAC-Study";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hee.SeSACStudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -463,6 +457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SeSAC Study/SeSAC Study.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3C6U386B4C;
@@ -478,7 +473,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hee.SeSAC-Study";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hee.SeSACStudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -529,6 +524,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		97E79DEA2919749B00254AC8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -546,6 +549,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9796DEB02919132B00D8C915 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		97E79DEB2919749B00254AC8 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97E79DEA2919749B00254AC8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		97E79DED2919749B00254AC8 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97E79DEA2919749B00254AC8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

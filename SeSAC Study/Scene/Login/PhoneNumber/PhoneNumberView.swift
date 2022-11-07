@@ -40,8 +40,8 @@ final class PhoneNumberView: BaseView {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
         configuration.title = ButtonTitle.authButtonTitle
-        configuration.baseForegroundColor = .grayThree
-        configuration.baseBackgroundColor = .graySix
+        configuration.baseForegroundColor = .white
+        configuration.baseBackgroundColor = .brandGreen
         configuration.cornerStyle = .medium
         
         button.configuration = configuration
