@@ -8,6 +8,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Toast
 
 final class PhoneNumberViewController: BaseViewController {
     
@@ -41,7 +42,18 @@ final class PhoneNumberViewController: BaseViewController {
         mainView.numberTextField.rx.text
             .orEmpty
             .map{ $0.count >= 10 && $0[0] == "0" && $0[1] == "1"}
-            .bind(to: mainView.doneButton.rx.isEnabled)
+//            .bind(to: mainView.doneButton.rx.isEnabled)
+            .bind(onNext: { [weak self] value in
+                value ? self?.viewModel.setButtonStatus(value: ButtonStatus.enable) : self?.viewModel.setButtonStatus(value: ButtonStatus.disable)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.buttonStatus
+            .asDriver(onErrorJustReturn: ButtonStatus.disable)
+            .drive(onNext: { [unowned self] value in
+                //버튼이 true면 색 바꿔주기
+                self.changeButtonColor(button: self.mainView.doneButton, status: value)
+            })
             .disposed(by: disposeBag)
         
         mainView.numberTextField.rx.text
@@ -58,5 +70,29 @@ final class PhoneNumberViewController: BaseViewController {
                 
             })
             .disposed(by: disposeBag)
+        
+        viewModel.sendAuthCheck
+            .asDriver(onErrorJustReturn: .fail)
+            .drive(onNext: { [weak self] value in
+                //sendAuthCheck상태에 따라서 토스트 띄우거나 다음 화면으로 넘어감
+                print(value)
+                self?.authCheck(value: value)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func authCheck(value: AuthCheck) {
+        switch value {
+        case .wrongNumber:
+            presentToast(view: mainView, message: AuthCheck.wrongNumber.message)
+        case .fail:
+            presentToast(view: mainView, message: AuthCheck.fail.message)
+        case .manyRequest:
+            presentToast(view: mainView, message: AuthCheck.manyRequest.message)
+        case .success:
+            presentToast(view: mainView, message: AuthCheck.success.message)
+            let vc = PhoneAuthViewController()
+            transition(vc, transitionStyle: .push)
+        }
     }
  }

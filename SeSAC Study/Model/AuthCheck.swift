@@ -26,3 +26,21 @@ enum AuthCheck {
         }
     }
 }
+
+enum AuthCodeCheck {
+    case timeOut
+    case wrongCode
+    case fail
+    case success
+    
+    var message: String {
+        switch self {
+        case .timeOut, .wrongCode:
+            return "전화번호 인증 실패"
+        case .fail:
+            return "에러가 발생했습니다. 다시 시도해주세요."
+        case .success:
+            return "인증 성공"
+        }
+    }
+}

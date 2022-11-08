@@ -10,3 +10,4 @@ import Foundation
 enum ValidationError: Error {
     case sendAuthFail
 }
+
