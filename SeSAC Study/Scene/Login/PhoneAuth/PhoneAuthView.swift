@@ -60,7 +60,7 @@ final class PhoneAuthView: BaseView {
     let doneButton: UIButton = {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
-        configuration.title = ButtonTitle.authButtonTitle
+        configuration.title = ButtonTitle.authCheckButtonTitle
         configuration.baseForegroundColor = .grayThree
         configuration.baseBackgroundColor = .graySix
         configuration.cornerStyle = .medium
