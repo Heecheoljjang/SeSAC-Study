@@ -10,11 +10,10 @@ import SnapKit
 
 final class NicknameView: LoginReusableView {
         
-    let numberTextField: UITextField = {
+    let nicknameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = LoginText.nickName.placeholder
         textField.font = .systemFont(ofSize: 14)
-        textField.keyboardType = .numberPad
         
         return textField
     }()
@@ -32,7 +31,7 @@ final class NicknameView: LoginReusableView {
     override func configure() {
         super.configure()
         
-        [numberTextField, lineView].forEach {
+        [nicknameTextField, lineView].forEach {
             addSubview($0)
         }
         self.detailMessageLabel.isHidden = true
@@ -41,13 +40,13 @@ final class NicknameView: LoginReusableView {
     override func setUpConstraints() {
         super.setUpConstraints()
         
-        numberTextField.snp.makeConstraints { make in
+        nicknameTextField.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(300)
             make.horizontalEdges.equalToSuperview().inset(28)
         }
         
         lineView.snp.makeConstraints { make in
-            make.top.equalTo(numberTextField.snp.bottom).offset(12)
+            make.top.equalTo(nicknameTextField.snp.bottom).offset(12)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(1)
         }
