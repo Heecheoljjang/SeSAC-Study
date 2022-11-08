@@ -25,3 +25,4 @@ enum ButtonTitle {
 enum ImageName {
     static let leftArrow = "arrow.left"
 }
+
