@@ -8,21 +8,12 @@
 import UIKit
 import SnapKit
 
-final class PhoneAuthView: BaseView {
-    
-    let messageLabel: UILabel = {
-        let label = UILabel()
-        label.text = Message.phoneAuth
-        label.font = .systemFont(ofSize: 20)
-        label.textAlignment = .center
-        
-        return label
-    }()
+final class PhoneAuthView: LoginReusableView {
     
     let authTextField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 14)
-        textField.placeholder = PlaceHolder.phoneAuth
+        textField.placeholder = LoginText.phoneAuth.placeholder
         textField.textAlignment = .left
         textField.keyboardType = .numberPad
         
@@ -56,38 +47,22 @@ final class PhoneAuthView: BaseView {
         button.configuration = configuration
         return button
     }()
-    
-    let doneButton: UIButton = {
-        let button = UIButton()
-        var configuration = UIButton.Configuration.filled()
-        configuration.title = ButtonTitle.authCheckButtonTitle
-        configuration.baseForegroundColor = .grayThree
-        configuration.baseBackgroundColor = .graySix
-        configuration.cornerStyle = .medium
-        
-        button.configuration = configuration
-        return button
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+
+    override init(message: String, detailMessage: String, buttonTitle: String) {
+        super.init(message: message, detailMessage: detailMessage, buttonTitle: buttonTitle)
     }
     
     override func configure() {
         super.configure()
         
-        [messageLabel, authTextField, lineView, timerLabel, retryButton, doneButton].forEach {
+        [authTextField, lineView, timerLabel, retryButton].forEach {
             addSubview($0)
         }
+        detailMessageLabel.isHidden = true
     }
     
     override func setUpConstraints() {
         super.setUpConstraints()
-        
-        messageLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(160)
-            make.centerX.equalToSuperview()
-        }
         
         retryButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(288)
@@ -95,30 +70,24 @@ final class PhoneAuthView: BaseView {
             make.height.equalTo(40)
             make.width.equalTo(72)
         }
-        
+
         timerLabel.snp.makeConstraints { make in
             make.trailing.equalTo(retryButton.snp.leading).offset(-20)
             make.centerY.equalTo(retryButton)
             make.width.equalTo(40)
         }
-        
+
         authTextField.snp.makeConstraints { make in
             make.trailing.equalTo(timerLabel.snp.leading).offset(-20)
             make.leading.equalToSuperview().offset(28)
             make.centerY.equalTo(retryButton)
         }
-        
+
         lineView.snp.makeConstraints { make in
             make.top.equalTo(authTextField.snp.bottom).offset(12)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalTo(retryButton.snp.leading).offset(-8)
             make.height.equalTo(1)
-        }
-        
-        doneButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(400)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(48)
         }
     }
 }

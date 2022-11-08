@@ -1,18 +1,18 @@
 //
-//  PhoneNumberView.swift
+//  NicknameView.swift
 //  SeSAC Study
 //
-//  Created by HeecheolYoon on 2022/11/07.
+//  Created by HeecheolYoon on 2022/11/09.
 //
 
 import UIKit
 import SnapKit
 
-final class PhoneNumberView: LoginReusableView {
-    
+final class NicknameView: LoginReusableView {
+        
     let numberTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = LoginText.phoneNumber.placeholder
+        textField.placeholder = LoginText.nickName.placeholder
         textField.font = .systemFont(ofSize: 14)
         textField.keyboardType = .numberPad
         
@@ -35,7 +35,7 @@ final class PhoneNumberView: LoginReusableView {
         [numberTextField, lineView].forEach {
             addSubview($0)
         }
-        detailMessageLabel.isHidden = true
+        self.detailMessageLabel.isHidden = true
     }
     
     override func setUpConstraints() {
@@ -53,3 +53,4 @@ final class PhoneNumberView: LoginReusableView {
         }
     }
 }
+

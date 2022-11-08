@@ -11,7 +11,7 @@ import RxSwift
 
 final class PhoneAuthViewController: BaseViewController {
     
-    private var mainView = PhoneAuthView()
+    private var mainView = PhoneAuthView(message: LoginText.phoneAuth.message, detailMessage: LoginText.phoneAuth.detailMessage, buttonTitle: ButtonTitle.authCheckButtonTitle)
     private let disposeBag = DisposeBag()
     let viewModel = PhoneAuthViewModel()
     
@@ -79,6 +79,10 @@ final class PhoneAuthViewController: BaseViewController {
         case .success:
             presentToast(view: mainView, message: AuthCodeCheck.success.message)
             //MARK: - 여기서 사용자 정보 확인해서 있으면 홈 화면으로, 정보가 없으면 닉네임 입력 화면으로 전환
+            
+            //MARK: 일단 닉네임 화면으로
+            let vc = NicknameViewController()
+            transition(vc, transitionStyle: .push)
         }
     }
 }

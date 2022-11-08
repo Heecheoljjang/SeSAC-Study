@@ -12,7 +12,7 @@ import Toast
 
 final class PhoneNumberViewController: BaseViewController {
     
-    private var mainView = PhoneNumberView()
+    private var mainView = PhoneNumberView(message: LoginText.phoneNumber.message, detailMessage: LoginText.phoneNumber.detailMessage, buttonTitle: ButtonTitle.authButtonTitle)
     private let viewModel = PhoneNumberViewModel()
     private let disposeBag = DisposeBag()
     
