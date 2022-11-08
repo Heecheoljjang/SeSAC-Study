@@ -31,6 +31,15 @@
 		97E79DEE2919749B00254AC8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 97E79DED2919749B00254AC8 /* FirebaseAuth */; };
 		97E79DF12919846800254AC8 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E79DF02919846800254AC8 /* UIViewController+Extension.swift */; };
 		97E79DF5291987E200254AC8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E79DF4291987E200254AC8 /* Error.swift */; };
+		97FBDC58291A46FE007CB321 /* ButtonStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FBDC57291A46FE007CB321 /* ButtonStatus.swift */; };
+		97FBDC5A291A4FF1007CB321 /* AuthCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FBDC59291A4FF1007CB321 /* AuthCheck.swift */; };
+		97FBDC5D291A54D0007CB321 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 97FBDC5C291A54D0007CB321 /* Toast */; };
+		97FBDC63291AA1DC007CB321 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FBDC62291AA1DC007CB321 /* UserDefaultsManager.swift */; };
+		97FF4A34291AB05100AF9A56 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FF4A33291AB05100AF9A56 /* NicknameView.swift */; };
+		97FF4A36291AB11300AF9A56 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FF4A35291AB11300AF9A56 /* NicknameViewController.swift */; };
+		97FF4A38291AB12300AF9A56 /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FF4A37291AB12300AF9A56 /* NicknameViewModel.swift */; };
+		97FF4A41291ACAB200AF9A56 /* LoginReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FF4A40291ACAB200AF9A56 /* LoginReusableView.swift */; };
+		97FF4A45291AE94A00AF9A56 /* NicknameCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FF4A44291AE94A00AF9A56 /* NicknameCheck.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +65,14 @@
 		97E79DEF291977B100254AC8 /* SeSAC Study.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SeSAC Study.entitlements"; sourceTree = "<group>"; };
 		97E79DF02919846800254AC8 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		97E79DF4291987E200254AC8 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		97FBDC57291A46FE007CB321 /* ButtonStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStatus.swift; sourceTree = "<group>"; };
+		97FBDC59291A4FF1007CB321 /* AuthCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCheck.swift; sourceTree = "<group>"; };
+		97FBDC62291AA1DC007CB321 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		97FF4A33291AB05100AF9A56 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
+		97FF4A35291AB11300AF9A56 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
+		97FF4A37291AB12300AF9A56 /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
+		97FF4A40291ACAB200AF9A56 /* LoginReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginReusableView.swift; sourceTree = "<group>"; };
+		97FF4A44291AE94A00AF9A56 /* NicknameCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameCheck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97FBDC5D291A54D0007CB321 /* Toast in Frameworks */,
 				9796DEB42919132B00D8C915 /* RxSwift in Frameworks */,
 				97E79DEE2919749B00254AC8 /* FirebaseAuth in Frameworks */,
 				9796DEB22919132B00D8C915 /* RxCocoa in Frameworks */,
@@ -120,6 +138,7 @@
 		9796DECC29191B5E00D8C915 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				97FBDC61291AA1D1007CB321 /* Manager */,
 				9796DED52919228800D8C915 /* Extension */,
 				9796DECD29191BE000D8C915 /* Base */,
 			);
@@ -131,6 +150,7 @@
 			children = (
 				9796DECE29191BE800D8C915 /* BaseViewController.swift */,
 				9796DED029191BEE00D8C915 /* BaseView.swift */,
+				97FF4A40291ACAB200AF9A56 /* LoginReusableView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -138,8 +158,7 @@
 		9796DED2291920AE00D8C915 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9796DED3291920BD00D8C915 /* Text.swift */,
-				97E79DF4291987E200254AC8 /* Error.swift */,
+				97FF4A3D291AB9B000AF9A56 /* Enum */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -166,6 +185,7 @@
 			children = (
 				9796DEDC2919388300D8C915 /* PhoneNumber */,
 				9796DEDD2919388C00D8C915 /* PhoneAuth */,
+				97FBDC64291AAADF007CB321 /* Nickname */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -190,6 +210,36 @@
 			path = PhoneAuth;
 			sourceTree = "<group>";
 		};
+		97FBDC61291AA1D1007CB321 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				97FBDC62291AA1DC007CB321 /* UserDefaultsManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		97FBDC64291AAADF007CB321 /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+				97FF4A33291AB05100AF9A56 /* NicknameView.swift */,
+				97FF4A35291AB11300AF9A56 /* NicknameViewController.swift */,
+				97FF4A37291AB12300AF9A56 /* NicknameViewModel.swift */,
+			);
+			path = Nickname;
+			sourceTree = "<group>";
+		};
+		97FF4A3D291AB9B000AF9A56 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				9796DED3291920BD00D8C915 /* Text.swift */,
+				97E79DF4291987E200254AC8 /* Error.swift */,
+				97FBDC57291A46FE007CB321 /* ButtonStatus.swift */,
+				97FBDC59291A4FF1007CB321 /* AuthCheck.swift */,
+				97FF4A44291AE94A00AF9A56 /* NicknameCheck.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -212,6 +262,7 @@
 				9796DEB32919132B00D8C915 /* RxSwift */,
 				97E79DEB2919749B00254AC8 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				97E79DED2919749B00254AC8 /* FirebaseAuth */,
+				97FBDC5C291A54D0007CB321 /* Toast */,
 			);
 			productName = "SeSAC Study";
 			productReference = 9796DE8D2918A36F00D8C915 /* SeSAC Study.app */;
@@ -245,6 +296,7 @@
 				9796DEAD2919131900D8C915 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				9796DEB02919132B00D8C915 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				97E79DEA2919749B00254AC8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				97FBDC5B291A54CF007CB321 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 9796DE8E2918A36F00D8C915 /* Products */;
 			projectDirPath = "";
@@ -281,12 +333,20 @@
 				97E79DF12919846800254AC8 /* UIViewController+Extension.swift in Sources */,
 				9796DECF29191BE800D8C915 /* BaseViewController.swift in Sources */,
 				9796DEE7291943D900D8C915 /* PhoneAuthViewController.swift in Sources */,
+				97FBDC5A291A4FF1007CB321 /* AuthCheck.swift in Sources */,
+				97FF4A34291AB05100AF9A56 /* NicknameView.swift in Sources */,
 				97E79DE429196B8100254AC8 /* String+Extension.swift in Sources */,
 				9796DEDF291938B300D8C915 /* PhoneNumberView.swift in Sources */,
 				9796DEE12919390600D8C915 /* PhoneNumberViewController.swift in Sources */,
+				97FF4A41291ACAB200AF9A56 /* LoginReusableView.swift in Sources */,
 				9796DED129191BEE00D8C915 /* BaseView.swift in Sources */,
 				9796DED4291920BD00D8C915 /* Text.swift in Sources */,
 				9796DE932918A36F00D8C915 /* SceneDelegate.swift in Sources */,
+				97FBDC63291AA1DC007CB321 /* UserDefaultsManager.swift in Sources */,
+				97FF4A36291AB11300AF9A56 /* NicknameViewController.swift in Sources */,
+				97FF4A45291AE94A00AF9A56 /* NicknameCheck.swift in Sources */,
+				97FF4A38291AB12300AF9A56 /* NicknameViewModel.swift in Sources */,
+				97FBDC58291A46FE007CB321 /* ButtonStatus.swift in Sources */,
 				97E79DF5291987E200254AC8 /* Error.swift in Sources */,
 				9796DEE5291943CF00D8C915 /* PhoneAuthView.swift in Sources */,
 			);
@@ -532,6 +592,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		97FBDC5B291A54CF007CB321 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -559,6 +627,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 97E79DEA2919749B00254AC8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		97FBDC5C291A54D0007CB321 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FBDC5B291A54CF007CB321 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
