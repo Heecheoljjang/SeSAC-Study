@@ -83,14 +83,10 @@ final class PhoneNumberViewController: BaseViewController {
     
     private func authCheck(value: AuthCheck) {
         switch value {
-        case .wrongNumber:
-            presentToast(view: mainView, message: AuthCheck.wrongNumber.message)
-        case .fail:
-            presentToast(view: mainView, message: AuthCheck.fail.message)
-        case .manyRequest:
-            presentToast(view: mainView, message: AuthCheck.manyRequest.message)
+        case .wrongNumber, .fail, .manyRequest:
+            presentToast(view: mainView, message: value.message)
         case .success:
-            presentToast(view: mainView, message: AuthCheck.success.message)
+            presentToast(view: mainView, message: value.message)
             let vc = PhoneAuthViewController()
             transition(vc, transitionStyle: .push)
         }

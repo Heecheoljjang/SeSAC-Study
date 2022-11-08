@@ -70,14 +70,10 @@ final class PhoneAuthViewController: BaseViewController {
     }
     private func authCheck(value: AuthCodeCheck) {
         switch value {
-        case .timeOut:
-            presentToast(view: mainView, message: AuthCodeCheck.timeOut.message)
-        case .wrongCode:
-            presentToast(view: mainView, message: AuthCodeCheck.wrongCode.message)
-        case .fail:
-            presentToast(view: mainView, message: AuthCodeCheck.fail.message)
+        case .timeOut, .wrongCode, .fail:
+            presentToast(view: mainView, message: value.message)
         case .success:
-            presentToast(view: mainView, message: AuthCodeCheck.success.message)
+            presentToast(view: mainView, message: value.message)
             //MARK: - 여기서 사용자 정보 확인해서 있으면 홈 화면으로, 정보가 없으면 닉네임 입력 화면으로 전환
             
             //MARK: 일단 닉네임 화면으로
