@@ -77,13 +77,13 @@ class LoginReusableView: BaseView {
         super.setUpConstraints()
 
         stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(160)
+            make.top.equalToSuperview().offset(152)
             make.horizontalEdges.equalToSuperview().inset(48)
             make.height.equalTo(72)
         }
         
         doneButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(400)
+            make.top.equalToSuperview().offset(412)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(48)
         }

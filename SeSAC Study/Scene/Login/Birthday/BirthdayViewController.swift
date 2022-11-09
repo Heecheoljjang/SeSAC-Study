@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RxGesture
 import RxCocoa
 import RxSwift
 
