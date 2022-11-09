@@ -63,6 +63,8 @@ enum ButtonTitle {
 
 enum ImageName {
     static let leftArrow = "arrow.left"
+    static let man = "man"
+    static let woman = "woman"
 }
 
 enum ErrorDescription {
