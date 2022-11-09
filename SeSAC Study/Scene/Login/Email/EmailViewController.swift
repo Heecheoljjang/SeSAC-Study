@@ -32,28 +32,28 @@ final class EmailViewController: BaseViewController {
     }
     
     private func bind() {
-        mainView.emailTextField.rx.text
-            .orEmpty
+        let input = EmailViewModel.Input(emailText: mainView.emailTextField.rx.text, doneButtonTap: mainView.doneButton.rx.tap)
+        let output = viewModel.transform(input: input)
+
+        output.emailText
             .bind(onNext: { [weak self] value in
                 self?.viewModel.checkEmail(email: value)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.buttonStatus
-            .asDriver(onErrorJustReturn: .disable)
+
+        output.buttonStatus
             .drive(onNext: { [unowned self] value in
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
-        
-        mainView.doneButton.rx.tap
+
+        output.doneButtonTap
             .bind(onNext: { [weak self] _ in
                 self?.viewModel.setEmailStatus()
             })
             .disposed(by: disposeBag)
-        
-        viewModel.emailStatus
-            .asDriver(onErrorJustReturn: .invalid)
+
+        output.emailStatus
             .drive(onNext: { [weak self] value in
                 self?.checkStatus(status: value)
             })
