@@ -41,6 +41,14 @@ final class PhoneNumberView: LoginReusableView {
     override func setUpConstraints() {
         super.setUpConstraints()
         
+        stackView.snp.removeConstraints()
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(160)
+            make.horizontalEdges.equalToSuperview().inset(73)
+            make.height.equalTo(72)
+        }
+        
         numberTextField.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(300)
             make.horizontalEdges.equalToSuperview().inset(28)

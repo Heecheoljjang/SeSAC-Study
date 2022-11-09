@@ -18,7 +18,6 @@ class LoginReusableView: BaseView {
         let view = UIStackView()
         view.axis = .vertical
         view.distribution = .fillEqually
-        
         return view
     }()
     
@@ -76,19 +75,11 @@ class LoginReusableView: BaseView {
     
     override func setUpConstraints() {
         super.setUpConstraints()
-        
-        messageLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        detailMessageLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
+
         stackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(160)
-            make.horizontalEdges.equalToSuperview().inset(73.5)
-            make.height.equalTo(64)
+            make.horizontalEdges.equalToSuperview().inset(48)
+            make.height.equalTo(72)
         }
         
         doneButton.snp.makeConstraints { make in
