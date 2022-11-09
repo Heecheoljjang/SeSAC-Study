@@ -70,3 +70,29 @@ enum ErrorDescription {
     static let wrongNumber = "The SMS verification code used to create the phone auth credential is invalid. Please resend the verification code SMS and be sure to use the verification code provided by the user."
     static let invalidId = "The verification ID used to create the phone auth credential is invalid."
 }
+
+enum DateString {
+    case year, month, day
+    
+    var message: String {
+        switch self {
+        case .year:
+            return "년"
+        case .month:
+            return "월"
+        case .day:
+            return "일"
+        }
+    }
+    
+    var placeholder: String {
+        switch self {
+        case .year:
+            return "1990"
+        case .month:
+            return "1"
+        case .day:
+            return "1"
+        }
+    }
+}

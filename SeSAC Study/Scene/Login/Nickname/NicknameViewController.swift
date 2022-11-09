@@ -89,9 +89,12 @@ final class NicknameViewController: BaseViewController {
         case .success:
             presentToast(view: mainView, message: isEnable.message)
             //MARK: 화면 전환
+            let vc = BirthdayViewController()
+            transition(vc, transitionStyle: .push)
         }
     }
     
+    //MARK: - 수정하기 뷰모델에서 처리하거나 String의 Extension으로
     private func textFieldRemoveLast(textField: UITextField) {
         textField.text?.removeLast()
     }
