@@ -22,8 +22,7 @@ final class PhoneAuthViewModel {
     
     func checkAuth() {
         
-        let id = UserDefaultsManager.shared.fetchIdValue()
-        
+        guard let id = UserDefaultsManager.shared.fetchValue(type: .idToken) as? String else { return }
         let credential = PhoneAuthProvider.provider().credential(withVerificationID: id, verificationCode: authCode.value)
         
         if buttonStatus.value == ButtonStatus.disable {
@@ -38,6 +37,7 @@ final class PhoneAuthViewModel {
                 return
             }
             guard let authResult else { return }
+            
             self?.authCodeCheck.accept(AuthCodeCheck.success)
             print(authResult)
         }

@@ -17,9 +17,7 @@ final class PhoneNumberViewModel {
     var phoneNumber = BehaviorRelay<String>(value: "")
     
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: ButtonStatus.disable)
-    
-//    var verificationId = BehaviorRelay<String>(value: "")
-    
+        
     func sendPhoneAuth() {
         
         if buttonStatus.value == ButtonStatus.disable {
@@ -35,10 +33,9 @@ final class PhoneNumberViewModel {
                 self?.sendAuthCheck.accept(AuthCheck.fail)
                 return
             }
-            print("verificationID: \(verificationID)")
             guard let verificationID else { return }
-//            self?.verificationId.accept(verificationID)
-            UserDefaultsManager.shared.setIdValue(value: verificationID)
+            UserDefaultsManager.shared.setValue(value: verificationID, type: .idToken)
+            UserDefaultsManager.shared.setValue(value: phoneNumber, type: .phoneNumber)
             self?.sendAuthCheck.accept(AuthCheck.success)
         }
     }
@@ -56,8 +53,7 @@ final class PhoneNumberViewModel {
         number.replacingOccurrences(of: "-", with: "").range(of: regexStr, options: .regularExpression) != nil ? buttonStatus.accept(.enable) : buttonStatus.accept(.disable)
     }
     
-//    func sendVerificationId(vc: PhoneAuthViewController, id: String) {
-//        print("실행됨, value: \(verificationId.value)")
-//        vc.viewModel.verificationId.accept(id)
-//    }
+    func savePhoneNumber(value: String) {
+        UserDefaultsManager.shared.setValue(value: value, type: .phoneNumber)
+    }
 }

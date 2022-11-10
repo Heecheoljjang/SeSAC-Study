@@ -12,12 +12,17 @@ final class UserDefaultsManager {
     private init() {}
     
     static let shared = UserDefaultsManager()
-    
-    func setIdValue(value: String) {
-        UserDefaults.standard.set(value, forKey: "id")
+        
+    func setValue<T>(value: T, type: UserDefaultsKeys) {
+        UserDefaults.standard.set(value, forKey: type.rawValue)
     }
     
-    func fetchIdValue() -> String {
-        return UserDefaults.standard.string(forKey: "id") ?? ""
+    func fetchValue(type: UserDefaultsKeys) -> Any {
+        switch type {
+        case .idToken, .phoneNumber, .fcmToken, .nick, .birth, .email:
+            return UserDefaults.standard.string(forKey: type.rawValue) ?? ""
+        case .gender:
+            return UserDefaults.standard.integer(forKey: type.rawValue)
+        }
     }
 }

@@ -53,6 +53,13 @@ final class NicknameViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        mainView.nicknameTextField.rx.text
+            .orEmpty
+            .bind(onNext: { [weak self] value in
+                self?.viewModel.setNickname(name: value)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.buttonStatus
             .asDriver(onErrorJustReturn: ButtonStatus.disable)
             .drive(onNext: { [unowned self] value in
@@ -90,6 +97,7 @@ final class NicknameViewController: BaseViewController {
             presentToast(view: mainView, message: isEnable.message)
             //MARK: 화면 전환
             let vc = BirthdayViewController()
+            print("닉네임: \(UserDefaultsManager.shared.fetchValue(type: .nick) as? String)")
             transition(vc, transitionStyle: .push)
         }
     }

@@ -63,7 +63,6 @@ final class PhoneAuthViewController: BaseViewController {
         viewModel.authCodeCheck
             .asDriver(onErrorJustReturn: .fail)
             .drive(onNext: { [weak self] value in
-                print(value)
                 self?.authCheck(value: value)
             })
             .disposed(by: disposeBag)

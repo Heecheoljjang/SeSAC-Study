@@ -37,9 +37,6 @@ final class PhoneNumberViewController: BaseViewController {
     }
     
     private func bind() {
-        //MARK: - 다시 디테일하게 해야함
-        //MARK: 텍스트입력되면 phonenumber value바뀌고 인증 통과하면 button상태바뀌고
-        //일단 앞이 01이고 10자리가 넘으면 버튼활성화
         mainView.numberTextField.rx.text
             .orEmpty
             .bind(onNext: { [weak self] value in
@@ -83,6 +80,7 @@ final class PhoneNumberViewController: BaseViewController {
         case .success:
             presentToast(view: mainView, message: value.message)
             let vc = PhoneAuthViewController()
+            print(UserDefaultsManager.shared.fetchValue(type: .phoneNumber)) //한번 테스트
             transition(vc, transitionStyle: .push)
         }
     }

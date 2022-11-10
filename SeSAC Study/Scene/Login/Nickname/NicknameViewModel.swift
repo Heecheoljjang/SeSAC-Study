@@ -22,4 +22,8 @@ final class NickNameViewModel {
     func checkIsEnable() {
         buttonStatus.value == .enable ? isEnable.accept(.success) : isEnable.accept(.lengthFail)
     }
+    
+    func setNickname(name: String) {
+        UserDefaultsManager.shared.setValue(value: name, type: .nick)
+    }
 }
