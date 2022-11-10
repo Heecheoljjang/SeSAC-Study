@@ -38,44 +38,39 @@ final class PhoneNumberViewController: BaseViewController {
     
     private func bind() {
         //MARK: - 다시 디테일하게 해야함
+        //MARK: 텍스트입력되면 phonenumber value바뀌고 인증 통과하면 button상태바뀌고
         //일단 앞이 01이고 10자리가 넘으면 버튼활성화
         mainView.numberTextField.rx.text
             .orEmpty
-            .map{ $0.count >= 10 && $0[0] == "0" && $0[1] == "1"}
-//            .bind(to: mainView.doneButton.rx.isEnabled)
             .bind(onNext: { [weak self] value in
-                value ? self?.viewModel.setButtonStatus(value: ButtonStatus.enable) : self?.viewModel.setButtonStatus(value: ButtonStatus.disable)
+                self?.viewModel.setPhoneNumber(number: value) //전화번호
+                self?.viewModel.checkPhoneNumber(number: value) //유효한지 체크
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.phoneNumber
+            .asDriver(onErrorJustReturn: "")
+            .drive(onNext: { [weak self] value in
+                self?.mainView.numberTextField.text = value.pretty()
             })
             .disposed(by: disposeBag)
         
         viewModel.buttonStatus
             .asDriver(onErrorJustReturn: ButtonStatus.disable)
             .drive(onNext: { [unowned self] value in
-                //버튼이 true면 색 바꿔주기
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
-        
-        mainView.numberTextField.rx.text
-            .orEmpty
-            .bind(onNext: { [weak self] value in
-                print("value: \(value)")
-                self?.viewModel.setPhoneNumber(number: value)
-            })
-            .disposed(by: disposeBag)
-        
+
         mainView.doneButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 self?.viewModel.sendPhoneAuth()
-                
             })
             .disposed(by: disposeBag)
         
         viewModel.sendAuthCheck
             .asDriver(onErrorJustReturn: .fail)
             .drive(onNext: { [weak self] value in
-                //sendAuthCheck상태에 따라서 토스트 띄우거나 다음 화면으로 넘어감
-                print(value)
                 self?.authCheck(value: value)
             })
             .disposed(by: disposeBag)

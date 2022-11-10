@@ -27,8 +27,8 @@ final class PhoneNumberViewModel {
             return
         }
         Auth.auth().languageCode = "kr"
-//        let phoneNumber = phoneNumber.value.changeFormat()
-        let phoneNumber = "+829876543210"
+        let phoneNumber = phoneNumber.value.changeFormat()
+//        let phoneNumber = "+829876543210"
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self] verificationID, error in
             if let error = error {
                 print(error.localizedDescription) //따로 처리해주기
@@ -44,11 +44,16 @@ final class PhoneNumberViewModel {
     }
     
     func setPhoneNumber(number: String) {
-        phoneNumber.accept(number)
+        phoneNumber.accept(number.replacingOccurrences(of: "-", with: ""))
     }
     
     func setButtonStatus(value: ButtonStatus) {
         buttonStatus.accept(value)
+    }
+    
+    func checkPhoneNumber(number: String) {
+        let regexStr = "^01[0-9][0-9]{7,8}$"
+        number.replacingOccurrences(of: "-", with: "").range(of: regexStr, options: .regularExpression) != nil ? buttonStatus.accept(.enable) : buttonStatus.accept(.disable)
     }
     
 //    func sendVerificationId(vc: PhoneAuthViewController, id: String) {

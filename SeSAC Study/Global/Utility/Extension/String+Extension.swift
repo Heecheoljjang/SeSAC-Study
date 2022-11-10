@@ -24,3 +24,25 @@ extension String {
         return "+82\(temp)"
     }
 }
+
+extension String {
+    
+    func pretty() -> String {
+        if self.count > 3 && self.count <= 6{
+            print("1")
+            if let regex = try? NSRegularExpression(pattern: "([0-9]{1})([0-9]{1})([0-9]{1})([0-9]{1,4})", options: .caseInsensitive) {
+                let modString = regex.stringByReplacingMatches(in: self, options: [], range: NSRange(self.startIndex..., in: self),withTemplate: "$1$2$3-$4")
+                return modString
+            }
+        }
+        
+        if self.count >= 7 {
+            print("2")
+            if let regex = try? NSRegularExpression(pattern: "([0-9]{1})([0-9]{1})([0-9]{1})([0-9]{3,4})([0-9]{1})", options: .caseInsensitive) {
+                let modString = regex.stringByReplacingMatches(in: self, options: [], range: NSRange(self.startIndex..., in: self),withTemplate: "$1$2$3-$4-$5")
+                return modString
+            }
+        }
+        return self
+    }
+}
