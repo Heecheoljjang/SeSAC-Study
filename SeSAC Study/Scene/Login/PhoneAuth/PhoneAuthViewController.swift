@@ -25,6 +25,12 @@ final class PhoneAuthViewController: BaseViewController {
         bind()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        presentToast(view: mainView, message: AuthCodeCheck.sendCode.message)
+    }
+    
     override func configure() {
         super.configure()
         
@@ -47,16 +53,21 @@ final class PhoneAuthViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        mainView.authTextField.rx.text
-            .orEmpty
-            .bind { [weak self] value in
-                self?.viewModel.setAuthCode(code: value) //코드 값 입력
-            }
-            .disposed(by: disposeBag)
-        
+//        mainView.authTextField.rx.text
+//            .orEmpty
+//            .bind { [weak self] value in
+//                self?.viewModel.setAuthCode(code: value) //코드 값 입력
+//            }
+//            .disposed(by: disposeBag)
+//
         mainView.doneButton.rx.tap
-            .bind(onNext: { [weak self] _ in
-                self?.viewModel.checkAuth() //코드 맞는지 확인
+            .withUnretained(self)
+            .bind(onNext: { (vc, _) in
+                //버튼 탭했을때 코드 확인해서 authCodeCheck값 바꿔주기
+                print(vc.mainView.authTextField.text)
+                print(vc.mainView.authTextField.text ?? "")
+                print(vc.mainView.authTextField.text!)
+                vc.viewModel.checkAuth(code: vc.mainView.authTextField.text ?? "")
             })
             .disposed(by: disposeBag)
         
@@ -66,18 +77,40 @@ final class PhoneAuthViewController: BaseViewController {
                 self?.authCheck(value: value)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.errorStatus
+            .asDriver(onErrorJustReturn: .clientError)
+            .drive(onNext: { [weak self] value in
+                //화면전환하면될듯
+                self?.checkStatus(value: value)
+            })
+            .disposed(by: disposeBag)
+        
+
     }
     private func authCheck(value: AuthCodeCheck) {
         switch value {
-        case .timeOut, .wrongCode, .fail:
+        case .timeOut, .wrongCode, .fail, .sendCode:
             presentToast(view: mainView, message: value.message)
         case .success:
-            presentToast(view: mainView, message: value.message)
-            //MARK: - 여기서 사용자 정보 확인해서 있으면 홈 화면으로, 정보가 없으면 닉네임 입력 화면으로 전환
-            
-            //MARK: 일단 닉네임 화면으로
+            viewModel.fetchIdToken() //인증번호가 맞으니까 호출
+        }
+    }
+    private func checkStatus(value: NetworkErrorString) {
+        switch value {
+        case .signUpSuccess: //코드 200이므로 로그인성공 -> 홈 화면으로 전환
+            print("홈화면으로 전환")
+        case .signUpRequired:
+            //닉네임 입력으로
             let vc = NicknameViewController()
             transition(vc, transitionStyle: .push)
+        default:
+            presentToast(view: mainView, message: ErrorText.message)
         }
     }
 }
+
+/*
+ 인증번호 옴 -> 텍스트필드 입력할때 6자리 넘어야 buttonStatus enable로 바꿔줘서 색 바뀜.
+ ->
+ */
