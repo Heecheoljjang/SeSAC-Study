@@ -18,29 +18,19 @@ extension Date {
             dateFormatter.dateFormat = "M"
         case .day:
             dateFormatter.dateFormat = "d"
+        case .date:
+            dateFormatter.dateFormat = "yyyyMMdd"
+        case .dateString:
+            dateFormatter.dateFormat = "YYYY-MM-DDTHH:mm:ss.SSSZ"
         }
         return dateFormatter.string(from: self)
     }
     
     func compareYear() -> Bool {
-        let today = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
-        let birthday = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: self)
-        if today.year! - birthday.year! > 17 {
-            return true
-        }
-        if today.year! - birthday.year! < 17 {
-            return false
-        }
-        if today.month! < birthday.month! {
-            return false
-        }
-        if today.month! > birthday.month! {
-            return true
-        }
-        
-        if today.day! < birthday.day! {
-            return false
-        }
-        return true
+    
+        let calendar = Calendar(identifier: .gregorian)
+        let current = Date().dateToString(type: .date)
+        guard let selectedDate = calendar.date(byAdding: .year, value: 17, to: self)?.dateToString(type: .date) else { return false }
+        return current >= selectedDate
     }
 }
