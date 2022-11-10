@@ -41,4 +41,8 @@ final class EmailViewModel: CommonViewModel {
     func setEmailStatus() {
         buttonStatus.value == .enable ? emailStatus.accept(.valid) : emailStatus.accept(.invalid)
     }
+    
+    func setEmail(email: String) {
+        UserDefaultsManager.shared.setValue(value: email, type: .email)
+    }
 }

@@ -29,4 +29,9 @@ final class BirthdayViewModel {
     func setCheckStatus() {
         buttonStatus.value == .enable ? checkStatus.accept(.enable) : checkStatus.accept(.disable)
     }
+    
+    func setBirth(date: Date) {
+        let dateString = date.dateToString(type: .dateString)
+        UserDefaultsManager.shared.setValue(value: dateString, type: .birth)
+    }
 }

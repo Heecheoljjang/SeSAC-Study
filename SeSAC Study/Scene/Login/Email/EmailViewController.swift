@@ -38,6 +38,7 @@ final class EmailViewController: BaseViewController {
         output.emailText
             .bind(onNext: { [weak self] value in
                 self?.viewModel.checkEmail(email: value)
+                self?.viewModel.setEmail(email: value)
             })
             .disposed(by: disposeBag)
 

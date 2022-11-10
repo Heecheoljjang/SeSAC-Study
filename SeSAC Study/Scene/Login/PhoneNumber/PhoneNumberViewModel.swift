@@ -34,7 +34,7 @@ final class PhoneNumberViewModel {
                 return
             }
             guard let verificationID else { return }
-            UserDefaultsManager.shared.setValue(value: verificationID, type: .idToken)
+            UserDefaultsManager.shared.setValue(value: verificationID, type: .verificationId)
             UserDefaultsManager.shared.setValue(value: phoneNumber, type: .phoneNumber)
             self?.sendAuthCheck.accept(AuthCheck.success)
         }

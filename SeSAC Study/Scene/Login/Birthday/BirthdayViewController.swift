@@ -44,6 +44,7 @@ final class BirthdayViewController: BaseViewController {
             .drive(onNext: { [weak self] value in
                 //텍스트필드 바꾸기
                 self?.setTextField(date: value)
+                self?.viewModel.setBirth(date: value)
             })
             .disposed(by: disposeBag)
         

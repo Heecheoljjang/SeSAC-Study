@@ -48,6 +48,7 @@ final class GenderViewController: BaseViewController {
             .asDriver(onErrorJustReturn: .man)
             .drive(onNext: { [weak self] value in
                 self?.changeViewColor(gender: value)
+                self?.viewModel.setGender(gender: value)
             })
             .disposed(by: disposeBag)
         

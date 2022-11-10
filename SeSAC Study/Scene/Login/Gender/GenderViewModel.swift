@@ -32,4 +32,8 @@ final class GenderViewModel {
     func checkStatus() {
         buttonStatus.value == .enable ? genderStatus.accept(.selected) : genderStatus.accept(.unselected)
     }
+    
+    func setGender(gender: Gender) {
+        UserDefaultsManager.shared.setValue(value: gender.value, type: .gender)
+    }
 }
