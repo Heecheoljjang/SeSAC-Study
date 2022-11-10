@@ -52,21 +52,11 @@ final class PhoneAuthViewController: BaseViewController {
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
-        
-//        mainView.authTextField.rx.text
-//            .orEmpty
-//            .bind { [weak self] value in
-//                self?.viewModel.setAuthCode(code: value) //코드 값 입력
-//            }
-//            .disposed(by: disposeBag)
-//
+
         mainView.doneButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { (vc, _) in
                 //버튼 탭했을때 코드 확인해서 authCodeCheck값 바꿔주기
-                print(vc.mainView.authTextField.text)
-                print(vc.mainView.authTextField.text ?? "")
-                print(vc.mainView.authTextField.text!)
                 vc.viewModel.checkAuth(code: vc.mainView.authTextField.text ?? "")
             })
             .disposed(by: disposeBag)
@@ -81,7 +71,6 @@ final class PhoneAuthViewController: BaseViewController {
         viewModel.errorStatus
             .asDriver(onErrorJustReturn: .clientError)
             .drive(onNext: { [weak self] value in
-                //화면전환하면될듯
                 self?.checkStatus(value: value)
             })
             .disposed(by: disposeBag)
@@ -93,7 +82,7 @@ final class PhoneAuthViewController: BaseViewController {
         case .timeOut, .wrongCode, .fail, .sendCode:
             presentToast(view: mainView, message: value.message)
         case .success:
-            viewModel.fetchIdToken() //인증번호가 맞으니까 호출
+            viewModel.fetchIdToken()
         }
     }
     private func checkStatus(value: NetworkErrorString) {
@@ -101,16 +90,12 @@ final class PhoneAuthViewController: BaseViewController {
         case .signUpSuccess: //코드 200이므로 로그인성공 -> 홈 화면으로 전환
             print("홈화면으로 전환")
         case .signUpRequired:
-            //닉네임 입력으로
+            print("회원가입")
             let vc = NicknameViewController()
             transition(vc, transitionStyle: .push)
         default:
+            print("나머지")
             presentToast(view: mainView, message: ErrorText.message)
         }
     }
 }
-
-/*
- 인증번호 옴 -> 텍스트필드 입력할때 6자리 넘어야 buttonStatus enable로 바꿔줘서 색 바뀜.
- ->
- */

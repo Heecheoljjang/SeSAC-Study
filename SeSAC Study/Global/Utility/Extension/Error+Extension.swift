@@ -10,7 +10,7 @@ import Foundation
 extension Error {
     
     func fetchNetworkErrorString() -> NetworkErrorString {
-        switch self.localizedDescription {
+        switch "\(self)" {
         case NetworkErrorString.signUpSuccess.rawValue:
             return .signUpSuccess
         case NetworkErrorString.alreadyExistUser.rawValue:
