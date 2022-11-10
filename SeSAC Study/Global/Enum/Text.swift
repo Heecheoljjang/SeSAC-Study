@@ -74,7 +74,7 @@ enum ErrorDescription {
 }
 
 enum DateString {
-    case year, month, day
+    case year, month, day, date, dateString
     
     var message: String {
         switch self {
@@ -84,6 +84,8 @@ enum DateString {
             return "월"
         case .day:
             return "일"
+        default:
+            return ""
         }
     }
     
@@ -95,6 +97,12 @@ enum DateString {
             return "1"
         case .day:
             return "1"
+        default:
+            return ""
         }
     }
+}
+
+enum ErrorText {
+    static let message = "에러가 발생하였습니다. 다시 시도해주세요."
 }
