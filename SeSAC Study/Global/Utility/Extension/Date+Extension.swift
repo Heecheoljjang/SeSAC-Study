@@ -21,7 +21,7 @@ extension Date {
         case .date:
             dateFormatter.dateFormat = "yyyyMMdd"
         case .dateString:
-            dateFormatter.dateFormat = "YYYY-MM-DDTHH:mm:ss.SSSZ"
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
         }
         return dateFormatter.string(from: self)
     }
