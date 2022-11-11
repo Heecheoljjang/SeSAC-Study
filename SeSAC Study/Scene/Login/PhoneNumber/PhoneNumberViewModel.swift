@@ -24,19 +24,17 @@ final class PhoneNumberViewModel {
             sendAuthCheck.accept(AuthCheck.wrongNumber)
             return
         }
-        Auth.auth().languageCode = "kr"
+
         let phoneNumber = phoneNumber.value.changeFormat()
-//        let phoneNumber = "+829876543210"
-        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self] verificationID, error in
-            if let error = error {
-                print(error.localizedDescription) //따로 처리해주기
-                self?.sendAuthCheck.accept(AuthCheck.fail)
+        FirebaseManager.shared.fetchVerificationId(phoneNumber: phoneNumber) { [weak self] value in
+            if value {
+                print("verid요청 성공")
+                UserDefaultsManager.shared.setValue(value: phoneNumber, type: .phoneNumber)
+                self?.sendAuthCheck.accept(.success)
                 return
             }
-            guard let verificationID else { return }
-            UserDefaultsManager.shared.setValue(value: verificationID, type: .verificationId)
-            UserDefaultsManager.shared.setValue(value: phoneNumber, type: .phoneNumber)
-            self?.sendAuthCheck.accept(AuthCheck.success)
+            print("실패실패")
+            self?.sendAuthCheck.accept(.fail)
         }
     }
     

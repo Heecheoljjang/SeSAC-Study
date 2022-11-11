@@ -8,6 +8,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import FirebaseAuth
 
 final class GenderViewModel {
     
@@ -66,6 +67,18 @@ final class GenderViewModel {
                 let errorStr = error.fetchNetworkErrorString()
                 print(errorStr)
                 self.errorStatus.accept(errorStr)
+            }
+        }
+    }
+    
+    func fetchIdToken() {
+        FirebaseManager.shared.fetchIdToken { result in
+            switch result {
+            case .success(_):
+                self.requestSignUp()
+            case .failure(let error):
+                print("요청 만료돼서 다시 신청했는데 아이디토큰 받아오는거 실패함 \(error)")
+                return
             }
         }
     }

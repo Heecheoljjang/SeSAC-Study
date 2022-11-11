@@ -80,7 +80,6 @@ final class PhoneNumberViewController: BaseViewController {
         case .success:
             presentToast(view: mainView, message: value.message)
             let vc = PhoneAuthViewController()
-            print(UserDefaultsManager.shared.fetchValue(type: .phoneNumber)) //한번 테스트
             transition(vc, transitionStyle: .push)
         }
     }

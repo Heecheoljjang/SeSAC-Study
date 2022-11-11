@@ -75,7 +75,11 @@ final class PhoneAuthViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-
+        mainView.retryButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                self?.viewModel.requestAgain()
+            })
+            .disposed(by: disposeBag)
     }
     private func authCheck(value: AuthCodeCheck) {
         switch value {
@@ -93,6 +97,9 @@ final class PhoneAuthViewController: BaseViewController {
             print("회원가입")
             let vc = NicknameViewController()
             transition(vc, transitionStyle: .push)
+        case .tokenError:
+            //다시 요청하기
+            viewModel.fetchIdToken()
         default:
             print("나머지")
             presentToast(view: mainView, message: ErrorText.message)

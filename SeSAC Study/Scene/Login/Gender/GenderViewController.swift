@@ -116,6 +116,7 @@ final class GenderViewController: BaseViewController {
         case .tokenError:
             print("토큰 에러")
             //MARK: 토큰 재갱신후 재요청
+            viewModel.fetchIdToken()
         case .signUpRequired:
             print("나올 일 없음")
         case .serverError:
