@@ -51,6 +51,7 @@ final class FirebaseManager {
             }
             guard let idToken else { return }
             UserDefaultsManager.shared.setValue(value: idToken, type: .idToken)
+            print(UserDefaultsManager.shared.fetchValue(type: .idToken) )
             completionHandler(.success(idToken))
         }
     }
