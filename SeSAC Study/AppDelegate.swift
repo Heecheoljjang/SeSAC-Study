@@ -45,10 +45,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             } else if let token = token {
                 print("FCM registration token: \(token)")
                 UserDefaultsManager.shared.setValue(value: token, type: .fcmToken)
+                print("토큰왔잖아 \(UserDefaultsManager.shared.fetchValue(type: .fcmToken))")
             }
         }
         
         UINavigationBar.appearance().tintColor = .black
+        
+        print(UserDefaultsManager.shared.fetchValue(type: .idToken) as? String ?? "")
+        
         return true
     }
 
@@ -59,13 +63,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(String(describing: fcmToken))")
+        
+        guard let fcmToken else { return }
+        UserDefaultsManager.shared.setValue(value: fcmToken, type: .fcmToken)
+        print(UserDefaultsManager.shared.fetchValue(type: .fcmToken))
+        
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(
+            name: Notification.Name("FCMToken"),
+            object: nil,
+            userInfo: dataDict
+        )
+    }
 }
 
