@@ -24,6 +24,7 @@ final class APIService {
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let error = NetworkError(rawValue: statusCode) else { return }
                 print("error: \(error)")
+                print("statusCode: \(statusCode)")
                 completion(.failure(error))
             }
         }

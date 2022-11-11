@@ -71,6 +71,13 @@ final class GenderViewController: BaseViewController {
                 self?.statusCheck(status: value)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.errorStatus
+            .asDriver(onErrorJustReturn: .clientError)
+            .drive(onNext: { [weak self] value in
+                self?.checkErrorStatus(status: value)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func changeViewColor(gender: Gender) {
@@ -91,10 +98,30 @@ final class GenderViewController: BaseViewController {
     private func statusCheck(status: GenderStatus) {
         switch status {
         case .selected:
-            //MARK: 회원가입 네트워킹
-            print("네트워킹")
+            viewModel.requestSignUp()
         case .unselected:
             presentToast(view: mainView, message: status.message)
+        }
+    }
+    
+    private func checkErrorStatus(status: NetworkErrorString) {
+        switch status {
+        case .signUpSuccess:
+            print("회원가입 성공")
+        case .alreadyExistUser:
+            print("이미 가입한 유저")
+        case .invalidNickname:
+            print("사용할 수 없는 닉네임")
+            //MARK: 닉네임 작성화면으로 이동. 이전 기입 내용 유지
+        case .tokenError:
+            print("토큰 에러")
+            //MARK: 토큰 재갱신후 재요청
+        case .signUpRequired:
+            print("나올 일 없음")
+        case .serverError:
+            print("서버 에러")
+        case .clientError:
+            print("클라이언트 에러. 헤더랑 바디 확인")
         }
     }
 }

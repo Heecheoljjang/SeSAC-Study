@@ -121,3 +121,17 @@
 - 로그인쪽 네트워킹에서 에러디스크립션으로 상태를 처리해줬는데 localizedDescription이 예상과 다르게 옴.
     - 그래서 디스크립션을 사용하지않고 error 자체의 값을 이용함. error 자체가 내가 원하던 값이었음.
 - 생년월일에서 선택하면 텍스트필드 색 바꿔주는거 구현해야함. 까먹었음
+
+### 11/11
+
+#### 내용
+
+- 회원가입 성공
+- 생일 dateFormat 수정
+- 
+
+#### 이슈
+
+- FCM 토큰 받아오는거 까먹었었음
+    - Error in application:didFailToRegisterForRemoteNotificationsWithError: 응용 프로그램을 위한 유효한 ‘aps-environment’ 인타이틀먼트 문자열을 찾을 수 없습니다.
+    이 오류가 떠서 추후에 확인해보기
