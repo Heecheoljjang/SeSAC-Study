@@ -24,6 +24,7 @@ final class PhoneNumberViewController: BaseViewController {
         super.viewDidLoad()
         
         bind()
+//        print(UserDefaultsManager.shared.fetchValue(type: .idToken) as! String)
     }
     
     override func configure() {
@@ -79,6 +80,7 @@ final class PhoneNumberViewController: BaseViewController {
             presentToast(view: mainView, message: value.message)
         case .success:
             presentToast(view: mainView, message: value.message)
+            viewModel.savePhoneNumber(value: mainView.numberTextField.text ?? "")
             let vc = PhoneAuthViewController()
             transition(vc, transitionStyle: .push)
         }

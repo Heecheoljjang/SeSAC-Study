@@ -21,6 +21,5 @@ enum NicknameCheck {
         case .success:
             return "성공"
         }
-        
     }
 }

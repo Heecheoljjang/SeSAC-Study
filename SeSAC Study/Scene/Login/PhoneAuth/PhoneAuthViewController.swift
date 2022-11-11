@@ -39,7 +39,7 @@ final class PhoneAuthViewController: BaseViewController {
     private func bind() {
         mainView.authTextField.rx.text
             .orEmpty
-            .map { $0.count >= 6 }
+            .map { $0.count == 6}
             .bind(onNext: { [weak self] value in
                 value ? self?.viewModel.setButtonStatus(value: ButtonStatus.enable) : self?.viewModel.setButtonStatus(value: ButtonStatus.disable)
             })
@@ -93,6 +93,8 @@ final class PhoneAuthViewController: BaseViewController {
         switch value {
         case .signUpSuccess: //코드 200이므로 로그인성공 -> 홈 화면으로 전환
             print("홈화면으로 전환")
+            
+            
         case .signUpRequired:
             print("회원가입")
             let vc = NicknameViewController()

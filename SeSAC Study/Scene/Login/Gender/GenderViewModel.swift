@@ -37,7 +37,7 @@ final class GenderViewModel {
     }
     
     func setGender(gender: Gender) {
-        UserDefaultsManager.shared.setValue(value: gender.value, type: .gender)
+        UserDefaultsManager.shared.setValue(value: "\(gender.value)", type: .gender)
     }
     
     func requestSignUp() {
@@ -47,7 +47,9 @@ final class GenderViewModel {
               let nickname = UserDefaultsManager.shared.fetchValue(type: .nick) as? String,
               let birth = UserDefaultsManager.shared.fetchValue(type: .birth) as? String,
               let email = UserDefaultsManager.shared.fetchValue(type: .email) as? String,
-              let gender = UserDefaultsManager.shared.fetchValue(type: .gender) as? Int else { return }
+              let gender = UserDefaultsManager.shared.fetchValue(type: .gender) as? String else {
+                  print("닐이 있음")
+                  return }
         
         print(phoneNumber)
         print(fcmToken)
@@ -56,7 +58,7 @@ final class GenderViewModel {
         print(email)
         print(gender)
         
-        let api = SeSacAPI.signUp(phoneNumber: phoneNumber, fcmToken: fcmToken, nickname: nickname, birth: birth, email: email, gender: gender)
+        let api = SeSacAPI.signUp(phoneNumber: phoneNumber, fcmToken: fcmToken, nickname: nickname, birth: birth, email: email, gender: Int(gender)!)
         
         APIService.shared.request(type: SignUp.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { result in
             switch result {
@@ -81,5 +83,19 @@ final class GenderViewModel {
                 return
             }
         }
+    }
+
+    func setInvalidNickname(value: Bool) {
+        UserDefaultsManager.shared.setValue(value: value, type: .invalidNickname)
+    }
+    
+    //텍스트가 아니니까 바로 확인해서 넣어줄 수 있을듯
+    func checkUserDefaultsExist() {
+        //유저디폴트값 확인해서 nil이 아닐때에만 0이면 여지ㅏ, 1이면 남자
+//        return UserDefaultsManager.shared.fetchValue(type: .gender) as? String != nil ? true : false
+        guard let genderString = UserDefaultsManager.shared.fetchValue(type: .gender) as? String, let gender = Int(genderString) else { return }
+        //nil이 아닌 경우에는 넣어주기
+        
+        gender == 1 ? self.gender.accept(.man) : self.gender.accept(.woman)
     }
 }

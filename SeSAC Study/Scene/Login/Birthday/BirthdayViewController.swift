@@ -21,6 +21,7 @@ final class BirthdayViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(#function)
         bind()
     }
 
@@ -28,25 +29,43 @@ final class BirthdayViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         presentKeyboard()
+        print("유저: \(UserDefaultsManager.shared.fetchValue(type: .birth) as? String)")
+        //유저디폴트 확인해서 값이 nil이 아니라면 setBirth하기.
+        if viewModel.checkUserDefaultsExist() {
+            print(viewModel.checkUserDefaultsExist())
+            //nil이 아니라는 거니까 birthday accept해주기, datepicker날짜 바꾸기
+            print("실행됨")
+            let birth = viewModel.fetchBirth()
+            viewModel.setBirthday(date: birth)
+            mainView.datePicker.date = birth
+            print("피커 데이트 변경됨 \(birth)")
+        }
     }
     
     private func bind() {
         
         mainView.datePicker.rx.date
             .bind(onNext: { [weak self] value in
+                print("데이트피커 \(value)")
                 self?.viewModel.setBirthday(date: value)
-                self?.viewModel.checkAge(date: value)
+//                self?.viewModel.checkAge(date: value) => birthday로 옮김
             })
             .disposed(by: disposeBag)
         
         viewModel.birthday
+//            .asSignal(onErrorJustReturn: Date())
             .asDriver(onErrorJustReturn: Date())
             .drive(onNext: { [weak self] value in
-                //텍스트필드 바꾸기
+                print("버스데이: \(value)")
+                //텍스트필드 바꾸기, 데이트피커 날짜도
                 self?.setTextField(date: value)
+
                 self?.viewModel.setBirth(date: value)
+
+                self?.viewModel.checkAge(date: value)
             })
             .disposed(by: disposeBag)
+
         
         viewModel.buttonStatus
             .asDriver(onErrorJustReturn: ButtonStatus.disable)

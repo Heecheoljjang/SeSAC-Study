@@ -13,7 +13,7 @@ final class NickNameViewModel {
     
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: .disable)
     
-    var isEnable = BehaviorRelay<NicknameCheck>(value: .lengthFail)
+    var isEnable = PublishRelay<NicknameCheck>()
     
     func setButtonStatus(value: ButtonStatus) {
         buttonStatus.accept(value)
@@ -25,5 +25,16 @@ final class NickNameViewModel {
     
     func setNickname(name: String) {
         UserDefaultsManager.shared.setValue(value: name, type: .nick)
+    }
+    
+    func checkInvalid() -> Bool {
+        guard let invalidStatus = UserDefaultsManager.shared.fetchValue(type: .invalidNickname) as? Bool else { print("뭘까")
+            return false }
+        print(invalidStatus)
+        return invalidStatus
+    }
+    
+    func setInvalid() {
+        UserDefaultsManager.shared.setValue(value: false, type: .invalidNickname)
     }
 }

@@ -29,6 +29,13 @@ final class EmailViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         presentKeyboard()
+        
+        //유저디폴트 nil이 아닐때만 텍스트필드에 세팅
+        print("짜증나", viewModel.checkUserDefaultsExist())
+        
+        if viewModel.checkUserDefaultsExist() {
+            setTextField()
+        }
     }
     
     private func bind() {
@@ -37,8 +44,8 @@ final class EmailViewController: BaseViewController {
 
         output.emailText
             .bind(onNext: { [weak self] value in
+                print("이메일: \(value)")
                 self?.viewModel.checkEmail(email: value)
-                self?.viewModel.setEmail(email: value)
             })
             .disposed(by: disposeBag)
 
@@ -68,11 +75,17 @@ final class EmailViewController: BaseViewController {
     private func checkStatus(status: EmailStatus) {
         switch status {
         case .valid:
+            viewModel.setEmail(email: mainView.emailTextField.text ?? "")
             //MARK: 화면전환
             let vc = GenderViewController()
             transition(vc, transitionStyle: .push)
         case .invalid:
             presentToast(view: mainView, message: status.message)
         }
+    }
+    
+    private func setTextField() {
+        print("setTextField", viewModel.fetchEmail())
+        mainView.emailTextField.text = viewModel.fetchEmail()
     }
 }

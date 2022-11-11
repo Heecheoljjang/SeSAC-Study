@@ -19,10 +19,10 @@ final class UserDefaultsManager {
     
     func fetchValue(type: UserDefaultsKeys) -> Any {
         switch type {
-        case .idToken, .phoneNumber, .fcmToken, .nick, .birth, .email, .verificationId:
+        case .idToken, .phoneNumber, .fcmToken, .nick, .birth, .email, .gender, .verificationId:
             return UserDefaults.standard.string(forKey: type.rawValue) ?? ""
-        case .gender:
-            return UserDefaults.standard.integer(forKey: type.rawValue)
+        case .invalidNickname:
+            return UserDefaults.standard.bool(forKey: type.rawValue)
         }
     }
 }

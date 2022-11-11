@@ -21,7 +21,6 @@ final class BirthdayViewModel {
         birthday.accept(date)
     }
     
-    //만 17세 이상이면 buttonStatus able로
     func checkAge(date: Date) {
         return date.compareYear() ? buttonStatus.accept(ButtonStatus.enable) : buttonStatus.accept(ButtonStatus.disable)
     }
@@ -33,5 +32,18 @@ final class BirthdayViewModel {
     func setBirth(date: Date) {
         let dateString = date.dateToString(type: .dateString)
         UserDefaultsManager.shared.setValue(value: dateString, type: .birth)
+    }
+
+    func checkUserDefaultsExist() -> Bool {
+        
+        let birth = UserDefaultsManager.shared.fetchValue(type: .birth) as? String ?? ""
+        
+        return birth.isEmpty ? false : true
+
+    }
+
+    func fetchBirth() -> Date {
+        guard let birth = UserDefaultsManager.shared.fetchValue(type: .birth) as? String else { return Date() }
+        return birth.stringToDate(type: .dateString)
     }
 }

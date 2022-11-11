@@ -50,4 +50,22 @@ extension String {
         }
         return self
     }
+    
+    func stringToDate(type: DateString) -> Date {
+        let dateFormatter = DateFormatter()
+        switch type {
+        case .year:
+            dateFormatter.dateFormat = "yyyy"
+        case .month:
+            dateFormatter.dateFormat = "M"
+        case .day:
+            dateFormatter.dateFormat = "d"
+        case .date:
+            dateFormatter.dateFormat = "yyyyMMdd"
+        case .dateString:
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        }
+        guard let date = dateFormatter.date(from: self) else { return Date() }
+        return date
+    }
 }

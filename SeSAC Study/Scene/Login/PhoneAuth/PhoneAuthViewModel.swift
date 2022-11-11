@@ -42,8 +42,8 @@ final class PhoneAuthViewModel {
     func fetchIdToken() {
         FirebaseManager.shared.fetchIdToken { result in
             switch result {
-            case .success(_):
-                print("아이디토큰받아왔으므로 네트워크 통신하기")
+            case .success(let token):
+                print("아이디토큰받아왔으므로 네트워크 통신하기: \(token)")
                 self.checkUser()
             case .failure(let error):
                 print("아이디토큰 못받아옴 \(error)")
@@ -73,6 +73,7 @@ final class PhoneAuthViewModel {
     func requestAgain() {
         print("재요청")
         guard let phoneNumber = UserDefaultsManager.shared.fetchValue(type: .phoneNumber) as? String else { return }
+        print("핸드폰 번호", phoneNumber)
         FirebaseManager.shared.fetchVerificationId(phoneNumber: phoneNumber) { value in
             value ? print("인증코드 재요청 성공") : print("인증코드 재요청 실패")
         }

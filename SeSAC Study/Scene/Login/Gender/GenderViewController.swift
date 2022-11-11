@@ -26,6 +26,13 @@ final class GenderViewController: BaseViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //nil인거 판단하고 아니면 선택해주기 gender에 accept
+        viewModel.checkUserDefaultsExist()
+    }
+    
     private func bind() {
         mainView.manView.rx.tapGesture()
             .when(.recognized)
@@ -47,20 +54,26 @@ final class GenderViewController: BaseViewController {
         viewModel.gender
             .asDriver(onErrorJustReturn: .man)
             .drive(onNext: { [weak self] value in
+                print("젠더가 바뀌었다")
                 self?.changeViewColor(gender: value)
                 self?.viewModel.setGender(gender: value)
+                
+                //일단 해보기 젠더가 바뀌면 선택된거니까
+                self?.viewModel.setButtonEnable()
             })
             .disposed(by: disposeBag)
         
         viewModel.buttonStatus
             .asDriver(onErrorJustReturn: .disable)
             .drive(onNext: { [unowned self] value in
+                print("버튼상태바뀌었ㄷ")
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
         
         mainView.doneButton.rx.tap
             .bind(onNext: { [weak self] _ in
+                print("탭 됨")
                 self?.viewModel.checkStatus()
             })
             .disposed(by: disposeBag)
@@ -68,6 +81,7 @@ final class GenderViewController: BaseViewController {
         viewModel.genderStatus
             .asDriver(onErrorJustReturn: .unselected)
             .drive(onNext: { [weak self] value in
+                print("젠더상태바뀜")
                 self?.statusCheck(status: value)
             })
             .disposed(by: disposeBag)
@@ -75,6 +89,7 @@ final class GenderViewController: BaseViewController {
         viewModel.errorStatus
             .asDriver(onErrorJustReturn: .clientError)
             .drive(onNext: { [weak self] value in
+                print("에러상태바뀜")
                 self?.checkErrorStatus(status: value)
             })
             .disposed(by: disposeBag)
@@ -108,11 +123,16 @@ final class GenderViewController: BaseViewController {
         switch status {
         case .signUpSuccess:
             print("회원가입 성공")
+            viewModel.setInvalidNickname(value: false)
         case .alreadyExistUser:
             print("이미 가입한 유저")
         case .invalidNickname:
             print("사용할 수 없는 닉네임")
+            viewModel.setInvalidNickname(value: true)
             //MARK: 닉네임 작성화면으로 이동. 이전 기입 내용 유지
+            if let viewController = navigationController?.viewControllers.first(where: {$0 is NicknameViewController}) {
+                  navigationController?.popToViewController(viewController, animated: false)
+            }
         case .tokenError:
             print("토큰 에러")
             //MARK: 토큰 재갱신후 재요청

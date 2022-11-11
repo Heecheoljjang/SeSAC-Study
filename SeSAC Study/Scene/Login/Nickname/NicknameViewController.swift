@@ -31,6 +31,20 @@ final class NicknameViewController: BaseViewController {
         presentKeyboard()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if viewModel.checkInvalid() {
+            presentToast(view: mainView, message: NicknameCheck.fail.message)
+        }
+    }
+        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        viewModel.setInvalid()
+    }
+    
     private func bind() {
         
         mainView.nicknameTextField.rx.text
@@ -53,12 +67,12 @@ final class NicknameViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        mainView.nicknameTextField.rx.text
-            .orEmpty
-            .bind(onNext: { [weak self] value in
-                self?.viewModel.setNickname(name: value)
-            })
-            .disposed(by: disposeBag)
+//        mainView.nicknameTextField.rx.text
+//            .orEmpty
+//            .bind(onNext: { [weak self] value in
+//                self?.viewModel.setNickname(name: value)
+//            })
+//            .disposed(by: disposeBag)
         
         viewModel.buttonStatus
             .asDriver(onErrorJustReturn: ButtonStatus.disable)
@@ -95,6 +109,9 @@ final class NicknameViewController: BaseViewController {
             presentToast(view: mainView, message: isEnable.message)
         case .success:
             presentToast(view: mainView, message: isEnable.message)
+
+            viewModel.setNickname(name: mainView.nicknameTextField.text ?? "")
+            
             //MARK: 화면 전환
             let vc = BirthdayViewController()
             print("닉네임: \(UserDefaultsManager.shared.fetchValue(type: .nick) as? String)")

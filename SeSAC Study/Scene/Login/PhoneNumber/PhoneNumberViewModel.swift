@@ -52,6 +52,7 @@ final class PhoneNumberViewModel {
     }
     
     func savePhoneNumber(value: String) {
-        UserDefaultsManager.shared.setValue(value: value, type: .phoneNumber)
+        let number = value.replacingOccurrences(of: "-", with: "")
+        UserDefaultsManager.shared.setValue(value: number.changeFormat(), type: .phoneNumber)
     }
 }
