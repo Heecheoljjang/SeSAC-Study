@@ -11,7 +11,7 @@ import RxCocoa
 
 final class BirthdayViewModel {
     
-    var birthday = BehaviorRelay<Date>(value: Date())
+    var birthday = PublishRelay<Date>()
     
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: ButtonStatus.disable)
     

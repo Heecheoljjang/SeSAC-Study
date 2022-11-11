@@ -25,7 +25,7 @@ class DateReusableView: BaseView {
     lazy var dateTextField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 14)
-        textField.textColor = .graySeven
+        textField.textColor = .black
         textField.placeholder = placeholder
         textField.textAlignment = .left
         textField.isUserInteractionEnabled = false
