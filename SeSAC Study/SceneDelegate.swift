@@ -18,8 +18,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let nav = UINavigationController(rootViewController: PhoneNumberViewController())
-            window.rootViewController = nav
+            if UserDefaultsManager.shared.fetchValue(type: .isFirst) as? Int == 0 {
+                let vc = OnboardingViewController()
+                window.rootViewController = vc
+            } else {
+                let nav = UINavigationController(rootViewController: PhoneNumberViewController())
+                window.rootViewController = nav
+            }
             self.window = window
             window.makeKeyAndVisible()
         }
