@@ -28,6 +28,7 @@ final class OnboardingView: BaseView {
         pageControl.hidesForSinglePage = true
         pageControl.pageIndicatorTintColor = .grayFive
         pageControl.currentPageIndicatorTintColor = .black
+        pageControl.isUserInteractionEnabled = false
         return pageControl
     }()
     
