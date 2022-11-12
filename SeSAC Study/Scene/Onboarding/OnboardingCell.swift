@@ -20,7 +20,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let view = UIImageView()
-        
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
@@ -46,7 +46,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
         messageLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(120)
             make.centerX.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(80)
+            make.width.equalTo(232)
         }
         imageView.snp.makeConstraints { make in
             make.top.equalTo(messageLabel.snp.bottom).offset(52)

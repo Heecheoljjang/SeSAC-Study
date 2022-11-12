@@ -23,8 +23,8 @@ final class PhoneNumberViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.setIsFirst()
         bind()
-//        print(UserDefaultsManager.shared.fetchValue(type: .idToken) as! String)
     }
     
     override func configure() {

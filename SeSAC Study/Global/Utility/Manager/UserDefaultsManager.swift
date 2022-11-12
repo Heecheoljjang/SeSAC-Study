@@ -23,6 +23,8 @@ final class UserDefaultsManager {
             return UserDefaults.standard.string(forKey: type.rawValue) ?? ""
         case .invalidNickname:
             return UserDefaults.standard.bool(forKey: type.rawValue)
+        case .isFirst:
+            return UserDefaults.standard.integer(forKey: type.rawValue)
         }
     }
 }

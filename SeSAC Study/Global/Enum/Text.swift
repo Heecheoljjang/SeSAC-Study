@@ -122,6 +122,17 @@ enum OnboardingData {
         }
     }
     
+    var colorText: String {
+        switch self {
+        case .first:
+            return "위치 기반"
+        case .second:
+            return "스터디를 원하는 친구"
+        case .third:
+            return ""
+        }
+    }
+    
     var imageName: String {
         switch self {
         case .first:

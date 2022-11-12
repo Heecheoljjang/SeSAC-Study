@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     
@@ -67,5 +68,16 @@ extension String {
         }
         guard let date = dateFormatter.date(from: self) else { return Date() }
         return date
+    }
+    
+    func makeAttributedSpacing(spacing: CGFloat, text: String) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: self)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = spacing
+        paragraphStyle.alignment = .center
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(.font, value: UIFont(name: CustomFont.regular, size: 24), range: NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.brandGreen, range: (self as NSString).range(of: text))
+        return attributedString
     }
 }

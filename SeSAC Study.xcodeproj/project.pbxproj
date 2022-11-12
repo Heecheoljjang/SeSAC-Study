@@ -19,7 +19,7 @@
 		976211EB291BF9F8008B00FE /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211EA291BF9F8008B00FE /* GenderViewController.swift */; };
 		976211ED291BF9FF008B00FE /* GenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211EC291BF9FF008B00FE /* GenderViewModel.swift */; };
 		976211EF291C00D7008B00FE /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211EE291C00D7008B00FE /* Gender.swift */; };
-		976211F3291C2A93008B00FE /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211F2291C2A93008B00FE /* Protocol.swift */; };
+		976211F3291C2A93008B00FE /* CommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211F2291C2A93008B00FE /* CommonViewModel.swift */; };
 		976211F5291C3320008B00FE /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211F4291C3320008B00FE /* Email.swift */; };
 		9796DE912918A36F00D8C915 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DE902918A36F00D8C915 /* AppDelegate.swift */; };
 		9796DE932918A36F00D8C915 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DE922918A36F00D8C915 /* SceneDelegate.swift */; };
@@ -45,6 +45,11 @@
 		979E79F2291E627700E9A89A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979E79F1291E627700E9A89A /* OnboardingViewModel.swift */; };
 		979E79F4291E628000E9A89A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979E79F3291E628000E9A89A /* OnboardingViewController.swift */; };
 		979E79F8291E73D000E9A89A /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979E79F7291E73D000E9A89A /* FirebaseManager.swift */; };
+		979E79FD291F6F4A00E9A89A /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979E79FC291F6F4A00E9A89A /* OnboardingCell.swift */; };
+		979E7A00291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979E79FF291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift */; };
+		979E7A04291FAF5F00E9A89A /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 979E7A02291FAF5F00E9A89A /* NotoSansKR-Medium.otf */; };
+		979E7A05291FAF5F00E9A89A /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 979E7A03291FAF5F00E9A89A /* NotoSansKR-Regular.otf */; };
+		979E7A07291FB01000E9A89A /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979E7A06291FB01000E9A89A /* CustomFont.swift */; };
 		97B381E0291B5421009618A7 /* BirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381DF291B5421009618A7 /* BirthdayView.swift */; };
 		97B381E2291B5429009618A7 /* BirthdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381E1291B5429009618A7 /* BirthdayViewController.swift */; };
 		97B381E4291B5433009618A7 /* BirthdayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381E3291B5433009618A7 /* BirthdayViewModel.swift */; };
@@ -82,7 +87,7 @@
 		976211EA291BF9F8008B00FE /* GenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewController.swift; sourceTree = "<group>"; };
 		976211EC291BF9FF008B00FE /* GenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewModel.swift; sourceTree = "<group>"; };
 		976211EE291C00D7008B00FE /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
-		976211F2291C2A93008B00FE /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		976211F2291C2A93008B00FE /* CommonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewModel.swift; sourceTree = "<group>"; };
 		976211F4291C3320008B00FE /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		9796DE8D2918A36F00D8C915 /* SeSAC Study.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SeSAC Study.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9796DE902918A36F00D8C915 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +110,11 @@
 		979E79F1291E627700E9A89A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		979E79F3291E628000E9A89A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		979E79F7291E73D000E9A89A /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		979E79FC291F6F4A00E9A89A /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
+		979E79FF291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Extenstion.swift"; sourceTree = "<group>"; };
+		979E7A02291FAF5F00E9A89A /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
+		979E7A03291FAF5F00E9A89A /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		979E7A06291FB01000E9A89A /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		97B381DF291B5421009618A7 /* BirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayView.swift; sourceTree = "<group>"; };
 		97B381E1291B5429009618A7 /* BirthdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewController.swift; sourceTree = "<group>"; };
 		97B381E3291B5433009618A7 /* BirthdayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewModel.swift; sourceTree = "<group>"; };
@@ -202,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				97E79DEF291977B100254AC8 /* SeSAC Study.entitlements */,
+				979E7A01291FAF4600E9A89A /* Resource */,
 				976211F1291C14FD008B00FE /* Network */,
 				9796DED2291920AE00D8C915 /* Global */,
 				9796DEB52919133D00D8C915 /* Scene */,
@@ -248,9 +259,9 @@
 		9796DED2291920AE00D8C915 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				979E79FE291F727300E9A89A /* Protocols */,
 				9796DECC29191B5E00D8C915 /* Utility */,
 				97FF4A3D291AB9B000AF9A56 /* Enum */,
-				976211F2291C2A93008B00FE /* Protocol.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -263,6 +274,7 @@
 				97E79DF02919846800254AC8 /* UIViewController+Extension.swift */,
 				97B381EA291BB0B5009618A7 /* Date+Extension.swift */,
 				97D6596C291D8D65000284DA /* Error+Extension.swift */,
+				979E79FF291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -273,6 +285,7 @@
 				979E79EF291E626E00E9A89A /* OnboardingView.swift */,
 				979E79F3291E628000E9A89A /* OnboardingViewController.swift */,
 				979E79F1291E627700E9A89A /* OnboardingViewModel.swift */,
+				979E79FC291F6F4A00E9A89A /* OnboardingCell.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -308,6 +321,24 @@
 				9796DEE8291943E400D8C915 /* PhoneAuthViewModel.swift */,
 			);
 			path = PhoneAuth;
+			sourceTree = "<group>";
+		};
+		979E79FE291F727300E9A89A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				976211F2291C2A93008B00FE /* CommonViewModel.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		979E7A01291FAF4600E9A89A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				979E7A02291FAF5F00E9A89A /* NotoSansKR-Medium.otf */,
+				979E7A03291FAF5F00E9A89A /* NotoSansKR-Regular.otf */,
+				979E7A06291FB01000E9A89A /* CustomFont.swift */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		97B381DE291B5405009618A7 /* Birthday */ = {
@@ -448,7 +479,9 @@
 			files = (
 				9796DEA52918FB2B00D8C915 /* .gitignore in Resources */,
 				974CF654291D48D600B66CAC /* GoogleService-Info.plist in Resources */,
+				979E7A04291FAF5F00E9A89A /* NotoSansKR-Medium.otf in Resources */,
 				9796DE9D2918A37000D8C915 /* LaunchScreen.storyboard in Resources */,
+				979E7A05291FAF5F00E9A89A /* NotoSansKR-Regular.otf in Resources */,
 				9796DE9A2918A37000D8C915 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +498,7 @@
 				9796DEE32919391100D8C915 /* PhoneNumberViewModel.swift in Sources */,
 				97B381F4291BE0E9009618A7 /* EmailViewModel.swift in Sources */,
 				97D6596D291D8D65000284DA /* Error+Extension.swift in Sources */,
+				979E7A00291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift in Sources */,
 				97B381ED291BDF13009618A7 /* BirthdayStatus.swift in Sources */,
 				976211EB291BF9F8008B00FE /* GenderViewController.swift in Sources */,
 				976211F5291C3320008B00FE /* Email.swift in Sources */,
@@ -480,7 +514,7 @@
 				974CF65E291D626300B66CAC /* NetworkError.swift in Sources */,
 				97B381E6291B5B5A009618A7 /* DateReusableView.swift in Sources */,
 				9796DEDF291938B300D8C915 /* PhoneNumberView.swift in Sources */,
-				976211F3291C2A93008B00FE /* Protocol.swift in Sources */,
+				976211F3291C2A93008B00FE /* CommonViewModel.swift in Sources */,
 				974CF659291D4EB600B66CAC /* SeSacAPI.swift in Sources */,
 				979E79F0291E626E00E9A89A /* OnboardingView.swift in Sources */,
 				9796DEE12919390600D8C915 /* PhoneNumberViewController.swift in Sources */,
@@ -488,6 +522,7 @@
 				97B381E4291B5433009618A7 /* BirthdayViewModel.swift in Sources */,
 				974CF65B291D586600B66CAC /* APIService.swift in Sources */,
 				97FF4A41291ACAB200AF9A56 /* LoginReusableView.swift in Sources */,
+				979E7A07291FB01000E9A89A /* CustomFont.swift in Sources */,
 				974CF662291D63F600B66CAC /* SignUp.swift in Sources */,
 				9796DED129191BEE00D8C915 /* BaseView.swift in Sources */,
 				9796DED4291920BD00D8C915 /* Text.swift in Sources */,
@@ -506,6 +541,7 @@
 				97FBDC58291A46FE007CB321 /* ButtonStatus.swift in Sources */,
 				979E79F4291E628000E9A89A /* OnboardingViewController.swift in Sources */,
 				97B381EB291BB0B5009618A7 /* Date+Extension.swift in Sources */,
+				979E79FD291F6F4A00E9A89A /* OnboardingCell.swift in Sources */,
 				97E79DF5291987E200254AC8 /* Error.swift in Sources */,
 				9796DEE5291943CF00D8C915 /* PhoneAuthView.swift in Sources */,
 				97B381F0291BE0DB009618A7 /* EmailView.swift in Sources */,

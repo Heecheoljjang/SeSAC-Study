@@ -55,4 +55,8 @@ final class PhoneNumberViewModel {
         let number = value.replacingOccurrences(of: "-", with: "")
         UserDefaultsManager.shared.setValue(value: number.changeFormat(), type: .phoneNumber)
     }
+    
+    func setIsFirst() {
+        UserDefaultsManager.shared.setValue(value: 1, type: .isFirst)
+    }
 }
