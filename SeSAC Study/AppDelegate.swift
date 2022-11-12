@@ -53,6 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         print(UserDefaultsManager.shared.fetchValue(type: .idToken) as? String ?? "")
         
+        //MARK: 네비게이션 백버튼
+        let backButtonImage = UIImage(named: ImageName.backButton)
+        UINavigationBar.appearance().backIndicatorImage = backButtonImage
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButtonImage
         return true
     }
 

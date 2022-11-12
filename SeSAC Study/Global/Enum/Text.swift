@@ -67,6 +67,7 @@ enum ImageName {
     static let man = "man"
     static let woman = "woman"
     static let splash = "splash_logo"
+    static let backButton = "arrow"
 }
 
 enum DateString {

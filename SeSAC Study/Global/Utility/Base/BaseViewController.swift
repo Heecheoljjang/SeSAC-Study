@@ -15,5 +15,7 @@ class BaseViewController: UIViewController {
         configure()
     }
     
-    func configure() {}
+    func configure() {
+        navigationItem.backButtonTitle = ""
+    }
 }
