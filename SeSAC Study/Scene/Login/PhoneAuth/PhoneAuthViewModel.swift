@@ -28,13 +28,17 @@ final class PhoneAuthViewModel {
             authCodeCheck.accept(.wrongCode)
             return
         }
+        LoadingIndicator.showLoading()
         FirebaseManager.shared.checkAuthCode(verId: id, authCode: code) { [weak self] result in
             switch result {
             case .timeOut:
+                LoadingIndicator.hideLoading()
                 self?.authCodeCheck.accept(.timeOut)
             case .wrongCode:
+                LoadingIndicator.hideLoading()
                 self?.authCodeCheck.accept(.wrongCode)
             case .fail:
+                LoadingIndicator.hideLoading()
                 self?.authCodeCheck.accept(.fail)
             case .success:
                 self?.authCodeCheck.accept(.success)
@@ -50,6 +54,7 @@ final class PhoneAuthViewModel {
                 self.checkUser()
             case .failure(let error):
                 print("아이디토큰 못받아옴 \(error)")
+                LoadingIndicator.hideLoading()
                 return
             }
         }
@@ -61,9 +66,11 @@ final class PhoneAuthViewModel {
             switch result {
             case .success(let response):
                 print("성공했지요: \(response)")
+                LoadingIndicator.hideLoading()
                 self.errorStatus.accept(.signUpSuccess)
             case .failure(let error):
                 print("여기 실패입니다 \(error)")
+                LoadingIndicator.hideLoading()
                 let errorStr = error.fetchNetworkErrorString()
                 self.errorStatus.accept(errorStr)
             }
@@ -73,16 +80,21 @@ final class PhoneAuthViewModel {
     //인증번호 다시 보내기
     func requestAgain() {
         print("재요청")
+        LoadingIndicator.showLoading()
         guard let phoneNumber = UserDefaultsManager.shared.fetchValue(type: .phoneNumber) as? String else { return }
         FirebaseManager.shared.fetchVerificationId(phoneNumber: phoneNumber) { [weak self] value in
             switch value {
             case .wrongNumber:
+                LoadingIndicator.hideLoading()
                 self?.phoneNumberCheck.accept(.wrongNumber)
             case .fail:
+                LoadingIndicator.hideLoading()
                 self?.phoneNumberCheck.accept(.fail)
             case .manyRequest:
+                LoadingIndicator.hideLoading()
                 self?.phoneNumberCheck.accept(.manyRequest)
             case .success:
+                LoadingIndicator.hideLoading()
                 self?.phoneNumberCheck.accept(.success)
             }
         }

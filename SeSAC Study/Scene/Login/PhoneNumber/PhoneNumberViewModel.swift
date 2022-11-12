@@ -24,17 +24,21 @@ final class PhoneNumberViewModel {
             sendAuthCheck.accept(AuthCheck.wrongNumber)
             return
         }
-
+        LoadingIndicator.showLoading()
         let phoneNumber = phoneNumber.value.changeFormat()
         FirebaseManager.shared.fetchVerificationId(phoneNumber: phoneNumber) { [weak self] value in
             switch value {
             case .wrongNumber:
+                LoadingIndicator.hideLoading()
                 self?.sendAuthCheck.accept(.wrongNumber)
             case .fail:
+                LoadingIndicator.hideLoading()
                 self?.sendAuthCheck.accept(.fail)
             case .manyRequest:
+                LoadingIndicator.hideLoading()
                 self?.sendAuthCheck.accept(.manyRequest)
             case .success:
+                LoadingIndicator.hideLoading()
                 self?.sendAuthCheck.accept(.success)
             }
         }

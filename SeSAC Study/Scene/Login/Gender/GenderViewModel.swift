@@ -63,7 +63,9 @@ final class GenderViewModel {
         APIService.shared.request(type: SignUp.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { result in
             switch result {
             case .success(let data):
+                LoadingIndicator.hideLoading()
                 print("회원가입 성공!, data: \(data)")
+                self.errorStatus.accept(.signUpSuccess)
             case .failure(let error):
                 print("회원가입 실패")
                 let errorStr = error.fetchNetworkErrorString()
@@ -79,6 +81,7 @@ final class GenderViewModel {
             case .success(_):
                 self.requestSignUp()
             case .failure(let error):
+                LoadingIndicator.hideLoading()
                 print("요청 만료돼서 다시 신청했는데 아이디토큰 받아오는거 실패함 \(error)")
                 return
             }
@@ -89,12 +92,8 @@ final class GenderViewModel {
         UserDefaultsManager.shared.setValue(value: value, type: .invalidNickname)
     }
     
-    //텍스트가 아니니까 바로 확인해서 넣어줄 수 있을듯
     func checkUserDefaultsExist() {
-        //유저디폴트값 확인해서 nil이 아닐때에만 0이면 여지ㅏ, 1이면 남자
-//        return UserDefaultsManager.shared.fetchValue(type: .gender) as? String != nil ? true : false
         guard let genderString = UserDefaultsManager.shared.fetchValue(type: .gender) as? String, let gender = Int(genderString) else { return }
-        //nil이 아닌 경우에는 넣어주기
         
         gender == 1 ? self.gender.accept(.man) : self.gender.accept(.woman)
     }

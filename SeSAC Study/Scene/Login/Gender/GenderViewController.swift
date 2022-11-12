@@ -108,6 +108,8 @@ final class GenderViewController: BaseViewController {
     private func statusCheck(status: GenderStatus) {
         switch status {
         case .selected:
+            //MARK: 첫 네트워킹
+            LoadingIndicator.showLoading()
             viewModel.requestSignUp()
         case .unselected:
             presentToast(view: mainView, message: status.message)
@@ -117,14 +119,14 @@ final class GenderViewController: BaseViewController {
     private func checkErrorStatus(status: NetworkErrorString) {
         switch status {
         case .signUpSuccess:
-            print("회원가입 성공")
             viewModel.setInvalidNickname(value: false)
             let vc = MainViewController()
             changeRootViewController(viewcontroller: vc)
         case .alreadyExistUser:
-            print("이미 가입한 유저")
+            LoadingIndicator.hideLoading()
+            presentToast(view: mainView, message: NetworkErrorString.alreadyExistUser.message)
         case .invalidNickname:
-            print("사용할 수 없는 닉네임")
+            LoadingIndicator.hideLoading()
             viewModel.setInvalidNickname(value: true)
             if let viewController = navigationController?.viewControllers.first(where: {$0 is NicknameViewController}) {
                   navigationController?.popToViewController(viewController, animated: false)
@@ -134,10 +136,13 @@ final class GenderViewController: BaseViewController {
             viewModel.fetchIdToken()
         case .signUpRequired:
             print("나올 일 없음")
+            LoadingIndicator.hideLoading()
         case .serverError:
             print("서버 에러")
+            LoadingIndicator.hideLoading()
         case .clientError:
             print("클라이언트 에러. 헤더랑 바디 확인")
+            LoadingIndicator.hideLoading()
         }
     }
 }

@@ -29,12 +29,7 @@ final class PhoneNumberViewController: BaseViewController {
     
     override func configure() {
         super.configure()
-        //MARK: 백버튼 바꾸기
-        navigationItem.backButtonTitle = ""
-//        let backButton = UIBarButtonItem(image: UIImage(systemName: ImageName.leftArrow), style: .done, target: nil, action: nil)
-//        navigationItem.backBarButtonItem = backButton
-////        self.navigationBar.backIndicatorTransitionMaskImage
-//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: ImageName.leftArrow)
+
     }
     
     private func bind() {
