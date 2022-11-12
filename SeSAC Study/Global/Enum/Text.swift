@@ -59,6 +59,7 @@ enum ButtonTitle {
     static let retryButtonTitle = "재전송"
     static let authCheckButtonTitle = "인증하고 시작하기"
     static let next = "다음"
+    static let start = "시작하기"
 }
 
 enum ImageName {
@@ -105,4 +106,30 @@ enum DateString {
 
 enum ErrorText {
     static let message = "에러가 발생하였습니다. 다시 시도해주세요."
+}
+
+enum OnboardingData {
+    case first, second, third
+    
+    var message: String {
+        switch self {
+        case .first:
+            return "위치 기반으로 빠르게 주위 친구를 확인"
+        case .second:
+            return "스터디를 원하는 친구를 찾을 수 있어요"
+        case .third:
+            return "SeSAC Study"
+        }
+    }
+    
+    var imageName: String {
+        switch self {
+        case .first:
+            return "onboarding_img1"
+        case .second:
+            return "onboarding_img2"
+        case .third:
+            return "onboarding_img3"
+        }
+    }
 }
