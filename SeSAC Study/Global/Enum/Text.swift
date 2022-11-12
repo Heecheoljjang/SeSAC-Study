@@ -69,12 +69,6 @@ enum ImageName {
     static let splash = "splash_logo"
 }
 
-enum ErrorDescription {
-    static let empty = "The phone auth credential was created with an empty SMS verification Code."
-    static let wrongNumber = "The SMS verification code used to create the phone auth credential is invalid. Please resend the verification code SMS and be sure to use the verification code provided by the user."
-    static let invalidId = "The verification ID used to create the phone auth credential is invalid."
-}
-
 enum DateString {
     case year, month, day, date, dateString
     
