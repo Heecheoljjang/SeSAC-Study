@@ -50,20 +50,9 @@ final class OnboardingViewController: BaseViewController {
         mainView.collectionView.rx.setDelegate(self).disposed(by: disposeBag)
         
         mainView.startButton.rx.tap
-            .bind(onNext: { _ in
-                //전화번호 인증화면으로 루트뷰컨 바꾸고 1값주기
-                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                let sceneDelegate = windowScene?.delegate as? SceneDelegate
-                
-                let transition = CATransition()
-                transition.type = .fade
-                transition.duration = 0.3
-                sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
-                
-                let nav = UINavigationController(rootViewController: PhoneNumberViewController())
-                
-                sceneDelegate?.window?.rootViewController = nav
-                sceneDelegate?.window?.makeKeyAndVisible()
+            .bind(onNext: { [weak self] _ in
+                let phoneNumberVC = PhoneNumberViewController()
+                self?.changeRootViewController(viewcontroller: phoneNumberVC)
             })
             .disposed(by: disposeBag)
     }

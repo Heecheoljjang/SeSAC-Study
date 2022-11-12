@@ -17,7 +17,6 @@ final class OnboardingView: BaseView {
         
         let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         view.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
-        view.backgroundColor = .red
         view.isPagingEnabled = true
         view.showsHorizontalScrollIndicator = false
         

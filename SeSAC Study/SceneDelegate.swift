@@ -35,13 +35,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            if UserDefaultsManager.shared.fetchValue(type: .isFirst) as? Int == 0 {
-                let vc = OnboardingViewController()
-                window.rootViewController = vc
-            } else {
-                let nav = UINavigationController(rootViewController: PhoneNumberViewController())
-                window.rootViewController = nav
-            }
+
+            let vc = LaunchViewController()
+            window.rootViewController = vc
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -77,9 +73,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func loadNetworkErrorWindow(on scene: UIScene) {
-        print("dsfkja")
         if let windowScene = scene as? UIWindowScene {
-            print("123")
             let window = UIWindow(windowScene: windowScene)
             window.windowLevel = .statusBar
             window.makeKeyAndVisible()

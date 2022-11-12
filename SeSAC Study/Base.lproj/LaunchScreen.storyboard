@@ -18,17 +18,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="dSo-g8-loI">
-                                <rect key="frame" x="76" y="219" width="241" height="280"/>
+                                <rect key="frame" x="66.666666666666686" y="199" width="260" height="260"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="280" id="KBo-f2-roc"/>
+                                    <constraint firstAttribute="width" secondItem="dSo-g8-loI" secondAttribute="height" multiplier="1:1" id="5RN-k3-vW9"/>
+                                    <constraint firstAttribute="height" constant="260" id="KBo-f2-roc"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SeSAC Study" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brG-7l-zg3">
-                                <rect key="frame" x="43" y="535" width="307.33333333333331" height="100"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SeSAC Study" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brG-7l-zg3">
+                                <rect key="frame" x="72.333333333333329" y="495" width="248.33333333333337" height="88"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="HhG-H3-9fh"/>
+                                    <constraint firstAttribute="height" constant="88" id="HhG-H3-9fh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="42"/>
                                 <color key="textColor" red="0.28627450980392155" green="0.86274509803921573" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -36,10 +37,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dSo-g8-loI" secondAttribute="trailing" constant="76" id="AFV-tt-ii2"/>
-                            <constraint firstItem="dSo-g8-loI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="160" id="W3T-MC-RvZ"/>
-                            <constraint firstItem="dSo-g8-loI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="76" id="gIZ-rI-98Z"/>
+                            <constraint firstItem="dSo-g8-loI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="140" id="W3T-MC-RvZ"/>
                             <constraint firstItem="brG-7l-zg3" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="m0w-4i-BIJ"/>
+                            <constraint firstItem="dSo-g8-loI" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="pih-WZ-onq"/>
                             <constraint firstItem="brG-7l-zg3" firstAttribute="top" secondItem="dSo-g8-loI" secondAttribute="bottom" constant="36" id="tQb-E8-kD0"/>
                         </constraints>
                     </view>

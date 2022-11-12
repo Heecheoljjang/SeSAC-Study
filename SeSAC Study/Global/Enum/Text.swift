@@ -66,6 +66,7 @@ enum ImageName {
     static let leftArrow = "arrow.left"
     static let man = "man"
     static let woman = "woman"
+    static let splash = "splash_logo"
 }
 
 enum ErrorDescription {
