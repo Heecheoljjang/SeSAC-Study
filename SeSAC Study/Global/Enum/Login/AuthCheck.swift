@@ -32,12 +32,9 @@ enum AuthCodeCheck {
     case wrongCode
     case fail
     case success
-    case sendCode
     
     var message: String {
         switch self {
-        case .sendCode:
-            return "인증번호를 보냈습니다."
         case .timeOut, .wrongCode:
             return "전화번호 인증 실패"
         case .fail:
@@ -46,4 +43,5 @@ enum AuthCodeCheck {
             return "인증 성공"
         }
     }
+    static let sendCode = "인증번호를 보냈습니다."
 }

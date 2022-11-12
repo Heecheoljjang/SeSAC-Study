@@ -27,14 +27,16 @@ final class PhoneNumberViewModel {
 
         let phoneNumber = phoneNumber.value.changeFormat()
         FirebaseManager.shared.fetchVerificationId(phoneNumber: phoneNumber) { [weak self] value in
-            if value {
-                print("verid요청 성공")
-                UserDefaultsManager.shared.setValue(value: phoneNumber, type: .phoneNumber)
+            switch value {
+            case .wrongNumber:
+                self?.sendAuthCheck.accept(.wrongNumber)
+            case .fail:
+                self?.sendAuthCheck.accept(.fail)
+            case .manyRequest:
+                self?.sendAuthCheck.accept(.manyRequest)
+            case .success:
                 self?.sendAuthCheck.accept(.success)
-                return
             }
-            print("실패실패")
-            self?.sendAuthCheck.accept(.fail)
         }
     }
     

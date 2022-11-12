@@ -27,8 +27,7 @@ final class PhoneAuthViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        presentToast(view: mainView, message: AuthCodeCheck.sendCode.message)
+        presentToast(view: mainView, message: AuthCodeCheck.sendCode)
     }
     
     override func configure() {
@@ -48,7 +47,6 @@ final class PhoneAuthViewController: BaseViewController {
         viewModel.buttonStatus
             .asDriver(onErrorJustReturn: ButtonStatus.disable)
             .drive(onNext: { [unowned self] value in
-                //버튼이 true면 색 바꿔주기
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
@@ -56,7 +54,6 @@ final class PhoneAuthViewController: BaseViewController {
         mainView.doneButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { (vc, _) in
-                //버튼 탭했을때 코드 확인해서 authCodeCheck값 바꿔주기
                 vc.viewModel.checkAuth(code: vc.mainView.authTextField.text ?? "")
             })
             .disposed(by: disposeBag)
@@ -77,13 +74,21 @@ final class PhoneAuthViewController: BaseViewController {
         
         mainView.retryButton.rx.tap
             .bind(onNext: { [weak self] _ in
+                
                 self?.viewModel.requestAgain()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.phoneNumberCheck
+            .asDriver(onErrorJustReturn: .fail)
+            .drive(onNext: { [weak self] value in
+                self?.authCodeCheck(value: value)
             })
             .disposed(by: disposeBag)
     }
     private func authCheck(value: AuthCodeCheck) {
         switch value {
-        case .timeOut, .wrongCode, .fail, .sendCode:
+        case .timeOut, .wrongCode, .fail:
             presentToast(view: mainView, message: value.message)
         case .success:
             viewModel.fetchIdToken()
@@ -91,20 +96,29 @@ final class PhoneAuthViewController: BaseViewController {
     }
     private func checkStatus(value: NetworkErrorString) {
         switch value {
-        case .signUpSuccess: //코드 200이므로 로그인성공 -> 홈 화면으로 전환
+        case .signUpSuccess:
             print("홈화면으로 전환")
-            
-            
+            let vc = MainViewController()
+            changeRootViewController(viewcontroller: vc)
         case .signUpRequired:
             print("회원가입")
             let vc = NicknameViewController()
             transition(vc, transitionStyle: .push)
         case .tokenError:
-            //다시 요청하기
+            print("토근다시가져오기")
             viewModel.fetchIdToken()
         default:
             print("나머지")
             presentToast(view: mainView, message: ErrorText.message)
+        }
+    }
+    
+    private func authCodeCheck(value: AuthCheck) {
+        switch value {
+        case .wrongNumber, .fail, .manyRequest:
+            presentToast(view: mainView, message: value.message)
+        case .success:
+            presentToast(view: mainView, message: value.message)
         }
     }
 }

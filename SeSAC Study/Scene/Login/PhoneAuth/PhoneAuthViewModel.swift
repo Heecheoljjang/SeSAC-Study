@@ -19,22 +19,25 @@ final class PhoneAuthViewModel {
     
     var errorStatus = PublishRelay<NetworkErrorString>()
     
+    var phoneNumberCheck = PublishRelay<AuthCheck>()
+    
     func checkAuth(code: String) {
-        
         guard let id = UserDefaultsManager.shared.fetchValue(type: .verificationId) as? String else { return }
         
         if buttonStatus.value == ButtonStatus.disable {
-            authCodeCheck.accept(AuthCodeCheck.wrongCode)
+            authCodeCheck.accept(.wrongCode)
             return
         }
-
         FirebaseManager.shared.checkAuthCode(verId: id, authCode: code) { [weak self] result in
             switch result {
-            case .success(_):
+            case .timeOut:
+                self?.authCodeCheck.accept(.timeOut)
+            case .wrongCode:
+                self?.authCodeCheck.accept(.wrongCode)
+            case .fail:
+                self?.authCodeCheck.accept(.fail)
+            case .success:
                 self?.authCodeCheck.accept(.success)
-            case .failure(let error):
-                print("에러에러에러에러에러: \(error.localizedDescription)")
-                self?.checkError(error: error.localizedDescription)
             }
         }
     }
@@ -57,11 +60,9 @@ final class PhoneAuthViewModel {
         APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { result in
             switch result {
             case .success(let response):
-                //MARK: 성공했으면 가입된 회원이므로 홈화면으로
                 print("성공했지요: \(response)")
                 self.errorStatus.accept(.signUpSuccess)
             case .failure(let error):
-                //실패했으면 상태코드로 판단. 만약 406이라면 회원가입으로, 나머지는 오류라고
                 print("여기 실패입니다 \(error)")
                 let errorStr = error.fetchNetworkErrorString()
                 self.errorStatus.accept(errorStr)
@@ -73,9 +74,17 @@ final class PhoneAuthViewModel {
     func requestAgain() {
         print("재요청")
         guard let phoneNumber = UserDefaultsManager.shared.fetchValue(type: .phoneNumber) as? String else { return }
-        print("핸드폰 번호", phoneNumber)
-        FirebaseManager.shared.fetchVerificationId(phoneNumber: phoneNumber) { value in
-            value ? print("인증코드 재요청 성공") : print("인증코드 재요청 실패")
+        FirebaseManager.shared.fetchVerificationId(phoneNumber: phoneNumber) { [weak self] value in
+            switch value {
+            case .wrongNumber:
+                self?.phoneNumberCheck.accept(.wrongNumber)
+            case .fail:
+                self?.phoneNumberCheck.accept(.fail)
+            case .manyRequest:
+                self?.phoneNumberCheck.accept(.manyRequest)
+            case .success:
+                self?.phoneNumberCheck.accept(.success)
+            }
         }
     }
     
@@ -85,14 +94,6 @@ final class PhoneAuthViewModel {
         buttonStatus.accept(value)
     }
 
-    func checkError(error: String) {
-        if error == ErrorDescription.invalidId {
-            authCodeCheck.accept(.fail)
-        } else {
-            authCodeCheck.accept(.wrongCode)
-        }
-    }
-    
     func setErrorStatus(status: NetworkErrorString) {
         errorStatus.accept(status)
     }

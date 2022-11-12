@@ -13,31 +13,48 @@ final class FirebaseManager {
     
     static let shared = FirebaseManager()
     
-    func fetchVerificationId(phoneNumber: String, completionHandler: @escaping ((Bool)->())) {
+    func fetchVerificationId(phoneNumber: String, completionHandler: @escaping ((AuthCheck)->())) {
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { verificationID, error in
             if let error = error {
-                print("verificationID에러: \(error)")
-                completionHandler(false)
+                print("verid가져오기 실패실패")
+                switch error {
+                case AuthErrorCode.tooManyRequests:
+                    print("너뭄낳아")
+                    completionHandler(.manyRequest)
+                case AuthErrorCode.invalidPhoneNumber:
+                    print("번호틀림")
+                    completionHandler(.wrongNumber)
+                default:
+                    print("걍 실패")
+                    completionHandler(.fail)
+                }
                 return
             }
             print("verificationID성공")
             guard let verificationID else { return }
             UserDefaultsManager.shared.setValue(value: verificationID, type: .verificationId)
-            completionHandler(true)
+            completionHandler(.success)
         }
     }
     
-    func checkAuthCode(verId: String, authCode: String, completionHandler: @escaping((Result<Bool, Error>)->())) {
+    func checkAuthCode(verId: String, authCode: String, completionHandler: @escaping((AuthCodeCheck)->())) {
         let credential = PhoneAuthProvider.provider().credential(withVerificationID: verId, verificationCode: authCode)
         Auth.auth().signIn(with: credential) { authResult, error in
             if let error = error {
                 print("인증실패고")
-                completionHandler(.failure(error))
+                switch error {
+                case AuthErrorCode.invalidVerificationCode:
+                    completionHandler(.wrongCode)
+                case AuthErrorCode.missingVerificationCode:
+                    completionHandler(.timeOut)
+                default:
+                    completionHandler(.fail)
+                }
                 return
             }
             print("인증성공이고")
-            completionHandler(.success(true))
+            completionHandler(.success)
         }
     }
     

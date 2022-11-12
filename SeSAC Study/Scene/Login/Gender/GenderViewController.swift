@@ -28,8 +28,6 @@ final class GenderViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //nil인거 판단하고 아니면 선택해주기 gender에 accept
         viewModel.checkUserDefaultsExist()
     }
     
@@ -37,7 +35,6 @@ final class GenderViewController: BaseViewController {
         mainView.manView.rx.tapGesture()
             .when(.recognized)
             .bind(onNext: { [weak self] _ in
-                //MARK: gender값 변경
                 self?.viewModel.setGenderMan()
                 self?.viewModel.setButtonEnable()
             })
@@ -57,8 +54,6 @@ final class GenderViewController: BaseViewController {
                 print("젠더가 바뀌었다")
                 self?.changeViewColor(gender: value)
                 self?.viewModel.setGender(gender: value)
-                
-                //일단 해보기 젠더가 바뀌면 선택된거니까
                 self?.viewModel.setButtonEnable()
             })
             .disposed(by: disposeBag)
@@ -124,18 +119,18 @@ final class GenderViewController: BaseViewController {
         case .signUpSuccess:
             print("회원가입 성공")
             viewModel.setInvalidNickname(value: false)
+            let vc = MainViewController()
+            changeRootViewController(viewcontroller: vc)
         case .alreadyExistUser:
             print("이미 가입한 유저")
         case .invalidNickname:
             print("사용할 수 없는 닉네임")
             viewModel.setInvalidNickname(value: true)
-            //MARK: 닉네임 작성화면으로 이동. 이전 기입 내용 유지
             if let viewController = navigationController?.viewControllers.first(where: {$0 is NicknameViewController}) {
                   navigationController?.popToViewController(viewController, animated: false)
             }
         case .tokenError:
             print("토큰 에러")
-            //MARK: 토큰 재갱신후 재요청
             viewModel.fetchIdToken()
         case .signUpRequired:
             print("나올 일 없음")
