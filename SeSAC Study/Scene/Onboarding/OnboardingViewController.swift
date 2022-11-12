@@ -27,7 +27,7 @@ final class OnboardingViewController: BaseViewController {
     private func bind() {
         viewModel.onboardingData
             .bind(to: mainView.collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.identifier, cellType: OnboardingCollectionViewCell.self)) { item, element, cell in
-                cell.messageLabel.attributedText = element.message.makeAttributedSpacing(spacing: 8, text: element.colorText)
+                cell.messageLabel.attributedText = element.message.makeAttributedSpacing(spacing: 8, colorText: element.colorText)
                 cell.imageView.image = UIImage(named: element.imageName)
             }
             .disposed(by: disposeBag)

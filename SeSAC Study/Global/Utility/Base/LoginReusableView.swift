@@ -23,7 +23,7 @@ class LoginReusableView: BaseView {
     
     lazy var messageLabel: UILabel = {
         let label = UILabel()
-        label.text = message
+        label.attributedText = message.makeAttributedSpacing(spacing: 4, colorText: "")
         label.font = .systemFont(ofSize: 20)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -33,7 +33,7 @@ class LoginReusableView: BaseView {
     
     lazy var detailMessageLabel: UILabel = {
         let label = UILabel()
-        label.text = detailMessage
+        label.attributedText = detailMessage.makeAttributedSpacing(spacing: 4, colorText: "")
         label.textColor = .graySeven
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center
@@ -77,13 +77,13 @@ class LoginReusableView: BaseView {
         super.setUpConstraints()
 
         stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(152)
+            make.top.equalToSuperview().offset(140)
             make.horizontalEdges.equalToSuperview().inset(48)
             make.height.equalTo(72)
         }
         
         doneButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(412)
+            make.top.equalToSuperview().offset(400)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(48)
         }

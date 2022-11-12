@@ -17,14 +17,14 @@ class DateReusableView: BaseView {
         let label = UILabel()
         label.textColor = .black
         label.text = dateString
-        label.font = .systemFont(ofSize: 16)
+        label.font = UIFont(name: CustomFont.regular, size: 16)
         
         return label
     }()
     
     lazy var dateTextField: UITextField = {
         let textField = UITextField()
-        textField.font = .systemFont(ofSize: 14)
+        textField.font = UIFont(name: CustomFont.regular, size: 14)
         textField.textColor = .black
         textField.placeholder = placeholder
         textField.textAlignment = .left

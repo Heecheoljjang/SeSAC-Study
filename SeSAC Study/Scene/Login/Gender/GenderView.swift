@@ -36,8 +36,8 @@ final class GenderView: LoginReusableView {
     let manLabel: UILabel = {
         let label = UILabel()
         label.text = Gender.man.text
-        label.font = .systemFont(ofSize: 16)
-        
+        label.font = UIFont(name: CustomFont.regular, size: 16)
+
         return label
     }()
     
@@ -59,8 +59,8 @@ final class GenderView: LoginReusableView {
     let womanLabel: UILabel = {
         let label = UILabel()
         label.text = Gender.woman.text
-        label.font = .systemFont(ofSize: 16)
-        
+        label.font = UIFont(name: CustomFont.regular, size: 16)
+
         return label
     }()
     

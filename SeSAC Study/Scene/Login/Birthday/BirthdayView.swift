@@ -62,13 +62,13 @@ final class BirthdayView: LoginReusableView {
         super.setUpConstraints()
         
         hiddenTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(300)
+            make.top.equalToSuperview().offset(276)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(48)
         }
         
         dateStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(300)
+            make.top.equalToSuperview().offset(276)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(48)
         }

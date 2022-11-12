@@ -12,7 +12,7 @@ final class PhoneAuthView: LoginReusableView {
     
     let authTextField: UITextField = {
         let textField = UITextField()
-        textField.font = .systemFont(ofSize: 14)
+        textField.font = UIFont(name: CustomFont.regular, size: 14)
         textField.placeholder = LoginText.phoneAuth.placeholder
         textField.textAlignment = .left
         textField.keyboardType = .numberPad
@@ -30,7 +30,7 @@ final class PhoneAuthView: LoginReusableView {
     let timerLabel: UILabel = {
         let label = UILabel()
         label.textColor = .brandGreen
-        label.font = .systemFont(ofSize: 14)
+        label.font = UIFont(name: CustomFont.regular, size: 14)
         label.text = "05:00" //임시
         
         return label
@@ -65,7 +65,7 @@ final class PhoneAuthView: LoginReusableView {
         super.setUpConstraints()
         
         retryButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(288)
+            make.top.equalToSuperview().offset(276)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
             make.width.equalTo(72)

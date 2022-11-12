@@ -13,7 +13,7 @@ final class PhoneNumberView: LoginReusableView {
     let numberTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = LoginText.phoneNumber.placeholder
-        textField.font = .systemFont(ofSize: 14)
+        textField.font = UIFont(name: CustomFont.regular, size: 14)
         textField.keyboardType = .numberPad
         
         return textField
@@ -41,16 +41,16 @@ final class PhoneNumberView: LoginReusableView {
     override func setUpConstraints() {
         super.setUpConstraints()
         
-        stackView.snp.removeConstraints()
+//        stackView.snp.removeConstraints()
         
-        stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(160)
-            make.horizontalEdges.equalToSuperview().inset(73)
-            make.height.equalTo(72)
-        }
+//        stackView.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(160)
+//            make.horizontalEdges.equalToSuperview().inset(73)
+//            make.height.equalTo(72)
+//        }
         
         numberTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(300)
+            make.top.equalToSuperview().offset(288)
             make.horizontalEdges.equalToSuperview().inset(28)
         }
         

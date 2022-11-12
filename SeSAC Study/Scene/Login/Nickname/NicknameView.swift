@@ -13,8 +13,8 @@ final class NicknameView: LoginReusableView {
     let nicknameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = LoginText.nickName.placeholder
-        textField.font = .systemFont(ofSize: 14)
-        
+        textField.font = UIFont(name: CustomFont.regular, size: 14)
+
         return textField
     }()
     
@@ -41,7 +41,7 @@ final class NicknameView: LoginReusableView {
         super.setUpConstraints()
         
         nicknameTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(300)
+            make.top.equalToSuperview().offset(288)
             make.horizontalEdges.equalToSuperview().inset(28)
         }
         

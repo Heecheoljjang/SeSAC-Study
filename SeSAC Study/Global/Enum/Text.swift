@@ -13,7 +13,7 @@ enum LoginText {
     var message: String {
         switch self {
         case .phoneNumber:
-            return "새싹 서비스 이용을 위해 휴대폰 번호를 입력해 주세요"
+            return "새싹 서비스 이용을 위해\n 휴대폰 번호를 입력해 주세요"
         case .phoneAuth:
             return "인증번호가 문자로 전송되었어요"
         case .nickName:
