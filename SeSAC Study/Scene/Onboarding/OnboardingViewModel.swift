@@ -12,7 +12,6 @@ import RxSwift
 final class OnboardingViewModel: CommonViewModel {
 
     struct Input {
-        let onboardingData: Observable<[OnboardingData]>
         let offset: ControlProperty<CGPoint>
         let tapStartButton: ControlEvent<Void>
     }
@@ -25,7 +24,7 @@ final class OnboardingViewModel: CommonViewModel {
     func transform(input: Input) -> Output {
         let xOffset = input.offset.map { $0.x }
         
-        return Output(items: input.onboardingData, pageCount: input.onboardingData, xOffset: xOffset, tapStartButton: input.tapStartButton)
+        return Output(items: onboardingData, pageCount: onboardingData, xOffset: xOffset, tapStartButton: input.tapStartButton)
     }
     
     let onboardingData = Observable.just([OnboardingData.first, OnboardingData.second, OnboardingData.third])

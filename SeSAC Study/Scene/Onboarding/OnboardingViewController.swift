@@ -25,7 +25,7 @@ final class OnboardingViewController: BaseViewController {
     }
     
     private func bind() {
-        let input = OnboardingViewModel.Input(onboardingData: viewModel.onboardingData, offset: mainView.collectionView.rx.contentOffset, tapStartButton: mainView.startButton.rx.tap)
+        let input = OnboardingViewModel.Input(offset: mainView.collectionView.rx.contentOffset, tapStartButton: mainView.startButton.rx.tap)
         let output = viewModel.transform(input: input)
         
         output.items
