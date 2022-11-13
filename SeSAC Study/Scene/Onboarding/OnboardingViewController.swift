@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class OnboardingViewController: BaseViewController {
+final class OnboardingViewController: ViewController {
     
     private var mainView = OnboardingView()
     private let viewModel = OnboardingViewModel()
@@ -24,7 +24,7 @@ final class OnboardingViewController: BaseViewController {
         bind()
     }
     
-    private func bind() {
+    func bind() {
         let input = OnboardingViewModel.Input(offset: mainView.collectionView.rx.contentOffset, tapStartButton: mainView.startButton.rx.tap)
         let output = viewModel.transform(input: input)
         

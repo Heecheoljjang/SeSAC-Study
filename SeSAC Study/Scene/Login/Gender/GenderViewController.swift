@@ -10,7 +10,7 @@ import RxGesture
 import RxSwift
 import RxCocoa
 
-final class GenderViewController: BaseViewController {
+final class GenderViewController: ViewController {
     
     private var mainView = GenderView(message: LoginText.gender.message, detailMessage: LoginText.gender.detailMessage, buttonTitle: ButtonTitle.next)
     private let disposeBag = DisposeBag()
@@ -31,7 +31,7 @@ final class GenderViewController: BaseViewController {
         viewModel.checkUserDefaultsExist()
     }
     
-    private func bind() {
+    func bind() {
         let input = GenderViewModel.Input(tapDoneButton: mainView.doneButton.rx.tap)
         let output = viewModel.transform(input: input)
         
@@ -102,7 +102,6 @@ final class GenderViewController: BaseViewController {
     private func statusCheck(status: GenderStatus) {
         switch status {
         case .selected:
-            //MARK: 첫 네트워킹
             LoadingIndicator.showLoading()
             viewModel.requestSignUp()
         case .unselected:

@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class BirthdayViewController: BaseViewController {
+final class BirthdayViewController: ViewController {
     
     private var mainView = BirthdayView(message: LoginText.birthday.message, detailMessage: LoginText.birthday.detailMessage, buttonTitle: ButtonTitle.next)
     private let disposeBag = DisposeBag()
@@ -35,7 +35,7 @@ final class BirthdayViewController: BaseViewController {
         }
     }
     
-    private func bind() {
+    func bind() {
         let input = BirthdayViewModel.Input(date: mainView.datePicker.rx.date, tapDoneButton: mainView.doneButton.rx.tap)
         let output = viewModel.transform(input: input)
         

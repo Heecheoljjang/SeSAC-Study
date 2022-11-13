@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class NicknameViewController: BaseViewController {
+final class NicknameViewController: ViewController {
     
     private var mainView = NicknameView(message: LoginText.nickName.message, detailMessage: LoginText.nickName.detailMessage, buttonTitle: ButtonTitle.next)
     private let viewModel = NickNameViewModel()
@@ -48,7 +48,7 @@ final class NicknameViewController: BaseViewController {
         viewModel.setInvalid()
     }
     
-    private func bind() {
+    func bind() {
         let input = NickNameViewModel.Input(nickNameText: mainView.nicknameTextField.rx.text, tapDoneButton: mainView.doneButton.rx.tap)
         let output = viewModel.transform(input: input)
         
@@ -103,14 +103,12 @@ final class NicknameViewController: BaseViewController {
 
             viewModel.setNickname(name: mainView.nicknameTextField.text ?? "")
             
-            //MARK: 화면 전환
             let vc = BirthdayViewController()
             print("닉네임: \(UserDefaultsManager.shared.fetchValue(type: .nick) as? String)")
             transition(vc, transitionStyle: .push)
         }
     }
     
-    //MARK: - 수정하기 뷰모델에서 처리하거나 String의 Extension으로
     private func textFieldRemoveLast(textField: UITextField) {
         textField.text?.removeLast()
     }

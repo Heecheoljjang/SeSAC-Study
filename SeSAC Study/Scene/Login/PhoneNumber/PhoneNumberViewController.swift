@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 import Toast
 
-final class PhoneNumberViewController: BaseViewController {
+final class PhoneNumberViewController: ViewController {
     
     private var mainView = PhoneNumberView(message: LoginText.phoneNumber.message, detailMessage: LoginText.phoneNumber.detailMessage, buttonTitle: ButtonTitle.authButtonTitle)
     private let viewModel = PhoneNumberViewModel()
@@ -26,13 +26,8 @@ final class PhoneNumberViewController: BaseViewController {
         viewModel.setIsFirst()
         bind()
     }
-    
-    override func configure() {
-        super.configure()
 
-    }
-    
-    private func bind() {
+    func bind() {
         let input = PhoneNumberViewModel.Input(numberText: mainView.numberTextField.rx.text, tapDoneButton: mainView.doneButton.rx.tap)
         let output = viewModel.transform(input: input)
         

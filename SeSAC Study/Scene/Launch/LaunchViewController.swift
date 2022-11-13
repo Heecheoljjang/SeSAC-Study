@@ -23,7 +23,7 @@ import RxCocoa
  
  */
 
-final class LaunchViewController: BaseViewController {
+final class LaunchViewController: ViewController {
     
     private var mainView = LaunchView()
     private let viewModel = LaunchViewModel()
@@ -45,7 +45,7 @@ final class LaunchViewController: BaseViewController {
         viewModel.checkUserStatus()
     }
     
-    private func bind() {
+    func bind() {
         let input = LaunchViewModel.Input()
         let output = viewModel.transform(input: input)
     

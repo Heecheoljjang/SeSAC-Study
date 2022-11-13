@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class PhoneAuthViewController: BaseViewController {
+final class PhoneAuthViewController: ViewController {
     
     private var mainView = PhoneAuthView(message: LoginText.phoneAuth.message, detailMessage: LoginText.phoneAuth.detailMessage, buttonTitle: ButtonTitle.authCheckButtonTitle)
     private let disposeBag = DisposeBag()
@@ -35,7 +35,7 @@ final class PhoneAuthViewController: BaseViewController {
         
     }
     
-    private func bind() {
+    func bind() {
         let input = PhoneAuthViewModel.Input(authCode: mainView.authTextField.rx.text, tapDoneButton: mainView.doneButton.rx.tap, tapRetryButton: mainView.retryButton.rx.tap)
         let output = viewModel.transform(input: input)
         

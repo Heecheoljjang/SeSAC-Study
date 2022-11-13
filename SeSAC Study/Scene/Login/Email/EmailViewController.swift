@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class EmailViewController: BaseViewController {
+final class EmailViewController: ViewController {
     
     private var mainView = EmailView(message: LoginText.email.message, detailMessage: LoginText.email.detailMessage, buttonTitle: ButtonTitle.next)
     private let viewModel = EmailViewModel()
@@ -35,7 +35,7 @@ final class EmailViewController: BaseViewController {
         }
     }
     
-    private func bind() {
+    func bind() {
         let input = EmailViewModel.Input(emailText: mainView.emailTextField.rx.text, doneButtonTap: mainView.doneButton.rx.tap)
         let output = viewModel.transform(input: input)
 
