@@ -49,19 +49,16 @@ final class NicknameViewController: BaseViewController {
     }
     
     private func bind() {
+        let input = NickNameViewModel.Input(nickNameText: mainView.nicknameTextField.rx.text, tapDoneButton: mainView.doneButton.rx.tap)
+        let output = viewModel.transform(input: input)
         
-        mainView.nicknameTextField.rx.text
-            .orEmpty
-            .map{ $0.count >= 1 && $0.count <= 10 }
+        output.validNicknameCount
             .bind(onNext: { [weak self] value in
                 value ? self?.viewModel.setButtonStatus(value: ButtonStatus.enable) : self?.viewModel.setButtonStatus(value: ButtonStatus.disable)
             })
             .disposed(by: disposeBag)
         
-        mainView.nicknameTextField.rx.text
-            .orEmpty
-            .observe(on: MainScheduler.asyncInstance)
-            .map { $0.count > 10 }
+        output.longNickname
             .bind(onNext: { [unowned self] value in
                 if value {
                     self.textFieldRemoveLast(textField: self.mainView.nicknameTextField)
@@ -70,28 +67,19 @@ final class NicknameViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-//        mainView.nicknameTextField.rx.text
-//            .orEmpty
-//            .bind(onNext: { [weak self] value in
-//                self?.viewModel.setNickname(name: value)
-//            })
-//            .disposed(by: disposeBag)
-        
-        viewModel.buttonStatus
-            .asDriver(onErrorJustReturn: ButtonStatus.disable)
+        output.buttonStatus
             .drive(onNext: { [unowned self] value in
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
         
-        mainView.doneButton.rx.tap
+        output.tapDoneButton
             .bind(onNext: { [weak self] _ in
                 self?.viewModel.checkIsEnable()
             })
             .disposed(by: disposeBag)
             
-        viewModel.isEnable
-            .asDriver(onErrorJustReturn: .fail)
+        output.enableNickname
             .drive(onNext: { [weak self] value in
                 self?.nicknameCheck(isEnable: value)
             })

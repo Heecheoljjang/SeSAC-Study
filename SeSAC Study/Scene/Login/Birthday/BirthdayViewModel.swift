@@ -9,7 +9,26 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class BirthdayViewModel {
+final class BirthdayViewModel: CommonViewModel {
+    
+    struct Input {
+        let date: ControlProperty<Date>
+        let tapDoneButton: ControlEvent<Void>
+    }
+    struct Output {
+        let selectedDate: ControlProperty<Date>
+        let birthday: Driver<Date>
+        let buttonStatus: Driver<ButtonStatus>
+        let tapDoneButton: ControlEvent<Void>
+        let checkStatus: Driver<BirthdayStatus>
+    }
+    func transform(input: Input) -> Output {
+        let birthday = birthday.asDriver(onErrorJustReturn: Date())
+        let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
+        let checkStatus = checkStatus.asDriver(onErrorJustReturn: .disable)
+        
+        return Output(selectedDate: input.date, birthday: birthday, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, checkStatus: checkStatus)
+    }
     
     var birthday = PublishRelay<Date>()
     

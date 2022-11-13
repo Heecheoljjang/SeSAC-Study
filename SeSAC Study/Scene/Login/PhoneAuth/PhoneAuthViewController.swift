@@ -36,50 +36,47 @@ final class PhoneAuthViewController: BaseViewController {
     }
     
     private func bind() {
-        mainView.authTextField.rx.text
-            .orEmpty
-            .map { $0.count == 6}
+        let input = PhoneAuthViewModel.Input(authCode: mainView.authTextField.rx.text, tapDoneButton: mainView.doneButton.rx.tap, tapRetryButton: mainView.retryButton.rx.tap)
+        let output = viewModel.transform(input: input)
+        
+        output.authCode
             .bind(onNext: { [weak self] value in
                 value ? self?.viewModel.setButtonStatus(value: ButtonStatus.enable) : self?.viewModel.setButtonStatus(value: ButtonStatus.disable)
             })
             .disposed(by: disposeBag)
         
-        viewModel.buttonStatus
-            .asDriver(onErrorJustReturn: ButtonStatus.disable)
+        output.buttonStatus
             .drive(onNext: { [unowned self] value in
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
 
-        mainView.doneButton.rx.tap
+        output.tapDoneButton
             .withUnretained(self)
             .bind(onNext: { (vc, _) in
                 vc.viewModel.checkAuth(code: vc.mainView.authTextField.text ?? "")
             })
             .disposed(by: disposeBag)
         
-        viewModel.authCodeCheck
-            .asDriver(onErrorJustReturn: .fail)
+        output.authCodeCheck
             .drive(onNext: { [weak self] value in
                 self?.authCheck(value: value)
             })
             .disposed(by: disposeBag)
         
-        viewModel.errorStatus
-            .asDriver(onErrorJustReturn: .clientError)
+        output.errorStatus
             .drive(onNext: { [weak self] value in
                 self?.checkStatus(value: value)
             })
             .disposed(by: disposeBag)
         
-        mainView.retryButton.rx.tap
+        output.tapRetryButton
             .bind(onNext: { [weak self] _ in
-                
                 self?.viewModel.requestAgain()
             })
             .disposed(by: disposeBag)
         
-        viewModel.phoneNumberCheck
+        output.phoneNumberCheck
             .asDriver(onErrorJustReturn: .fail)
             .drive(onNext: { [weak self] value in
                 self?.authCodeCheck(value: value)

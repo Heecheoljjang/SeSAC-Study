@@ -9,7 +9,17 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-final class LaunchViewModel {
+final class LaunchViewModel: CommonViewModel {
+    
+    struct Input {}
+    struct Output {
+        let status: Driver<UserStatus>
+    }
+    func transform(input: Input) -> Output {
+        let status = status.asDriver(onErrorJustReturn: .onboarding)
+        
+        return Output(status: status)
+    }
     
     var status = PublishRelay<UserStatus>()
     

@@ -36,45 +36,36 @@ final class BirthdayViewController: BaseViewController {
     }
     
     private func bind() {
+        let input = BirthdayViewModel.Input(date: mainView.datePicker.rx.date, tapDoneButton: mainView.doneButton.rx.tap)
+        let output = viewModel.transform(input: input)
         
-        mainView.datePicker.rx.date
+        output.selectedDate
             .bind(onNext: { [weak self] value in
-                print("데이트피커 \(value)")
                 self?.viewModel.setBirthday(date: value)
-//                self?.viewModel.checkAge(date: value) => birthday로 옮김
             })
             .disposed(by: disposeBag)
         
-        viewModel.birthday
-//            .asSignal(onErrorJustReturn: Date())
-            .asDriver(onErrorJustReturn: Date())
+        output.birthday
             .drive(onNext: { [weak self] value in
-                print("버스데이: \(value)")
-                //텍스트필드 바꾸기, 데이트피커 날짜도
                 self?.setTextField(date: value)
-
                 self?.viewModel.setBirth(date: value)
-
                 self?.viewModel.checkAge(date: value)
             })
             .disposed(by: disposeBag)
-
         
-        viewModel.buttonStatus
-            .asDriver(onErrorJustReturn: ButtonStatus.disable)
+        output.buttonStatus
             .drive(onNext: { [unowned self] value in
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
         
-        mainView.doneButton.rx.tap
+        output.tapDoneButton
             .bind(onNext: { [weak self] _ in
                 self?.viewModel.setCheckStatus()
             })
             .disposed(by: disposeBag)
         
-        viewModel.checkStatus
-            .asDriver(onErrorJustReturn: .disable)
+        output.checkStatus
             .drive(onNext: { [weak self] value in
                 self?.checkStatus(status: value)
             })
@@ -94,7 +85,6 @@ final class BirthdayViewController: BaseViewController {
     private func checkStatus(status: BirthdayStatus) {
         switch status {
         case .enable:
-            //이메일로 전환
             let vc = EmailViewController()
             transition(vc, transitionStyle: .push)
         case .disable:

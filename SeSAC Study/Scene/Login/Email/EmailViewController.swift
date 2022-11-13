@@ -29,10 +29,7 @@ final class EmailViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         presentKeyboard()
-        
-        //유저디폴트 nil이 아닐때만 텍스트필드에 세팅
-        print("짜증나", viewModel.checkUserDefaultsExist())
-        
+                
         if viewModel.checkUserDefaultsExist() {
             setTextField()
         }
@@ -76,7 +73,6 @@ final class EmailViewController: BaseViewController {
         switch status {
         case .valid:
             viewModel.setEmail(email: mainView.emailTextField.text ?? "")
-            //MARK: 화면전환
             let vc = GenderViewController()
             transition(vc, transitionStyle: .push)
         case .invalid:

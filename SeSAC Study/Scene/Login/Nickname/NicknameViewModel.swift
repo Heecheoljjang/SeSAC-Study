@@ -9,7 +9,32 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class NickNameViewModel {
+final class NickNameViewModel: CommonViewModel {
+    
+    struct Input {
+        let nickNameText: ControlProperty<String?>
+        let tapDoneButton: ControlEvent<Void>
+    }
+    struct Output {
+        let validNicknameCount: Observable<Bool>
+        let longNickname: Observable<Bool>
+        let buttonStatus: Driver<ButtonStatus>
+        let tapDoneButton: ControlEvent<Void>
+        let enableNickname: Driver<NicknameCheck>
+    }
+    func transform(input: Input) -> Output {
+        let validNickNameCount = input.nickNameText.orEmpty
+            .map { $0.count >= 1 && $0.count <= 10 }
+            .share()
+        let longNickname = input.nickNameText.orEmpty
+            .observe(on: MainScheduler.asyncInstance)
+            .map { $0.count > 10 }
+            .share()
+        let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
+        let enableNickname = isEnable.asDriver(onErrorJustReturn: .fail)
+        
+        return Output(validNicknameCount: validNickNameCount, longNickname: longNickname, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, enableNickname: enableNickname)
+    }
     
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: .disable)
     

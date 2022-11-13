@@ -10,7 +10,26 @@ import RxCocoa
 import RxSwift
 import FirebaseAuth
 
-final class GenderViewModel {
+final class GenderViewModel: CommonViewModel {
+    
+    struct Input {
+        let tapDoneButton: ControlEvent<Void>
+    }
+    struct Output {
+        let gender: Driver<Gender>
+        let buttonStatus: Driver<ButtonStatus>
+        let tapDoneButton: ControlEvent<Void>
+        let genderStatus: Driver<GenderStatus>
+        let errorStatus: Driver<NetworkErrorString>
+    }
+    func transform(input: Input) -> Output {
+        let gender = gender.asDriver(onErrorJustReturn: .man)
+        let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
+        let genderStatus = genderStatus.asDriver(onErrorJustReturn: .unselected)
+        let errorStatus = errorStatus.asDriver(onErrorJustReturn: .clientError)
+        
+        return Output(gender: gender, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, genderStatus: genderStatus, errorStatus: errorStatus)
+    }
     
     var gender = PublishRelay<Gender>()
     
@@ -56,7 +75,7 @@ final class GenderViewModel {
         print(nickname)
         print(birth)
         print(email)
-        print(gender)
+        print(Int(gender)!)
         
         let api = SeSacAPI.signUp(phoneNumber: phoneNumber, fcmToken: fcmToken, nickname: nickname, birth: birth, email: email, gender: Int(gender)!)
         

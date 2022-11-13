@@ -10,7 +10,27 @@ import FirebaseAuth
 import RxSwift
 import RxCocoa
 
-final class PhoneNumberViewModel {
+final class PhoneNumberViewModel: CommonViewModel {
+    
+    struct Input {
+        let numberText: ControlProperty<String?>
+        let tapDoneButton: ControlEvent<Void>
+    }
+    struct Output {
+        let numberText: ControlProperty<String>
+        let phoneNumber: Driver<String>
+        let buttonStatus: Driver<ButtonStatus>
+        let tapDoneButton: ControlEvent<Void>
+        let sendAuthCheck: Driver<AuthCheck>
+    }
+    func transform(input: Input) -> Output {
+        let numberText = input.numberText.orEmpty
+        let phoneNumber = phoneNumber.asDriver(onErrorJustReturn: "")
+        let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
+        let sendAuthCheck = sendAuthCheck.asDriver(onErrorJustReturn: .fail)
+        
+        return Output(numberText: numberText, phoneNumber: phoneNumber, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, sendAuthCheck: sendAuthCheck)
+    }
     
     var sendAuthCheck = PublishRelay<AuthCheck>()
 

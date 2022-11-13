@@ -42,13 +42,14 @@ final class LaunchViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //여기서 유저디폴트로 값 넣어주는 메서드 실행
         viewModel.checkUserStatus()
     }
     
     private func bind() {
-        viewModel.status
-            .asDriver(onErrorJustReturn: .onboarding)
+        let input = LaunchViewModel.Input()
+        let output = viewModel.transform(input: input)
+    
+        output.status
             .drive(onNext: { [weak self] value in
                 self?.changeVC(status: value)
             })

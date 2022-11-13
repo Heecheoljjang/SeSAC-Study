@@ -11,8 +11,32 @@ import RxCocoa
 import FirebaseAuth
 import Alamofire
 
-final class PhoneAuthViewModel {
+final class PhoneAuthViewModel: CommonViewModel {
         
+    struct Input {
+        let authCode: ControlProperty<String?>
+        let tapDoneButton: ControlEvent<Void>
+        let tapRetryButton: ControlEvent<Void>
+    }
+    struct Output {
+        let authCode: Observable<Bool>
+        let buttonStatus: Driver<ButtonStatus>
+        let tapDoneButton: ControlEvent<Void>
+        let authCodeCheck: Driver<AuthCodeCheck>
+        let errorStatus: Driver<NetworkErrorString>
+        let tapRetryButton: ControlEvent<Void>
+        let phoneNumberCheck: Driver<AuthCheck>
+    }
+    func transform(input: Input) -> Output {
+        let authCode = input.authCode.orEmpty.map{$0.count == 6}
+        let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
+        let authCodeCheck = authCodeCheck.asDriver(onErrorJustReturn: .fail)
+        let errorStatus = errorStatus.asDriver(onErrorJustReturn: .clientError)
+        let phoneNumberCheck = phoneNumberCheck.asDriver(onErrorJustReturn: .fail)
+        
+        return Output(authCode: authCode, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, authCodeCheck: authCodeCheck, errorStatus: errorStatus, tapRetryButton: input.tapRetryButton, phoneNumberCheck: phoneNumberCheck)
+    }
+    
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: ButtonStatus.disable)
         
     var authCodeCheck = PublishRelay<AuthCodeCheck>()

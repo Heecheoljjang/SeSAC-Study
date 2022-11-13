@@ -33,36 +33,35 @@ final class PhoneNumberViewController: BaseViewController {
     }
     
     private func bind() {
-        mainView.numberTextField.rx.text
-            .orEmpty
+        let input = PhoneNumberViewModel.Input(numberText: mainView.numberTextField.rx.text, tapDoneButton: mainView.doneButton.rx.tap)
+        let output = viewModel.transform(input: input)
+        
+        output.numberText
             .bind(onNext: { [weak self] value in
-                self?.viewModel.setPhoneNumber(number: value) //전화번호
-                self?.viewModel.checkPhoneNumber(number: value) //유효한지 체크
+                self?.viewModel.setPhoneNumber(number: value)
+                self?.viewModel.checkPhoneNumber(number: value)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.phoneNumber
-            .asDriver(onErrorJustReturn: "")
+
+        output.phoneNumber
             .drive(onNext: { [weak self] value in
                 self?.mainView.numberTextField.text = value.pretty()
             })
             .disposed(by: disposeBag)
         
-        viewModel.buttonStatus
-            .asDriver(onErrorJustReturn: ButtonStatus.disable)
+        output.buttonStatus
             .drive(onNext: { [unowned self] value in
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
 
-        mainView.doneButton.rx.tap
+        output.tapDoneButton
             .bind(onNext: { [weak self] _ in
                 self?.viewModel.sendPhoneAuth()
             })
             .disposed(by: disposeBag)
         
-        viewModel.sendAuthCheck
-            .asDriver(onErrorJustReturn: .fail)
+        output.sendAuthCheck
             .drive(onNext: { [weak self] value in
                 self?.authCheck(value: value)
             })

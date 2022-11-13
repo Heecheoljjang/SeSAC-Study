@@ -47,9 +47,6 @@ final class EmailViewModel: CommonViewModel {
     }
     
     func checkUserDefaultsExist() -> Bool {
-        //nil이면 false
-//        guard let email = UserDefaultsManager.shared.fetchValue(type: .email) as? String else { return false }
-//        print("제발요 \(email)")
         let email = UserDefaultsManager.shared.fetchValue(type: .email) as? String ?? ""
         return email.isEmpty ? false : true
     }
@@ -57,7 +54,6 @@ final class EmailViewModel: CommonViewModel {
     func fetchEmail() -> String {
         guard let email = UserDefaultsManager.shared.fetchValue(type: .email) as? String else { print("이메일 없음 ")
             return "" }
-        print("닐 아님", email)
         return email
     }
 }

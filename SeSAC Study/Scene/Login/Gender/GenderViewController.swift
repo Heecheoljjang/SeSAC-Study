@@ -32,6 +32,9 @@ final class GenderViewController: BaseViewController {
     }
     
     private func bind() {
+        let input = GenderViewModel.Input(tapDoneButton: mainView.doneButton.rx.tap)
+        let output = viewModel.transform(input: input)
+        
         mainView.manView.rx.tapGesture()
             .when(.recognized)
             .bind(onNext: { [weak self] _ in
@@ -48,43 +51,34 @@ final class GenderViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.gender
-            .asDriver(onErrorJustReturn: .man)
+        output.gender
             .drive(onNext: { [weak self] value in
-                print("젠더가 바뀌었다")
                 self?.changeViewColor(gender: value)
                 self?.viewModel.setGender(gender: value)
                 self?.viewModel.setButtonEnable()
             })
             .disposed(by: disposeBag)
         
-        viewModel.buttonStatus
-            .asDriver(onErrorJustReturn: .disable)
+        output.buttonStatus
             .drive(onNext: { [unowned self] value in
-                print("버튼상태바뀌었ㄷ")
                 self.changeButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
         
-        mainView.doneButton.rx.tap
+        output.tapDoneButton
             .bind(onNext: { [weak self] _ in
-                print("탭 됨")
                 self?.viewModel.checkStatus()
             })
             .disposed(by: disposeBag)
         
-        viewModel.genderStatus
-            .asDriver(onErrorJustReturn: .unselected)
+        output.genderStatus
             .drive(onNext: { [weak self] value in
-                print("젠더상태바뀜")
                 self?.statusCheck(status: value)
             })
             .disposed(by: disposeBag)
         
-        viewModel.errorStatus
-            .asDriver(onErrorJustReturn: .clientError)
+        output.errorStatus
             .drive(onNext: { [weak self] value in
-                print("에러상태바뀜")
                 self?.checkErrorStatus(status: value)
             })
             .disposed(by: disposeBag)

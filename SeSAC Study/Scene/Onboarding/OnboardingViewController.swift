@@ -25,21 +25,23 @@ final class OnboardingViewController: BaseViewController {
     }
     
     private func bind() {
-        viewModel.onboardingData
+        let input = OnboardingViewModel.Input(onboardingData: viewModel.onboardingData, offset: mainView.collectionView.rx.contentOffset, tapStartButton: mainView.startButton.rx.tap)
+        let output = viewModel.transform(input: input)
+        
+        output.items
             .bind(to: mainView.collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.identifier, cellType: OnboardingCollectionViewCell.self)) { item, element, cell in
                 cell.messageLabel.attributedText = element.message.makeAttributedSpacing(spacing: 8, colorText: element.colorText)
                 cell.imageView.image = UIImage(named: element.imageName)
             }
             .disposed(by: disposeBag)
         
-        viewModel.onboardingData
+        output.pageCount
             .bind(onNext: { [weak self] value in
                 self?.mainView.pageControl.numberOfPages = value.count
             })
             .disposed(by: disposeBag)
         
-        mainView.collectionView.rx.contentOffset
-            .map { $0.x }
+        output.xOffset
             .withUnretained(self)
             .bind(onNext: { (vc, value) in
                 guard let width = vc.mainView.window?.windowScene?.screen.bounds.width else { return }
@@ -47,14 +49,14 @@ final class OnboardingViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        mainView.collectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        
-        mainView.startButton.rx.tap
+        output.tapStartButton
             .bind(onNext: { [weak self] _ in
                 let phoneNumberVC = PhoneNumberViewController()
                 self?.changeRootViewController(viewcontroller: phoneNumberVC)
             })
             .disposed(by: disposeBag)
+        
+        mainView.collectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
 }
 
