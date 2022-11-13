@@ -6,8 +6,12 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 final class LaunchViewModel {
+    
+    var status = PublishRelay<UserStatus>()
     
     func checkIsFirst() -> Bool {
         guard let isFirst = UserDefaultsManager.shared.fetchValue(type: .isFirst) as? Int else { return false }
@@ -15,4 +19,7 @@ final class LaunchViewModel {
         return isFirst == 0 ? true : false
     }
     
+    func checkUserStatus() {
+        status.accept(UserDefaultsManager.shared.checkUserDefatuls())
+    }
 }

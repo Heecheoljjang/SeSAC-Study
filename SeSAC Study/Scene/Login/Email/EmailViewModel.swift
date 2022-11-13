@@ -48,9 +48,10 @@ final class EmailViewModel: CommonViewModel {
     
     func checkUserDefaultsExist() -> Bool {
         //nil이면 false
-        guard let email = UserDefaultsManager.shared.fetchValue(type: .email) as? String else { return false }
-        print("제발요 \(email)")
-        return UserDefaultsManager.shared.fetchValue(type: .email) as? String != nil ? true : false
+//        guard let email = UserDefaultsManager.shared.fetchValue(type: .email) as? String else { return false }
+//        print("제발요 \(email)")
+        let email = UserDefaultsManager.shared.fetchValue(type: .email) as? String ?? ""
+        return email.isEmpty ? false : true
     }
     
     func fetchEmail() -> String {

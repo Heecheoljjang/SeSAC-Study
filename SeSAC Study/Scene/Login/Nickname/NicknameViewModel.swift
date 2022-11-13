@@ -37,4 +37,14 @@ final class NickNameViewModel {
     func setInvalid() {
         UserDefaultsManager.shared.setValue(value: false, type: .invalidNickname)
     }
+    
+    func checkUserDefaultsExist() -> Bool {
+        
+        let nickname = UserDefaultsManager.shared.fetchValue(type: .nick) as? String ?? ""
+        return nickname.isEmpty ? false : true
+    }
+    
+    func fetchNickname() -> String {
+        return UserDefaultsManager.shared.fetchValue(type: .nick) as? String ?? ""
+    }
 }

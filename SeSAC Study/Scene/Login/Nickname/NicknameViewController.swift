@@ -29,6 +29,9 @@ final class NicknameViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         presentKeyboard()
+        if viewModel.checkUserDefaultsExist() {
+            mainView.nicknameTextField.text = viewModel.fetchNickname()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
