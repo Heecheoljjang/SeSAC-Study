@@ -17,5 +17,10 @@ class BaseViewController: UIViewController {
     
     func configure() {
         navigationItem.backButtonTitle = ""
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.standardAppearance = appearance
     }
 }
