@@ -113,8 +113,8 @@ final class GenderViewController: ViewController {
         switch status {
         case .signUpSuccess:
             viewModel.setInvalidNickname(value: false)
-            let vc = MainViewController()
-            changeRootViewController(viewcontroller: vc)
+            let main = MainTabBarController()
+            changeRootViewController(viewcontroller: main)
         case .alreadyExistUser:
             LoadingIndicator.hideLoading()
             presentToast(view: mainView, message: NetworkErrorString.alreadyExistUser.message)

@@ -70,6 +70,47 @@ enum ImageName {
     static let backButton = "arrow"
 }
 
+enum TabBarData: String {
+    case home, shop, friend, info
+    
+    var title: String {
+        switch self {
+        case .home:
+            return "홈"
+        case .shop:
+            return "새싹샵"
+        case .friend:
+            return "새싹친구"
+        case .info:
+            return "내정보"
+        }
+    }
+    var baseIcon: String {
+        switch self {
+        case .home:
+            return "home"
+        case .shop:
+            return "shop"
+        case .friend:
+            return "friend"
+        case .info:
+            return "info"
+        }
+    }
+    var selectedIcon: String {
+        switch self {
+        case .home:
+            return "homeSelected"
+        case .shop:
+            return "shopSelected"
+        case .friend:
+            return "friendSelected"
+        case .info:
+            return "infoSelected"
+        }
+    }
+}
+
 enum DateString {
     case year, month, day, date, dateString
     
