@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: - 여유될때 enum 꼭 정리하기!
+
 enum LoginText {
     case phoneNumber, phoneAuth, nickName, birthday, email, gender
     
@@ -60,6 +62,8 @@ enum ButtonTitle {
     static let authCheckButtonTitle = "인증하고 시작하기"
     static let next = "다음"
     static let start = "시작하기"
+    static let save = "저장"
+    static let requestFriend = "요청하기"
 }
 
 enum ImageName {
@@ -68,6 +72,15 @@ enum ImageName {
     static let woman = "woman"
     static let splash = "splash_logo"
     static let backButton = "arrow"
+    static let rightChevron = "rightChevron"
+    static let upChevron = "upChevron"
+    static let downChevron = "downChevron"
+    static let background = "sesac_bg_01"
+}
+
+enum ProfileImage {
+    static let background = "sesac_bg_01"
+    static let sesacFirst = "sesac_face_1"
 }
 
 enum TabBarData: String {
@@ -107,6 +120,40 @@ enum TabBarData: String {
             return "friendSelected"
         case .info:
             return "infoSelected"
+        }
+    }
+}
+
+enum InfoTable {
+    case notice, faq, permit, alarm, qna
+    
+    var title: String {
+        switch self {
+        case .notice:
+            return "공지사항"
+        case .faq:
+            return "자주 묻는 질문"
+        case .permit:
+            return "1:1 문의"
+        case .alarm:
+            return "알림 설정"
+        case .qna:
+            return "이용약관"
+        }
+    }
+    
+    var icon: String {
+        switch self {
+        case .notice:
+            return "notice"
+        case .faq:
+            return "faq"
+        case .permit:
+            return "permit"
+        case .alarm:
+            return "setting_alarm"
+        case .qna:
+            return "qna"
         }
     }
 }
@@ -178,6 +225,53 @@ enum OnboardingData {
             return "onboarding_img2"
         case .third:
             return "onboarding_img3"
+        }
+    }
+}
+
+enum CardViewSection {
+    case title, study, review
+    
+    var titleString: String {
+        switch self {
+        case .title:
+            return "새싹 타이틀"
+        case .study:
+            return "하고 싶은 스터디"
+        case .review:
+            return "새싹 리뷰"
+        }
+    }
+    
+    var placeHolder: String {
+        switch self {
+        case .title:
+            return ""
+        case .study:
+            return ""
+        case .review:
+            return "첫 리뷰를 기다리는 중이에요!"
+        }
+    }
+}
+
+enum SeSacTitle {
+    case good, time, fast, kind, expert, helpful
+    
+    var buttonTitle: String {
+        switch self {
+        case .good:
+            return "좋은 매너"
+        case .time:
+            return "정확한 시간 약속"
+        case .fast:
+            return "빠른 응답"
+        case .kind:
+            return "친절한 성격"
+        case .expert:
+            return "능숙한 실력"
+        case .helpful:
+            return "유익한 시간"
         }
     }
 }
