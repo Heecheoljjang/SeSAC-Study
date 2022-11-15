@@ -227,5 +227,6 @@
     - https://magi82.github.io/ios-intrinsicContentSize/
     - https://stackoverflow.com/questions/35028518/how-to-make-uitableview-fit-to-contents-size
     - https://developer.apple.com/documentation/uikit/uiview/1622600-intrinsiccontentsize
-- 결국 오늘도 구현 못함.
+- 밤샜는데도 결국 오늘도 구현 못함.
     - 어차피 셀의 형태는 고정적이므로 row를 delete, insert하는 방식으로 해보려고했음. 근데 사라졌다 나오는 것까진 되는데 애니메이션이 안보임..하 
+        - 스크롤뷰안에 담겨 있어서 그런가싶음. 테이블뷰에만 있으면 잘 될 것 같아서 아예 전체를 테이블뷰로 만들어야 할 수도 있을 것 같음
