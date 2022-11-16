@@ -29,7 +29,6 @@
 		9784A67E29221ED300C0D999 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A67D29221ED300C0D999 /* ProfileViewController.swift */; };
 		9784A68029221ED900C0D999 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A67F29221ED900C0D999 /* ProfileViewModel.swift */; };
 		9784A682292226B400C0D999 /* ProfileReusableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A681292226B400C0D999 /* ProfileReusableCardView.swift */; };
-		9784A689292262CD00C0D999 /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A688292262CD00C0D999 /* MyInfo.swift */; };
 		9784A68C292283A900C0D999 /* SesacTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A68B292283A900C0D999 /* SesacTitleTableViewCell.swift */; };
 		9784A68E292283D500C0D999 /* StudyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A68D292283D500C0D999 /* StudyTableViewCell.swift */; };
 		9784A690292283EF00C0D999 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A68F292283EF00C0D999 /* ReviewTableViewCell.swift */; };
@@ -135,7 +134,6 @@
 		9784A67D29221ED300C0D999 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9784A67F29221ED900C0D999 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		9784A681292226B400C0D999 /* ProfileReusableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReusableCardView.swift; sourceTree = "<group>"; };
-		9784A688292262CD00C0D999 /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
 		9784A68B292283A900C0D999 /* SesacTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacTitleTableViewCell.swift; sourceTree = "<group>"; };
 		9784A68D292283D500C0D999 /* StudyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTableViewCell.swift; sourceTree = "<group>"; };
 		9784A68F292283EF00C0D999 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
@@ -240,7 +238,6 @@
 				974CF65D291D626300B66CAC /* NetworkError.swift */,
 				974CF65F291D63ED00B66CAC /* SignIn.swift */,
 				974CF661291D63F600B66CAC /* SignUp.swift */,
-				9784A688292262CD00C0D999 /* MyInfo.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -802,7 +799,6 @@
 				9784A69A29228F7600C0D999 /* BaseCollectionViewCell.swift in Sources */,
 				9784A69E2922BBFB00C0D999 /* NameHeaderView.swift in Sources */,
 				97FBDC58291A46FE007CB321 /* ButtonStatus.swift in Sources */,
-				9784A689292262CD00C0D999 /* MyInfo.swift in Sources */,
 				97F3DFED292171DE0075582A /* typealias.swift in Sources */,
 				979E79F4291E628000E9A89A /* OnboardingViewController.swift in Sources */,
 				97B381EB291BB0B5009618A7 /* Date+Extension.swift in Sources */,

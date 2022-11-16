@@ -241,8 +241,12 @@
 
 #### 내용
 
-- 홈 화면 UI
+- 홈 화면
+    - 기본 UI
+    - 위치 권한 세팅
 
 #### 이슈 
 
 - 홈 화면에서 버튼을 만들때 configuration을 이용했는데 cornerradius가 정해져있어 직각으로 만들기 힘들어서 기존의 방식을 이용
+- locationManagerDidChangeAuthorization은 위치 관리자 생성할 때 호출이 되어야하는데 되지 않음.
+
