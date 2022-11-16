@@ -221,12 +221,28 @@
 - 테이블뷰의 섹션 위쪽에 0이 아닌 디폴트 값을 가지는 패딩이 있음
     - tableView.sectionHeaderTopPadding 이용
     
+    
+### 11/16
+
+#### 이슈
+
 - 정보 관리 UI에서 스크롤 뷰안에 이미지뷰, 테이블뷰, 성별 등이 담긴 뷰 이렇게 세 뷰를 넣어주려고 했음. 테이블뷰가 다이나믹한 높이를 가지므로 스크롤을 막은 상태로 스크롤뷰에 넣어주려고 했음. 높이를 따로 설정해주지 않아서 스크롤뷰가 제대로 보여지기 위해서는 테이블뷰의 contentSize를 알아야했음. 
     결론만 말하면 자체의 크기를 나타내는 intrinsicContentSize를 contentSize로 설정해줌.
     좀 자세히 알아봐야 할 것 같음.
     - https://magi82.github.io/ios-intrinsicContentSize/
     - https://stackoverflow.com/questions/35028518/how-to-make-uitableview-fit-to-contents-size
     - https://developer.apple.com/documentation/uikit/uiview/1622600-intrinsiccontentsize
+    
 - 밤샜는데도 결국 오늘도 구현 못함.
     - 어차피 셀의 형태는 고정적이므로 row를 delete, insert하는 방식으로 해보려고했음. 근데 사라졌다 나오는 것까진 되는데 애니메이션이 안보임..하 
         - 스크롤뷰안에 담겨 있어서 그런가싶음. 테이블뷰에만 있으면 잘 될 것 같아서 아예 전체를 테이블뷰로 만들어야 할 수도 있을 것 같음
+
+### 11/17
+
+#### 내용
+
+- 홈 화면 UI
+
+#### 이슈 
+
+- 홈 화면에서 버튼을 만들때 configuration을 이용했는데 cornerradius가 정해져있어 직각으로 만들기 힘들어서 기존의 방식을 이용

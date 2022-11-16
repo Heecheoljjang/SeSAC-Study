@@ -64,6 +64,9 @@ enum ButtonTitle {
     static let start = "시작하기"
     static let save = "저장"
     static let requestFriend = "요청하기"
+    static let total = "전체"
+    static let man = "남자"
+    static let woman = "여자"
 }
 
 enum ImageName {
@@ -76,6 +79,10 @@ enum ImageName {
     static let upChevron = "upChevron"
     static let downChevron = "downChevron"
     static let background = "sesac_bg_01"
+    static let searchDefault = "searchDefault"
+    static let searchMatching = "searchMatching"
+    static let searchMatched = "searchMatched"
+    static let myLocation = "place"
 }
 
 enum ProfileImage {

@@ -14,6 +14,7 @@ class BaseTableViewCell: UITableViewCell {
         
         configure()
         setUpConstraints()
+        selectionStyle = .none
     }
     
     @available(*, unavailable)
