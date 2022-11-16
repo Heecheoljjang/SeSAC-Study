@@ -82,7 +82,8 @@ enum ImageName {
     static let searchDefault = "searchDefault"
     static let searchMatching = "searchMatching"
     static let searchMatched = "searchMatched"
-    static let myLocation = "place"
+    static let gps = "place"
+    static let centerAnnotation = "map_marker"
 }
 
 enum ProfileImage {
@@ -279,6 +280,21 @@ enum SeSacTitle {
             return "능숙한 실력"
         case .helpful:
             return "유익한 시간"
+        }
+    }
+}
+
+enum SeSacLocation {
+    case lat, lon
+    
+    var value: Double {
+        switch self {
+        case .lat:
+            //위도
+            return 37.517819364682694
+        case .lon:
+            //경도
+            return 126.88647317074734
         }
     }
 }
