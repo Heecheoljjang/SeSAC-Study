@@ -12,9 +12,9 @@ import RxCocoa
 import RxSwift
 import RxCoreLocation
 
-final class HomeViewController: ViewController {
-    private var mainView = HomeView()
-    private let viewModel = HomeViewModel()
+final class MainViewController: ViewController {
+    private var mainView = MainView()
+    private let viewModel = MainViewModel()
     private let disposeBag = DisposeBag()
     private let locationManager = CLLocationManager()
     
@@ -32,6 +32,8 @@ final class HomeViewController: ViewController {
         //MARK: - 서버 통신해서 새싹 보여줘야함
         setRegion(center: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value)) //임시
         
+//        viewModel.fetchSeSacSearch(location: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
+        
         locationManager.requestWhenInUseAuthorization()
     }
     
@@ -42,6 +44,20 @@ final class HomeViewController: ViewController {
     }
     
     func bind() {
+        
+        //현재 상태에 따라 버튼 이미지 변경
+        viewModel.currentStatus
+            .asDriver(onErrorJustReturn: .normal)
+            .drive(onNext: { [unowned self] value in
+                self.mainView.findButton.configuration?.image = UIImage(named: value.imageName)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.findButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                self?.transitionViewController()
+            })
+            .disposed(by: disposeBag)
         
         //gps버튼 누르면 didUpdateLocation실행되게해서 위치 받아오고 currentlocation에 넣어주면 요기서 setRegion해주기
         viewModel.currentLocation
@@ -57,6 +73,35 @@ final class HomeViewController: ViewController {
             .drive(onNext: { [weak self] value in
                 //위치로 서버통신해서 맵뷰에 표시 -> 데이터에 값이 들어왔을때 업데이트 해주는 형식으로 하면될듯
                 
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.currentAuthStatus
+            .asDriver(onErrorJustReturn: .notDetermined)
+            .drive(onNext: { [weak self] value in
+                switch value {
+                case .notDetermined:
+                    //아직 앱이 위치서비스를 사용할지 선택하지않음
+                    print("notDetermined이니까 권한요청하기")
+                    self?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                    self?.locationManager.requestWhenInUseAuthorization()
+                case .restricted, .denied:
+                    //권한 없음, 사용 거부
+                    print("권한없음. 지도의 중심 영등포로 하고 서버통신")
+                    
+                case .authorizedAlways:
+                    //항상 허용, plist에서 추가안했음
+                    print("항상 허용했음")
+                case .authorizedWhenInUse:
+                    //앱 사용시에만 허용
+                    print("사용시에만 허용했음")
+                    self?.locationManager.startUpdatingLocation()
+                case .authorized:
+                    //맥os에서 사용
+                    print("맥에서 씀")
+                @unknown default:
+                    print("나중에 추가될수도있고 바뀔 수도 있는데 unknown default")
+                }
             })
             .disposed(by: disposeBag)
         
@@ -81,30 +126,8 @@ final class HomeViewController: ViewController {
         
         //MARK: - 권한 바뀌면 실행 => 실행중에 나가서 권한 막을 수도 있음
         locationManager.rx.didChangeAuthorization
-            .subscribe(onNext: { [weak self] manager, status in
-                switch status {
-                case .notDetermined:
-                    //아직 앱이 위치서비스를 사용할지 선택하지않음
-                    print("notDetermined이니까 권한요청하기")
-                    manager.desiredAccuracy = kCLLocationAccuracyBest
-                    manager.requestWhenInUseAuthorization() //WhenInUse
-                case .restricted, .denied:
-                    //권한 없음, 사용 거부
-                    print("권한없음. 지도의 중심 영등포로 하고 서버통신")
-                    
-                case .authorizedAlways:
-                    //항상 허용, plist에서 추가안했음
-                    print("항상 허용했음")
-                case .authorizedWhenInUse:
-                    //앱 사용시에만 허용
-                    print("사용시에만 허용했음")
-                    manager.startUpdatingLocation()
-                case .authorized:
-                    //맥os에서 사용
-                    print("맥에서 씀")
-                @unknown default:
-                    print("나중에 추가될수도있고 바뀔 수도 있는데 unknown default")
-                }
+            .subscribe(onNext: { [weak self] _, status in
+                self?.viewModel.setCurrentAuthStatus(status: status)
             })
             .disposed(by: disposeBag)
         
@@ -125,9 +148,31 @@ final class HomeViewController: ViewController {
     }
 }
 
-extension HomeViewController {
-    
-    //MARK: - Map
+extension MainViewController {
+    private func transitionViewController() {
+        let authStatus = viewModel.checkAuthorizationStatus()
+        switch viewModel.fetchMatchingStatus() {
+        case .normal:
+            switch authStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                let vc = HobbyViewController()
+                transition(vc, transitionStyle: .push)
+            default:
+                //alert띄우기
+                print("안돼요")
+            }
+        case .matching:
+            let vc = NearUserViewController()
+            transition(vc, transitionStyle: .push)
+        case .matched:
+            let vc = ChattingViewController()
+            transition(vc, transitionStyle: .push)
+        }
+    }
+}
+
+//MARK: - Map
+extension MainViewController {
     private func setRegion(center: CLLocationCoordinate2D) {
         print("region설정")
         let region = MKCoordinateRegion(center: center, latitudinalMeters: 800, longitudinalMeters: 800)
@@ -138,7 +183,7 @@ extension HomeViewController {
 }
 
 //MARK: - RxMKMapView써볼수도
-extension HomeViewController: MKMapViewDelegate {
+extension MainViewController: MKMapViewDelegate {
     
     //MARK: 위치를 옮길때마다 서버통신해야하므로 여기서 메서드 실행하는게 맞을듯
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {

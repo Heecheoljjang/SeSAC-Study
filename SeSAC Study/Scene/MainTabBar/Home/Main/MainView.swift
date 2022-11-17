@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import MapKit
 
-final class HomeView: BaseView {
+final class MainView: BaseView {
     
     let mapView: MKMapView = {
         let view = MKMapView()
