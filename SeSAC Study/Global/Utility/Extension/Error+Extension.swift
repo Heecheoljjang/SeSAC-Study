@@ -9,19 +9,19 @@ import Foundation
 
 extension Error {
     
-    func fetchNetworkErrorString() -> NetworkErrorString {
+    func fetchNetworkErrorString() -> LoginErrorString {
         switch "\(self)" {
-        case NetworkErrorString.signUpSuccess.rawValue:
+        case LoginErrorString.signUpSuccess.rawValue:
             return .signUpSuccess
-        case NetworkErrorString.alreadyExistUser.rawValue:
+        case LoginErrorString.alreadyExistUser.rawValue:
             return .alreadyExistUser
-        case NetworkErrorString.invalidNickname.rawValue:
+        case LoginErrorString.invalidNickname.rawValue:
             return .invalidNickname
-        case NetworkErrorString.tokenError.rawValue:
+        case LoginErrorString.tokenError.rawValue:
             return .tokenError
-        case NetworkErrorString.signUpRequired.rawValue:
+        case LoginErrorString.signUpRequired.rawValue:
             return .signUpRequired
-        case NetworkErrorString.serverError.rawValue:
+        case LoginErrorString.serverError.rawValue:
             return .serverError
         default:
             return .clientError

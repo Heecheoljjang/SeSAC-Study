@@ -20,7 +20,7 @@ final class GenderViewModel: CommonViewModel {
         let buttonStatus: Driver<ButtonStatus>
         let tapDoneButton: ControlEvent<Void>
         let genderStatus: Driver<GenderStatus>
-        let errorStatus: Driver<NetworkErrorString>
+        let errorStatus: Driver<LoginErrorString>
     }
     func transform(input: Input) -> Output {
         let gender = gender.asDriver(onErrorJustReturn: .man)
@@ -37,7 +37,7 @@ final class GenderViewModel: CommonViewModel {
     
     var genderStatus = BehaviorRelay<GenderStatus>(value: .unselected)
     
-    var errorStatus = PublishRelay<NetworkErrorString>()
+    var errorStatus = PublishRelay<LoginErrorString>()
     
     func setGenderMan() {
         gender.accept(Gender.man)
@@ -79,7 +79,7 @@ final class GenderViewModel: CommonViewModel {
         
         let api = SeSacAPI.signUp(phoneNumber: phoneNumber, fcmToken: fcmToken, nickname: nickname, birth: birth, email: email, gender: Int(gender)!)
         
-        APIService.shared.request(type: SignUp.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { result in
+        APIService.shared.request(type: SignUp.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers, errorType: .LoginError) { result in
             switch result {
             case .success(let data):
                 LoadingIndicator.hideLoading()
@@ -87,6 +87,7 @@ final class GenderViewModel: CommonViewModel {
                 self.errorStatus.accept(.signUpSuccess)
             case .failure(let error):
                 print("회원가입 실패")
+                print(error.localizedDescription)
                 let errorStr = error.fetchNetworkErrorString()
                 print(errorStr)
                 self.errorStatus.accept(errorStr)

@@ -7,7 +7,15 @@
 
 import Foundation
 
-enum NetworkError: Int, Error {
+enum NetworkError {
+    case LoginError
+    case SesacRequestError
+    case SesacCancelError
+    case SesacSearchError
+    case QueueStateError
+}
+
+enum LoginError: Int, Error {
     case signUpSuccess = 200
     case alreadyExistUser = 201
     case invalidNickname = 202
@@ -17,7 +25,45 @@ enum NetworkError: Int, Error {
     case clientError = 501
 }
 
-enum NetworkErrorString: String {
+enum SesacRequestError: Int, Error {
+    case searchSuccess = 200
+    case dangerUser = 201
+    case firstPenalty = 203
+    case secondPenalty = 204
+    case thirdPenalty = 205
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+}
+
+enum SesacCancelError: Int, Error {
+    case cancelSuccess = 200
+    case alreadyCancel = 201
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+}
+
+enum SesacSearchError: Int, Error {
+    case searchSuccess = 200
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+}
+
+enum QueueStateError: Int, Error {
+    case checkSuccess = 200
+    case normalState = 201
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+}
+
+enum LoginErrorString: String {
     case signUpSuccess
     case alreadyExistUser
     case invalidNickname

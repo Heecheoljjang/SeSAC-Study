@@ -109,7 +109,7 @@ final class GenderViewController: ViewController {
         }
     }
     
-    private func checkErrorStatus(status: NetworkErrorString) {
+    private func checkErrorStatus(status: LoginErrorString) {
         switch status {
         case .signUpSuccess:
             viewModel.setInvalidNickname(value: false)
@@ -117,7 +117,7 @@ final class GenderViewController: ViewController {
             changeRootViewController(viewcontroller: main)
         case .alreadyExistUser:
             LoadingIndicator.hideLoading()
-            presentToast(view: mainView, message: NetworkErrorString.alreadyExistUser.message)
+            presentToast(view: mainView, message: LoginErrorString.alreadyExistUser.message)
         case .invalidNickname:
             LoadingIndicator.hideLoading()
             viewModel.setInvalidNickname(value: true)
