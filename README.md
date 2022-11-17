@@ -1,4 +1,4 @@
-과돟# SeSAC_Study
+# SeSAC_Study
 
 ### 11/7
 
@@ -250,3 +250,32 @@
 - 홈 화면에서 버튼을 만들때 configuration을 이용했는데 cornerradius가 정해져있어 직각으로 만들기 힘들어서 기존의 방식을 이용
 - locationManagerDidChangeAuthorization은 위치 관리자 생성할 때 호출이 되어야하는데 되지 않음.
 
+### 11/17
+
+#### 내용
+
+- 네트워크 세팅 수정
+    - queue API 관련 세팅 추가
+- 오류코드 수정..
+- 홈 화면
+    - RxCoreLocation 사용해봄
+    
+#### 이슈
+
+- RxCoreLocation 사용해서 플로우 확인하는데 좀 걸림. 
+~~~
+/*
+ 실행되자마자 setRegion 실행(bind에 의해서 currentLocation이 behaviorRelay이므로 초기값으로 세팅)
+ -> regionDidChangeAnimated 실행
+ -> 내부의 startUpdatingLocation 실행 -> rx.location 실행(nil출력. 아직 권한 허용하기 전이기때문)
+ -> 이제 viewDidLoad의 setregion메서드로 맵뷰에 로케이션 세팅 -> regionDidChange실행되어 startUpdating실행
+ -> 아직 권한 설정 전이므로 didError실행
+ -> 이제 권한 요청 허용 -> didChangeAuthorization에서 whenInUse 실행돼서 startUpdatingLocation실행
+ -> 그로인해 didUpdateLocation 실행 -> viewModel의 currentLocation에 값 accept -> bind된 setRegion다시 실행돼서 가져온 위치로 맵뷰 세팅 -> 위치 가져오면서 위치가 바뀌었으므로 rx.location 다시 실행
+ */
+~~~
+
+- api별로 상태코드가 전부 다름....
+    - 그래서 각 통신별로 에러타입을 만들고, 각 타입을 case로 가지는 큰 enum을 만들어줌.
+    이를 이용해 APIService의 failure를 분기처리함.
+    - 통신 메서드에서 enum타입으로 에러를 전달했는데 받는 입장에서 Error타입이 와서 case를 쓸 수가 없음. localizedDescription으로 string값은 받을 수 있지만 enum 타입으로 사용할 수 있는지 궁금
