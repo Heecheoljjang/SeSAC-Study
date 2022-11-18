@@ -91,7 +91,7 @@ final class PhoneAuthViewController: ViewController {
             viewModel.fetchIdToken()
         }
     }
-    private func checkStatus(value: LoginErrorString) {
+    private func checkStatus(value: LoginError) {
         switch value {
         case .signUpSuccess:
             print("홈화면으로 전환")

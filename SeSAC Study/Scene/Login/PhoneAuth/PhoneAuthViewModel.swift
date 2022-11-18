@@ -23,7 +23,8 @@ final class PhoneAuthViewModel: CommonViewModel {
         let buttonStatus: Driver<ButtonStatus>
         let tapDoneButton: ControlEvent<Void>
         let authCodeCheck: Driver<AuthCodeCheck>
-        let errorStatus: Driver<LoginErrorString>
+//        let errorStatus: Driver<LoginErrorString>
+        let errorStatus: Driver<LoginError>
         let tapRetryButton: ControlEvent<Void>
         let phoneNumberCheck: Driver<AuthCheck>
     }
@@ -41,7 +42,8 @@ final class PhoneAuthViewModel: CommonViewModel {
         
     var authCodeCheck = PublishRelay<AuthCodeCheck>()
     
-    var errorStatus = PublishRelay<LoginErrorString>()
+//    var errorStatus = PublishRelay<LoginErrorString>()
+    var errorStatus = PublishRelay<LoginError>()
     
     var phoneNumberCheck = PublishRelay<AuthCheck>()
     
@@ -86,17 +88,30 @@ final class PhoneAuthViewModel: CommonViewModel {
     
     private func checkUser() {
         let api = SeSacAPI.signIn
-        APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers, errorType: .LoginError) { result in
-            switch result {
-            case .success(let response):
-                print("성공했지요: \(response)")
+//        APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers, errorType: .LoginError) { result in
+//            switch result {
+//            case .success(let response):
+//                print("성공했지요: \(response)")
+//                LoadingIndicator.hideLoading()
+//                self.errorStatus.accept(.signUpSuccess)
+//            case .failure(let error):
+//                print("여기 실패입니다 \(error.localizedDescription)")
+//                LoadingIndicator.hideLoading()
+//                let errorStr = error.fetchNetworkErrorString()
+//                self.errorStatus.accept(errorStr)
+//            }
+//        }
+        APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { (data, statusCode) in
+            guard let statusCode = LoginError(rawValue: statusCode) else { return }
+            switch statusCode {
+            case .signUpSuccess:
+                print("성공했지요 상태코드: \(statusCode)")
                 LoadingIndicator.hideLoading()
                 self.errorStatus.accept(.signUpSuccess)
-            case .failure(let error):
-                print("여기 실패입니다 \(error.localizedDescription)")
+            default :
+                print("에러에러 상태코드: \(statusCode.rawValue)")
                 LoadingIndicator.hideLoading()
-                let errorStr = error.fetchNetworkErrorString()
-                self.errorStatus.accept(errorStr)
+                self.errorStatus.accept(statusCode)
             }
         }
     }
@@ -128,9 +143,5 @@ final class PhoneAuthViewModel: CommonViewModel {
     
     func setButtonStatus(value: ButtonStatus) {
         buttonStatus.accept(value)
-    }
-
-    func setErrorStatus(status: LoginErrorString) {
-        errorStatus.accept(status)
     }
 }

@@ -109,7 +109,35 @@ final class GenderViewController: ViewController {
         }
     }
     
-    private func checkErrorStatus(status: LoginErrorString) {
+//    private func checkErrorStatus(status: LoginErrorString) {
+//        switch status {
+//        case .signUpSuccess:
+//            viewModel.setInvalidNickname(value: false)
+//            let main = MainTabBarController()
+//            changeRootViewController(viewcontroller: main)
+//        case .alreadyExistUser:
+//            LoadingIndicator.hideLoading()
+//            presentToast(view: mainView, message: LoginErrorString.alreadyExistUser.message)
+//        case .invalidNickname:
+//            LoadingIndicator.hideLoading()
+//            viewModel.setInvalidNickname(value: true)
+//            if let viewController = navigationController?.viewControllers.first(where: {$0 is NicknameViewController}) {
+//                  navigationController?.popToViewController(viewController, animated: false)
+//            }
+//        case .tokenError:
+//            print("토큰 에러")
+//            viewModel.fetchIdToken()
+//        case .signUpRequired:
+//            print("나올 일 없음")
+//            LoadingIndicator.hideLoading()
+//        case .serverError:
+//            print("서버 에러")
+//            LoadingIndicator.hideLoading()
+//        case .clientError:
+//            print("클라이언트 에러. 헤더랑 바디 확인")
+//            LoadingIndicator.hideLoading()
+//        }
+    private func checkErrorStatus(status: LoginError) {
         switch status {
         case .signUpSuccess:
             viewModel.setInvalidNickname(value: false)
@@ -117,7 +145,7 @@ final class GenderViewController: ViewController {
             changeRootViewController(viewcontroller: main)
         case .alreadyExistUser:
             LoadingIndicator.hideLoading()
-            presentToast(view: mainView, message: LoginErrorString.alreadyExistUser.message)
+            presentToast(view: mainView, message: LoginError.alreadyExistUser.message)
         case .invalidNickname:
             LoadingIndicator.hideLoading()
             viewModel.setInvalidNickname(value: true)

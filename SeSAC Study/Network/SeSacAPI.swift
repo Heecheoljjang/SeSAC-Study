@@ -10,7 +10,7 @@ import Alamofire
 
 enum SeSacAPI {
     
-    static let baseUrl = "http://api.sesac.co.kr:1207/"
+    static let baseUrl = "http://api.sesac.co.kr:1210/"
     static let version = "v1/"
     
     case signIn
