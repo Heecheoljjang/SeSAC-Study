@@ -12,6 +12,14 @@ import RxCocoa
 import RxSwift
 import RxCoreLocation
 
+/*
+ 처음
+ - 현재 상태로 버튼 세팅
+ - 현재 위치로 중심 세팅 => 위치권한 허용되면 내위치, 아니면 새싹
+ - 설정된 위치를 가지고 search통신해서 지도에 이미지 보여주기
+ */
+
+
 final class MainViewController: ViewController {
     private var mainView = MainView()
     private let viewModel = MainViewModel()
@@ -29,21 +37,29 @@ final class MainViewController: ViewController {
         
         bind()
         
-        //MARK: - 서버 통신해서 새싹 보여줘야함
-        setRegion(center: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value)) //임시
-        
-//        viewModel.fetchSeSacSearch(location: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
-        
-        locationManager.requestWhenInUseAuthorization()
+        viewModel.fetchQueueState() //버튼 세팅
+        print("이전")
+        locationManager.requestWhenInUseAuthorization() //위치 불러오기. 거부되면 새싹으로
+        print("이후")
     }
     
     override func configure() {
         super.configure()
             
         mainView.mapView.delegate = self
+        navigationController?.isNavigationBarHidden = true
+        
     }
     
     func bind() {
+        
+        viewModel.searchList
+            .asDriver(onErrorJustReturn: SesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
+            .drive(onNext: { [unowned self] value in
+                print(value)
+                self.viewModel.addAnnotation(map: self.mainView.mapView, data: value)
+            })
+            .disposed(by: disposeBag)
         
         //현재 상태에 따라 버튼 이미지 변경
         viewModel.currentStatus
@@ -63,7 +79,7 @@ final class MainViewController: ViewController {
         viewModel.currentLocation
             .asDriver(onErrorJustReturn: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
             .drive(onNext: { [weak self] value in
-                print("얘가 실행되는건가 초기값이 있어서")
+                print("현재위치 바뀌었음 \(value)")
                 self?.setRegion(center: value)
             })
             .disposed(by: disposeBag)
@@ -72,7 +88,8 @@ final class MainViewController: ViewController {
             .asDriver(onErrorJustReturn: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
             .drive(onNext: { [weak self] value in
                 //위치로 서버통신해서 맵뷰에 표시 -> 데이터에 값이 들어왔을때 업데이트 해주는 형식으로 하면될듯
-                
+                print("서치 진행")
+                self?.viewModel.fetchSeSacSearch(location: value)
             })
             .disposed(by: disposeBag)
         
@@ -81,23 +98,17 @@ final class MainViewController: ViewController {
             .drive(onNext: { [weak self] value in
                 switch value {
                 case .notDetermined:
-                    //아직 앱이 위치서비스를 사용할지 선택하지않음
-                    print("notDetermined이니까 권한요청하기")
+                    //아직 앱이 위치서비스를 사용할지 선택하지않음. 기본값을 여기서 설정해도될듯
+                    print("notDetermined")
                     self?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                    self?.locationManager.requestWhenInUseAuthorization()
+                    self?.viewModel.setCurrentLocation(location: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
                 case .restricted, .denied:
-                    //권한 없음, 사용 거부
                     print("권한없음. 지도의 중심 영등포로 하고 서버통신")
-                    
-                case .authorizedAlways:
-                    //항상 허용, plist에서 추가안했음
-                    print("항상 허용했음")
-                case .authorizedWhenInUse:
-                    //앱 사용시에만 허용
+                    self?.viewModel.setCurrentLocation(location: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
+                case .authorizedWhenInUse, .authorizedAlways:
                     print("사용시에만 허용했음")
                     self?.locationManager.startUpdatingLocation()
                 case .authorized:
-                    //맥os에서 사용
                     print("맥에서 씀")
                 @unknown default:
                     print("나중에 추가될수도있고 바뀔 수도 있는데 unknown default")
@@ -105,7 +116,6 @@ final class MainViewController: ViewController {
             })
             .disposed(by: disposeBag)
         
-        //gps버튼 -> startUpdating해서 메서드 실행
         locationManager.rx.didUpdateLocations
             .subscribe(onNext: { [weak self] value in
                 if let coordinate  = value.locations.last?.coordinate {
@@ -119,8 +129,9 @@ final class MainViewController: ViewController {
         //MARK: 내 위치 바뀌면 실행 => 맵뷰 움직이면 startUpdatingLocation실행되는데 이것때문에 실행되는듯
         locationManager.rx.location
             .subscribe(onNext: { [weak self] value in
-                print("위치바뀜")
-                print(value?.coordinate)
+                guard let coordinate = value?.coordinate else { return }
+                print("내 위치 바뀜: \(coordinate)")
+                self?.viewModel.setCurrentLocation(location: coordinate)
             })
             .disposed(by: disposeBag)
         
@@ -135,6 +146,7 @@ final class MainViewController: ViewController {
             .bind(onNext: { [weak self] _ in
                 print("위치를 가져오지 못했습니다.")
                 //alert같은거 띄우면 될 것 같음
+                
             })
             .disposed(by: disposeBag)
             
@@ -142,7 +154,7 @@ final class MainViewController: ViewController {
         mainView.myLocationButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 //센터값 구해서 setRegion해야함
-                
+                self?.locationManager.startUpdatingLocation()
             })
             .disposed(by: disposeBag)
     }
@@ -178,20 +190,49 @@ extension MainViewController {
         let region = MKCoordinateRegion(center: center, latitudinalMeters: 800, longitudinalMeters: 800)
         mainView.mapView.setRegion(region, animated: true)
         locationManager.stopUpdatingLocation()
-        //MARK: 서버 통신 후 어노테이션 추가
     }
 }
 
 //MARK: - RxMKMapView써볼수도
 extension MainViewController: MKMapViewDelegate {
     
-    //MARK: 위치를 옮길때마다 서버통신해야하므로 여기서 메서드 실행하는게 맞을듯
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        locationManager.startUpdatingLocation()
+        mapView.isUserInteractionEnabled = false
+        mapView.removeAnnotations(mapView.annotations)
         let center = mapView.centerCoordinate
         print("center: \(center)")
-        //MARK: 서버통신해서 어노테이션 추가 => accept해주면될듯
         viewModel.selectedLocation.accept(center)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            mapView.isUserInteractionEnabled = true
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? CustomAnnotation else { return nil }
+        
+        var annotationView = mainView.mapView.dequeueReusableAnnotationView(withIdentifier: "custom")
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        switch annotation.imageNumber {
+        case .basic:
+            annotationView?.image = UIImage(named: Annotation.basic.image)
+        case .strong:
+            annotationView?.image = UIImage(named: Annotation.strong.image)
+        case .mint:
+            annotationView?.image = UIImage(named: Annotation.mint.image)
+        case .purple:
+            annotationView?.image = UIImage(named: Annotation.purple.image)
+        case .gold:
+            annotationView?.image = UIImage(named: Annotation.gold.image)
+        }
+        
+        return annotationView
     }
 }
 

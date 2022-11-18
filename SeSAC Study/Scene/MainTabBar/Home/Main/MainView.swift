@@ -13,7 +13,7 @@ final class MainView: BaseView {
     
     let mapView: MKMapView = {
         let view = MKMapView()
-        
+        view.setCameraZoomRange(MKMapView.CameraZoomRange(minCenterCoordinateDistance: 100, maxCenterCoordinateDistance: 6000), animated: true)
         
         return view
     }()
@@ -104,17 +104,17 @@ final class MainView: BaseView {
     
     override func setUpConstraints() {
         super.setUpConstraints()
+        
         mapView.snp.makeConstraints { make in
-            make.edges.equalTo(self.safeAreaLayoutGuide)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalToSuperview()
         }
+        
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide).offset(52)
             make.leading.equalToSuperview().offset(16)
             make.width.equalTo(48)
             make.height.equalTo(144)
-        }
-        
-        totalButton.snp.makeConstraints { make in
         }
         
         myLocationButton.snp.makeConstraints { make in

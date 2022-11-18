@@ -298,3 +298,26 @@ enum SeSacLocation {
         }
     }
 }
+
+enum Annotation: Int {
+    case basic, strong, mint, purple, gold
+    
+    var image: String {
+        switch self {
+        case .basic:
+            return "sesac_face_1"
+        case .strong:
+            return "sesac_face_2"
+        case .mint:
+            return "sesac_face_3"
+        case .purple:
+            return "sesac_face_4"
+        case .gold:
+            return "sesac_face_5"
+        }
+    }
+}
+
+enum PlaceHolder {
+    static let searchBar = "띄어쓰기로 복수 입력이 가능해요"
+}

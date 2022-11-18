@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainTabBarController: UITabBarController {
-    private let homeVC = HomeViewController()
+    private let homeVC = MainViewController()
     private let shopVC = ShopViewController()
     private let friendVC = FriendViewController()
     private let infoVC = InfoViewController()
