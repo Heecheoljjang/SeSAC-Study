@@ -15,6 +15,7 @@
 		974CF65E291D626300B66CAC /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CF65D291D626300B66CAC /* NetworkError.swift */; };
 		974CF660291D63ED00B66CAC /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CF65F291D63ED00B66CAC /* SignIn.swift */; };
 		974CF662291D63F600B66CAC /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CF661291D63F600B66CAC /* SignUp.swift */; };
+		974D983F2927E3AB0065E988 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D983E2927E3AB0065E988 /* CustomAnnotationView.swift */; };
 		975BF1F129269C0400A2D084 /* MatchingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975BF1F029269C0400A2D084 /* MatchingStatus.swift */; };
 		975BF1FA2926A87500A2D084 /* HobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975BF1F92926A87500A2D084 /* HobbyViewController.swift */; };
 		975BF1FC2926A87E00A2D084 /* NearUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975BF1FB2926A87E00A2D084 /* NearUserViewController.swift */; };
@@ -43,6 +44,8 @@
 		9784A69C2922B6F000C0D999 /* ProfileReusableCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A69B2922B6F000C0D999 /* ProfileReusableCardTableViewCell.swift */; };
 		9784A69E2922BBFB00C0D999 /* NameHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A69D2922BBFB00C0D999 /* NameHeaderView.swift */; };
 		9784A6A629241CDE00C0D999 /* DynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A6A529241CDE00C0D999 /* DynamicTableView.swift */; };
+		978B0F22292801540088199F /* HobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978B0F21292801540088199F /* HobbyView.swift */; };
+		978B0F242928015D0088199F /* HobbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978B0F232928015D0088199F /* HobbyViewModel.swift */; };
 		9796DE912918A36F00D8C915 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DE902918A36F00D8C915 /* AppDelegate.swift */; };
 		9796DE932918A36F00D8C915 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DE922918A36F00D8C915 /* SceneDelegate.swift */; };
 		9796DE9A2918A37000D8C915 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9796DE992918A37000D8C915 /* Assets.xcassets */; };
@@ -99,7 +102,6 @@
 		97C3DC29291FF71900E315FA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C3DC28291FF71900E315FA /* MainView.swift */; };
 		97C3DC2B291FF72000E315FA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C3DC2A291FF72000E315FA /* MainViewModel.swift */; };
 		97C3DC2F292030BE00E315FA /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C3DC2E292030BE00E315FA /* Indicator.swift */; };
-		97D6596D291D8D65000284DA /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D6596C291D8D65000284DA /* Error+Extension.swift */; };
 		97E79DE429196B8100254AC8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E79DE329196B8100254AC8 /* String+Extension.swift */; };
 		97E79DF12919846800254AC8 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E79DF02919846800254AC8 /* UIViewController+Extension.swift */; };
 		97ECAC0A29264A0500F3A626 /* RxCoreLocation in Frameworks */ = {isa = PBXBuildFile; productRef = 97ECAC0929264A0500F3A626 /* RxCoreLocation */; };
@@ -128,6 +130,7 @@
 		974CF65D291D626300B66CAC /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		974CF65F291D63ED00B66CAC /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		974CF661291D63F600B66CAC /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		974D983E2927E3AB0065E988 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		975BF1F029269C0400A2D084 /* MatchingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingStatus.swift; sourceTree = "<group>"; };
 		975BF1F92926A87500A2D084 /* HobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HobbyViewController.swift; sourceTree = "<group>"; };
 		975BF1FB2926A87E00A2D084 /* NearUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 		9784A69B2922B6F000C0D999 /* ProfileReusableCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReusableCardTableViewCell.swift; sourceTree = "<group>"; };
 		9784A69D2922BBFB00C0D999 /* NameHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameHeaderView.swift; sourceTree = "<group>"; };
 		9784A6A529241CDE00C0D999 /* DynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableView.swift; sourceTree = "<group>"; };
+		978B0F21292801540088199F /* HobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HobbyView.swift; sourceTree = "<group>"; };
+		978B0F232928015D0088199F /* HobbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HobbyViewModel.swift; sourceTree = "<group>"; };
 		9796DE8D2918A36F00D8C915 /* SeSAC Study.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SeSAC Study.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9796DE902918A36F00D8C915 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9796DE922918A36F00D8C915 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -208,7 +213,6 @@
 		97C3DC28291FF71900E315FA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		97C3DC2A291FF72000E315FA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		97C3DC2E292030BE00E315FA /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
-		97D6596C291D8D65000284DA /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		97E79DE329196B8100254AC8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		97E79DEF291977B100254AC8 /* SeSAC Study.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SeSAC Study.entitlements"; sourceTree = "<group>"; };
 		97E79DF02919846800254AC8 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -260,9 +264,18 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		974D983D2927E39D0065E988 /* Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				974D983E2927E3AB0065E988 /* CustomAnnotationView.swift */,
+			);
+			path = Annotation;
+			sourceTree = "<group>";
+		};
 		975BF1F42926A7AE00A2D084 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				974D983D2927E39D0065E988 /* Annotation */,
 				97C3DC28291FF71900E315FA /* MainView.swift */,
 				9784A66F2921EEB300C0D999 /* MainViewController.swift */,
 				97C3DC2A291FF72000E315FA /* MainViewModel.swift */,
@@ -273,7 +286,9 @@
 		975BF1F52926A81300A2D084 /* Hobby */ = {
 			isa = PBXGroup;
 			children = (
+				978B0F21292801540088199F /* HobbyView.swift */,
 				975BF1F92926A87500A2D084 /* HobbyViewController.swift */,
+				978B0F232928015D0088199F /* HobbyViewModel.swift */,
 			);
 			path = Hobby;
 			sourceTree = "<group>";
@@ -513,7 +528,6 @@
 				97E79DE329196B8100254AC8 /* String+Extension.swift */,
 				97E79DF02919846800254AC8 /* UIViewController+Extension.swift */,
 				97B381EA291BB0B5009618A7 /* Date+Extension.swift */,
-				97D6596C291D8D65000284DA /* Error+Extension.swift */,
 				979E79FF291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift */,
 				9784A6772922038700C0D999 /* UITableViewCell+Extension.swift */,
 				97FDC74D292434C500F3F59F /* UIView+Extension.swift */,
@@ -807,7 +821,6 @@
 				9796DE912918A36F00D8C915 /* AppDelegate.swift in Sources */,
 				9796DEE32919391100D8C915 /* PhoneNumberViewModel.swift in Sources */,
 				97B381F4291BE0E9009618A7 /* EmailViewModel.swift in Sources */,
-				97D6596D291D8D65000284DA /* Error+Extension.swift in Sources */,
 				9784A68E292283D500C0D999 /* StudyTableViewCell.swift in Sources */,
 				979E7A00291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift in Sources */,
 				9784A690292283EF00C0D999 /* ReviewTableViewCell.swift in Sources */,
@@ -859,6 +872,7 @@
 				974CF662291D63F600B66CAC /* SignUp.swift in Sources */,
 				9796DED129191BEE00D8C915 /* BaseView.swift in Sources */,
 				97A24C922921EC4D009CE203 /* InfoViewController.swift in Sources */,
+				978B0F22292801540088199F /* HobbyView.swift in Sources */,
 				97A24C8C2921EC37009CE203 /* FriendViewController.swift in Sources */,
 				9796DED4291920BD00D8C915 /* Text.swift in Sources */,
 				97B381E0291B5421009618A7 /* BirthdayView.swift in Sources */,
@@ -868,6 +882,8 @@
 				97FBDC63291AA1DC007CB321 /* UserDefaultsManager.swift in Sources */,
 				97A24C902921EC47009CE203 /* InfoView.swift in Sources */,
 				976211EF291C00D7008B00FE /* Gender.swift in Sources */,
+				978B0F242928015D0088199F /* HobbyViewModel.swift in Sources */,
+				974D983F2927E3AB0065E988 /* CustomAnnotationView.swift in Sources */,
 				97C3DC1F291FCCA500E315FA /* NetworkMonitor.swift in Sources */,
 				975BF2002926A88F00A2D084 /* ChattingViewController.swift in Sources */,
 				97FF4A36291AB11300AF9A56 /* NicknameViewController.swift in Sources */,

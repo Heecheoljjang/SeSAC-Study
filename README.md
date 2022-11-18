@@ -279,3 +279,28 @@
     - 그래서 각 통신별로 에러타입을 만들고, 각 타입을 case로 가지는 큰 enum을 만들어줌.
     이를 이용해 APIService의 failure를 분기처리함.
     - 통신 메서드에서 enum타입으로 에러를 전달했는데 받는 입장에서 Error타입이 와서 case를 쓸 수가 없음. localizedDescription으로 string값은 받을 수 있지만 enum 타입으로 사용할 수 있는지 궁금
+
+### 11/18
+
+#### 내용
+
+- 네트워크 에러 처리 코드 수정
+    - Results로 받던 것을 (data, statusCode)로 받아와서 처리하도록 해줌.
+- 홈 화면
+    - 기능 일부 구현
+        - 맵 움직일 때 새싹 표시
+        - gps버튼 누르면 내 위치로
+        - 지도 축소/확대 비율 설정
+            - setCameraZoomRange사용
+        - 지도 interaction 설정
+            - asyncafter 사용
+        - 위치 거부 상태일때 지도 중심 영등포캠퍼스로 설정하고 서버통신
+    - 아직 구현 못한 것
+        - 성별 필터
+        - 얼럿띄우기
+        - 플로팅 버튼 로직
+        
+#### 이슈
+
+- 위치 권한이 허용된 상태라면 앱을 다시 실행했을때 currentAuthStatus가 .notDetermined로 되어있어서 플로팅 버튼의 로직이 정상적으로 작동하지않음.
+    - UserDefaults로 저장해서 해결할 수 있을 것 같음. 권한이 바뀌었을때 저장하는 식으로 하면 될듯
