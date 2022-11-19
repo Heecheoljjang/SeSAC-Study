@@ -67,6 +67,7 @@ enum ButtonTitle {
     static let total = "전체"
     static let man = "남자"
     static let woman = "여자"
+    static let searchSesac = "새싹 찾기"
 }
 
 enum ImageName {
@@ -84,6 +85,7 @@ enum ImageName {
     static let searchMatched = "searchMatched"
     static let gps = "place"
     static let centerAnnotation = "map_marker"
+    static let xmark = "xmark"
 }
 
 enum ProfileImage {
@@ -320,4 +322,9 @@ enum Annotation: Int {
 
 enum PlaceHolder {
     static let searchBar = "띄어쓰기로 복수 입력이 가능해요"
+}
+
+enum SearchStudySection {
+    static let around = "지금 주변에는"
+    static let myList = "내가 하고 싶은"
 }

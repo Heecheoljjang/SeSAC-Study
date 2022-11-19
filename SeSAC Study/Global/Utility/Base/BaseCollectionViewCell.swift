@@ -13,7 +13,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configure()
-        setUpContraints()
+        setUpConstraints()
     }
         
     @available(*, unavailable)
@@ -23,5 +23,5 @@ class BaseCollectionViewCell: UICollectionViewCell {
     
     func configure() {}
     
-    func setUpContraints() {}
+    func setUpConstraints() {}
 }

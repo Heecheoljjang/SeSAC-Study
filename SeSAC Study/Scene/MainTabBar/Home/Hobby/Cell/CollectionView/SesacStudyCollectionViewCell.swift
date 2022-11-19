@@ -1,26 +1,29 @@
 //
-//  StudyCollectionViewCell.swift
+//  SesacStudyCollectionViewCell.swift
 //  SeSAC Study
 //
-//  Created by HeecheolYoon on 2022/11/14.
+//  Created by HeecheolYoon on 2022/11/19.
 //
 
 import UIKit
 import SnapKit
 
-final class StudyCollectionViewCell: BaseCollectionViewCell {
+final class SesacStudyCollectionViewCell: BaseCollectionViewCell {
     
     let outerView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 8
-        view.layer.borderColor = UIColor.graySix.cgColor
+        view.layer.borderColor = UIColor.grayFour.cgColor
         view.layer.borderWidth = 1
+        view.layer.cornerRadius = 8
+        
         return view
     }()
     
-    let label: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .black
         label.font = UIFont(name: CustomFont.regular, size: 14)
+        label.textAlignment = .center
         return label
     }()
     
@@ -30,18 +33,21 @@ final class StudyCollectionViewCell: BaseCollectionViewCell {
     
     override func configure() {
         super.configure()
-        outerView.addSubview(label)
-        contentView.addSubview(outerView)
+        
+        [outerView, titleLabel].forEach {
+            contentView.addSubview($0)
+        }
     }
     
     override func setUpConstraints() {
         super.setUpConstraints()
+        
         outerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        label.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(4.5)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.verticalEdges.equalToSuperview().inset(8)
         }
     }
 }
