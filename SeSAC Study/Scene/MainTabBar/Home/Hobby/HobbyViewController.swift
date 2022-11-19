@@ -36,7 +36,6 @@ final class HobbyViewController: ViewController {
         mainView.MyListCollectionView.dataSource = self
         mainView.AroundCollectionView.delegate = self
         mainView.AroundCollectionView.dataSource = self
-        mainView.searchBar.delegate = self
     }
     
     func bind() {
@@ -45,7 +44,6 @@ final class HobbyViewController: ViewController {
             .asDriver(onErrorJustReturn: SesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
             .drive(onNext: { [weak self] value in
                 print(value)
-                //주변 스터디 리스트 업데이트
                 self?.viewModel.setStudyList(data: value)
             })
             .disposed(by: disposeBag)
@@ -68,6 +66,12 @@ final class HobbyViewController: ViewController {
             .asDriver(onErrorJustReturn: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
             .drive(onNext: { [weak self] value in
                 self?.viewModel.fetchSeSacSearch(location: value)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.searchBar.rx.searchButtonClicked
+            .bind(onNext: { [weak self] _ in
+                self?.appendMyStudyList()
             })
             .disposed(by: disposeBag)
     }
@@ -103,7 +107,7 @@ extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SesacStudyCollectionViewCell.identifier, for: indexPath) as? SesacStudyCollectionViewCell else { return UICollectionViewCell() }
-                cell.titleLabel.text = viewModel.fetchsesacStudyListData(item: indexPath.item)
+                cell.titleLabel.text = viewModel.fetchSesacStudyListData(item: indexPath.item)
                 return cell
             }
         default:
@@ -112,22 +116,41 @@ extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return cell
         }
     }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        switch collectionView {
-//        case mainView.AroundCollectionView:
-//
-//        default:
-//
-//        }
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case mainView.AroundCollectionView:
+            if viewModel.checkMyStudyListCountAlready() {
+                presentToast(view: mainView, message: ToastMessage.tooMany)
+                return
+            }
+            if indexPath.section == 0 {
+                let study = viewModel.fetchRecommendListData(item: indexPath.item)
+                appendSelectedStudy(study: study)
+            } else {
+                let study = viewModel.fetchSesacStudyListData(item: indexPath.item)
+                appendSelectedStudy(study: study)
+            }
+        default:
+            //myStudyList에서 제거
+            viewModel.removeMyStudyListElement(item: indexPath.item)
+        }
+    }
 }
 
-extension HobbyViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+extension HobbyViewController {
+    private func appendSelectedStudy(study: String) {
+        if viewModel.checkElementExist(study: study) {
+            presentToast(view: mainView, message: ToastMessage.alreadyExistStudy)
+            return
+        }
+        viewModel.appendMyStudyListElement(study: study)
+    }
+    
+    private func appendMyStudyList() {
+        mainView.searchBar.resignFirstResponder()
         //일단 리스트에 있는지부터 확인
-        guard let text = searchBar.text else { return }
-        searchBar.text = ""
+        guard let text = mainView.searchBar.text else { return }
+        mainView.searchBar.text = ""
         let studyArr = viewModel.createStringArray(text: text)
         
         if viewModel.checkAlreadyExist(list: studyArr) {

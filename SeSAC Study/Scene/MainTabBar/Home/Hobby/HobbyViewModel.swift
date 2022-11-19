@@ -19,7 +19,6 @@ final class HobbyViewModel {
     var currentLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
     
     func fetchSeSacSearch(location: CLLocationCoordinate2D) {
-        //통신
         let api = SeSacAPI.queueSearch(lat: location.latitude, lon: location.longitude)
 
         APIService.shared.request(type: SesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
@@ -48,22 +47,29 @@ final class HobbyViewModel {
     }
     
     func appendMyStudyList(list: [String]) {
-        
         var temp = myStudyList.value
         temp.append(contentsOf: list)
         myStudyList.accept(temp)
     }
     
+    func appendMyStudyListElement(study: String) {
+        var temp = myStudyList.value
+        temp.append(study)
+        myStudyList.accept(temp)
+    }
+    
     func checkAlreadyExist(list: [String]) -> Bool {
         let currentStudyList = myStudyList.value
-        print("현재 내 리스트: \(currentStudyList)")
-        print("입력된 리스트: \(list)")
         for i in list {
             if currentStudyList.contains(i) {
                 return true
             }
         }
         return false
+    }
+    
+    func checkElementExist(study: String) -> Bool {
+        return myStudyList.value.contains(study) ? true : false
     }
     
     func checkTextCount(list: [String]) -> Bool {
@@ -81,21 +87,29 @@ final class HobbyViewModel {
     
     func createStringArray(text: String) -> [String] {
         //공백기준으로 나눔 -> 앞뒤 공백 제거(trim) -> set으로 중복체크 -> 다시 array로
-        print("입력 텍스트: \(text)")
         var temp: [String] = []
         text.trimmingCharacters(in: .whitespaces)
             .components(separatedBy: " ")
             .forEach {
                 temp.append($0.trimmingCharacters(in: .whitespaces))
             }
-        temp = Array(Set(temp)).sorted(by: <)
-        print("반환 결과: \(temp)")
+        temp = Array(Set(temp.filter { !$0.isEmpty })).sorted(by: <)
         return temp
     }
     
     func checkMyStudyListCount(list: [String]) -> Bool {
         let currentCount = myStudyList.value.count
         return currentCount + list.count > 8 ? true : false
+    }
+    func checkMyStudyListCountAlready() -> Bool {
+        return myStudyList.value.count == 8 ? true : false
+    }
+    
+    func removeMyStudyListElement(item: Int) {
+        var temp = myStudyList.value
+        let study = temp[item]
+        temp = temp.filter { $0 != study }
+        myStudyList.accept(temp)
     }
     
     func fetchRecommendListCount() -> Int {
@@ -108,7 +122,7 @@ final class HobbyViewModel {
     func fetchSesacStudyListCount() -> Int {
         return aroundStudyList.value.count
     }
-    func fetchsesacStudyListData(item: Int) -> String {
+    func fetchSesacStudyListData(item: Int) -> String {
         return aroundStudyList.value[item]
     }
 
