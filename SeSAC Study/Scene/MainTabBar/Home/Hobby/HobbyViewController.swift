@@ -16,9 +16,6 @@ final class HobbyViewController: ViewController {
     private let viewModel = HobbyViewModel()
     private let disposeBag = DisposeBag()
     
-    let data = ["123213", "kfvnk", "123123vb"]
-    let daf = ["asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf","asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf","asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf","asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf","asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf","asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf","asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf","asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf","asdcds", "fdsaf","safdsasdfasdfdsaaf","saf","ssaf","safdsasdfsadfasdaf","safdsaf","safdsaf"]
-    
     override func loadView() {
         view = mainView
     }
@@ -39,35 +36,31 @@ final class HobbyViewController: ViewController {
         mainView.MyListCollectionView.dataSource = self
         mainView.AroundCollectionView.delegate = self
         mainView.AroundCollectionView.dataSource = self
+        mainView.searchBar.delegate = self
     }
     
     func bind() {
 
-        viewModel.recommendList
-            .asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] _ in
-                
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.sesacStudyList
-            .asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] _ in
-                
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.mystudyList
-            .asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] _ in
-                
-            })
-            .disposed(by: disposeBag)
-        
         viewModel.searchList
             .asDriver(onErrorJustReturn: SesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
             .drive(onNext: { [weak self] value in
                 print(value)
+                //주변 스터디 리스트 업데이트
+                self?.viewModel.setStudyList(data: value)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.aroundStudyList
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] _ in
+                self?.mainView.AroundCollectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.myStudyList
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] _ in
+                self?.mainView.MyListCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -77,11 +70,10 @@ final class HobbyViewController: ViewController {
                 self?.viewModel.fetchSeSacSearch(location: value)
             })
             .disposed(by: disposeBag)
-        
     }
 }
 
-extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         switch collectionView {
         case mainView.AroundCollectionView:
@@ -94,15 +86,12 @@ extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSou
         switch collectionView {
         case mainView.AroundCollectionView:
             if section == 0 {
-//                return viewModel.fetchRecommendListCount()
-                return 0
+                return viewModel.fetchRecommendListCount()
             } else {
-//                return viewModel.fetchSesacStudyListCount()
-                return 0
+                return viewModel.fetchSesacStudyListCount()
             }
         default:
-//            return viewModel.fetchMyStudyListCount()
-            return 8
+            return viewModel.fetchMyStudyListCount()
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,20 +99,44 @@ extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSou
         case mainView.AroundCollectionView:
             if indexPath.section == 0 {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.identifier, for: indexPath) as? RecommendCollectionViewCell else { return UICollectionViewCell() }
-                cell.titleLabel.text = daf[indexPath.item]
+                cell.titleLabel.text = viewModel.fetchRecommendListData(item: indexPath.item)
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SesacStudyCollectionViewCell.identifier, for: indexPath) as? SesacStudyCollectionViewCell else { return UICollectionViewCell() }
-                cell.titleLabel.text = daf[indexPath.item]
+                cell.titleLabel.text = viewModel.fetchsesacStudyListData(item: indexPath.item)
                 return cell
             }
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyListCollectionViewCell.identifier, for: indexPath) as? MyListCollectionViewCell else { return UICollectionViewCell() }
-            cell.titleLabel.text = "fasdfgg"
+            cell.titleLabel.text = viewModel.fetchMyStudyListData(item: indexPath.item)
             return cell
         }
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+}
+
+extension HobbyViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        //일단 리스트에 있는지부터 확인
+        guard let text = searchBar.text else { return }
+        searchBar.text = ""
+        let studyArr = viewModel.createStringArray(text: text)
+        
+        if viewModel.checkAlreadyExist(list: studyArr) {
+            presentToast(view: mainView, message: ToastMessage.alreadyExistStudy)
+            return
+        }
+        //추가하면 8개가 넘는지 확인
+        if viewModel.checkMyStudyListCount(list: studyArr) {
+            presentToast(view: mainView, message: ToastMessage.tooMany)
+            return
+        }
+        //현재 리스트에서 8자 이상이 있는지 확인
+        if viewModel.checkTextCount(list: studyArr) {
+            presentToast(view: mainView, message: ToastMessage.tooLong)
+            return
+        }
+        //myStudyList에 추가
+        viewModel.appendMyStudyList(list: studyArr)
     }
 }

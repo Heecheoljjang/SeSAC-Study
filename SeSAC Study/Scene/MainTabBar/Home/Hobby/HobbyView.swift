@@ -34,10 +34,6 @@ final class HobbyView: BaseView {
     }()
     
     let AroundCollectionView: DynamicCollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.minimumInteritemSpacing = 8
-//        layout.minimumLineSpacing = 8
-//        layout.scrollDirection = .vertical
         
         let view = DynamicCollectionView(frame: CGRect.zero, collectionViewLayout: createLayout())
         view.isScrollEnabled = false
@@ -53,12 +49,8 @@ final class HobbyView: BaseView {
         return label
     }()
     
-    let MyListCollectionView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.minimumInteritemSpacing = 8
-//        layout.minimumLineSpacing = 8
-//        layout.scrollDirection = .vertical
-        let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: createLayout())
+    let MyListCollectionView: DynamicCollectionView = {
+        let view = DynamicCollectionView(frame: CGRect.zero, collectionViewLayout: createLayout())
         view.isScrollEnabled = false
         view.register(MyListCollectionViewCell.self, forCellWithReuseIdentifier: MyListCollectionViewCell.identifier)
         return view
@@ -131,7 +123,7 @@ final class HobbyView: BaseView {
     private static func createLayout() -> UICollectionViewCompositionalLayout {
         //item
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(40),
+            widthDimension: .estimated(200),
             heightDimension: .absolute(32)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
