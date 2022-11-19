@@ -44,7 +44,7 @@ final class HobbyViewModel {
         searchList.value.fromQueueDBRequested.forEach {
             list.append(contentsOf: $0.studylist)
         }
-        aroundStudyList.accept(list.sorted(by: <))
+        aroundStudyList.accept(list.filter { !searchList.value.fromRecommend.contains($0) }.sorted(by: <))
     }
     
     func appendMyStudyList(list: [String]) {

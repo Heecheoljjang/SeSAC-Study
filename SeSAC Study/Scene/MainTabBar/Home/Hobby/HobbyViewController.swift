@@ -112,6 +112,14 @@ extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return cell
         }
     }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        switch collectionView {
+//        case mainView.AroundCollectionView:
+//
+//        default:
+//
+//        }
+//    }
 }
 
 extension HobbyViewController: UISearchBarDelegate {
