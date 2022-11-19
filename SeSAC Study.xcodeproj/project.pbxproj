@@ -16,6 +16,10 @@
 		974CF660291D63ED00B66CAC /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CF65F291D63ED00B66CAC /* SignIn.swift */; };
 		974CF662291D63F600B66CAC /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CF661291D63F600B66CAC /* SignUp.swift */; };
 		974D983F2927E3AB0065E988 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D983E2927E3AB0065E988 /* CustomAnnotationView.swift */; };
+		9752856D29289C1E0030403F /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752856C29289C1E0030403F /* RecommendCollectionViewCell.swift */; };
+		9752856F29289C290030403F /* MyListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752856E29289C290030403F /* MyListCollectionViewCell.swift */; };
+		975285732928B1340030403F /* SesacStudyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975285722928B1340030403F /* SesacStudyCollectionViewCell.swift */; };
+		9752857629291F1B0030403F /* DynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752857529291F1B0030403F /* DynamicCollectionView.swift */; };
 		975BF1F129269C0400A2D084 /* MatchingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975BF1F029269C0400A2D084 /* MatchingStatus.swift */; };
 		975BF1FA2926A87500A2D084 /* HobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975BF1F92926A87500A2D084 /* HobbyViewController.swift */; };
 		975BF1FC2926A87E00A2D084 /* NearUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975BF1FB2926A87E00A2D084 /* NearUserViewController.swift */; };
@@ -131,6 +135,10 @@
 		974CF65F291D63ED00B66CAC /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		974CF661291D63F600B66CAC /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		974D983E2927E3AB0065E988 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
+		9752856C29289C1E0030403F /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
+		9752856E29289C290030403F /* MyListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListCollectionViewCell.swift; sourceTree = "<group>"; };
+		975285722928B1340030403F /* SesacStudyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacStudyCollectionViewCell.swift; sourceTree = "<group>"; };
+		9752857529291F1B0030403F /* DynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCollectionView.swift; sourceTree = "<group>"; };
 		975BF1F029269C0400A2D084 /* MatchingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingStatus.swift; sourceTree = "<group>"; };
 		975BF1F92926A87500A2D084 /* HobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HobbyViewController.swift; sourceTree = "<group>"; };
 		975BF1FB2926A87E00A2D084 /* NearUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +280,24 @@
 			path = Annotation;
 			sourceTree = "<group>";
 		};
+		9752856B29289B310030403F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				975285742928B1DE0030403F /* CollectionView */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		975285742928B1DE0030403F /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				975285722928B1340030403F /* SesacStudyCollectionViewCell.swift */,
+				9752856C29289C1E0030403F /* RecommendCollectionViewCell.swift */,
+				9752856E29289C290030403F /* MyListCollectionViewCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		975BF1F42926A7AE00A2D084 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +312,7 @@
 		975BF1F52926A81300A2D084 /* Hobby */ = {
 			isa = PBXGroup;
 			children = (
+				9752856B29289B310030403F /* Cell */,
 				978B0F21292801540088199F /* HobbyView.swift */,
 				975BF1F92926A87500A2D084 /* HobbyViewController.swift */,
 				978B0F232928015D0088199F /* HobbyViewModel.swift */,
@@ -506,6 +533,7 @@
 				9784A675292201B200C0D999 /* BaseTableViewCell.swift */,
 				9784A69929228F7600C0D999 /* BaseCollectionViewCell.swift */,
 				9784A6A529241CDE00C0D999 /* DynamicTableView.swift */,
+				9752857529291F1B0030403F /* DynamicCollectionView.swift */,
 				9784A683292257D700C0D999 /* ProfileReusableCardView */,
 			);
 			path = Base;
@@ -841,6 +869,7 @@
 				97FF4A34291AB05100AF9A56 /* NicknameView.swift in Sources */,
 				97E79DE429196B8100254AC8 /* String+Extension.swift in Sources */,
 				9784A676292201B200C0D999 /* BaseTableViewCell.swift in Sources */,
+				975285732928B1340030403F /* SesacStudyCollectionViewCell.swift in Sources */,
 				97A24C882921EC23009CE203 /* ShopViewModel.swift in Sources */,
 				97A24C8A2921EC2E009CE203 /* FriendView.swift in Sources */,
 				974CF65E291D626300B66CAC /* NetworkError.swift in Sources */,
@@ -897,17 +926,20 @@
 				97C3DC2F292030BE00E315FA /* Indicator.swift in Sources */,
 				97B381F2291BE0E2009618A7 /* EmailViewController.swift in Sources */,
 				976211ED291BF9FF008B00FE /* GenderViewModel.swift in Sources */,
+				9752856D29289C1E0030403F /* RecommendCollectionViewCell.swift in Sources */,
 				974CF652291D24B600B66CAC /* UserDefaults.swift in Sources */,
 				976211E9291BF9F0008B00FE /* GenderView.swift in Sources */,
 				9784A69A29228F7600C0D999 /* BaseCollectionViewCell.swift in Sources */,
 				975BF1FA2926A87500A2D084 /* HobbyViewController.swift in Sources */,
 				9784A69E2922BBFB00C0D999 /* NameHeaderView.swift in Sources */,
 				97FBDC58291A46FE007CB321 /* ButtonStatus.swift in Sources */,
+				9752857629291F1B0030403F /* DynamicCollectionView.swift in Sources */,
 				97F3DFED292171DE0075582A /* typealias.swift in Sources */,
 				979E79F4291E628000E9A89A /* OnboardingViewController.swift in Sources */,
 				97B381EB291BB0B5009618A7 /* Date+Extension.swift in Sources */,
 				979E79FD291F6F4A00E9A89A /* OnboardingCell.swift in Sources */,
 				9796DEE5291943CF00D8C915 /* PhoneAuthView.swift in Sources */,
+				9752856F29289C290030403F /* MyListCollectionViewCell.swift in Sources */,
 				97B381F0291BE0DB009618A7 /* EmailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
