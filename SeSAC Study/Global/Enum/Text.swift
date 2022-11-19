@@ -333,4 +333,5 @@ enum ToastMessage {
     static let alreadyExistStudy = "이미 등록된 스터디가 있습니다."
     static let tooMany = "최대 8개까지 등록할 수 있습니다."
     static let tooLong = "각 스터디는 최대 8글자까지 작성할 수 있습니다."
+    static let tooShort = "최소 1글자 이상 작성해야합니다."
 }

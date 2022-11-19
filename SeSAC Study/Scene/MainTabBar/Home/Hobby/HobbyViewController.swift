@@ -136,6 +136,11 @@ extension HobbyViewController: UISearchBarDelegate {
             presentToast(view: mainView, message: ToastMessage.tooLong)
             return
         }
+        //공백만 입력되었는지
+        if viewModel.checkOnlyEmpty(list: studyArr) {
+            presentToast(view: mainView, message: ToastMessage.tooShort)
+            return
+        }
         //myStudyList에 추가
         viewModel.appendMyStudyList(list: studyArr)
     }

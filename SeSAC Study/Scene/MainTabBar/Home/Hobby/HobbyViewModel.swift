@@ -75,11 +75,16 @@ final class HobbyViewModel {
         return false
     }
     
+    func checkOnlyEmpty(list: [String]) -> Bool {
+        return list.filter { !$0.isEmpty }.count == 0 ? true : false
+    }
+    
     func createStringArray(text: String) -> [String] {
         //공백기준으로 나눔 -> 앞뒤 공백 제거(trim) -> set으로 중복체크 -> 다시 array로
         print("입력 텍스트: \(text)")
         var temp: [String] = []
-        text.components(separatedBy: " ")
+        text.trimmingCharacters(in: .whitespaces)
+            .components(separatedBy: " ")
             .forEach {
                 temp.append($0.trimmingCharacters(in: .whitespaces))
             }
