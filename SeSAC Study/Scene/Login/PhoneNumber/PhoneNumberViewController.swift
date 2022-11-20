@@ -22,7 +22,12 @@ final class PhoneNumberViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
+         id토큰빼고 전부 다 폰 번호 입력창에서 지워줌.
+         첫 회원가입이면 어차피 필요없음.
+         회원가입 한 뒤에 다시 들어올땐 id토큰이 있으니
+         */
+        viewModel.removeUserDefaults()
         viewModel.setIsFirst()
         bind()
     }

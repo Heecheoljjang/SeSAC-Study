@@ -21,7 +21,7 @@ final class NicknameViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewModel.setFirebaseUserDefaults() //인증했으니까
         bind()
     }
     

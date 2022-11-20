@@ -32,4 +32,12 @@ final class LaunchViewModel: CommonViewModel {
     func checkUserStatus() {
         status.accept(UserDefaultsManager.shared.checkUserDefatuls())
     }
+    
+    func setLocationAuth() {
+        UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth) //0으로 세팅
+    }
+    
+    func removeUserDefaults() {
+        UserDefaultsManager.shared.removeSomeValue()
+    }
 }

@@ -88,24 +88,16 @@ final class PhoneAuthViewModel: CommonViewModel {
     
     private func checkUser() {
         let api = SeSacAPI.signIn
-//        APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers, errorType: .LoginError) { result in
-//            switch result {
-//            case .success(let response):
-//                print("성공했지요: \(response)")
-//                LoadingIndicator.hideLoading()
-//                self.errorStatus.accept(.signUpSuccess)
-//            case .failure(let error):
-//                print("여기 실패입니다 \(error.localizedDescription)")
-//                LoadingIndicator.hideLoading()
-//                let errorStr = error.fetchNetworkErrorString()
-//                self.errorStatus.accept(errorStr)
-//            }
-//        }
+
         APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { (data, statusCode) in
             guard let statusCode = LoginError(rawValue: statusCode) else { return }
             switch statusCode {
             case .signUpSuccess:
+                guard let data = data else { return }
                 print("성공했지요 상태코드: \(statusCode)")
+                print("데이터: \(data)")
+                //유저디폴트에 다시 저장해야함
+                self.setUserDefaults(data: data)
                 LoadingIndicator.hideLoading()
                 self.errorStatus.accept(.signUpSuccess)
             default :
@@ -137,6 +129,16 @@ final class PhoneAuthViewModel: CommonViewModel {
                 self?.phoneNumberCheck.accept(.success)
             }
         }
+    }
+    
+    private func setUserDefaults(data: SignIn) {
+        //핸드폰번호, 닉네임, 생일, 이메일, 성별, fcm토큰
+        UserDefaultsManager.shared.setValue(value: data.phoneNumber, type: .phoneNumber)
+        UserDefaultsManager.shared.setValue(value: data.nick, type: .nick)
+        UserDefaultsManager.shared.setValue(value: data.birth, type: .birth)
+        UserDefaultsManager.shared.setValue(value: data.email, type: .email)
+        UserDefaultsManager.shared.setValue(value: data.gender, type: .gender)
+        UserDefaultsManager.shared.setValue(value: data.fcMtoken, type: .fcmToken)
     }
     
     //MARK: 타임아웃 메서드 추가해야됨

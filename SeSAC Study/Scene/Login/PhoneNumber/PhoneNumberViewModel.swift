@@ -85,4 +85,8 @@ final class PhoneNumberViewModel: CommonViewModel {
     func setIsFirst() {
         UserDefaultsManager.shared.setValue(value: 1, type: .isFirst)
     }
+    
+    func removeUserDefaults() {
+        UserDefaultsManager.shared.removeSomeValue()
+    }
 }

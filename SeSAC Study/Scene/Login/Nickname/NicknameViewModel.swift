@@ -63,6 +63,10 @@ final class NickNameViewModel: CommonViewModel {
         UserDefaultsManager.shared.setValue(value: false, type: .invalidNickname)
     }
     
+    func setFirebaseUserDefaults() {
+        UserDefaultsManager.shared.setValue(value: 1, type: .onlyFirebase)
+    }
+    
     func checkUserDefaultsExist() -> Bool {
         
         let nickname = UserDefaultsManager.shared.fetchValue(type: .nick) as? String ?? ""

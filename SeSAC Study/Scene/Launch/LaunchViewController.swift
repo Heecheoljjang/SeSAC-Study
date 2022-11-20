@@ -37,6 +37,7 @@ final class LaunchViewController: ViewController {
         super.viewDidLoad()
         
         bind()
+        viewModel.setLocationAuth() //위치권한 기본값 0으로 저장
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +66,7 @@ final class LaunchViewController: ViewController {
             let vc = PhoneNumberViewController()
             changeRootViewController(viewcontroller: vc)
         case .onlyFirebase:
+            viewModel.removeUserDefaults()
             let vc = NicknameViewController()
             changeRootViewController(viewcontroller: vc)
         }
