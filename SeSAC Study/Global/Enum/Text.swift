@@ -86,6 +86,13 @@ enum ImageName {
     static let gps = "place"
     static let centerAnnotation = "map_marker"
     static let xmark = "xmark"
+    
+    static let sesacFace = "sesacFace"
+    static let notice = "notice"
+    static let faq = "faq"
+    static let qna = "qna"
+    static let alarm = "setting_alarm"
+    static let permit = "permit"
 }
 
 enum ProfileImage {
