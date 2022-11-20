@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreLocation
 import MapKit
 import RxCocoa
 import RxSwift
@@ -33,14 +32,10 @@ final class MainViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.removeUserDefatuls()
-        
+//        viewModel.removeUserDefatuls()
+        viewModel.setExistUserDefaults()
         bind()
-        
         viewModel.fetchQueueState() //버튼 세팅
-        print("이전")
-        locationManager.requestWhenInUseAuthorization() //위치 불러오기. 거부되면 새싹으로
-        print("이후")
     }
     
     override func configure() {
@@ -48,7 +43,6 @@ final class MainViewController: ViewController {
             
         mainView.mapView.delegate = self
         navigationController?.isNavigationBarHidden = true
-        
     }
     
     func bind() {
@@ -101,12 +95,16 @@ final class MainViewController: ViewController {
                     //아직 앱이 위치서비스를 사용할지 선택하지않음. 기본값을 여기서 설정해도될듯
                     print("notDetermined")
                     self?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                    self?.viewModel.setCurrentLocation(location: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
+                    self?.locationManager.requestWhenInUseAuthorization()
                 case .restricted, .denied:
                     print("권한없음. 지도의 중심 영등포로 하고 서버통신")
                     self?.viewModel.setCurrentLocation(location: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
+                    //유저디폴트 바꿔야함
+                    self?.viewModel.setUserDefaultsAuth(type: .restriced)
                 case .authorizedWhenInUse, .authorizedAlways:
                     print("사용시에만 허용했음")
+                    //유저디폴트
+                    self?.viewModel.setUserDefaultsAuth(type: .allowed)
                     self?.locationManager.startUpdatingLocation()
                 case .authorized:
                     print("맥에서 씀")
@@ -138,6 +136,7 @@ final class MainViewController: ViewController {
         //MARK: - 권한 바뀌면 실행 => 실행중에 나가서 권한 막을 수도 있음
         locationManager.rx.didChangeAuthorization
             .subscribe(onNext: { [weak self] _, status in
+                print("권한바뀜")
                 self?.viewModel.setCurrentAuthStatus(status: status)
             })
             .disposed(by: disposeBag)
@@ -153,7 +152,6 @@ final class MainViewController: ViewController {
         //gps 버튼
         mainView.myLocationButton.rx.tap
             .bind(onNext: { [weak self] _ in
-                //센터값 구해서 setRegion해야함
                 self?.locationManager.startUpdatingLocation()
             })
             .disposed(by: disposeBag)
@@ -162,16 +160,18 @@ final class MainViewController: ViewController {
 
 extension MainViewController {
     private func transitionViewController() {
-        let authStatus = viewModel.checkAuthorizationStatus()
+        let authStatus = viewModel.checkAuthorizationStatus() //유저디폴트에 저장된거 가져오기
+        print("현재 권한은 \(authStatus)")
         switch viewModel.fetchMatchingStatus() {
         case .normal:
-            switch authStatus {
-            case .authorizedAlways, .authorizedWhenInUse:
+            if authStatus {
+                print("허용됨")
                 let vc = HobbyViewController()
+                viewModel.sendCurrentLocation(location: vc.viewModel.currentLocation)
                 transition(vc, transitionStyle: .push)
-            default:
-                //alert띄우기
-                print("안돼요")
+            } else {
+                print("권한이 막힘")
+                //MARK: alert
             }
         case .matching:
             let vc = NearUserViewController()

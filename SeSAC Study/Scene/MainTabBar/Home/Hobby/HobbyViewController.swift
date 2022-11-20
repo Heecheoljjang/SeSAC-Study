@@ -13,7 +13,7 @@ import CoreLocation
 final class HobbyViewController: ViewController {
     
     private var mainView = HobbyView()
-    private let viewModel = HobbyViewModel()
+    let viewModel = HobbyViewModel()
     private let disposeBag = DisposeBag()
     
     override func loadView() {

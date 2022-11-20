@@ -25,9 +25,9 @@ final class MainViewModel {
     
     var currentAuthStatus = BehaviorRelay<CLAuthorizationStatus>(value: .notDetermined)
     
-    func removeUserDefatuls() {
-        UserDefaultsManager.shared.removeSomeValue()
-    }
+//    func removeUserDefatuls() {
+//        UserDefaultsManager.shared.removeSomeValue()
+//    }
     
     func setCurrentLocation(location: CLLocationCoordinate2D) {
         currentLocation.accept(location)
@@ -53,12 +53,12 @@ final class MainViewModel {
     func fetchQueueState() {
         let api = SeSacAPI.myQueueState
 
-        APIService.shared.request(type: MyQueueState.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
+        APIService.shared.request(type: MyQueueState.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
             guard let error = QueueStateError(rawValue: statusCode) else { return }
             switch error {
             case .checkSuccess:
                 guard let data = data else { return }
-                print("상태 통신 성공", data)
+                print("상태 통신 성공", data, error)
                 switch data.matched {
                 case 0:
                     self?.currentStatus.accept(.matching)
@@ -68,6 +68,7 @@ final class MainViewModel {
                     self?.currentStatus.accept(.normal)
                 }
             case .normalState:
+                print("====\(data)=== \(error)")
                 self?.currentStatus.accept(.normal)
             default:
                 print("상태 에러남: \(error)")
@@ -80,11 +81,29 @@ final class MainViewModel {
     }
     
     func setCurrentAuthStatus(status: CLAuthorizationStatus) {
+        //status를 확인해서 허용이면 accept하고 유저디폴트도 allowed로
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.allowed.rawValue, type: .locationAuth)
+        default:
+            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth)
+        }
         currentAuthStatus.accept(status)
     }
+
+    func checkAuthorizationStatus() -> Bool {
+        return UserDefaultsManager.shared.checkLocationAuth()
+    }
     
-    func checkAuthorizationStatus() -> CLAuthorizationStatus {
-        return currentAuthStatus.value
+    func setUserDefaultsAuth(type: LocationAuthStatus) {
+        switch type {
+        case .restriced:
+            print("res")
+            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth)
+        case .allowed:
+            print("allow")
+            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.allowed.rawValue, type: .locationAuth)
+        }
     }
     
     func addAnnotation(map: MKMapView, data: SesacSearch) {
@@ -102,5 +121,13 @@ final class MainViewModel {
             annotation.coordinate = coordinate
             map.addAnnotation(annotation)
         }
+    }
+    
+    func sendCurrentLocation(location: BehaviorRelay<CLLocationCoordinate2D>) {
+        location.accept(currentLocation.value)
+    }
+    
+    func setExistUserDefaults() {
+        UserDefaultsManager.shared.setValue(value: 1, type: .existUser)
     }
 }
