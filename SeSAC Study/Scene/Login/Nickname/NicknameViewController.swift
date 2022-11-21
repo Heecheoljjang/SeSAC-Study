@@ -21,7 +21,8 @@ final class NicknameViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.setFirebaseUserDefaults() //인증했으니까
+        //닉네임이 처음 로드될때는 첫 회원가입이니 유저디폴트 다 지우기
+        viewModel.removeAllUserDefaults()
         bind()
     }
     

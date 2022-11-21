@@ -32,7 +32,7 @@ final class UserDefaultsManager {
             return UserDefaults.standard.string(forKey: type.rawValue) ?? ""
         case .invalidNickname:
             return UserDefaults.standard.bool(forKey: type.rawValue)
-        case .isFirst, .onlyFirebase, .existUser,.locationAuth:
+        case .locationAuth:
             return UserDefaults.standard.integer(forKey: type.rawValue)
         case .userInfo:
             guard let infoData = UserDefaults.standard.object(forKey: type.rawValue) as? Data else { return "" }
@@ -48,8 +48,7 @@ final class UserDefaultsManager {
     }
     
     func removeSomeValue() {
-        //id토큰뺴고 다 지우기
-        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.fcmToken.rawValue)
+//        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.fcmToken.rawValue)
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.nick.rawValue)
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.birth.rawValue)
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.email.rawValue)
@@ -57,28 +56,13 @@ final class UserDefaultsManager {
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.verificationId.rawValue)
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.invalidNickname.rawValue)
 //        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.phoneNumber.rawValue)
+        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userInfo.rawValue)
+        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.locationAuth.rawValue)
     }
     
-    //체크하는 메서드 여기서
-    func checkUserDefatuls() -> UserStatus {
-        guard let isFirst = fetchValue(type: .isFirst) as? Int,
-              let onlyFirebase = fetchValue(type: .onlyFirebase) as? Int,
-              let existUser = fetchValue(type: .existUser) as? Int else { return .onboarding }
-        print(isFirst, onlyFirebase, existUser)
-        
-        //온보딩을 처음봄
-        if isFirst == 0 {
-            return .onboarding
-        }
-        //회원가입을 끝낸적이 있음
-        if existUser == 1 {
-            return .registered
-        }
-        //파이어베이스 인증한적없고 회원가입을 끝낸적이없으므로
-        if onlyFirebase == 0 {
-            return .registered
-        }
-        return .onlyFirebase
+    func checkIdTokenIsEmpty() -> Bool {
+        guard let idToken = UserDefaults.standard.string(forKey: UserDefaultsKeys.idToken.rawValue) else { return true }
+        return idToken.isEmpty ? true : false
     }
     
     func checkLocationAuth() -> Bool {

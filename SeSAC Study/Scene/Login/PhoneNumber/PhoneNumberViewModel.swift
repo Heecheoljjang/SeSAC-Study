@@ -80,12 +80,7 @@ final class PhoneNumberViewModel: CommonViewModel {
     func savePhoneNumber(value: String) {
         let number = value.replacingOccurrences(of: "-", with: "")
         UserDefaultsManager.shared.setValue(value: number.changeFormat(), type: .phoneNumber)
-    }
-    
-    func setIsFirst() {
-        UserDefaultsManager.shared.setValue(value: 1, type: .isFirst)
-    }
-    
+    }    
     func removeUserDefaults() {
         UserDefaultsManager.shared.removeSomeValue()
     }

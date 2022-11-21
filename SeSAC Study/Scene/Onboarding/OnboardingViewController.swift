@@ -52,7 +52,7 @@ final class OnboardingViewController: ViewController {
         output.tapStartButton
             .bind(onNext: { [weak self] _ in
                 let phoneNumberVC = PhoneNumberViewController()
-                self?.changeRootViewController(viewcontroller: phoneNumberVC)
+                self?.changeRootViewController(viewcontroller: phoneNumberVC, isTabBar: false)
             })
             .disposed(by: disposeBag)
         

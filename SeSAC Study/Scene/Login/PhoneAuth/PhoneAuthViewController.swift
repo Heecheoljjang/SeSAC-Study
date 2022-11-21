@@ -96,7 +96,7 @@ final class PhoneAuthViewController: ViewController {
         case .signUpSuccess:
             print("홈화면으로 전환")
             let main = MainTabBarController()
-            changeRootViewController(viewcontroller: main)
+            changeRootViewController(viewcontroller: main, isTabBar: true)
         case .signUpRequired:
             print("회원가입")
             let vc = NicknameViewController()

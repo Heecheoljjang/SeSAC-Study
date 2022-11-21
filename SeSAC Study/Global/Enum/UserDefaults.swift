@@ -9,7 +9,6 @@ import Foundation
 
 enum UserDefaultsKeys: String {
     case verificationId, idToken, phoneNumber, fcmToken, nick, birth, email, gender, invalidNickname
-    case isFirst, onlyFirebase, existUser
     case locationAuth
     case userInfo
 }

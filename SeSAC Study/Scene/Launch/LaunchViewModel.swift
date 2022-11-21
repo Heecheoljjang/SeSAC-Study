@@ -13,31 +13,37 @@ final class LaunchViewModel: CommonViewModel {
     
     struct Input {}
     struct Output {
-        let status: Driver<UserStatus>
+        let idTokenIsEmpty: Driver<Bool>
+        let status: Driver<LoginError>
     }
     func transform(input: Input) -> Output {
-        let status = status.asDriver(onErrorJustReturn: .onboarding)
-        
-        return Output(status: status)
+        let isEmpty = idTokenIsEmpty.asDriver(onErrorJustReturn: false)
+        let status = status.asDriver(onErrorJustReturn: .clientError)
+        return Output(idTokenIsEmpty: isEmpty, status: status)
     }
     
-    var status = PublishRelay<UserStatus>()
+    var idTokenIsEmpty = PublishRelay<Bool>()
+    var status = PublishRelay<LoginError>()
     
-    func checkIsFirst() -> Bool {
-        guard let isFirst = UserDefaultsManager.shared.fetchValue(type: .isFirst) as? Int else { return false }
-        
-        return isFirst == 0 ? true : false
-    }
-    
-    func checkUserStatus() {
-        status.accept(UserDefaultsManager.shared.checkUserDefatuls())
+    func checkIdToken() {
+        print("아이디토큰: \(UserDefaultsManager.shared.fetchValue(type: .idToken) as? String)")
+        idTokenIsEmpty.accept(UserDefaultsManager.shared.checkIdTokenIsEmpty())
     }
     
     func setLocationAuth() {
         UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth) //0으로 세팅
     }
+
+    func checkUserStatus() {
+        let api = SeSacAPI.signIn
+        
+        APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { _, statusCode in
+            guard let status = LoginError(rawValue: statusCode) else { return }
+            self.status.accept(status)
+        }
+    }
     
-    func removeUserDefaults() {
-        UserDefaultsManager.shared.removeSomeValue()
+    func setStatus(status: LoginError) {
+        self.status.accept(status)
     }
 }

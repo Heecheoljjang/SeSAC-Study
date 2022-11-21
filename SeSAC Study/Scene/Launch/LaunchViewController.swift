@@ -14,13 +14,9 @@ import RxCocoa
  유저디폴트 확인해서 온보딩으로 보낼건지, 핸드폰번호 화면으로 보낼건지
  바꿀때 루트뷰를 바꿔주기
  
- 
- - 유저디폴트에 핸드폰 번호와 아이디 토큰이 있는거면 파베까지하고 나간사람임 -> 닉네임 화면으로 => onlyfirebase
- - 유저디폴트에 아이디 토큰만 있으면 회원가입이 완료된 사용자 -> 그냥 처음부터 => registered
- - isFirst가 0이라면 온보딩으로 => 온보딩화면이면 유저디폴트 전부 삭제(회원탈퇴) => onboarding
- 
- => 프로퍼티 하나 두고 유저디폴트 체크해서 상태 accept해주고 화면전환 메서드 실행
- 
+ id토큰이 없다 => 온보딩
+ id토큰이 있다 => 서버통신 => 406이다 => 닉네임
+                      => 200이다 => 홈화면
  */
 
 final class LaunchViewController: ViewController {
@@ -38,37 +34,50 @@ final class LaunchViewController: ViewController {
         
         bind()
         viewModel.setLocationAuth() //위치권한 기본값 0으로 저장
+        viewModel.checkIdToken()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        viewModel.checkUserStatus()
-    }
-    
+
     func bind() {
         let input = LaunchViewModel.Input()
         let output = viewModel.transform(input: input)
     
-        output.status
+        output.idTokenIsEmpty
             .drive(onNext: { [weak self] value in
-                self?.changeVC(status: value)
+                //true면 비어있음
+                self?.setStatus(status: value)
+            })
+            .disposed(by: disposeBag)
+        
+        output.status
+            .drive(onNext: { [weak self] status in
+                self?.changeVC(status: status)
             })
             .disposed(by: disposeBag)
     }
     
-    private func changeVC(status: UserStatus) {
+    private func setStatus(status: Bool) {
         switch status {
-        case .onboarding:
-            let vc = OnboardingViewController()
-            changeRootViewController(viewcontroller: vc)
-        case .registered:
-            let vc = PhoneNumberViewController()
-            changeRootViewController(viewcontroller: vc)
-        case .onlyFirebase:
-            viewModel.removeUserDefaults()
+        case true:
+            //비어있다는거니까 status를 바꿔줌
+            viewModel.setStatus(status: .clientError) //온보딩으로 가게
+        case false:
+            //서버통신 후에 상태에 따라서
+            viewModel.checkUserStatus() //서버통신 후에 status에 값 넣어줌
+        }
+    }
+    private func changeVC(status: LoginError) {
+        switch status {
+        case .signUpRequired:
+            //406이 뜬거니까 닉네임으로
             let vc = NicknameViewController()
-            changeRootViewController(viewcontroller: vc)
+            changeRootViewController(viewcontroller: vc, isTabBar: false)
+        case .signUpSuccess:
+            //성공이니까 홈으로
+            let vc = MainTabBarController()
+            changeRootViewController(viewcontroller: vc, isTabBar: true)
+        default:
+            let vc = OnboardingViewController()
+            changeRootViewController(viewcontroller: vc, isTabBar: false)
         }
     }
 }

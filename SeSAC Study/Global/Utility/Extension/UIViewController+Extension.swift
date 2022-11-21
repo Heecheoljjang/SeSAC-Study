@@ -81,7 +81,7 @@ extension UIViewController {
         view.makeToast(message, duration: 1, position: .top, style: style)
     }
     
-    func changeRootViewController<T: UIViewController>(viewcontroller: T) {
+    func changeRootViewController<T: UIViewController>(viewcontroller: T, isTabBar: Bool) {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
@@ -90,9 +90,14 @@ extension UIViewController {
         transition.duration = 0.3
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
         
-        let nav = UINavigationController(rootViewController: T())
-        
-        sceneDelegate?.window?.rootViewController = nav
-        sceneDelegate?.window?.makeKeyAndVisible()
+        if isTabBar {
+            let vc = T()
+            sceneDelegate?.window?.rootViewController = vc
+            sceneDelegate?.window?.makeKeyAndVisible()
+        } else {
+            let nav = UINavigationController(rootViewController: T())
+            sceneDelegate?.window?.rootViewController = nav
+            sceneDelegate?.window?.makeKeyAndVisible()
+        }
     }
 }
