@@ -329,6 +329,8 @@ enum Annotation: Int {
 
 enum PlaceHolder {
     static let searchBar = "띄어쓰기로 복수 입력이 가능해요"
+    static let review = "첫 리뷰를 기다리는 중이에요!"
+    static let myInfoStudy = "스터디를 입력해주세요"
 }
 
 enum SearchStudySection {
@@ -342,3 +344,12 @@ enum ToastMessage {
     static let tooLong = "각 스터디는 최대 8글자까지 작성할 수 있습니다."
     static let tooShort = "최소 1글자 이상 작성해야합니다."
 }
+
+enum SettingViewTitle {
+    static let gender = "내 성별"
+    static let study = "자주 하는 스터디"
+    static let search = "내 번호 검색 허용"
+    static let targetAge = "상대방 연령대"
+    static let withdraw = "회원탈퇴"
+}
+

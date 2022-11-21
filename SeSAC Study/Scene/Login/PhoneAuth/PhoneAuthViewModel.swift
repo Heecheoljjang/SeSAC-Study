@@ -139,6 +139,9 @@ final class PhoneAuthViewModel: CommonViewModel {
         UserDefaultsManager.shared.setValue(value: data.email, type: .email)
         UserDefaultsManager.shared.setValue(value: data.gender, type: .gender)
         UserDefaultsManager.shared.setValue(value: data.fcMtoken, type: .fcmToken)
+        
+        //MARK: 데이터 전체 저장
+        UserDefaultsManager.shared.setValue(value: data, type: .userInfo)
     }
     
     //MARK: 타임아웃 메서드 추가해야됨

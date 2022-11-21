@@ -14,7 +14,16 @@ final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
         
     func setValue<T>(value: T, type: UserDefaultsKeys) {
-        UserDefaults.standard.set(value, forKey: type.rawValue)
+        switch type {
+        case .userInfo:
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(value as? SignIn) {
+                print("인코딩데이터: \(encoded)")
+                UserDefaults.standard.set(encoded, forKey: type.rawValue)
+            }
+        default:
+            UserDefaults.standard.set(value, forKey: type.rawValue)
+        }
     }
     
     func fetchValue(type: UserDefaultsKeys) -> Any {
@@ -25,6 +34,12 @@ final class UserDefaultsManager {
             return UserDefaults.standard.bool(forKey: type.rawValue)
         case .isFirst, .onlyFirebase, .existUser,.locationAuth:
             return UserDefaults.standard.integer(forKey: type.rawValue)
+        case .userInfo:
+            guard let infoData = UserDefaults.standard.object(forKey: type.rawValue) as? Data else { return "" }
+            let decoder = JSONDecoder()
+            guard let decodedData = try? decoder.decode(SignIn.self, from: infoData) else { return "" }
+            print("디코딩한 데이터: \(decodedData)")
+            return decodedData
         }
     }
     
@@ -46,16 +61,6 @@ final class UserDefaultsManager {
     
     //체크하는 메서드 여기서
     func checkUserDefatuls() -> UserStatus {
-//        let phoneNumber = fetchValue(type: .phoneNumber) as? String ?? ""
-//        let idToken = fetchValue(type: .idToken) as? String ?? ""
-//
-//        if !phoneNumber.isEmpty && !idToken.isEmpty {
-//            return .onlyFirebase
-//        }
-//        if !idToken.isEmpty && phoneNumber.isEmpty {
-//            return .registered
-//        }
-//        return .onboarding
         guard let isFirst = fetchValue(type: .isFirst) as? Int,
               let onlyFirebase = fetchValue(type: .onlyFirebase) as? Int,
               let existUser = fetchValue(type: .existUser) as? Int else { return .onboarding }
