@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ReviewTableViewCell: BaseTableViewCell {
+final class ReviewView: BaseView {
     
     let reviewLabel: UILabel = {
         let label = UILabel()
@@ -17,13 +17,12 @@ final class ReviewTableViewCell: BaseTableViewCell {
         return label
     }()
     
-    let textView: UITextView = {
-        let view = UITextView()
+    let label: UILabel = {
+        let view = UILabel()
         view.font = UIFont(name: CustomFont.regular, size: 14)
-        view.text = "sdkfjsadklfjasd;lfjasdlfjdsafjsdaklfjdsklㄴㅁㅇㄹㅇㅁㄴㄹㅁㄴㅇㄹㄴㅁㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㄴㅁㅇㄹㄴㅇㄹㄴㅇㅁㄹㄴㅇㄹㄴㅇㅁㄹㅁㄴㅇㄹㄴㅇㅁㄹㄴㅁㅇㄹㄴㅁㅇㄹㄴㅁ\nasdfdsafasdfsafsadfasfnasdasdfasdfsadfsadfasdfsadfsdansad\n;sdaklfj;\nasdk"
-//        view.backgroundColor = .brown
-        view.isScrollEnabled = false
-        view.isUserInteractionEnabled = false
+        view.text = PlaceHolder.review
+        view.textColor = .graySix
+        view.numberOfLines = 0
         return view
     }()
     
@@ -33,18 +32,19 @@ final class ReviewTableViewCell: BaseTableViewCell {
         configuration.image = UIImage(named: ImageName.rightChevron)
         configuration.baseForegroundColor = .graySeven
         button.configuration = configuration
+        button.isHidden = true
         return button
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: ReviewTableViewCell.identifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     override func configure() {
         super.configure()
         
-        [reviewLabel, textView, detailButton].forEach {
-            contentView.addSubview($0)
+        [reviewLabel, label, detailButton].forEach {
+            addSubview($0)
         }
     }
     
@@ -63,12 +63,10 @@ final class ReviewTableViewCell: BaseTableViewCell {
             make.centerY.equalTo(reviewLabel)
         }
         
-        textView.snp.makeConstraints { make in
+        label.snp.makeConstraints { make in
             make.top.equalTo(reviewLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().offset(-16)
-            //MARK: - 얘도 임시
-//            make.height.equalTo(112)
         }
     }
 }

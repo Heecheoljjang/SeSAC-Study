@@ -42,7 +42,6 @@ final class MainTabBarController: UITabBarController {
         infoNav.tabBarItem.image = UIImage(named: TabBarData.info.baseIcon)
         infoNav.tabBarItem.selectedImage = UIImage(named: TabBarData.info.selectedIcon)
         infoNav.tabBarItem.title = TabBarData.info.title
-//        homeNav.tabBarItem.imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
         
         setViewControllers([homeNav, shopNav, friendNav, infoNav], animated: true)
     }

@@ -13,7 +13,7 @@ final class NameHeaderView: BaseView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: CustomFont.medium, size: 16)
-        
+        label.text = "윤희철"
         return label
     }()
 

@@ -32,7 +32,6 @@ final class InfoViewController: ViewController {
                 guard let info = value else { return }
                 guard let image = UserProfileImage(rawValue: info.sesac)?.image else { return }
                 print("하하하하핳 \(info)")
-                //MARK: 닉네임, 이미지 바꾸기
                 self.mainView.nameLabel.text = info.nick
                 self.mainView.profileImage.image = UIImage(named: image)
             })
@@ -40,7 +39,6 @@ final class InfoViewController: ViewController {
         
         mainView.clearButton.rx.tap
             .bind(onNext: { [weak self] _ in
-                //MARK: 서버통신해서 값이 제대로 왔을때 화면전환이 되도록
                 self?.viewModel.checkUser()
             })
             .disposed(by: disposeBag)
@@ -51,6 +49,7 @@ final class InfoViewController: ViewController {
                 self?.transitionVC(status: value)
             })
             .disposed(by: disposeBag)
+        print("바인드 마지막")
     }
     
     override func configure() {

@@ -15,7 +15,9 @@ final class InfoViewModel {
     var currentStatus = PublishRelay<LoginError>()
     //MARK: 저장된 유저디폴트값 가져오기
     func fetchUserInfo() {
+        print("데이터가져올래")
         guard let data = UserDefaultsManager.shared.fetchValue(type: .userInfo) as? SignIn else { return }
+        print("내 데이터 \(data)")
         userInfo.accept(data)
     }
     

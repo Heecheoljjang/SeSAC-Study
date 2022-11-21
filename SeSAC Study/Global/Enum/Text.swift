@@ -353,3 +353,29 @@ enum SettingViewTitle {
     static let withdraw = "회원탈퇴"
 }
 
+enum BackgroundImage: Int {
+    case first, second, third, fourth, fifth, sixth, seventh, eighth, ninth
+    
+    var imageName: String {
+        switch self {
+        case .first:
+            return "sesac_background_1"
+        case .second:
+            return "sesac_background_2"
+        case .third:
+            return "sesac_background_3"
+        case .fourth:
+            return "sesac_background_4"
+        case .fifth:
+            return "sesac_background_5"
+        case .sixth:
+            return "sesac_background_6"
+        case .seventh:
+            return "sesac_background_7"
+        case .eighth:
+            return "sesac_background_8"
+        case .ninth:
+            return "sesac_background_9"
+        }
+    }
+}

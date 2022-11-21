@@ -1,14 +1,14 @@
 //
-//  StackViewCell.swift
+//  SesacTitleView.swift
 //  SeSAC Study
 //
-//  Created by HeecheolYoon on 2022/11/14.
+//  Created by HeecheolYoon on 2022/11/21.
 //
 
 import UIKit
 import SnapKit
 
-final class SesacTitleTableViewCell: BaseTableViewCell {
+final class SesacTitleView: BaseView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -45,8 +45,8 @@ final class SesacTitleTableViewCell: BaseTableViewCell {
     let expertButton = ReusableButton(title: SeSacTitle.expert.buttonTitle)
     let helpfulButton = ReusableButton(title: SeSacTitle.helpful.buttonTitle)
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: SesacTitleTableViewCell.identifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     override func configure() {
@@ -62,7 +62,7 @@ final class SesacTitleTableViewCell: BaseTableViewCell {
             outerView.addSubview($0)
         }
         [titleLabel, outerView].forEach {
-            contentView.addSubview($0)
+            addSubview($0)
         }
     }
     
@@ -80,7 +80,7 @@ final class SesacTitleTableViewCell: BaseTableViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().offset(-24)
-            make.height.equalTo(112)
+//            make.height.equalTo(112)
         }
         
         leftStackView.snp.makeConstraints { make in
@@ -97,5 +97,3 @@ final class SesacTitleTableViewCell: BaseTableViewCell {
         }
     }
 }
-
-

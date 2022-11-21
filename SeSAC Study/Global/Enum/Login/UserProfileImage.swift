@@ -24,5 +24,4 @@ enum UserProfileImage: Int {
             return "sesac_face_5"
         }
     }
-    
 }
