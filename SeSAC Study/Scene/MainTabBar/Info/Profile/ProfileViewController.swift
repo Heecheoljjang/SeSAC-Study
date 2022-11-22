@@ -27,7 +27,6 @@ final class ProfileViewController: ViewController {
         bind()
 
         viewModel.fetchUserInfo()
-
     }
     
     func bind() {
@@ -50,32 +49,25 @@ final class ProfileViewController: ViewController {
                 cell.backgroundImageView.image = UIImage(named: backgroundImage)
                 cell.sesacImageView.image = UIImage(named: sesacImage)
                 cell.nameView.nameLabel.text = element.nick
-                element.reputation.forEach {
-                    switch $0 {
+                for i in 0..<element.reputation.count {
+                    if element.reputation[i] == 0 {
+                        continue
+                    }
+                    switch i {
                     case 0:
-                        if $0 != 0 {
-                            self?.changeButtonColor(button: cell.sesacTitleView.goodButton, status: .enable)
-                        }
+                        self?.changeTitleButtonColor(button: cell.sesacTitleView.goodButton, status: .enable)
                     case 1:
-                        if $0 != 0 {
-                            self?.changeButtonColor(button: cell.sesacTitleView.timeButton, status: .enable)
-                        }
+                        self?.changeTitleButtonColor(button: cell.sesacTitleView.timeButton, status: .enable)
                     case 2:
-                        if $0 != 0 {
-                            self?.changeButtonColor(button: cell.sesacTitleView.fastButton, status: .enable)
-                        }
+                        self?.changeTitleButtonColor(button: cell.sesacTitleView.fastButton, status: .enable)
                     case 3:
-                        if $0 != 0 {
-                            self?.changeButtonColor(button: cell.sesacTitleView.kindButton, status: .enable)
-                        }
+                        self?.changeTitleButtonColor(button: cell.sesacTitleView.kindButton, status: .enable)
                     case 4:
-                        if $0 != 0 {
-                            self?.changeButtonColor(button: cell.sesacTitleView.expertButton, status: .enable)
-                        }
+                        self?.changeTitleButtonColor(button: cell.sesacTitleView.expertButton, status: .enable)
+                    case 5:
+                        self?.changeTitleButtonColor(button: cell.sesacTitleView.helpfulButton, status: .enable)
                     default:
-                        if $0 != 0 {
-                            self?.changeButtonColor(button: cell.sesacTitleView.helpfulButton, status: .enable)
-                        }
+                        break
                     }
                 }
                 if element.comment.count != 0 {
@@ -83,7 +75,6 @@ final class ProfileViewController: ViewController {
                     cell.reviewView.label.text = element.comment[0]
                     cell.reviewView.label.textColor = .black
                 }
-    
             }
             .disposed(by: disposeBag)
 
@@ -135,6 +126,13 @@ final class ProfileViewController: ViewController {
             })
             .disposed(by: disposeBag)
         
+        //MARK: 변수 상태 바뀌면 뷰컨트롤러 이동하는 메서드 실행(회원탈퇴나 저장)
+        viewModel.actionType
+            .asDriver(onErrorJustReturn: .update)
+            .drive(onNext: { [weak self] value in
+                self?.changeVC(type: value)
+            })
+            .disposed(by: disposeBag)
     }
     
     override func configure() {
@@ -182,6 +180,35 @@ extension ProfileViewController {
             mainView.genderView.manButton.layer.borderWidth = 1
         }
     }
+    
+    private func changeVC(type: MyInfoActionType) {
+        switch type {
+        case .update:
+            presentToast(view: mainView, message: type.message)
+            transition(self, transitionStyle: .pop)
+        case .updateFail, .withdrawFail:
+            presentToast(view: mainView, message: type.message)
+        case .withdraw:
+            //온보딩으로
+            presentToast(view: mainView, message: type.message)
+            let vc = OnboardingViewController()
+            changeRootViewController(viewcontroller: vc, isTabBar: false)
+        }
+    }
+    
+    private func changeTitleButtonColor(button: UIButton, status: ButtonStatus) {
+        switch status {
+        case .enable:
+            button.layer.borderWidth = 0
+            button.configuration?.baseBackgroundColor = .brandGreen
+            button.configuration?.baseForegroundColor = .white
+        case .disable:
+            button.layer.borderWidth = 1
+            button.configuration?.baseBackgroundColor = .clear
+            button.configuration?.baseForegroundColor = .black
+        }
+    }
+    
     @objc private func sliderChanged(_ sender: MultiSlider) {
         viewModel.setAge(value: sender.value)
     }

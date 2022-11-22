@@ -23,11 +23,7 @@ final class InfoViewController: ViewController {
         bind()
         viewModel.fetchUserInfo()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
+
     func bind() {
             
         viewModel.userInfo

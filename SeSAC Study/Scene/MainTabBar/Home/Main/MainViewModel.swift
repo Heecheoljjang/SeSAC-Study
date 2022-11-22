@@ -106,6 +106,22 @@ final class MainViewModel {
         }
     }
     
+    func fetchUserData() {
+        let api = SeSacAPI.signIn
+        APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { data, statusCode in
+            guard let status = LoginError(rawValue: statusCode) else { return }
+            guard let data = data else { return }
+            print("인포쪽 \(statusCode) \(data)")
+            switch status {
+            case .signUpSuccess:
+                print("성공적이죠?")
+                UserDefaultsManager.shared.setValue(value: data, type: .userInfo)
+            default:
+                print("실패6548948")
+            }
+        }
+    }
+    
     func addAnnotation(map: MKMapView, data: SesacSearch) {
         data.fromQueueDB.forEach {
             let coordinate = CLLocationCoordinate2D(latitude: $0.lat, longitude: $0.long)

@@ -12,20 +12,17 @@ import RxCocoa
 final class ProfileViewModel {
     
     var userInfo = PublishRelay<[SignIn]>()
-    var gender = PublishRelay<Gender>()
-    var study = PublishRelay<String>()
-    var searchable = PublishRelay<Bool>()
-    var ageMin = PublishRelay<Int>()
-    var ageMax = PublishRelay<Int>()
+    var gender = BehaviorRelay<Gender>(value: .man)
+    var study = BehaviorRelay<String>(value: "")
+    var searchable = BehaviorRelay<Bool>(value: false)
+    var ageMin = BehaviorRelay<Int>(value: 18)
+    var ageMax = BehaviorRelay<Int>(value: 65)
+    var actionType = PublishRelay<MyInfoActionType>()
     
     func fetchUserInfo() {
         //화면전환 되기 바로 전에 통신을 하고 여기서는 불러와서 사용
         guard let data = UserDefaultsManager.shared.fetchValue(type: .userInfo) as? SignIn else { return }
         userInfo.accept([data])
-    }
-    
-    func saveInfo() {
-        //MARK: 정보 저장하는 서버 통신
     }
     
     func setInfoValues(data: SignIn) {
@@ -46,6 +43,43 @@ final class ProfileViewModel {
     }
     
     func withdrawUser() {
+        let api = SeSacAPI.withdraw
         
+        APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
+            guard let status = WithdrawError(rawValue: statusCode) else { return }
+            switch status {
+            case .withdrawSuccess:
+                print("회원탈퇴 성공")
+                //유저디폴트 전부삭제
+                UserDefaultsManager.shared.removeAll()
+                //상태바꾸기
+                self?.actionType.accept(.withdraw)
+            default:
+                self?.actionType.accept(.withdrawFail)
+            }
+        }
+    }
+    
+    func saveInfo() {
+        //서버통신
+        let searchable = searchable.value ? 1 : 0
+        let ageMin = ageMin.value
+        let ageMax = ageMax.value
+        let gender = gender.value == .man ? 1 : 0
+        let study = study.value
+        
+        let api = SeSacAPI.update(searchable: searchable, ageMin: ageMin, ageMax: ageMax, gender: gender, study: study)
+        
+        APIService.shared.noResponseRequest(method: .put, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
+            guard let status = UpdateError(rawValue: statusCode) else { return }
+            switch status {
+            case .updateSuccess:
+                print("업데이트 성공")
+                self?.actionType.accept(.update)
+            default:
+                print("업데이트실패")
+                self?.actionType.accept(.updateFail)
+            }
+        }
     }
 }

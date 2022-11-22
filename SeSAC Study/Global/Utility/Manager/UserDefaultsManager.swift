@@ -16,6 +16,7 @@ final class UserDefaultsManager {
     func setValue<T>(value: T, type: UserDefaultsKeys) {
         switch type {
         case .userInfo:
+            print("유저인뽀 인코딩하는중")
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(value as? SignIn) {
                 print("인코딩데이터: \(encoded)")

@@ -88,7 +88,6 @@ final class GenderViewModel: CommonViewModel {
                 LoadingIndicator.hideLoading()
                 guard let data = data else { return }
                 print("회원가입 성공!, data: \(data)")
-                UserDefaultsManager.shared.setValue(value: data, type: .userInfo)
                 self.errorStatus.accept(.signUpSuccess)
             default :
                 print("회원가입 실패: \(statusCode)")

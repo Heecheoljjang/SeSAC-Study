@@ -34,13 +34,13 @@ final class MainViewController: ViewController {
         
         bind()
         viewModel.fetchQueueState() //버튼 세팅
+        viewModel.fetchUserData() //유저디폴트에 데이터세팅
     }
     
     override func configure() {
         super.configure()
             
         mainView.mapView.delegate = self
-//        navigationController?.isNavigationBarHidden = true
     }
     
     func bind() {
