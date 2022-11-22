@@ -9,6 +9,8 @@ import Foundation
 
 enum NetworkError {
     case LoginError
+    case WithdrawError
+    case UpdateError
     case SesacRequestError
     case SesacCancelError
     case SesacSearchError
@@ -42,6 +44,22 @@ enum LoginError: Int, Error {
             return "에러가 발생하였습니다."
         }
     }
+}
+
+enum WithdrawError: Int, Error {
+    case withdrawSuccess = 200
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+}
+
+enum UpdateError: Int, Error {
+    case updateSuccess = 200
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
 }
 
 enum SesacRequestError: Int, Error {

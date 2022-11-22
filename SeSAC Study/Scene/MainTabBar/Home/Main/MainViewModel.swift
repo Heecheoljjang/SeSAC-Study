@@ -126,8 +126,4 @@ final class MainViewModel {
     func sendCurrentLocation(location: BehaviorRelay<CLLocationCoordinate2D>) {
         location.accept(currentLocation.value)
     }
-    
-    func setExistUserDefaults() {
-        UserDefaultsManager.shared.setValue(value: 1, type: .existUser)
-    }
 }

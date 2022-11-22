@@ -22,8 +22,10 @@ final class OnboardingViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
+        print(#function)
+        viewModel.fetchFCMToken()
     }
-    
+
     func bind() {
         let input = OnboardingViewModel.Input(offset: mainView.collectionView.rx.contentOffset, tapStartButton: mainView.startButton.rx.tap)
         let output = viewModel.transform(input: input)

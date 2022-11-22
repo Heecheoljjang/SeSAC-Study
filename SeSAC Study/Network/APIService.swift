@@ -26,6 +26,13 @@ final class APIService {
             completion(result, statusCode)
         }
     }
+    
+    func noResponseRequest(method: HTTPMethod, url: URL, parameters: [String: Any]?, headers: HTTPHeaders, completion: @escaping (Int) -> Void) {
+        AF.request(url, method: method, parameters: parameters, headers: headers).responseString { response in
+            guard let statusCode = response.response?.statusCode else { return }
+            completion(statusCode)
+        }
+    }
 //    func request<T: Decodable>(type: T.Type = T.self, method: HTTPMethod, url: URL, parameters: [String: Any]?, headers: HTTPHeaders, errorType: NetworkError, completion: @escaping (Result<T, Error>) -> Void) {
 //        AF.request(url, method: method, parameters: parameters, headers: headers).responseDecodable(of: T.self) { response in
 //            switch response.result {

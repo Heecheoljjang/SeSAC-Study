@@ -32,8 +32,6 @@ final class MainViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        viewModel.removeUserDefatuls()
-        viewModel.setExistUserDefaults()
         bind()
         viewModel.fetchQueueState() //버튼 세팅
     }
@@ -42,7 +40,7 @@ final class MainViewController: ViewController {
         super.configure()
             
         mainView.mapView.delegate = self
-        navigationController?.isNavigationBarHidden = true
+//        navigationController?.isNavigationBarHidden = true
     }
     
     func bind() {

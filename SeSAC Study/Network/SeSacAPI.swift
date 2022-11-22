@@ -19,13 +19,16 @@ enum SeSacAPI {
     case queue(lat: Double, lon: Double, studyList: [String])
     case queueSearch(lat: Double, lon: Double)
     case myQueueState
+    case update(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     
     var url: URL {
         switch self {
         case .signIn, .signUp:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user")!
         case .withdraw:
-            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)withdraw")!
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/withdraw")!
+        case .update:
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/mypage")!
         case .queue:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue")!
         case .queueSearch:
@@ -41,7 +44,7 @@ enum SeSacAPI {
         switch self {
         case .signIn, .withdraw, .myQueueState:
             return ["idtoken": token]
-        case .signUp, .queue, .queueSearch:
+        case .signUp, .queue, .queueSearch, .update:
             return [
                 "idtoken": token,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -72,6 +75,14 @@ enum SeSacAPI {
             return [
                 "lat": lat,
                 "long": lon,
+            ]
+        case .update(let searchable, let ageMin, let ageMax, let gender, let study):
+            return [
+                "searchable": searchable,
+                "ageMin": ageMin,
+                "ageMax": ageMax,
+                "gender": gender,
+                "study": study
             ]
         }
     }

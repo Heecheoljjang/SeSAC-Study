@@ -60,6 +60,11 @@ final class UserDefaultsManager {
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.locationAuth.rawValue)
     }
     
+    func removeAll() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+    }
+    
     func checkIdTokenIsEmpty() -> Bool {
         guard let idToken = UserDefaults.standard.string(forKey: UserDefaultsKeys.idToken.rawValue) else { return true }
         return idToken.isEmpty ? true : false

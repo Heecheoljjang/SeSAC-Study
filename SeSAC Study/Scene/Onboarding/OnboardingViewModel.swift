@@ -8,6 +8,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import FirebaseMessaging
 
 final class OnboardingViewModel: CommonViewModel {
 
@@ -31,5 +32,21 @@ final class OnboardingViewModel: CommonViewModel {
     
     func pageControlPage(xOffset: CGFloat, width: CGFloat) -> Int {
         return Int(xOffset / width)
+    }
+    
+    func fetchFCMToken() {
+        guard let token = UserDefaultsManager.shared.fetchValue(type: .fcmToken) as? String else { return }
+        if !token.isEmpty {
+            return
+        }
+        print("토큰이 비어있어요!!!!")
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error fetching FCM registration token: \(error)")
+            } else if let token = token {
+                print("FCM registration token: \(token)")
+                UserDefaultsManager.shared.setValue(value: token, type: .fcmToken)
+            }
+        }
     }
 }
