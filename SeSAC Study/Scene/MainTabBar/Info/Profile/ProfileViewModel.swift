@@ -67,7 +67,7 @@ final class ProfileViewModel {
         let ageMax = ageMax.value
         let gender = gender.value == .man ? 1 : 0
         let study = study.value
-        
+        print(searchable, ageMin, ageMax, gender, study)
         let api = SeSacAPI.update(searchable: searchable, ageMin: ageMin, ageMax: ageMax, gender: gender, study: study)
         
         APIService.shared.noResponseRequest(method: .put, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
@@ -81,5 +81,17 @@ final class ProfileViewModel {
                 self?.actionType.accept(.updateFail)
             }
         }
+    }
+    
+    func setGender(value: Gender) {
+        gender.accept(value)
+    }
+    
+    func setStudy(value: String) {
+        study.accept(value)
+    }
+    
+    func setSearchable(value: Bool) {
+        searchable.accept(value)
     }
 }

@@ -379,3 +379,21 @@ enum BackgroundImage: Int {
         }
     }
 }
+
+enum AlertText {
+    case withdraw
+    
+    var title: String {
+        switch self {
+        case .withdraw:
+            return "회원탈퇴를 하시겠습니까?"
+        }
+    }
+    
+    var message: String {
+        switch self {
+        case .withdraw:
+            return ""
+        }
+    }
+}

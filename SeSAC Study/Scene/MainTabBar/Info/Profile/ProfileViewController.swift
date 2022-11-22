@@ -42,6 +42,7 @@ final class ProfileViewController: ViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(mainView.cardView.tableView.rx.items(cellIdentifier: ProfileTableViewCell.identifier, cellType: ProfileTableViewCell.self)) { [weak self] (row, element, cell) in
                 cell.studyView.isHidden = true
+                cell.requestButton.isHidden = true
                 //배경이미지, 새싹이미지, 새싹타이틀, 리뷰
                 guard let backgroundImage = BackgroundImage(rawValue: element.background)?.imageName,
                       let sesacImage = UserProfileImage(rawValue: element.sesac)?.image else { return }
@@ -119,10 +120,46 @@ final class ProfileViewController: ViewController {
         })
         .disposed(by: disposeBag)
         
+        mainView.genderView.manButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.changeSelectedButtonColor(button: vc.mainView.genderView.manButton, status: .enable)
+                vc.changeSelectedButtonColor(button: vc.mainView.genderView.womanButton, status: .disable)
+                vc.viewModel.setGender(value: .man)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.genderView.womanButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.changeSelectedButtonColor(button: vc.mainView.genderView.womanButton, status: .enable)
+                vc.changeSelectedButtonColor(button: vc.mainView.genderView.manButton, status: .disable)
+                vc.viewModel.setGender(value: .woman)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.studyView.textField.rx.text
+            .bind(onNext: { [weak self] value in
+                if let value = value {
+                    print("텍스트: \(value)")
+                    self?.viewModel.setStudy(value: value)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.searchView.allowSwitch.rx.value
+            .bind(onNext: { [weak self] value in
+                print("스위치: \(value)")
+                self?.viewModel.setSearchable(value: value)
+            })
+            .disposed(by: disposeBag)
+        
         mainView.withdrawButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 //회원탈퇴 서버통신
-                self?.viewModel.withdrawUser()
+                self?.handlerAlert(title: AlertText.withdraw.title, message: AlertText.withdraw.message, handler: { _ in
+                    self?.viewModel.withdrawUser()
+                })
             })
             .disposed(by: disposeBag)
         
@@ -165,19 +202,11 @@ extension ProfileViewController {
     private func setGenderColor(gender: Gender) {
         switch gender {
         case .man:
-            mainView.genderView.manButton.configuration?.baseForegroundColor = .white
-            mainView.genderView.manButton.configuration?.baseBackgroundColor = .brandGreen
-            mainView.genderView.manButton.layer.borderWidth = 0
-            mainView.genderView.womanButton.configuration?.baseForegroundColor = .black
-            mainView.genderView.womanButton.configuration?.baseBackgroundColor = .clear
-            mainView.genderView.womanButton.layer.borderWidth = 1
+            changeSelectedButtonColor(button: mainView.genderView.manButton, status: .enable)
+            changeSelectedButtonColor(button: mainView.genderView.womanButton, status: .disable)
         case .woman:
-            mainView.genderView.womanButton.configuration?.baseForegroundColor = .white
-            mainView.genderView.womanButton.configuration?.baseBackgroundColor = .brandGreen
-            mainView.genderView.womanButton.layer.borderWidth = 0
-            mainView.genderView.manButton.configuration?.baseForegroundColor = .black
-            mainView.genderView.manButton.configuration?.baseBackgroundColor = .clear
-            mainView.genderView.manButton.layer.borderWidth = 1
+            changeSelectedButtonColor(button: mainView.genderView.manButton, status: .disable)
+            changeSelectedButtonColor(button: mainView.genderView.womanButton, status: .enable)
         }
     }
     
