@@ -63,7 +63,7 @@ extension UIViewController {
         }
     }
     
-    func changeButtonColor(button: UIButton, status: ButtonStatus) {
+    func changeNextButtonColor(button: UIButton, status: ButtonStatus) {
         switch status {
         case .enable:
             button.configuration?.baseForegroundColor = .white
@@ -71,6 +71,19 @@ extension UIViewController {
         case .disable:
             button.configuration?.baseForegroundColor = .grayThree
             button.configuration?.baseBackgroundColor = .graySix
+        }
+    }
+    
+    func changeSelectedButtonColor(button: UIButton, status: ButtonStatus) {
+        switch status {
+        case .enable:
+            button.configuration?.baseForegroundColor = .white
+            button.configuration?.baseBackgroundColor = .brandGreen
+            button.layer.borderWidth = 0
+        case .disable:
+            button.configuration?.baseForegroundColor = .black
+            button.configuration?.baseBackgroundColor = .clear
+            button.layer.borderWidth = 1
         }
     }
     

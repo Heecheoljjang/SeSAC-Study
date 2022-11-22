@@ -47,7 +47,7 @@ final class PhoneAuthViewController: ViewController {
         
         output.buttonStatus
             .drive(onNext: { [unowned self] value in
-                self.changeButtonColor(button: self.mainView.doneButton, status: value)
+                self.changeNextButtonColor(button: self.mainView.doneButton, status: value)
             })
             .disposed(by: disposeBag)
 
