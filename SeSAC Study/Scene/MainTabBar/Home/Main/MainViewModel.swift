@@ -18,8 +18,6 @@ final class MainViewModel {
     var currentStatus = BehaviorRelay<MatchingStatus>(value: .normal)
     
     var selectedLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
-    
-//    var currentAuthStatus = BehaviorRelay<CLAuthorizationStatus>(value: .notDetermined)
 
     func setSelectedLocation(location: CLLocationCoordinate2D) {
         selectedLocation.accept(location)
@@ -141,47 +139,5 @@ final class MainViewModel {
             print("나머지")
         }
     }
-    
-//    func setCurrentAuthStatus(status: CLAuthorizationStatus) {
-//        //status를 확인해서 허용이면 accept하고 유저디폴트도 allowed로
-//        switch status {
-//        case .authorizedAlways, .authorizedWhenInUse:
-//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.allowed.rawValue, type: .locationAuth)
-//        default:
-//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth)
-//        }
-//        currentAuthStatus.accept(status)
-//    }
-
-//    func checkAuthorizationStatus() {
-////        UserDefaultsManager.shared.checkLocationAuth() ? currentAuthStatus.accept(.authorizedWhenInUse) : currentAuthStatus.accept(.restricted)
-//        switch UserDefaultsManager.shared.checkLocationAuth() {
-//        case .restriced:
-//            currentAuthStatus.accept(.restricted)
-//        case .allowed:
-//            currentAuthStatus.accept(.authorizedWhenInUse)
-//        case .notDetermined:
-//            currentAuthStatus.accept(.notDetermined)
-//        }
-//    }
-    
-//    func fetchCurrentAuth() -> CLAuthorizationStatus {
-//        return currentAuthStatus.value
-//    }
-//
-//    func setUserDefaultsAuth(type: LocationAuthStatus) {
-//        switch type {
-//        case .restriced:
-//            print("res")
-//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth)
-//        case .allowed:
-//            print("allow")
-//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.allowed.rawValue, type: .locationAuth)
-//        case .notDetermined:
-//            print("notDetermined")
-//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.notDetermined.rawValue, type: .locationAuth)
-//        }
-//    }
-
 }
 

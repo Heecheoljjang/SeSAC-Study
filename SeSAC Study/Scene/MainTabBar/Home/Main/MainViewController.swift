@@ -85,77 +85,25 @@ final class MainViewController: ViewController {
             .drive(onNext: { [weak self] value in
                 //위치로 서버통신해서 맵뷰에 표시 -> 데이터에 값이 들어왔을때 업데이트 해주는 형식으로 하면될듯
                 print("서치 진행 \(value)")
-//                self?.setRegion(center: value)
                 self?.viewModel.fetchSeSacSearch(location: value)
             })
             .disposed(by: disposeBag)
-
-//        viewModel.currentAuthStatus
-//            .asDriver(onErrorJustReturn: .notDetermined)
-//            .drive(onNext: { [weak self] value in
-//                switch value {
-//                case .notDetermined:
-//                    self?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//                    self?.locationManager.requestWhenInUseAuthorization()
-//                case .restricted, .denied:
-//                    self?.viewModel.setUserDefaultsAuth(type: .restriced)
-//                    //권한 막히면 영등포로 위치변경
-//                    let baseLocation = CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value)
-//
-//                    self?.viewModel.setSelectedLocation(location: baseLocation)
-//                    self?.setRegion(center: baseLocation)
-//                case .authorizedWhenInUse, .authorizedAlways:
-//                    self?.viewModel.setUserDefaultsAuth(type: .allowed)
-//
-//                    //didUpdateLocation실행시키기위해
-//                    self?.locationManager.startUpdatingLocation()
-//                default:
-//                    print("나머지")
-//                }
-//            })
-//            .disposed(by: disposeBag)
 
         //gps버튼을 누를때, 위치권한이 허용으로 바뀌었을 경우에만 실행
         locationManager.rx.didUpdateLocations
             .subscribe(onNext: { [weak self] value in
                 if let coordinate  = value.locations.last?.coordinate {
                     print("현재 사용자 위치: \(coordinate)")
-//                    self?.viewModel.setSelectedLocation(location: coordinate)
                     self?.setRegion(center: coordinate)
                 }
                 self?.locationManager.stopUpdatingLocation()
             })
             .disposed(by: disposeBag)
-
-//        locationManager.rx.location
-//            .subscribe(onNext: { [weak self] value in
-//                guard let coordinate = value?.coordinate else { return }
-//                //didUpdateLocation에서 위치를 알아내고 위치가 바뀌었으니 맵뷰에서도 움직여주도록함
-//                self?.setRegion(center: coordinate)
-//            })
-//            .disposed(by: disposeBag)
-
-        //MARK: - 권한 바뀌면 실행 => 실행중에 나가서 권한 막을 수도 있음
+        
         locationManager.rx.didChangeAuthorization
             .withUnretained(self)
             .subscribe(onNext: { (vc, _) in
                 print("권한바뀜")
-//                switch status {
-//                case .notDetermined:
-//                    self?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//                    self?.locationManager.requestWhenInUseAuthorization()
-//                case .restricted, .denied:
-//                    //권한 막히면 영등포로 위치변경
-//                    let baseLocation = CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value)
-//
-//                    self?.viewModel.setSelectedLocation(location: baseLocation)
-//                    self?.setRegion(center: baseLocation)
-//                case .authorizedWhenInUse, .authorizedAlways:
-//                    //didUpdateLocation실행시키기위해
-//                    self?.locationManager.startUpdatingLocation()
-//                default:
-//                    print("나머지")
-//                }
                 vc.viewModel.setMapView(locationManager: vc.locationManager, mapView: vc.mainView.mapView)
             })
             .disposed(by: disposeBag)
@@ -213,7 +161,6 @@ extension MainViewController {
         print("센터센터: \(center)")
         let region = MKCoordinateRegion(center: center, latitudinalMeters: 800, longitudinalMeters: 800)
         mainView.mapView.setRegion(region, animated: true)
-//        locationManager.stopUpdatingLocation()
     }
 }
 
