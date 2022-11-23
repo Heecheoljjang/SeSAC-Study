@@ -21,6 +21,7 @@ final class LaunchView: BaseView {
         label.text = OnboardingData.third.message
         label.font = .systemFont(ofSize: 42, weight: .medium)
         label.textAlignment = .center
+        label.textColor = .brandGreen
         return label
     }()
     

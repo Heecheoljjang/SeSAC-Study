@@ -26,7 +26,6 @@ final class LaunchViewModel: CommonViewModel {
     var status = PublishRelay<LoginError>()
     
     func checkIdToken() {
-        print("아이디토큰: \(UserDefaultsManager.shared.fetchValue(type: .idToken) as? String)")
         idTokenIsEmpty.accept(UserDefaultsManager.shared.checkIdTokenIsEmpty())
     }
     
@@ -39,7 +38,23 @@ final class LaunchViewModel: CommonViewModel {
         
         APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { _, statusCode in
             guard let status = LoginError(rawValue: statusCode) else { return }
-            self.status.accept(status)
+            switch status {
+            case .tokenError:
+                //토큰갱신
+                FirebaseManager.shared.fetchIdToken { result in
+                    switch result {
+                    case .success(let token):
+                        UserDefaultsManager.shared.setValue(value: token, type: .idToken)
+                        self.checkIdToken()
+                    case .failure(_):
+                        self.status.accept(.clientError)
+                        LoadingIndicator.hideLoading()
+                        return
+                    }
+                }
+            default:
+                self.status.accept(status)
+            }
         }
     }
     

@@ -33,7 +33,7 @@ final class LaunchViewController: ViewController {
         super.viewDidLoad()
         
         bind()
-        viewModel.setLocationAuth() //위치권한 기본값 0으로 저장
+//        viewModel.setLocationAuth() //위치권한 기본값 0으로 저장
         viewModel.checkIdToken()
     }
 
@@ -58,14 +58,14 @@ final class LaunchViewController: ViewController {
     private func setStatus(status: Bool) {
         switch status {
         case true:
-            //비어있다는거니까 status를 바꿔줌
             viewModel.setStatus(status: .clientError) //온보딩으로 가게
         case false:
             //서버통신 후에 상태에 따라서
-            viewModel.checkUserStatus() //서버통신 후에 status에 값 넣어줌
+            viewModel.checkUserStatus()
         }
     }
     private func changeVC(status: LoginError) {
+        print("status====\(status)")
         switch status {
         case .signUpRequired:
             //406이 뜬거니까 닉네임으로

@@ -25,7 +25,6 @@ final class ProfileViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
-
         viewModel.fetchUserInfo()
     }
     
@@ -41,8 +40,8 @@ final class ProfileViewController: ViewController {
         viewModel.userInfo
             .asDriver(onErrorJustReturn: [])
             .drive(mainView.cardView.tableView.rx.items(cellIdentifier: ProfileTableViewCell.identifier, cellType: ProfileTableViewCell.self)) { [weak self] (row, element, cell) in
-                cell.studyView.isHidden = true
                 cell.requestButton.isHidden = true
+                cell.nameView.clearButton.addTarget(self, action: #selector(self?.touchToggleButton(_:)), for: .touchUpInside)
                 //배경이미지, 새싹이미지, 새싹타이틀, 리뷰
                 guard let backgroundImage = BackgroundImage(rawValue: element.background)?.imageName,
                       let sesacImage = UserProfileImage(rawValue: element.sesac)?.image else { return }
@@ -163,7 +162,6 @@ final class ProfileViewController: ViewController {
             })
             .disposed(by: disposeBag)
         
-        //MARK: 변수 상태 바뀌면 뷰컨트롤러 이동하는 메서드 실행(회원탈퇴나 저장)
         viewModel.actionType
             .asDriver(onErrorJustReturn: .update)
             .drive(onNext: { [weak self] value in
@@ -178,24 +176,6 @@ final class ProfileViewController: ViewController {
         title = "정보 관리"
         navigationItem.rightBarButtonItem = saveButton
         mainView.ageView.slider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
-    }
-    
-    @objc private func tapHeaderView() {
-        print("123")
-//        isCollapsed ? mainView.cardView.tableView.insertRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 1, section: 0), IndexPath(row: 0, section: 0)], with: .fade) : mainView.cardView.tableView.deleteRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 1, section: 0), IndexPath(row: 0, section: 0)], with: .fade)
-        if isCollapsed {
-            //true면 접혀있는 상태니까 펴야하므로 insert
-//            test.append(contentsOf: [1,2,3])
-            mainView.cardView.tableView.insertRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 1, section: 0), IndexPath(row: 0, section: 0)], with: .automatic)
-        } else {
-            //반대
-//            test.removeAll()
-            mainView.cardView.tableView.deleteRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 1, section: 0), IndexPath(row: 0, section: 0)], with: .automatic)
-        }
-
-//        mainView.headerView.chevronButton.rotate(isCollapsed ? .pi : 0, duration: 0.3)
-        isCollapsed = !isCollapsed
-//        mainView.cardView.tableView.reloadData()
     }
 }
 extension ProfileViewController {
@@ -218,7 +198,6 @@ extension ProfileViewController {
         case .updateFail, .withdrawFail:
             presentToast(view: mainView, message: type.message)
         case .withdraw:
-            //온보딩으로
             presentToast(view: mainView, message: type.message)
             let vc = OnboardingViewController()
             changeRootViewController(viewcontroller: vc, isTabBar: false)
@@ -240,5 +219,14 @@ extension ProfileViewController {
     
     @objc private func sliderChanged(_ sender: MultiSlider) {
         viewModel.setAge(value: sender.value)
+    }
+    
+    @objc private func touchToggleButton(_ sender: UIButton) {
+        isCollapsed = !isCollapsed
+        guard let cell = mainView.cardView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileTableViewCell else { return }
+        cell.sesacTitleView.isHidden = isCollapsed
+        cell.reviewView.isHidden = isCollapsed
+        cell.nameView.chevronButton.configuration?.image = isCollapsed ? UIImage(named: ImageName.downChevron) : UIImage(named: ImageName.upChevron)
+        mainView.cardView.tableView.reloadData()
     }
 }

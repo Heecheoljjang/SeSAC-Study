@@ -77,6 +77,7 @@ final class PhoneAuthViewModel: CommonViewModel {
             switch result {
             case .success(let token):
                 print("아이디토큰받아왔으므로 네트워크 통신하기: \(token)")
+                UserDefaultsManager.shared.setValue(value: token, type: .idToken)
                 self.checkUser()
             case .failure(let error):
                 print("아이디토큰 못받아옴 \(error)")
