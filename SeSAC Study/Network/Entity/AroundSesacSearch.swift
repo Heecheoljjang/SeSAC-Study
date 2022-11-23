@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SesacSearch: Codable {
+struct AroundSesacSearch: Codable {
     let fromQueueDB, fromQueueDBRequested: [FromQueueDB]
     let fromRecommend: [String]
 }

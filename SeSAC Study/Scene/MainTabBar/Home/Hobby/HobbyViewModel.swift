@@ -12,16 +12,18 @@ import CoreLocation
 
 final class HobbyViewModel {
     
-    var searchList = BehaviorRelay<SesacSearch>(value: SesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
+    var searchList = BehaviorRelay<AroundSesacSearch>(value: AroundSesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
     var aroundStudyList = BehaviorRelay<[String]>(value: [])
     var myStudyList = BehaviorRelay<[String]>(value: [])
     
     var currentLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
     
+    var searchStatus = PublishRelay<SesacRequestError>()
+    
     func fetchSeSacSearch(location: CLLocationCoordinate2D) {
         let api = SeSacAPI.queueSearch(lat: location.latitude, lon: location.longitude)
 
-        APIService.shared.request(type: SesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
+        APIService.shared.request(type: AroundSesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
 
             guard let error = SesacSearchError(rawValue: statusCode) else { return }
             switch error {
@@ -35,7 +37,35 @@ final class HobbyViewModel {
         }
     }
     
-    func setStudyList(data: SesacSearch) {
+    func tapSearchButton() {
+        let lat = currentLocation.value.latitude
+        let long = currentLocation.value.longitude
+        let studyList = myStudyList.value.count == 0 ? ["anything"] : myStudyList.value
+        let api = SeSacAPI.queue(lat: lat, lon: long, studyList: studyList)
+        APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
+            guard let status = SesacRequestError(rawValue: statusCode) else { return }
+            print("서치버튼상태 \(status), \(statusCode)")
+            switch status {
+            case .tokenError:
+                FirebaseManager.shared.fetchIdToken { result in
+                    switch result {
+                    case .success(let token):
+                        print("아이디토큰받아왔으므로 네트워크 통신하기: \(token)")
+                        UserDefaultsManager.shared.setValue(value: token, type: .idToken)
+                        self?.searchStatus.accept(.tokenError) //다시 눌러달라고 토스트띄우기. 재귀방지
+                    case .failure(let error):
+                        print("아이디토큰 못받아옴 \(error)")
+                        LoadingIndicator.hideLoading()
+                        self?.searchStatus.accept(.clientError)
+                    }
+                }
+            default:
+                self?.searchStatus.accept(status)
+            }
+        }
+    }
+    
+    func setStudyList(data: AroundSesacSearch) {
         var list: [String] = []
         searchList.value.fromQueueDB.forEach {
             list.append(contentsOf: $0.studylist)

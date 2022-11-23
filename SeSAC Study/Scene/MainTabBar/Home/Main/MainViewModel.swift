@@ -13,7 +13,7 @@ import MapKit
 
 final class MainViewModel {
     
-    var searchList = PublishRelay<SesacSearch>()
+    var searchList = PublishRelay<AroundSesacSearch>()
     
     //나의 위치
     var currentLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
@@ -36,7 +36,7 @@ final class MainViewModel {
     func fetchSeSacSearch(location: CLLocationCoordinate2D) {
         let api = SeSacAPI.queueSearch(lat: location.latitude, lon: location.longitude)
 
-        APIService.shared.request(type: SesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
+        APIService.shared.request(type: AroundSesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
 
             guard let error = SesacSearchError(rawValue: statusCode) else { return }
             switch error {
@@ -122,7 +122,7 @@ final class MainViewModel {
         }
     }
     
-    func addAnnotation(map: MKMapView, data: SesacSearch) {
+    func addAnnotation(map: MKMapView, data: AroundSesacSearch) {
         data.fromQueueDB.forEach {
             let coordinate = CLLocationCoordinate2D(latitude: $0.lat, longitude: $0.long)
             guard let image = Annotation(rawValue: $0.sesac) else { return }

@@ -72,6 +72,21 @@ enum SesacRequestError: Int, Error {
     case signUpRequired = 406
     case serverError = 500
     case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .dangerUser:
+            return "신고가 누적되어 이용하실 수 없습니다."
+        case .firstPenalty:
+            return "스터디 취소 패널티로, 1분동안 이용하실 수 없습니다."
+        case .secondPenalty:
+            return "스터디 취소 패널티로, 2분동안 이용하실 수 없습니다."
+        case .thirdPenalty:
+            return "스터디 취소 패널티로, 3분동안 이용하실 수 없습니다."
+        default:
+            return "오류가 발생했습니다. 다시 시도해주세요."
+        }
+    }
 }
 
 enum SesacCancelError: Int, Error {

@@ -11,3 +11,7 @@ struct UserUpdate: Codable {
     let searchable, ageMin, ageMax, gender: Int
     let study: String
 }
+
+enum UpdateParameter {
+    case searchable, ageMin, ageMax, gender, study
+}

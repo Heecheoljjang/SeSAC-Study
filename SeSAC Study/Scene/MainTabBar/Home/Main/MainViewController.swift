@@ -37,16 +37,26 @@ final class MainViewController: ViewController {
         viewModel.fetchUserData() //유저디폴트에 데이터세팅
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func configure() {
         super.configure()
             
         mainView.mapView.delegate = self
+        navigationController?.navigationBar.isHidden = true
     }
     
     func bind() {
         
         viewModel.searchList
-            .asDriver(onErrorJustReturn: SesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
+            .asDriver(onErrorJustReturn: AroundSesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
             .drive(onNext: { [unowned self] value in
                 print(value)
                 self.viewModel.addAnnotation(map: self.mainView.mapView, data: value)

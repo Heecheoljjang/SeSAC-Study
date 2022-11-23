@@ -18,6 +18,7 @@ final class HobbyView: BaseView {
     
     let scrollView: UIScrollView = {
         let view = UIScrollView()
+        view.keyboardDismissMode = .interactive
         return view
     }()
     
@@ -33,7 +34,7 @@ final class HobbyView: BaseView {
         return label
     }()
     
-    let AroundCollectionView: DynamicCollectionView = {
+    let aroundCollectionView: DynamicCollectionView = {
         
         let view = DynamicCollectionView(frame: CGRect.zero, collectionViewLayout: createLayout())
         view.isScrollEnabled = false
@@ -49,7 +50,7 @@ final class HobbyView: BaseView {
         return label
     }()
     
-    let MyListCollectionView: DynamicCollectionView = {
+    let myListCollectionView: DynamicCollectionView = {
         let view = DynamicCollectionView(frame: CGRect.zero, collectionViewLayout: createLayout())
         view.isScrollEnabled = false
         view.register(MyListCollectionViewCell.self, forCellWithReuseIdentifier: MyListCollectionViewCell.identifier)
@@ -73,7 +74,7 @@ final class HobbyView: BaseView {
     
     override func configure() {
         super.configure()
-        [aroundLabel, AroundCollectionView, myListLabel, MyListCollectionView].forEach {
+        [aroundLabel, aroundCollectionView, myListLabel, myListCollectionView].forEach {
             contentView.addSubview($0)
         }
         scrollView.addSubview(contentView)
@@ -98,16 +99,16 @@ final class HobbyView: BaseView {
             make.top.equalToSuperview().offset(32)
             make.leading.equalToSuperview().offset(16)
         }
-        AroundCollectionView.snp.makeConstraints { make in
+        aroundCollectionView.snp.makeConstraints { make in
             make.top.equalTo(aroundLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.greaterThanOrEqualTo(40)
         }
         myListLabel.snp.makeConstraints { make in
-            make.top.equalTo(AroundCollectionView.snp.bottom).offset(32)
+            make.top.equalTo(aroundCollectionView.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(16)
         }
-        MyListCollectionView.snp.makeConstraints { make in
+        myListCollectionView.snp.makeConstraints { make in
             make.top.equalTo(myListLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.greaterThanOrEqualTo(200)

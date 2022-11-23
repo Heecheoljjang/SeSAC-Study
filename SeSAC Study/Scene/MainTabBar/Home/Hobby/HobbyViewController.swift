@@ -9,6 +9,9 @@ import UIKit
 import RxCocoa
 import RxSwift
 import CoreLocation
+import RxKeyboard
+import SnapKit
+import RxGesture
 
 final class HobbyViewController: ViewController {
     
@@ -32,16 +35,16 @@ final class HobbyViewController: ViewController {
         navigationController?.isNavigationBarHidden = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.searchBar)
         
-        mainView.MyListCollectionView.delegate = self
-        mainView.MyListCollectionView.dataSource = self
-        mainView.AroundCollectionView.delegate = self
-        mainView.AroundCollectionView.dataSource = self
+        mainView.myListCollectionView.delegate = self
+        mainView.myListCollectionView.dataSource = self
+        mainView.aroundCollectionView.delegate = self
+        mainView.aroundCollectionView.dataSource = self
     }
     
     func bind() {
 
         viewModel.searchList
-            .asDriver(onErrorJustReturn: SesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
+            .asDriver(onErrorJustReturn: AroundSesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
             .drive(onNext: { [weak self] value in
                 print(value)
                 self?.viewModel.setStudyList(data: value)
@@ -51,14 +54,14 @@ final class HobbyViewController: ViewController {
         viewModel.aroundStudyList
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] _ in
-                self?.mainView.AroundCollectionView.reloadData()
+                self?.mainView.aroundCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
         viewModel.myStudyList
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] _ in
-                self?.mainView.MyListCollectionView.reloadData()
+                self?.mainView.myListCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -74,13 +77,42 @@ final class HobbyViewController: ViewController {
                 self?.appendMyStudyList()
             })
             .disposed(by: disposeBag)
+        
+        //MARK: Rxkeyboard에선 두 가지 드라이버를 제공 frame, visibleHeight. 싱글턴
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [weak self] value in
+                print("키보드 높인가 \(value)")
+                self?.mainView.searchButton.snp.removeConstraints()
+                self?.changeSearchButtonConstraints(value: value)
+            })
+            .disposed(by: disposeBag)
+        
+//        mainView.rx.tapGesture()
+//            .when(.recognized)
+//            .bind(onNext: { [weak self] _ in
+//                self?.mainView.endEditing(true)
+//            })
+//            .disposed(by: disposeBag)
+        mainView.searchButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                print("서치버튼 눌림")
+                self?.viewModel.tapSearchButton()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.searchStatus
+            .asDriver(onErrorJustReturn: .clientError)
+            .drive(onNext: { [weak self] value in
+                self?.checkSearchStatus(status: value)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         switch collectionView {
-        case mainView.AroundCollectionView:
+        case mainView.aroundCollectionView:
             return 2
         default:
             return 1
@@ -88,7 +120,7 @@ extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
-        case mainView.AroundCollectionView:
+        case mainView.aroundCollectionView:
             if section == 0 {
                 return viewModel.fetchRecommendListCount()
             } else {
@@ -100,7 +132,7 @@ extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
-        case mainView.AroundCollectionView:
+        case mainView.aroundCollectionView:
             if indexPath.section == 0 {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.identifier, for: indexPath) as? RecommendCollectionViewCell else { return UICollectionViewCell() }
                 cell.titleLabel.text = viewModel.fetchRecommendListData(item: indexPath.item)
@@ -118,7 +150,7 @@ extension HobbyViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
-        case mainView.AroundCollectionView:
+        case mainView.aroundCollectionView:
             if viewModel.checkMyStudyListCountAlready() {
                 presentToast(view: mainView, message: ToastMessage.tooMany)
                 return
@@ -174,5 +206,32 @@ extension HobbyViewController {
         }
         //myStudyList에 추가
         viewModel.appendMyStudyList(list: studyArr)
+    }
+    private func changeSearchButtonConstraints(value: CGFloat) {
+        if value != 0 {
+            mainView.searchButton.snp.remakeConstraints { make in
+                make.bottom.equalToSuperview().offset(-value)
+                make.height.equalTo(48)
+                make.horizontalEdges.equalToSuperview()
+            }
+        } else {
+            mainView.searchButton.snp.remakeConstraints { make in
+                make.horizontalEdges.equalToSuperview().inset(16)
+                make.height.equalTo(48)
+                make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(-16)
+            }
+        }
+    }
+    
+    private func checkSearchStatus(status: SesacRequestError) {
+        print("status: \(status)")
+        switch status {
+        case .searchSuccess:
+            //화면전환
+            let vc = NearUserViewController()
+            transition(vc, transitionStyle: .push)
+        default:
+            presentToast(view: mainView, message: status.message)
+        }
     }
 }

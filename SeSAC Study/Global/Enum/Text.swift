@@ -386,14 +386,14 @@ enum AlertText {
     var title: String {
         switch self {
         case .withdraw:
-            return "회원탈퇴를 하시겠습니까?"
+            return "정말 탈퇴하시겠습니까?"
         }
     }
     
     var message: String {
         switch self {
         case .withdraw:
-            return ""
+            return "탈퇴하시면 새싹 스터디를 이용할 수 없어요ㅠ"
         }
     }
 }
