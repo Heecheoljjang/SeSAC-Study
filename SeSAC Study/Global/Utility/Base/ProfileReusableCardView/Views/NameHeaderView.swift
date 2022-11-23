@@ -13,7 +13,6 @@ final class NameHeaderView: BaseView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: CustomFont.medium, size: 16)
-        label.text = "윤희철"
         return label
     }()
 
@@ -21,8 +20,17 @@ final class NameHeaderView: BaseView {
         let button = UIButton()
         var configuration = UIButton.Configuration.plain()
         configuration.baseForegroundColor = .graySeven
-        configuration.image = UIImage(named: ImageName.upChevron)
+        configuration.image = UIImage(named: ImageName.downChevron)
         
+        button.configuration = configuration
+        return button
+    }()
+    
+    let clearButton: UIButton = {
+        let button = UIButton()
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseForegroundColor = .clear
+        configuration.baseBackgroundColor = .clear
         button.configuration = configuration
         return button
     }()
@@ -33,7 +41,7 @@ final class NameHeaderView: BaseView {
     
     override func configure() {
         super.configure()
-        [nameLabel, chevronButton].forEach {
+        [nameLabel, chevronButton, clearButton].forEach {
             addSubview($0)
         }
     }
@@ -51,6 +59,9 @@ final class NameHeaderView: BaseView {
             make.centerY.equalToSuperview()
             make.trailing.equalTo(chevronButton.snp.leading)
             make.height.equalTo(24)
+        }
+        clearButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }

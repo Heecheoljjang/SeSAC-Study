@@ -79,8 +79,11 @@ final class ProfileTableViewCell: BaseTableViewCell {
             stackView.addArrangedSubview($0)
         }
         [imageSetView, requestButton, stackView].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
+        sesacTitleView.isHidden = true
+        studyView.isHidden = true
+        reviewView.isHidden = true
     }
     
     override func setUpConstraints() {
