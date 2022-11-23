@@ -14,31 +14,25 @@ import MapKit
 final class MainViewModel {
     
     var searchList = PublishRelay<AroundSesacSearch>()
-    
-    //나의 위치
-    var currentLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
-    
+
     var currentStatus = BehaviorRelay<MatchingStatus>(value: .normal)
     
-    //위치를 잘 가져오면 accept로 위치 넣어서 서버통신. 잘 못가져오면 새싹 위치 accept
-    var selectedLocation = PublishRelay<CLLocationCoordinate2D>()
+    var selectedLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
     
-    var currentAuthStatus = BehaviorRelay<CLAuthorizationStatus>(value: .notDetermined)
-    
-//    func removeUserDefatuls() {
-//        UserDefaultsManager.shared.removeSomeValue()
-//    }
-    
-    func setCurrentLocation(location: CLLocationCoordinate2D) {
-        currentLocation.accept(location)
+//    var currentAuthStatus = BehaviorRelay<CLAuthorizationStatus>(value: .notDetermined)
+
+    func setSelectedLocation(location: CLLocationCoordinate2D) {
+        selectedLocation.accept(location)
     }
     
     func fetchSeSacSearch(location: CLLocationCoordinate2D) {
         let api = SeSacAPI.queueSearch(lat: location.latitude, lon: location.longitude)
 
         APIService.shared.request(type: AroundSesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
-
-            guard let error = SesacSearchError(rawValue: statusCode) else { return }
+            print(statusCode)
+            guard let error = SesacSearchError(rawValue: statusCode) else {
+                print("실패했음 도대체 왜")
+                return }
             switch error {
             case .searchSuccess:
                 guard let data = data else { return }
@@ -51,10 +45,14 @@ final class MainViewModel {
     }
     
     func fetchQueueState() {
+        print("queuestate 실행됨")
         let api = SeSacAPI.myQueueState
 
         APIService.shared.request(type: MyQueueState.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
-            guard let error = QueueStateError(rawValue: statusCode) else { return }
+            print("queueState 상태코드 \(statusCode)")
+            guard let error = QueueStateError(rawValue: statusCode) else {
+                print("에러떠서 queuestate못가져옴")
+                return }
             switch error {
             case .checkSuccess:
                 guard let data = data else { return }
@@ -78,32 +76,6 @@ final class MainViewModel {
 
     func fetchMatchingStatus() -> MatchingStatus {
         return currentStatus.value
-    }
-    
-    func setCurrentAuthStatus(status: CLAuthorizationStatus) {
-        //status를 확인해서 허용이면 accept하고 유저디폴트도 allowed로
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse:
-            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.allowed.rawValue, type: .locationAuth)
-        default:
-            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth)
-        }
-        currentAuthStatus.accept(status)
-    }
-
-    func checkAuthorizationStatus() -> Bool {
-        return UserDefaultsManager.shared.checkLocationAuth()
-    }
-    
-    func setUserDefaultsAuth(type: LocationAuthStatus) {
-        switch type {
-        case .restriced:
-            print("res")
-            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth)
-        case .allowed:
-            print("allow")
-            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.allowed.rawValue, type: .locationAuth)
-        }
     }
     
     func fetchUserData() {
@@ -140,6 +112,76 @@ final class MainViewModel {
     }
     
     func sendCurrentLocation(location: BehaviorRelay<CLLocationCoordinate2D>) {
-        location.accept(currentLocation.value)
+        location.accept(selectedLocation.value)
     }
+    
+    func checkLocationAuth(locationManager: CLLocationManager) -> CLAuthorizationStatus {
+        return locationManager.authorizationStatus
+    }
+    
+    func setMapView(locationManager: CLLocationManager, mapView: MKMapView) {
+        /*
+         - 권한 확인 후 notDet~인 경우엔 권한요청
+         - 허용되어있는 경우엔 내 위치로
+         - 허용되어있지 않다면 새싹위치로
+         */
+        let auth = checkLocationAuth(locationManager: locationManager)
+        switch auth {
+        case .notDetermined:
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted, .denied:
+            let baseLocation = CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value)
+            selectedLocation.accept(baseLocation)
+            let region = MKCoordinateRegion(center: baseLocation, latitudinalMeters: 800, longitudinalMeters: 800)
+            mapView.setRegion(region, animated: true)
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+        default:
+            print("나머지")
+        }
+    }
+    
+//    func setCurrentAuthStatus(status: CLAuthorizationStatus) {
+//        //status를 확인해서 허용이면 accept하고 유저디폴트도 allowed로
+//        switch status {
+//        case .authorizedAlways, .authorizedWhenInUse:
+//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.allowed.rawValue, type: .locationAuth)
+//        default:
+//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth)
+//        }
+//        currentAuthStatus.accept(status)
+//    }
+
+//    func checkAuthorizationStatus() {
+////        UserDefaultsManager.shared.checkLocationAuth() ? currentAuthStatus.accept(.authorizedWhenInUse) : currentAuthStatus.accept(.restricted)
+//        switch UserDefaultsManager.shared.checkLocationAuth() {
+//        case .restriced:
+//            currentAuthStatus.accept(.restricted)
+//        case .allowed:
+//            currentAuthStatus.accept(.authorizedWhenInUse)
+//        case .notDetermined:
+//            currentAuthStatus.accept(.notDetermined)
+//        }
+//    }
+    
+//    func fetchCurrentAuth() -> CLAuthorizationStatus {
+//        return currentAuthStatus.value
+//    }
+//
+//    func setUserDefaultsAuth(type: LocationAuthStatus) {
+//        switch type {
+//        case .restriced:
+//            print("res")
+//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth)
+//        case .allowed:
+//            print("allow")
+//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.allowed.rawValue, type: .locationAuth)
+//        case .notDetermined:
+//            print("notDetermined")
+//            UserDefaultsManager.shared.setValue(value: LocationAuthStatus.notDetermined.rawValue, type: .locationAuth)
+//        }
+//    }
+
 }
+

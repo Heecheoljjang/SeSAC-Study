@@ -33,8 +33,6 @@ final class UserDefaultsManager {
             return UserDefaults.standard.string(forKey: type.rawValue) ?? ""
         case .invalidNickname:
             return UserDefaults.standard.bool(forKey: type.rawValue)
-        case .locationAuth:
-            return UserDefaults.standard.integer(forKey: type.rawValue)
         case .userInfo:
             guard let infoData = UserDefaults.standard.object(forKey: type.rawValue) as? Data else { return "" }
             let decoder = JSONDecoder()
@@ -58,7 +56,6 @@ final class UserDefaultsManager {
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.invalidNickname.rawValue)
 //        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.phoneNumber.rawValue)
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userInfo.rawValue)
-        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.locationAuth.rawValue)
     }
     
     func removeAll() {
@@ -69,13 +66,5 @@ final class UserDefaultsManager {
     func checkIdTokenIsEmpty() -> Bool {
         guard let idToken = UserDefaults.standard.string(forKey: UserDefaultsKeys.idToken.rawValue) else { return true }
         return idToken.isEmpty ? true : false
-    }
-    
-    func checkLocationAuth() -> Bool {
-        guard let authValue = fetchValue(type: .locationAuth) as? Int else { return false }
-        print("유저디폴트에서 불러온 값 \(authValue)")
-        guard let auth = LocationAuthStatus(rawValue: authValue) else { return false }
-        print("숫자로 가져온 상태값 \(auth)")
-        return auth == .restriced ? false : true
     }
 }

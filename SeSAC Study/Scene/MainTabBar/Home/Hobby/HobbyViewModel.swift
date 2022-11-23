@@ -40,6 +40,8 @@ final class HobbyViewModel {
     func tapSearchButton() {
         let lat = currentLocation.value.latitude
         let long = currentLocation.value.longitude
+
+        print(lat, long)
         let studyList = myStudyList.value.count == 0 ? ["anything"] : myStudyList.value
         let api = SeSacAPI.queue(lat: lat, lon: long, studyList: studyList)
         APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in

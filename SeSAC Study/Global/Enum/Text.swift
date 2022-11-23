@@ -68,6 +68,7 @@ enum ButtonTitle {
     static let man = "남자"
     static let woman = "여자"
     static let searchSesac = "새싹 찾기"
+    static let stop = "찾기중단"
 }
 
 enum ImageName {
@@ -381,12 +382,16 @@ enum BackgroundImage: Int {
 }
 
 enum AlertText {
-    case withdraw
+    case withdraw, location, locationAuth
     
     var title: String {
         switch self {
         case .withdraw:
             return "정말 탈퇴하시겠습니까?"
+        case .location:
+            return "위치를 가져오지 못했습니다."
+        case .locationAuth:
+            return "위치 서비스 사용 불가"
         }
     }
     
@@ -394,6 +399,10 @@ enum AlertText {
         switch self {
         case .withdraw:
             return "탈퇴하시면 새싹 스터디를 이용할 수 없어요ㅠ"
+        case .location:
+            return "다시 시도해주세요."
+        case .locationAuth:
+            return ""
         }
     }
 }

@@ -18,6 +18,12 @@ import RxCoreLocation
  - 설정된 위치를 가지고 search통신해서 지도에 이미지 보여주기
  */
 
+/*
+ 
+위치 변수를 하나만 두기때문에 맵을 이동시킬때마다 setRegion을 해준다면 불편할것임.
+ -> locationManager가 이용되었을때 selectedLocation값 변경과 함께 사용해보는걸로.
+ 
+ */
 
 final class MainViewController: ViewController {
     private var mainView = MainView()
@@ -31,38 +37,35 @@ final class MainViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bind()
-        viewModel.fetchQueueState() //버튼 세팅
         viewModel.fetchUserData() //유저디폴트에 데이터세팅
+    }
+    
+    override func configure() {
+        super.configure()
+        mainView.mapView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        viewModel.fetchQueueState() //버튼 세팅
+        viewModel.setMapView(locationManager: locationManager, mapView: mainView.mapView)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
-    override func configure() {
-        super.configure()
-            
-        mainView.mapView.delegate = self
-        navigationController?.navigationBar.isHidden = true
-    }
-    
+
     func bind() {
-        
         viewModel.searchList
             .asDriver(onErrorJustReturn: AroundSesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
             .drive(onNext: { [unowned self] value in
-                print(value)
                 self.viewModel.addAnnotation(map: self.mainView.mapView, data: value)
             })
             .disposed(by: disposeBag)
-        
+
         //현재 상태에 따라 버튼 이미지 변경
         viewModel.currentStatus
             .asDriver(onErrorJustReturn: .normal)
@@ -70,96 +73,106 @@ final class MainViewController: ViewController {
                 self.mainView.findButton.configuration?.image = UIImage(named: value.imageName)
             })
             .disposed(by: disposeBag)
-        
+
         mainView.findButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 self?.transitionViewController()
             })
             .disposed(by: disposeBag)
-        
-        //gps버튼 누르면 didUpdateLocation실행되게해서 위치 받아오고 currentlocation에 넣어주면 요기서 setRegion해주기
-        viewModel.currentLocation
-            .asDriver(onErrorJustReturn: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
-            .drive(onNext: { [weak self] value in
-                print("현재위치 바뀌었음 \(value)")
-                self?.setRegion(center: value)
-            })
-            .disposed(by: disposeBag)
-        
+
         viewModel.selectedLocation
             .asDriver(onErrorJustReturn: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
             .drive(onNext: { [weak self] value in
                 //위치로 서버통신해서 맵뷰에 표시 -> 데이터에 값이 들어왔을때 업데이트 해주는 형식으로 하면될듯
-                print("서치 진행")
+                print("서치 진행 \(value)")
+//                self?.setRegion(center: value)
                 self?.viewModel.fetchSeSacSearch(location: value)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.currentAuthStatus
-            .asDriver(onErrorJustReturn: .notDetermined)
-            .drive(onNext: { [weak self] value in
-                switch value {
-                case .notDetermined:
-                    //아직 앱이 위치서비스를 사용할지 선택하지않음. 기본값을 여기서 설정해도될듯
-                    print("notDetermined")
-                    self?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                    self?.locationManager.requestWhenInUseAuthorization()
-                case .restricted, .denied:
-                    print("권한없음. 지도의 중심 영등포로 하고 서버통신")
-                    self?.viewModel.setCurrentLocation(location: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
-                    //유저디폴트 바꿔야함
-                    self?.viewModel.setUserDefaultsAuth(type: .restriced)
-                case .authorizedWhenInUse, .authorizedAlways:
-                    print("사용시에만 허용했음")
-                    //유저디폴트
-                    self?.viewModel.setUserDefaultsAuth(type: .allowed)
-                    self?.locationManager.startUpdatingLocation()
-                case .authorized:
-                    print("맥에서 씀")
-                @unknown default:
-                    print("나중에 추가될수도있고 바뀔 수도 있는데 unknown default")
-                }
-            })
-            .disposed(by: disposeBag)
-        
+
+//        viewModel.currentAuthStatus
+//            .asDriver(onErrorJustReturn: .notDetermined)
+//            .drive(onNext: { [weak self] value in
+//                switch value {
+//                case .notDetermined:
+//                    self?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//                    self?.locationManager.requestWhenInUseAuthorization()
+//                case .restricted, .denied:
+//                    self?.viewModel.setUserDefaultsAuth(type: .restriced)
+//                    //권한 막히면 영등포로 위치변경
+//                    let baseLocation = CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value)
+//
+//                    self?.viewModel.setSelectedLocation(location: baseLocation)
+//                    self?.setRegion(center: baseLocation)
+//                case .authorizedWhenInUse, .authorizedAlways:
+//                    self?.viewModel.setUserDefaultsAuth(type: .allowed)
+//
+//                    //didUpdateLocation실행시키기위해
+//                    self?.locationManager.startUpdatingLocation()
+//                default:
+//                    print("나머지")
+//                }
+//            })
+//            .disposed(by: disposeBag)
+
+        //gps버튼을 누를때, 위치권한이 허용으로 바뀌었을 경우에만 실행
         locationManager.rx.didUpdateLocations
             .subscribe(onNext: { [weak self] value in
                 if let coordinate  = value.locations.last?.coordinate {
                     print("현재 사용자 위치: \(coordinate)")
-                    self?.viewModel.setCurrentLocation(location: coordinate)
+//                    self?.viewModel.setSelectedLocation(location: coordinate)
+                    self?.setRegion(center: coordinate)
                 }
                 self?.locationManager.stopUpdatingLocation()
             })
             .disposed(by: disposeBag)
-            
-        //MARK: 내 위치 바뀌면 실행 => 맵뷰 움직이면 startUpdatingLocation실행되는데 이것때문에 실행되는듯
-        locationManager.rx.location
-            .subscribe(onNext: { [weak self] value in
-                guard let coordinate = value?.coordinate else { return }
-                print("내 위치 바뀜: \(coordinate)")
-                self?.viewModel.setCurrentLocation(location: coordinate)
-            })
-            .disposed(by: disposeBag)
-        
+
+//        locationManager.rx.location
+//            .subscribe(onNext: { [weak self] value in
+//                guard let coordinate = value?.coordinate else { return }
+//                //didUpdateLocation에서 위치를 알아내고 위치가 바뀌었으니 맵뷰에서도 움직여주도록함
+//                self?.setRegion(center: coordinate)
+//            })
+//            .disposed(by: disposeBag)
+
         //MARK: - 권한 바뀌면 실행 => 실행중에 나가서 권한 막을 수도 있음
         locationManager.rx.didChangeAuthorization
-            .subscribe(onNext: { [weak self] _, status in
+            .withUnretained(self)
+            .subscribe(onNext: { (vc, _) in
                 print("권한바뀜")
-                self?.viewModel.setCurrentAuthStatus(status: status)
+//                switch status {
+//                case .notDetermined:
+//                    self?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//                    self?.locationManager.requestWhenInUseAuthorization()
+//                case .restricted, .denied:
+//                    //권한 막히면 영등포로 위치변경
+//                    let baseLocation = CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value)
+//
+//                    self?.viewModel.setSelectedLocation(location: baseLocation)
+//                    self?.setRegion(center: baseLocation)
+//                case .authorizedWhenInUse, .authorizedAlways:
+//                    //didUpdateLocation실행시키기위해
+//                    self?.locationManager.startUpdatingLocation()
+//                default:
+//                    print("나머지")
+//                }
+                vc.viewModel.setMapView(locationManager: vc.locationManager, mapView: vc.mainView.mapView)
             })
             .disposed(by: disposeBag)
-        
+
         locationManager.rx.didError
             .bind(onNext: { [weak self] _ in
-                print("위치를 가져오지 못했습니다.")
-                //alert같은거 띄우면 될 것 같음
-                
+                self?.handlerAlert(title: AlertText.locationAuth.title, message: AlertText.locationAuth.message) { _ in
+                    //MARK: - 아이폰 설정으로 이동시키기
+                    print("아이폰 설정으로 이동")
+                }
             })
             .disposed(by: disposeBag)
-            
+
         //gps 버튼
         mainView.myLocationButton.rx.tap
             .bind(onNext: { [weak self] _ in
+                //MARK: 위치 못불러오면 알아서 didError로 가기때문에 얼럿띄워짐
                 self?.locationManager.startUpdatingLocation()
             })
             .disposed(by: disposeBag)
@@ -168,18 +181,20 @@ final class MainViewController: ViewController {
 
 extension MainViewController {
     private func transitionViewController() {
-        let authStatus = viewModel.checkAuthorizationStatus() //유저디폴트에 저장된거 가져오기
+        let authStatus = viewModel.checkLocationAuth(locationManager: locationManager)
         print("현재 권한은 \(authStatus)")
         switch viewModel.fetchMatchingStatus() {
         case .normal:
-            if authStatus {
-                print("허용됨")
+            switch authStatus {
+            case .authorizedWhenInUse, .authorizedAlways:
                 let vc = HobbyViewController()
                 viewModel.sendCurrentLocation(location: vc.viewModel.currentLocation)
                 transition(vc, transitionStyle: .push)
-            } else {
-                print("권한이 막힘")
-                //MARK: alert
+            default:
+                handlerAlert(title: AlertText.locationAuth.title, message: AlertText.locationAuth.message) { _ in
+                    //MARK: - 아이폰 설정으로 이동시키기
+                    print("아이폰 설정으로 이동")
+                }
             }
         case .matching:
             let vc = NearUserViewController()
@@ -195,21 +210,21 @@ extension MainViewController {
 extension MainViewController {
     private func setRegion(center: CLLocationCoordinate2D) {
         print("region설정")
+        print("센터센터: \(center)")
         let region = MKCoordinateRegion(center: center, latitudinalMeters: 800, longitudinalMeters: 800)
         mainView.mapView.setRegion(region, animated: true)
-        locationManager.stopUpdatingLocation()
+//        locationManager.stopUpdatingLocation()
     }
 }
 
 //MARK: - RxMKMapView써볼수도
 extension MainViewController: MKMapViewDelegate {
-    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         mapView.isUserInteractionEnabled = false
         mapView.removeAnnotations(mapView.annotations)
         let center = mapView.centerCoordinate
         print("center: \(center)")
-        viewModel.selectedLocation.accept(center)
+        viewModel.setSelectedLocation(location: center)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             mapView.isUserInteractionEnabled = true

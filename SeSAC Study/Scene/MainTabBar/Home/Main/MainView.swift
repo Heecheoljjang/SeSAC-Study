@@ -14,7 +14,7 @@ final class MainView: BaseView {
     let mapView: MKMapView = {
         let view = MKMapView()
         view.setCameraZoomRange(MKMapView.CameraZoomRange(minCenterCoordinateDistance: 100, maxCenterCoordinateDistance: 6000), animated: true)
-        
+        view.centerCoordinate = CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value)
         return view
     }()
     

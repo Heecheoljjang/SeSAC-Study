@@ -28,10 +28,6 @@ final class LaunchViewModel: CommonViewModel {
     func checkIdToken() {
         idTokenIsEmpty.accept(UserDefaultsManager.shared.checkIdTokenIsEmpty())
     }
-    
-    func setLocationAuth() {
-        UserDefaultsManager.shared.setValue(value: LocationAuthStatus.restriced.rawValue, type: .locationAuth) //0으로 세팅
-    }
 
     func checkUserStatus() {
         let api = SeSacAPI.signIn
