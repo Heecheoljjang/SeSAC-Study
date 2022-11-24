@@ -9,5 +9,5 @@ import Foundation
 
 struct MyQueueState: Codable {
     let dodged, matched, reviewed: Int
-    let matchedNick, matchedUid: String
+    let matchedNick, matchedUid: String?
 }

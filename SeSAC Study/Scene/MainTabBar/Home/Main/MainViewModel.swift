@@ -53,7 +53,9 @@ final class MainViewModel {
                 return }
             switch error {
             case .checkSuccess:
-                guard let data = data else { return }
+                guard let data = data else {
+                    print("Queuestate통신 데이터 못가져옴")
+                    return }
                 print("상태 통신 성공", data, error)
                 switch data.matched {
                 case 0:
