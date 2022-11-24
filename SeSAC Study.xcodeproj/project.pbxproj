@@ -95,6 +95,9 @@
 		97A24C902921EC47009CE203 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A24C8F2921EC47009CE203 /* InfoView.swift */; };
 		97A24C922921EC4D009CE203 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A24C912921EC4D009CE203 /* InfoViewController.swift */; };
 		97A24C942921EC57009CE203 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A24C932921EC57009CE203 /* InfoViewModel.swift */; };
+		97A8D405292F75CF00F31401 /* NearUserVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8D404292F75CF00F31401 /* NearUserVIew.swift */; };
+		97A8D407292F7D1700F31401 /* NearUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8D406292F7D1700F31401 /* NearUserVC.swift */; };
+		97A8D409292FAD3200F31401 /* NearUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8D408292FAD3200F31401 /* NearUserViewModel.swift */; };
 		97B381E0291B5421009618A7 /* BirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381DF291B5421009618A7 /* BirthdayView.swift */; };
 		97B381E2291B5429009618A7 /* BirthdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381E1291B5429009618A7 /* BirthdayViewController.swift */; };
 		97B381E4291B5433009618A7 /* BirthdayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381E3291B5433009618A7 /* BirthdayViewModel.swift */; };
@@ -105,6 +108,9 @@
 		97B381F0291BE0DB009618A7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381EF291BE0DB009618A7 /* EmailView.swift */; };
 		97B381F2291BE0E2009618A7 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381F1291BE0E2009618A7 /* EmailViewController.swift */; };
 		97B381F4291BE0E9009618A7 /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381F3291BE0E9009618A7 /* EmailViewModel.swift */; };
+		97BF633D292FF7C600777D3F /* AroundSesacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BF633C292FF7C600777D3F /* AroundSesacView.swift */; };
+		97BF633F292FF7CF00777D3F /* AroundSesacViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BF633E292FF7CF00777D3F /* AroundSesacViewModel.swift */; };
+		97BF6341292FF96100777D3F /* NoSesacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BF6340292FF96100777D3F /* NoSesacView.swift */; };
 		97C3DC1F291FCCA500E315FA /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C3DC1E291FCCA500E315FA /* NetworkMonitor.swift */; };
 		97C3DC22291FE3A500E315FA /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C3DC21291FE3A500E315FA /* LaunchViewController.swift */; };
 		97C3DC24291FE3B200E315FA /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C3DC23291FE3B200E315FA /* LaunchView.swift */; };
@@ -223,6 +229,9 @@
 		97A24C8F2921EC47009CE203 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		97A24C912921EC4D009CE203 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		97A24C932921EC57009CE203 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
+		97A8D404292F75CF00F31401 /* NearUserVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserVIew.swift; sourceTree = "<group>"; };
+		97A8D406292F7D1700F31401 /* NearUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserVC.swift; sourceTree = "<group>"; };
+		97A8D408292FAD3200F31401 /* NearUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserViewModel.swift; sourceTree = "<group>"; };
 		97B381DF291B5421009618A7 /* BirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayView.swift; sourceTree = "<group>"; };
 		97B381E1291B5429009618A7 /* BirthdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewController.swift; sourceTree = "<group>"; };
 		97B381E3291B5433009618A7 /* BirthdayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewModel.swift; sourceTree = "<group>"; };
@@ -232,6 +241,9 @@
 		97B381EF291BE0DB009618A7 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		97B381F1291BE0E2009618A7 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		97B381F3291BE0E9009618A7 /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
+		97BF633C292FF7C600777D3F /* AroundSesacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundSesacView.swift; sourceTree = "<group>"; };
+		97BF633E292FF7CF00777D3F /* AroundSesacViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundSesacViewModel.swift; sourceTree = "<group>"; };
+		97BF6340292FF96100777D3F /* NoSesacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSesacView.swift; sourceTree = "<group>"; };
 		97C3DC1E291FCCA500E315FA /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		97C3DC21291FE3A500E315FA /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		97C3DC23291FE3B200E315FA /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
@@ -291,6 +303,7 @@
 		973F8799292E4A5500C70F7F /* TabmanVC */ = {
 			isa = PBXGroup;
 			children = (
+				97BF6340292FF96100777D3F /* NoSesacView.swift */,
 				973F879E292E4BF400C70F7F /* AroundSesac */,
 				973F879F292E4BFC00C70F7F /* Received */,
 			);
@@ -300,7 +313,9 @@
 		973F879E292E4BF400C70F7F /* AroundSesac */ = {
 			isa = PBXGroup;
 			children = (
+				97BF633C292FF7C600777D3F /* AroundSesacView.swift */,
 				973F879A292E4BB500C70F7F /* AroundSesacViewController.swift */,
+				97BF633E292FF7CF00777D3F /* AroundSesacViewModel.swift */,
 			);
 			path = AroundSesac;
 			sourceTree = "<group>";
@@ -378,8 +393,10 @@
 		975BF1F62926A82900A2D084 /* NearUser */ = {
 			isa = PBXGroup;
 			children = (
-				973F8799292E4A5500C70F7F /* TabmanVC */,
+				97A8D404292F75CF00F31401 /* NearUserVIew.swift */,
 				975BF1FB2926A87E00A2D084 /* NearUserViewController.swift */,
+				97A8D408292FAD3200F31401 /* NearUserViewModel.swift */,
+				973F8799292E4A5500C70F7F /* TabmanVC */,
 			);
 			path = NearUser;
 			sourceTree = "<group>";
@@ -765,6 +782,7 @@
 			isa = PBXGroup;
 			children = (
 				975BF1F029269C0400A2D084 /* MatchingStatus.swift */,
+				97A8D406292F7D1700F31401 /* NearUserVC.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -925,6 +943,7 @@
 				9784A67C29221ECC00C0D999 /* ProfileView.swift in Sources */,
 				97A24C942921EC57009CE203 /* InfoViewModel.swift in Sources */,
 				9796DEE7291943D900D8C915 /* PhoneAuthViewController.swift in Sources */,
+				97BF6341292FF96100777D3F /* NoSesacView.swift in Sources */,
 				979E79F2291E627700E9A89A /* OnboardingViewModel.swift in Sources */,
 				974EE3FF292CABFD00F07DAC /* MyInfoActionType.swift in Sources */,
 				97FBDC5A291A4FF1007CB321 /* AuthCheck.swift in Sources */,
@@ -947,6 +966,8 @@
 				97E4FEC6292DEF9100F487F1 /* Queue.swift in Sources */,
 				976211F3291C2A93008B00FE /* CommonViewModel.swift in Sources */,
 				97C3DC26291FE83400E315FA /* LaunchViewModel.swift in Sources */,
+				97A8D409292FAD3200F31401 /* NearUserViewModel.swift in Sources */,
+				97A8D407292F7D1700F31401 /* NearUserVC.swift in Sources */,
 				9784A682292226B400C0D999 /* ProfileReusableCardView.swift in Sources */,
 				974CF659291D4EB600B66CAC /* SeSacAPI.swift in Sources */,
 				979E79F0291E626E00E9A89A /* OnboardingView.swift in Sources */,
@@ -967,6 +988,7 @@
 				979E7A07291FB01000E9A89A /* CustomFont.swift in Sources */,
 				97A24C8E2921EC41009CE203 /* FriendViewModel.swift in Sources */,
 				97ECAC0E292680C800F3A626 /* AroundSesacSearch.swift in Sources */,
+				97BF633F292FF7CF00777D3F /* AroundSesacViewModel.swift in Sources */,
 				974CF662291D63F600B66CAC /* SignUp.swift in Sources */,
 				9796DED129191BEE00D8C915 /* BaseView.swift in Sources */,
 				97A24C922921EC4D009CE203 /* InfoViewController.swift in Sources */,
@@ -1003,9 +1025,11 @@
 				975BF1FA2926A87500A2D084 /* HobbyViewController.swift in Sources */,
 				9784A69E2922BBFB00C0D999 /* NameHeaderView.swift in Sources */,
 				97FBDC58291A46FE007CB321 /* ButtonStatus.swift in Sources */,
+				97A8D405292F75CF00F31401 /* NearUserVIew.swift in Sources */,
 				9752857629291F1B0030403F /* DynamicCollectionView.swift in Sources */,
 				97F3DFED292171DE0075582A /* typealias.swift in Sources */,
 				974EE401292CC01300F07DAC /* UserUpdate.swift in Sources */,
+				97BF633D292FF7C600777D3F /* AroundSesacView.swift in Sources */,
 				979E79F4291E628000E9A89A /* OnboardingViewController.swift in Sources */,
 				97B381EB291BB0B5009618A7 /* Date+Extension.swift in Sources */,
 				979E79FD291F6F4A00E9A89A /* OnboardingCell.swift in Sources */,

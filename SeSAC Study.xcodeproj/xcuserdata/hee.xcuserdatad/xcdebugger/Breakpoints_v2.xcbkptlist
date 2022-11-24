@@ -66,38 +66,6 @@
             endingLineNumber = "93"
             landmarkName = "bind()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "DF5CBF27-761B-46D8-8E8E-148D599238FB - 488a9a1aec581265"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SeSAC_Study.MainViewController.bind() -&gt; ()"
-                  moduleName = "SeSAC Study"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hee/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8/%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8/SLP/SeSAC%20Study/SeSAC%20Study/Scene/MainTabBar/Home/Main/MainViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "2916">
-               </Location>
-               <Location
-                  uuid = "DF5CBF27-761B-46D8-8E8E-148D599238FB - 458e9b8375c70eef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #6 ((manager: __C.CLLocationManager, locations: Swift.Array&lt;__C.CLLocation&gt;)) -&gt; () in SeSAC_Study.MainViewController.bind() -&gt; ()"
-                  moduleName = "SeSAC Study"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hee/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8/%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8/SLP/SeSAC%20Study/SeSAC%20Study/Scene/MainTabBar/Home/Main/MainViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "88">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -110,8 +78,8 @@
             filePath = "SeSAC Study/Scene/MainTabBar/Home/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "mapView(_:viewFor:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +94,8 @@
             filePath = "SeSAC Study/Scene/MainTabBar/Home/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "mapView(_:regionDidChangeAnimated:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +110,8 @@
             filePath = "SeSAC Study/Scene/MainTabBar/Home/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "mapView(_:regionDidChangeAnimated:)"
             landmarkType = "7">
          </BreakpointContent>
