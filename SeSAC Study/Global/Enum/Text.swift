@@ -96,6 +96,7 @@ enum ImageName {
     static let qna = "qna"
     static let alarm = "setting_alarm"
     static let permit = "permit"
+    static let emptySesac = "emptySesac"
 }
 
 enum ProfileImage {

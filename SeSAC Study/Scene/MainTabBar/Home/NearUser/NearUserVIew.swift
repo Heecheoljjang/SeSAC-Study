@@ -12,7 +12,7 @@ import Pageboy
 
 final class NearUserView: BaseView {
         
-    let button: UIButton = {
+    let changeStudyButton: UIButton = {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = .brandGreen
@@ -31,6 +31,8 @@ final class NearUserView: BaseView {
         button.layer.borderColor = UIColor.brandGreen.cgColor
         button.layer.borderWidth = 1
         button.configuration = configuration
+        button.layer.cornerRadius = 8
+        button.clipsToBounds = true
         return button
     }()
     
@@ -58,7 +60,7 @@ final class NearUserView: BaseView {
     
     override func configure() {
         super.configure()
-        [button, retryButton].forEach {
+        [changeStudyButton, retryButton].forEach {
             addSubview($0)
         }
     }
@@ -71,7 +73,7 @@ final class NearUserView: BaseView {
             make.size.equalTo(48)
         }
         
-        button.snp.makeConstraints { make in
+        changeStudyButton.snp.makeConstraints { make in
             make.trailing.equalTo(retryButton.snp.leading).offset(-8)
             make.leading.equalToSuperview().offset(16)
             make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-16)

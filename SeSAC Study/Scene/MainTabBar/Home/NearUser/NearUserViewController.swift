@@ -49,6 +49,13 @@ final class NearUserViewController: TabmanViewController {
                 self?.checkCancelStatus(status: value)
             })
             .disposed(by: disposeBag)
+        mainView.changeStudyButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { (vc, _) in
+                //이전화면으로
+                vc.transition(vc, transitionStyle: .pop)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
