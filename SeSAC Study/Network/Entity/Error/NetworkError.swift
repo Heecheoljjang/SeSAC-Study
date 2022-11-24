@@ -96,6 +96,17 @@ enum SesacCancelError: Int, Error {
     case signUpRequired = 406
     case serverError = 500
     case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .cancelSuccess:
+            return "성공"
+        case .alreadyCancel:
+            return "누군가와 스터디를 함께하기로 약속하셨어요!"
+        default:
+            return "에러가 발생하였습니다. 다시 시도해주세요."
+        }
+    }
 }
 
 enum SesacSearchError: Int, Error {

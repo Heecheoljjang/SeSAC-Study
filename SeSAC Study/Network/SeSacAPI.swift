@@ -18,6 +18,7 @@ enum SeSacAPI {
     case withdraw
     case queue(lat: Double, lon: Double, studyList: [String])
     case queueSearch(lat: Double, lon: Double)
+    case stopQueueSearch
     case myQueueState
     case update(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     
@@ -29,7 +30,7 @@ enum SeSacAPI {
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/withdraw")!
         case .update:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/mypage")!
-        case .queue:
+        case .queue, .stopQueueSearch:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue")!
         case .queueSearch:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/search")!
@@ -42,7 +43,7 @@ enum SeSacAPI {
         guard let token = UserDefaultsManager.shared.fetchValue(type: .idToken) as? String else { return [] }
         
         switch self {
-        case .signIn, .withdraw, .myQueueState:
+        case .signIn, .withdraw, .myQueueState, .stopQueueSearch:
             return ["idtoken": token]
         case .signUp, .queue, .queueSearch, .update:
             return [
@@ -54,7 +55,7 @@ enum SeSacAPI {
     
     var parameters: [String: Any]? {
         switch self {
-        case .signIn, .withdraw, .myQueueState:
+        case .signIn, .withdraw, .myQueueState, .stopQueueSearch:
             return nil
         case .signUp(let phoneNumber, let fcmToken, let nickname, let birth, let email, let gender):
             return [

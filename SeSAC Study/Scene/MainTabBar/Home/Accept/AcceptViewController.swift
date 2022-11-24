@@ -11,6 +11,7 @@ final class AcceptViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     func bind() {

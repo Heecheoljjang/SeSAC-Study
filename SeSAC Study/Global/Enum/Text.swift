@@ -69,6 +69,7 @@ enum ButtonTitle {
     static let woman = "여자"
     static let searchSesac = "새싹 찾기"
     static let stop = "찾기중단"
+    static let changeStudy = "스터디 변경하기"
 }
 
 enum ImageName {
@@ -87,6 +88,7 @@ enum ImageName {
     static let gps = "place"
     static let centerAnnotation = "map_marker"
     static let xmark = "xmark"
+    static let retry = "retry"
     
     static let sesacFace = "sesacFace"
     static let notice = "notice"
@@ -403,6 +405,29 @@ enum AlertText {
             return "다시 시도해주세요."
         case .locationAuth:
             return ""
+        }
+    }
+}
+
+enum NavigationBarTitle {
+    case sesacSearch, sesacReview, shop, friends, addSesac, info, manageInfo
+    
+    var title: String {
+        switch self {
+        case .sesacSearch:
+            return "새싹 찾기"
+        case .sesacReview:
+            return "새싹 리뷰"
+        case .shop:
+            return "새싹샵"
+        case .friends:
+            return "새싹 친구"
+        case .addSesac:
+            return "새싹 추가"
+        case .info:
+            return "내 정보"
+        case .manageInfo:
+            return "정보 관리"
         }
     }
 }
