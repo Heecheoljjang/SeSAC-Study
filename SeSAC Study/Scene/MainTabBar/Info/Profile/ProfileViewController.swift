@@ -173,7 +173,7 @@ final class ProfileViewController: ViewController {
     override func configure() {
         super.configure()
         
-        title = "정보 관리"
+        title = NavigationBarTitle.manageInfo.title
         navigationItem.rightBarButtonItem = saveButton
         mainView.ageView.slider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
     }

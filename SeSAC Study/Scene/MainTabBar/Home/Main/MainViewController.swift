@@ -85,7 +85,7 @@ final class MainViewController: ViewController {
             .drive(onNext: { [weak self] value in
                 //위치로 서버통신해서 맵뷰에 표시 -> 데이터에 값이 들어왔을때 업데이트 해주는 형식으로 하면될듯
                 print("서치 진행 \(value)")
-                self?.viewModel.fetchSeSacSearch(location: value)
+                self?.viewModel.startSeSacSearch(location: value)
             })
             .disposed(by: disposeBag)
 

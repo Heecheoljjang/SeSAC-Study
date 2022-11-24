@@ -23,7 +23,7 @@ final class MainViewModel {
         selectedLocation.accept(location)
     }
     
-    func fetchSeSacSearch(location: CLLocationCoordinate2D) {
+    func startSeSacSearch(location: CLLocationCoordinate2D) {
         let api = SeSacAPI.queueSearch(lat: location.latitude, lon: location.longitude)
 
         APIService.shared.request(type: AroundSesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
