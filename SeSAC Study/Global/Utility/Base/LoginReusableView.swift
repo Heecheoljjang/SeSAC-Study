@@ -10,9 +10,9 @@ import SnapKit
 
 class LoginReusableView: BaseView {
     
-    var message = ""
-    var detailMessage = ""
-    var buttonTitle = ""
+    var message: String
+    var detailMessage: String
+    var buttonTitle: String
     
     let stackView: UIStackView = {
         let view = UIStackView()
