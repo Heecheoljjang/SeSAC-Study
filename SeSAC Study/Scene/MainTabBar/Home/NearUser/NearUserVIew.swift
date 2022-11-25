@@ -12,6 +12,8 @@ import Pageboy
 
 final class NearUserView: BaseView {
         
+    let backButton = UIBarButtonItem(image: UIImage(named: ImageName.leftArrow), style: .plain, target: nil, action: nil)
+    
     let changeStudyButton: UIButton = {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
@@ -25,7 +27,7 @@ final class NearUserView: BaseView {
     let retryButton: UIButton = {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
-        configuration.baseBackgroundColor = .clear
+        configuration.baseBackgroundColor = .white
         configuration.baseForegroundColor = .brandGreen
         configuration.image = UIImage(named: ImageName.retry)
         button.layer.borderColor = UIColor.brandGreen.cgColor

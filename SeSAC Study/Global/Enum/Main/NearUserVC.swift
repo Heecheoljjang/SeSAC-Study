@@ -36,3 +36,12 @@ enum NoSesacViewLabel {
         return "스터디를 변경하거나 조금만 더 기다려주세요!"
     }
 }
+
+enum Location: Int {
+    case lat, long
+    
+    var value: Double {
+        let location = UserDefaultsManager.shared.fetchLocation()
+        return location[self.rawValue]
+    }
+}

@@ -118,7 +118,8 @@ final class ProfileTableViewCell: BaseTableViewCell {
         }
         stackView.snp.makeConstraints { make in
             make.top.equalTo(imageSetView.snp.bottom)
-            make.horizontalEdges.bottom.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-24)
         }
     }
 }

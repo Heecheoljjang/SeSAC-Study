@@ -28,12 +28,20 @@ final class NearUserViewController: TabmanViewController {
         configure()
         bind()
     }
+//    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        //새싹 찾기 목록 통신
+//        viewModel.startSeSacSearch()
+//    }
     
     private func configure() {
         dataSource = self
         title = NavigationBarTitle.sesacSearch.title
         navigationItem.rightBarButtonItem = mainView.stopButton
         addBar(mainView.buttonBar, dataSource: self, at: .top)
+        
+        navigationItem.leftBarButtonItem = mainView.backButton
     }
     
     func bind() {
@@ -41,6 +49,11 @@ final class NearUserViewController: TabmanViewController {
             .bind(onNext: { [weak self] _ in
                 //찾기중단 네트워크통신
                 self?.viewModel.stopSesacSearch()
+            })
+            .disposed(by: disposeBag)
+        mainView.backButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                self?.tapBackButton()
             })
             .disposed(by: disposeBag)
         viewModel.cancelStatus
@@ -63,14 +76,25 @@ extension NearUserViewController {
     private func checkCancelStatus(status: SesacCancelError) {
         switch status {
         case .cancelSuccess:
-            //홈 화면(이전화면)으로 이동
-            transition(self, transitionStyle: .pop)
+            //홈 화면으로 이동
+            popToHome()
         case .alreadyCancel:
             presentToast(view: mainView, message: status.message)
             //MARK: 채팅화면으로 이동
         default:
             presentToast(view: mainView, message: status.message)
         }
+    }
+    private func popToHome() {
+        if let viewController = navigationController?.viewControllers.first(where: {$0 is MainViewController}) {
+              navigationController?.popToViewController(viewController, animated: true)
+        }
+    }
+}
+
+extension NearUserViewController {
+    @objc private func tapBackButton() {
+        popToHome()
     }
 }
 
