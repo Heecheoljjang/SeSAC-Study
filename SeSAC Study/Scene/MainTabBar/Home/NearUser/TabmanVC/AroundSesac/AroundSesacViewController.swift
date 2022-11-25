@@ -82,6 +82,14 @@ final class AroundSesacViewController: ViewController {
                 
             }
             .disposed(by: disposeBag)
+        
+        viewModel.sesacList
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] value in
+                //개수 체크해서 0이면 noSesacView띄우고 tableviewhidden
+                self?.checkListCount(list: value)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -97,5 +105,10 @@ extension AroundSesacViewController {
             button.configuration?.baseBackgroundColor = .clear
             button.configuration?.baseForegroundColor = .black
         }
+    }
+    private func checkListCount(list: [FromQueueDB]) {
+        let emptyValue = viewModel.checkListEmpty(list: list)
+        mainView.tableView.isHidden = emptyValue
+        mainView.noSesacView.isHidden = !emptyValue
     }
 }

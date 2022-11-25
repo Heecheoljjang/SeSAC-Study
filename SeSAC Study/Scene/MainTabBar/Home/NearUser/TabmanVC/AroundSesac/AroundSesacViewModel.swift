@@ -41,4 +41,7 @@ final class AroundSesacViewModel {
     func checkReviewEmpty(reviews: [String]) -> Bool {
         return reviews.isEmpty ? true : false
     }
+    func checkListEmpty(list: [FromQueueDB]) -> Bool {
+        return list.isEmpty ? true : false
+    }
 }

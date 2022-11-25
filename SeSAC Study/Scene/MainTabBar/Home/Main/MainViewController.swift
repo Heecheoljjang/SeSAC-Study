@@ -49,6 +49,7 @@ final class MainViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        tabBarController?.tabBar.isHidden = false
         
         viewModel.fetchQueueState() //버튼 세팅
         viewModel.setMapView(locationManager: locationManager, mapView: mainView.mapView)
@@ -56,6 +57,7 @@ final class MainViewController: ViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        tabBarController?.tabBar.isHidden = true
     }
 
     func bind() {
@@ -136,7 +138,8 @@ extension MainViewController {
             switch authStatus {
             case .authorizedWhenInUse, .authorizedAlways:
                 let vc = HobbyViewController()
-                viewModel.sendCurrentLocation(location: vc.viewModel.currentLocation)
+//                viewModel.sendCurrentLocation(location: vc.viewModel.currentLocation)
+                viewModel.setLocationUserDefaults()
                 transition(vc, transitionStyle: .push)
             default:
                 handlerAlert(title: AlertText.locationAuth.title, message: AlertText.locationAuth.message) { _ in
@@ -145,8 +148,13 @@ extension MainViewController {
                 }
             }
         case .matching:
-            let vc = NearUserViewController()
-            transition(vc, transitionStyle: .push)
+            //다시 돌아올 수도 있으므로
+            let firstVC = HobbyViewController()
+            let secondVC = NearUserViewController()
+            if var navstack = navigationController?.viewControllers{
+                navstack.append(contentsOf: [firstVC, secondVC])
+                navigationController?.setViewControllers(navstack, animated: true)
+            }
         case .matched:
             let vc = ChattingViewController()
             transition(vc, transitionStyle: .push)

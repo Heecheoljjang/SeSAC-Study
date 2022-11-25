@@ -21,6 +21,7 @@ final class AroundSesacView: BaseView {
         view.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         view.sectionHeaderTopPadding = 0
         view.rowHeight = UITableView.automaticDimension
+        view.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         return view
     }()
     

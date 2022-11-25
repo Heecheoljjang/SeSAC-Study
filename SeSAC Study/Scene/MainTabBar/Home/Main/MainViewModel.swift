@@ -111,8 +111,17 @@ final class MainViewModel {
         }
     }
     
-    func sendCurrentLocation(location: BehaviorRelay<CLLocationCoordinate2D>) {
-        location.accept(selectedLocation.value)
+//    func sendCurrentLocation(location: BehaviorRelay<CLLocationCoordinate2D>) {
+//        location.accept(selectedLocation.value)
+//    }
+    func setLocationUserDefaults() {
+        let location = selectedLocation.value
+        let lat = location.latitude
+        let long = location.longitude
+        print("로케이션 저장 \(lat) \(long)")
+        UserDefaultsManager.shared.setValue(value: lat, type: .lat)
+        UserDefaultsManager.shared.setValue(value: long, type: .long)
+        print("로케이션 저장된 값 \(UserDefaultsManager.shared.fetchValue(type: .lat) as? Double)")
     }
     
     func checkLocationAuth(locationManager: CLLocationManager) -> CLAuthorizationStatus {

@@ -28,12 +28,12 @@ final class NearUserViewController: TabmanViewController {
         configure()
         bind()
     }
-//    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        //새싹 찾기 목록 통신
-//        viewModel.startSeSacSearch()
-//    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //새싹 찾기 목록 통신
+        viewModel.startSesacSearch()
+    }
     
     private func configure() {
         dataSource = self
@@ -45,6 +45,14 @@ final class NearUserViewController: TabmanViewController {
     }
     
     func bind() {
+        viewModel.sesacList
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] value in
+                //count체크해서 0이 아니면 버튼 숨기기
+                self?.checkButtonHidden(list: value)
+            })
+            .disposed(by: disposeBag)
+        
         mainView.stopButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 //찾기중단 네트워크통신
@@ -88,6 +96,15 @@ extension NearUserViewController {
     private func popToHome() {
         if let viewController = navigationController?.viewControllers.first(where: {$0 is MainViewController}) {
               navigationController?.popToViewController(viewController, animated: true)
+        }
+    }
+    private func checkButtonHidden(list: [FromQueueDB]) {
+        if viewModel.checkListEmpty(list: list) {
+            mainView.changeStudyButton.isHidden = false
+            mainView.retryButton.isHidden = false
+        } else {
+            mainView.changeStudyButton.isHidden = true
+            mainView.retryButton.isHidden = true
         }
     }
 }
