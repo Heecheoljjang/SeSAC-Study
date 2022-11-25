@@ -9,5 +9,6 @@ import Foundation
 
 enum UserDefaultsKeys: String {
     case verificationId, idToken, phoneNumber, fcmToken, nick, birth, email, gender, invalidNickname
+    case lat, long
     case userInfo
 }

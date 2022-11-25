@@ -33,6 +33,8 @@ final class UserDefaultsManager {
             return UserDefaults.standard.string(forKey: type.rawValue) ?? ""
         case .invalidNickname:
             return UserDefaults.standard.bool(forKey: type.rawValue)
+        case .lat, .long:
+            return UserDefaults.standard.double(forKey: type.rawValue)
         case .userInfo:
             guard let infoData = UserDefaults.standard.object(forKey: type.rawValue) as? Data else { return "" }
             let decoder = JSONDecoder()
@@ -56,6 +58,8 @@ final class UserDefaultsManager {
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.invalidNickname.rawValue)
 //        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.phoneNumber.rawValue)
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userInfo.rawValue)
+        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.lat.rawValue)
+        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.long.rawValue)
     }
     
     func removeAll() {
@@ -66,5 +70,12 @@ final class UserDefaultsManager {
     func checkIdTokenIsEmpty() -> Bool {
         guard let idToken = UserDefaults.standard.string(forKey: UserDefaultsKeys.idToken.rawValue) else { return true }
         return idToken.isEmpty ? true : false
+    }
+    
+    func fetchLocation() -> [Double] {
+        guard let lat = fetchValue(type: .lat) as? Double, let long = fetchValue(type: .long) as? Double else {
+            print("위치 못가져왔어요 여기는 유저디폴트 fetchLocation")
+            return [] }
+        return [lat, long]
     }
 }

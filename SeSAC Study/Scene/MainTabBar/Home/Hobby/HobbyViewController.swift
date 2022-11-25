@@ -29,6 +29,11 @@ final class HobbyViewController: ViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchSesacSearch()
+    }
+    
     override func configure() {
         super.configure()
         
@@ -65,12 +70,12 @@ final class HobbyViewController: ViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.currentLocation
-            .asDriver(onErrorJustReturn: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
-            .drive(onNext: { [weak self] value in
-                self?.viewModel.fetchSeSacSearch(location: value)
-            })
-            .disposed(by: disposeBag)
+//        viewModel.currentLocation
+//            .asDriver(onErrorJustReturn: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
+//            .drive(onNext: { [weak self] value in
+//                self?.viewModel.fetchSeSacSearch(location: value)
+//            })
+//            .disposed(by: disposeBag)
         
         mainView.searchBar.rx.searchButtonClicked
             .bind(onNext: { [weak self] _ in

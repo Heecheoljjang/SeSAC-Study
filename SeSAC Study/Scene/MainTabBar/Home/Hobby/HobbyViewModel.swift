@@ -16,12 +16,16 @@ final class HobbyViewModel {
     var aroundStudyList = BehaviorRelay<[String]>(value: [])
     var myStudyList = BehaviorRelay<[String]>(value: [])
     
-    var currentLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
+//    var currentLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
     
     var searchStatus = PublishRelay<SesacRequestError>()
     
-    func fetchSeSacSearch(location: CLLocationCoordinate2D) {
-        let api = SeSacAPI.queueSearch(lat: location.latitude, lon: location.longitude)
+//    func fetchSeSacSearch(location: CLLocationCoordinate2D) {
+    func fetchSesacSearch() {
+        let lat = Location.lat.value
+        let long = Location.long.value
+        print("가져온 위치 \(lat) \(long)")
+        let api = SeSacAPI.queueSearch(lat: lat, lon: long)
 
         APIService.shared.request(type: AroundSesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
 
@@ -38,10 +42,12 @@ final class HobbyViewModel {
     }
     
     func tapSearchButton() {
-        let lat = currentLocation.value.latitude
-        let long = currentLocation.value.longitude
+//        let lat = currentLocation.value.latitude
+//        let long = currentLocation.value.longitude
+        let lat = Location.lat.value
+        let long = Location.long.value
 
-        print(lat, long)
+        print("유저디뽈트에서 가져온 위치", lat, long)
         let studyList = myStudyList.value.count == 0 ? ["anything"] : myStudyList.value
         let api = SeSacAPI.queue(lat: lat, lon: long, studyList: studyList)
         APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
