@@ -15,12 +15,8 @@ final class HobbyViewModel {
     var searchList = BehaviorRelay<AroundSesacSearch>(value: AroundSesacSearch(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: []))
     var aroundStudyList = BehaviorRelay<[String]>(value: [])
     var myStudyList = BehaviorRelay<[String]>(value: [])
-    
-//    var currentLocation = BehaviorRelay<CLLocationCoordinate2D>(value: CLLocationCoordinate2D(latitude: SeSacLocation.lat.value, longitude: SeSacLocation.lon.value))
-    
     var searchStatus = PublishRelay<SesacRequestError>()
     
-//    func fetchSeSacSearch(location: CLLocationCoordinate2D) {
     func fetchSesacSearch() {
         let lat = Location.lat.value
         let long = Location.long.value
@@ -42,8 +38,6 @@ final class HobbyViewModel {
     }
     
     func tapSearchButton() {
-//        let lat = currentLocation.value.latitude
-//        let long = currentLocation.value.longitude
         let lat = Location.lat.value
         let long = Location.long.value
 
@@ -81,7 +75,16 @@ final class HobbyViewModel {
         searchList.value.fromQueueDBRequested.forEach {
             list.append(contentsOf: $0.studylist)
         }
-        aroundStudyList.accept(list.filter { !searchList.value.fromRecommend.contains($0) }.sorted(by: <))
+        list = list.filter { !searchList.value.fromRecommend.contains($0) } //추천리스트와 동일한거 제거
+                    .filter { !$0.isEmpty }
+        list = Array(Set(list))
+        for i in 0..<list.count {
+            if list[i] == "anything" {
+                list[i] = "아무거나"
+                break
+            }
+        }
+        aroundStudyList.accept(list.sorted(by: <))
     }
     
     func appendMyStudyList(list: [String]) {

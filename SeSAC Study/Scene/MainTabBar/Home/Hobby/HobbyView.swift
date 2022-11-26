@@ -124,7 +124,7 @@ final class HobbyView: BaseView {
     private static func createLayout() -> UICollectionViewCompositionalLayout {
         //item
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(200),
+            widthDimension: .estimated(60),
             heightDimension: .absolute(32)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
