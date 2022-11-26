@@ -64,6 +64,7 @@ enum ButtonTitle {
     static let start = "시작하기"
     static let save = "저장"
     static let requestFriend = "요청하기"
+    static let accept = "수락하기"
     static let total = "전체"
     static let man = "남자"
     static let woman = "여자"

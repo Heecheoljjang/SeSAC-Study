@@ -1,16 +1,16 @@
 //
-//  AroundSesacView.swift
+//  ReceivedView.swift
 //  SeSAC Study
 //
-//  Created by HeecheolYoon on 2022/11/25.
+//  Created by HeecheolYoon on 2022/11/26.
 //
 
 import UIKit
 import SnapKit
 
-final class AroundSesacView: BaseView {
+final class ReceivedView: BaseView {
     
-    let noSesacView = NoSesacView(bigLabelText: NoSesacViewLabel.noAround.bigLabelText, smallLabelText: NoSesacViewLabel.noAround.smallLabelText)
+    let noSesacView = NoSesacView(bigLabelText: NoSesacViewLabel.received.bigLabelText, smallLabelText: NoSesacViewLabel.received.smallLabelText)
     
     let tableView: DynamicTableView = {
         let view = DynamicTableView()
@@ -19,8 +19,7 @@ final class AroundSesacView: BaseView {
         view.separatorStyle = .none
         view.isScrollEnabled = false
 //        view.allowsMultipleSelection = true //MARK: test
-//        view.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
-        view.register(AroundSesacTableViewCell.self, forCellReuseIdentifier: AroundSesacTableViewCell.identifier)
+        view.register(ReceievedTableViewCell.self, forCellReuseIdentifier: ReceievedTableViewCell.identifier)
         view.sectionHeaderTopPadding = 0
         view.rowHeight = UITableView.automaticDimension
         view.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)

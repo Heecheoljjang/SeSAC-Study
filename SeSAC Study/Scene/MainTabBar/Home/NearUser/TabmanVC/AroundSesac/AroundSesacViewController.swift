@@ -47,17 +47,15 @@ final class AroundSesacViewController: ViewController {
     func bind() {
         viewModel.sesacList
             .asDriver(onErrorJustReturn: [])
-            .drive(mainView.tableView.rx.items(cellIdentifier: ProfileTableViewCell.identifier, cellType: ProfileTableViewCell.self)) { [weak self] row, element, cell in
-                
-                print("row \(row) tag \(cell.nameView.clearButton.tag)")
+            .drive(mainView.tableView.rx.items(cellIdentifier: AroundSesacTableViewCell.identifier, cellType: AroundSesacTableViewCell.self)) { [weak self] row, element, cell in
+        
 
                 guard let backImage = BackgroundImage(rawValue: element.background)?.imageName,
                       let sesacImage = UserProfileImage(rawValue: element.sesac)?.image,
                 let reviewIsEmpty = self?.viewModel.checkReviewEmpty(reviews: element.reviews) else { return }
                 
-                cell.nameView.clearButton.tag = row
-                print(cell.nameView.clearButton.tag, row)
-                cell.nameView.clearButton.addTarget(self, action: #selector(self?.touchToggleButton(_:)), for: .touchUpInside)
+//                cell.nameView.clearButton.tag = row
+//                cell.nameView.clearButton.addTarget(self, action: #selector(self?.touchToggleButton(_:)), for: .touchUpInside)
 //                cell.nameView.clearButton.isSelected ? cell.setUpView(collapsed: false) : cell.setUpView(collapsed: true)
                 
                 cell.setUpView(collapsed: !cell.nameView.clearButton.isSelected)
@@ -70,17 +68,17 @@ final class AroundSesacViewController: ViewController {
                     }
                     switch i {
                     case 0:
-                        self?.changeTitleButtonColor(button: cell.sesacTitleView.goodButton, status: .enable)
+                        self?.changeSelectedButtonColor(button: cell.sesacTitleView.goodButton, status: .enable)
                     case 1:
-                        self?.changeTitleButtonColor(button: cell.sesacTitleView.timeButton, status: .enable)
+                        self?.changeSelectedButtonColor(button: cell.sesacTitleView.timeButton, status: .enable)
                     case 2:
-                        self?.changeTitleButtonColor(button: cell.sesacTitleView.fastButton, status: .enable)
+                        self?.changeSelectedButtonColor(button: cell.sesacTitleView.fastButton, status: .enable)
                     case 3:
-                        self?.changeTitleButtonColor(button: cell.sesacTitleView.kindButton, status: .enable)
+                        self?.changeSelectedButtonColor(button: cell.sesacTitleView.kindButton, status: .enable)
                     case 4:
-                        self?.changeTitleButtonColor(button: cell.sesacTitleView.expertButton, status: .enable)
+                        self?.changeSelectedButtonColor(button: cell.sesacTitleView.expertButton, status: .enable)
                     case 5:
-                        self?.changeTitleButtonColor(button: cell.sesacTitleView.helpfulButton, status: .enable)
+                        self?.changeSelectedButtonColor(button: cell.sesacTitleView.helpfulButton, status: .enable)
                     default:
                         break
                     }
@@ -91,8 +89,24 @@ final class AroundSesacViewController: ViewController {
                     cell.reviewView.label.text = element.reviews[0]
                 }
                 
+//                cell.nameView.clearButton.rx.tap
+//                    .bind(onNext: { [weak self] _ in
+//                        print(element.nick)
+//                        print("탭한거 iscolla \(cell.isCollapsed.value)", row)
+////                        cell.isCollapsed = !cell.isCollapsed
+//                        cell.isCollapsed.accept(!cell.isCollapsed.value)
+//                        print("탭한거 iscolla \(cell.isCollapsed.value)", row)
+//                    })
+//                    .disposed(by: cell.disposeBag)
+//
+//                cell.isCollapsed
+//                    .bind(onNext: { [weak self] value in
+//                        print("이스콜랍바뀜")
+//                        cell.setUpView(collapsed: value)
+//                    })
+//                    .disposed(by: cell.disposeBag)
+//
                 //요청하기 버튼
-//                cell.requestButton.addTarget(self, action: #selector(self?.tapRequestButton), for: .touchUpInside)
                 cell.requestButton.rx.tap
                     .bind(onNext: { [weak self] _ in
                         print("요청하기 탭탭")
@@ -100,7 +114,6 @@ final class AroundSesacViewController: ViewController {
                         self?.viewModel.studyRequest(uid: element.uid)
                     })
                     .disposed(by: cell.disposeBag)
-                
             }
             .disposed(by: disposeBag)
         
@@ -115,18 +128,18 @@ final class AroundSesacViewController: ViewController {
 }
 
 extension AroundSesacViewController {
-    private func changeTitleButtonColor(button: UIButton, status: ButtonStatus) {
-        switch status {
-        case .enable:
-            button.layer.borderWidth = 0
-            button.configuration?.baseBackgroundColor = .brandGreen
-            button.configuration?.baseForegroundColor = .white
-        case .disable:
-            button.layer.borderWidth = 1
-            button.configuration?.baseBackgroundColor = .clear
-            button.configuration?.baseForegroundColor = .black
-        }
-    }
+//    private func changeTitleButtonColor(button: UIButton, status: ButtonStatus) {
+//        switch status {
+//        case .enable:
+//            button.layer.borderWidth = 0
+//            button.configuration?.baseBackgroundColor = .brandGreen
+//            button.configuration?.baseForegroundColor = .white
+//        case .disable:
+//            button.layer.borderWidth = 1
+//            button.configuration?.baseBackgroundColor = .clear
+//            button.configuration?.baseForegroundColor = .black
+//        }
+//    }
     private func checkListCount(list: [FromQueueDB]) {
         let emptyValue = viewModel.checkListEmpty(list: list)
         mainView.tableView.isHidden = emptyValue

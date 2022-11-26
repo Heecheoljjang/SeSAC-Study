@@ -91,7 +91,16 @@ extension UIViewController {
         var style = ToastStyle()
         style.messageColor = .white
         style.backgroundColor = .darkGray
-        view.makeToast(message, duration: 1, position: .top, style: style)
+        view.makeToast(message, duration: 0.8, position: .top, style: style)
+    }
+    
+    func presentHandlerToast(view: UIView, message: String, completion: @escaping (() -> Void)) {
+        var style = ToastStyle()
+        style.messageColor = .white
+        style.backgroundColor = .darkGray
+        view.makeToast(message, duration: 0.8, style: style) { _ in
+            completion()
+        }
     }
     
     func changeRootViewController<T: UIViewController>(viewcontroller: T, isTabBar: Bool) {

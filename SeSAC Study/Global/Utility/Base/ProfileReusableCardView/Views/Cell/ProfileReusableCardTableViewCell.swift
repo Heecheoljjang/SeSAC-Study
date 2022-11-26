@@ -8,9 +8,9 @@ import UIKit
 import SnapKit
 import RxSwift
 
-final class ProfileTableViewCell: BaseTableViewCell {
+class ProfileTableViewCell: BaseTableViewCell {
 
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     //MARK: 배경이미지
     let imageSetView: UIView = {
@@ -33,13 +33,7 @@ final class ProfileTableViewCell: BaseTableViewCell {
     let requestButton: UIButton = {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
-        
-        var title = AttributedString.init(ButtonTitle.requestFriend)
-        title.font = UIFont(name: CustomFont.regular, size: 14)
-        configuration.attributedTitle = title
-        
         configuration.baseForegroundColor = .white
-        configuration.baseBackgroundColor = .error
         configuration.cornerStyle = .medium
         
         button.configuration = configuration
@@ -74,8 +68,9 @@ final class ProfileTableViewCell: BaseTableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        nameView.clearButton.removeTarget(nil, action: nil, for: .allEvents)
-        setUpView(collapsed: !isSelected)
+//        nameView.clearButton.removeTarget(nil, action: nil, for: .allEvents)
+//        setUpView(collapsed: !isSelected)
+        disposeBag = DisposeBag()
     }
     
     override func configure() {
