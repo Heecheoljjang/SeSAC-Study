@@ -6,8 +6,11 @@
 ////
 import UIKit
 import SnapKit
+import RxSwift
 
 final class ProfileTableViewCell: BaseTableViewCell {
+
+    let disposeBag = DisposeBag()
     
     //MARK: 배경이미지
     let imageSetView: UIView = {
@@ -69,6 +72,12 @@ final class ProfileTableViewCell: BaseTableViewCell {
         super.init(style: .default, reuseIdentifier: ProfileTableViewCell.identifier)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nameView.clearButton.removeTarget(nil, action: nil, for: .allEvents)
+        setUpView(collapsed: !isSelected)
+    }
+    
     override func configure() {
         super.configure()
         
@@ -121,5 +130,14 @@ final class ProfileTableViewCell: BaseTableViewCell {
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().offset(-24)
         }
+    }
+}
+//MARK: 주변새싹에서 사용. 내 정보에서는 하고싶은 스터디가 없으므로 사용 안함
+extension ProfileTableViewCell {
+    func setUpView(collapsed: Bool) {
+        sesacTitleView.isHidden = collapsed
+        reviewView.isHidden = collapsed
+        studyView.isHidden = collapsed
+        nameView.chevronButton.configuration?.image = collapsed ? UIImage(named: ImageName.downChevron) : UIImage(named: ImageName.upChevron)
     }
 }

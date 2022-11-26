@@ -32,6 +32,7 @@ final class NoSesacView: BaseView {
         label.font = UIFont(name: CustomFont.regular, size: 14)
         label.textAlignment = .center
         label.text = smallLabelText
+        label.textColor = .graySeven
         return label
     }()
     

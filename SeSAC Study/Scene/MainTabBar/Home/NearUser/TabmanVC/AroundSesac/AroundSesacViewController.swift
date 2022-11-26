@@ -15,6 +15,7 @@ final class AroundSesacViewController: ViewController {
     private let viewModel = AroundSesacViewModel()
     private let disposeBag = DisposeBag()
     
+    
     override func loadView() {
         view = mainView
     }
@@ -48,10 +49,18 @@ final class AroundSesacViewController: ViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(mainView.tableView.rx.items(cellIdentifier: ProfileTableViewCell.identifier, cellType: ProfileTableViewCell.self)) { [weak self] row, element, cell in
                 
+                print("row \(row) tag \(cell.nameView.clearButton.tag)")
+                
                 guard let backImage = BackgroundImage(rawValue: element.background)?.imageName,
                       let sesacImage = UserProfileImage(rawValue: element.sesac)?.image,
                 let reviewIsEmpty = self?.viewModel.checkReviewEmpty(reviews: element.reviews) else { return }
                 
+                cell.nameView.clearButton.tag = row
+                print(cell.nameView.clearButton.tag, row)
+                cell.nameView.clearButton.addTarget(self, action: #selector(self?.touchToggleButton(_:)), for: .touchUpInside)
+//                cell.nameView.clearButton.isSelected ? cell.setUpView(collapsed: false) : cell.setUpView(collapsed: true)
+                
+                cell.setUpView(collapsed: !cell.nameView.clearButton.isSelected)
                 cell.backgroundImageView.image = UIImage(named: backImage)
                 cell.sesacImageView.image = UIImage(named: sesacImage)
                 cell.nameView.nameLabel.text = element.nick
@@ -78,6 +87,8 @@ final class AroundSesacViewController: ViewController {
                 }
                 if reviewIsEmpty {
                     cell.reviewView.detailButton.isHidden = true
+                } else {
+                    cell.reviewView.label.text = element.reviews[0]
                 }
                 
             }
@@ -110,5 +121,17 @@ extension AroundSesacViewController {
         let emptyValue = viewModel.checkListEmpty(list: list)
         mainView.tableView.isHidden = emptyValue
         mainView.noSesacView.isHidden = !emptyValue
+    }
+}
+
+extension AroundSesacViewController {
+    @objc private func touchToggleButton(_ sender: UIButton) {
+        print(sender.tag)
+//        sender.isSelected = !sender.isSelected
+        guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? ProfileTableViewCell else { return }
+        print(cell.isSelected)
+//        cell.isSelected = !cell.isSelected
+//        cell.setUpView(collapsed: !cell.isSelected)
+        mainView.tableView.reloadData()
     }
 }
