@@ -37,6 +37,19 @@
 		976211EF291C00D7008B00FE /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211EE291C00D7008B00FE /* Gender.swift */; };
 		976211F3291C2A93008B00FE /* CommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211F2291C2A93008B00FE /* CommonViewModel.swift */; };
 		976211F5291C3320008B00FE /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976211F4291C3320008B00FE /* Email.swift */; };
+		976C8A9F29318A7300F9D6E0 /* ChattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976C8A9E29318A7300F9D6E0 /* ChattingView.swift */; };
+		976C8AA129318A7C00F9D6E0 /* ChattingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976C8AA029318A7C00F9D6E0 /* ChattingViewModel.swift */; };
+		976C8AA32931921200F9D6E0 /* ChattingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976C8AA22931921200F9D6E0 /* ChattingHeaderView.swift */; };
+		9778567C2932262900CA8EB3 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778567B2932262900CA8EB3 /* CustomAlertViewController.swift */; };
+		9778567E2932263000CA8EB3 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778567D2932263000CA8EB3 /* CustomAlertView.swift */; };
+		97785680293232CF00CA8EB3 /* ReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778567F293232CF00CA8EB3 /* ReceivedView.swift */; };
+		97785682293232D800CA8EB3 /* ReceivedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97785681293232D800CA8EB3 /* ReceivedViewModel.swift */; };
+		97785684293258F800CA8EB3 /* AroundSesacTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97785683293258F800CA8EB3 /* AroundSesacTableViewCell.swift */; };
+		977856862932590C00CA8EB3 /* ReceievedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977856852932590C00CA8EB3 /* ReceievedTableViewCell.swift */; };
+		977856892932775100CA8EB3 /* SesacReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977856882932775100CA8EB3 /* SesacReviewView.swift */; };
+		9778568B2932775900CA8EB3 /* SesacReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778568A2932775900CA8EB3 /* SesacReviewViewController.swift */; };
+		9778568D2932776400CA8EB3 /* SesacReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778568C2932776400CA8EB3 /* SesacReviewViewModel.swift */; };
+		9778568F2932813A00CA8EB3 /* SesacReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778568E2932813A00CA8EB3 /* SesacReviewTableViewCell.swift */; };
 		9784A6702921EEB300C0D999 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A66F2921EEB300C0D999 /* MainViewController.swift */; };
 		9784A676292201B200C0D999 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A675292201B200C0D999 /* BaseTableViewCell.swift */; };
 		9784A6782922038700C0D999 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784A6772922038700C0D999 /* UITableViewCell+Extension.swift */; };
@@ -174,6 +187,19 @@
 		976211EE291C00D7008B00FE /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		976211F2291C2A93008B00FE /* CommonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewModel.swift; sourceTree = "<group>"; };
 		976211F4291C3320008B00FE /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
+		976C8A9E29318A7300F9D6E0 /* ChattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingView.swift; sourceTree = "<group>"; };
+		976C8AA029318A7C00F9D6E0 /* ChattingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewModel.swift; sourceTree = "<group>"; };
+		976C8AA22931921200F9D6E0 /* ChattingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingHeaderView.swift; sourceTree = "<group>"; };
+		9778567B2932262900CA8EB3 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		9778567D2932263000CA8EB3 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		9778567F293232CF00CA8EB3 /* ReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedView.swift; sourceTree = "<group>"; };
+		97785681293232D800CA8EB3 /* ReceivedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedViewModel.swift; sourceTree = "<group>"; };
+		97785683293258F800CA8EB3 /* AroundSesacTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundSesacTableViewCell.swift; sourceTree = "<group>"; };
+		977856852932590C00CA8EB3 /* ReceievedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceievedTableViewCell.swift; sourceTree = "<group>"; };
+		977856882932775100CA8EB3 /* SesacReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacReviewView.swift; sourceTree = "<group>"; };
+		9778568A2932775900CA8EB3 /* SesacReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacReviewViewController.swift; sourceTree = "<group>"; };
+		9778568C2932776400CA8EB3 /* SesacReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacReviewViewModel.swift; sourceTree = "<group>"; };
+		9778568E2932813A00CA8EB3 /* SesacReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacReviewTableViewCell.swift; sourceTree = "<group>"; };
 		9784A66F2921EEB300C0D999 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9784A675292201B200C0D999 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		9784A6772922038700C0D999 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
@@ -316,6 +342,7 @@
 				97BF633C292FF7C600777D3F /* AroundSesacView.swift */,
 				973F879A292E4BB500C70F7F /* AroundSesacViewController.swift */,
 				97BF633E292FF7CF00777D3F /* AroundSesacViewModel.swift */,
+				97785683293258F800CA8EB3 /* AroundSesacTableViewCell.swift */,
 			);
 			path = AroundSesac;
 			sourceTree = "<group>";
@@ -323,7 +350,11 @@
 		973F879F292E4BFC00C70F7F /* Received */ = {
 			isa = PBXGroup;
 			children = (
+				977856872932767E00CA8EB3 /* SesacReview */,
+				9778567F293232CF00CA8EB3 /* ReceivedView.swift */,
 				973F879C292E4BD700C70F7F /* ReceivedViewController.swift */,
+				97785681293232D800CA8EB3 /* ReceivedViewModel.swift */,
+				977856852932590C00CA8EB3 /* ReceievedTableViewCell.swift */,
 			);
 			path = Received;
 			sourceTree = "<group>";
@@ -412,7 +443,11 @@
 		975BF1F82926A85400A2D084 /* Chatting */ = {
 			isa = PBXGroup;
 			children = (
+				976C8AA4293196BA00F9D6E0 /* Cell */,
+				976C8AA22931921200F9D6E0 /* ChattingHeaderView.swift */,
+				976C8A9E29318A7300F9D6E0 /* ChattingView.swift */,
 				975BF1FF2926A88F00A2D084 /* ChattingViewController.swift */,
+				976C8AA029318A7C00F9D6E0 /* ChattingViewModel.swift */,
 			);
 			path = Chatting;
 			sourceTree = "<group>";
@@ -451,6 +486,13 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		976C8AA4293196BA00F9D6E0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		976D5D5A2921E43700F486B0 /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +503,26 @@
 				97A24C822921EA73009CE203 /* Info */,
 			);
 			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		9778567A2932261D00CA8EB3 /* CustomAlert */ = {
+			isa = PBXGroup;
+			children = (
+				9778567B2932262900CA8EB3 /* CustomAlertViewController.swift */,
+				9778567D2932263000CA8EB3 /* CustomAlertView.swift */,
+			);
+			path = CustomAlert;
+			sourceTree = "<group>";
+		};
+		977856872932767E00CA8EB3 /* SesacReview */ = {
+			isa = PBXGroup;
+			children = (
+				977856882932775100CA8EB3 /* SesacReviewView.swift */,
+				9778568A2932775900CA8EB3 /* SesacReviewViewController.swift */,
+				9778568C2932776400CA8EB3 /* SesacReviewViewModel.swift */,
+				9778568E2932813A00CA8EB3 /* SesacReviewTableViewCell.swift */,
+			);
+			path = SesacReview;
 			sourceTree = "<group>";
 		};
 		9784A67929221E3800C0D999 /* InfoTable */ = {
@@ -562,6 +624,7 @@
 		9796DEB52919133D00D8C915 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				9778567A2932261D00CA8EB3 /* CustomAlert */,
 				97C3DC20291FE38F00E315FA /* Launch */,
 				9796DEDA2919384600D8C915 /* Onboarding */,
 				9796DEDB2919386800D8C915 /* Login */,
@@ -920,9 +983,11 @@
 			files = (
 				97B381E2291B5429009618A7 /* BirthdayViewController.swift in Sources */,
 				9784A6782922038700C0D999 /* UITableViewCell+Extension.swift in Sources */,
+				9778567C2932262900CA8EB3 /* CustomAlertViewController.swift in Sources */,
 				975BF1FE2926A88800A2D084 /* AcceptViewController.swift in Sources */,
 				97879DA7292A681600FF1628 /* MyInfoReusableView.swift in Sources */,
 				9784A692292286EB00C0D999 /* ReusableButton.swift in Sources */,
+				977856862932590C00CA8EB3 /* ReceievedTableViewCell.swift in Sources */,
 				975BF1FC2926A87E00A2D084 /* NearUserViewController.swift in Sources */,
 				97C3DC24291FE3B200E315FA /* LaunchView.swift in Sources */,
 				9796DE912918A36F00D8C915 /* AppDelegate.swift in Sources */,
@@ -944,6 +1009,7 @@
 				97A24C942921EC57009CE203 /* InfoViewModel.swift in Sources */,
 				9796DEE7291943D900D8C915 /* PhoneAuthViewController.swift in Sources */,
 				97BF6341292FF96100777D3F /* NoSesacView.swift in Sources */,
+				976C8A9F29318A7300F9D6E0 /* ChattingView.swift in Sources */,
 				979E79F2291E627700E9A89A /* OnboardingViewModel.swift in Sources */,
 				974EE3FF292CABFD00F07DAC /* MyInfoActionType.swift in Sources */,
 				97FBDC5A291A4FF1007CB321 /* AuthCheck.swift in Sources */,
@@ -966,6 +1032,7 @@
 				97E4FEC6292DEF9100F487F1 /* Queue.swift in Sources */,
 				976211F3291C2A93008B00FE /* CommonViewModel.swift in Sources */,
 				97C3DC26291FE83400E315FA /* LaunchViewModel.swift in Sources */,
+				97785680293232CF00CA8EB3 /* ReceivedView.swift in Sources */,
 				97A8D409292FAD3200F31401 /* NearUserViewModel.swift in Sources */,
 				97A8D407292F7D1700F31401 /* NearUserVC.swift in Sources */,
 				9784A682292226B400C0D999 /* ProfileReusableCardView.swift in Sources */,
@@ -974,15 +1041,20 @@
 				9796DEE12919390600D8C915 /* PhoneNumberViewController.swift in Sources */,
 				97C3DC22291FE3A500E315FA /* LaunchViewController.swift in Sources */,
 				9784A68029221ED900C0D999 /* ProfileViewModel.swift in Sources */,
+				976C8AA129318A7C00F9D6E0 /* ChattingViewModel.swift in Sources */,
 				974CF660291D63ED00B66CAC /* SignIn.swift in Sources */,
 				97B381E4291B5433009618A7 /* BirthdayViewModel.swift in Sources */,
 				9784A69C2922B6F000C0D999 /* ProfileReusableCardTableViewCell.swift in Sources */,
 				97A24C842921EC14009CE203 /* ShopView.swift in Sources */,
 				9784A69529228DE100C0D999 /* StudyCollectionViewCell.swift in Sources */,
 				9784A67E29221ED300C0D999 /* ProfileViewController.swift in Sources */,
+				97785684293258F800CA8EB3 /* AroundSesacTableViewCell.swift in Sources */,
 				97FDC74E292434C500F3F59F /* UIView+Extension.swift in Sources */,
+				9778568F2932813A00CA8EB3 /* SesacReviewTableViewCell.swift in Sources */,
+				9778567E2932263000CA8EB3 /* CustomAlertView.swift in Sources */,
 				97F3DFEB292170890075582A /* Bind.swift in Sources */,
 				974CF65B291D586600B66CAC /* APIService.swift in Sources */,
+				9778568B2932775900CA8EB3 /* SesacReviewViewController.swift in Sources */,
 				97ECAC0C29267CC700F3A626 /* MyQueueState.swift in Sources */,
 				97FF4A41291ACAB200AF9A56 /* LoginReusableView.swift in Sources */,
 				979E7A07291FB01000E9A89A /* CustomFont.swift in Sources */,
@@ -997,6 +1069,7 @@
 				9796DED4291920BD00D8C915 /* Text.swift in Sources */,
 				97B381E0291B5421009618A7 /* BirthdayView.swift in Sources */,
 				97A24C7F2921E660009CE203 /* MainTabBarController.swift in Sources */,
+				976C8AA32931921200F9D6E0 /* ChattingHeaderView.swift in Sources */,
 				97C3DC2B291FF72000E315FA /* MainViewModel.swift in Sources */,
 				9796DE932918A36F00D8C915 /* SceneDelegate.swift in Sources */,
 				97FBDC63291AA1DC007CB321 /* UserDefaultsManager.swift in Sources */,
@@ -1006,11 +1079,13 @@
 				974D983F2927E3AB0065E988 /* CustomAnnotationView.swift in Sources */,
 				97C3DC1F291FCCA500E315FA /* NetworkMonitor.swift in Sources */,
 				975BF2002926A88F00A2D084 /* ChattingViewController.swift in Sources */,
+				977856892932775100CA8EB3 /* SesacReviewView.swift in Sources */,
 				97FF4A36291AB11300AF9A56 /* NicknameViewController.swift in Sources */,
 				97FF4A45291AE94A00AF9A56 /* NicknameCheck.swift in Sources */,
 				97C3DC29291FF71900E315FA /* MainView.swift in Sources */,
 				97F3DFE92920C8A90075582A /* UserStatus.swift in Sources */,
 				979E79F8291E73D000E9A89A /* FirebaseManager.swift in Sources */,
+				97785682293232D800CA8EB3 /* ReceivedViewModel.swift in Sources */,
 				97FF4A38291AB12300AF9A56 /* NicknameViewModel.swift in Sources */,
 				9784A6702921EEB300C0D999 /* MainViewController.swift in Sources */,
 				97C3DC2F292030BE00E315FA /* Indicator.swift in Sources */,
@@ -1034,6 +1109,7 @@
 				97B381EB291BB0B5009618A7 /* Date+Extension.swift in Sources */,
 				979E79FD291F6F4A00E9A89A /* OnboardingCell.swift in Sources */,
 				97D79766292B776200675C57 /* MyGenderView.swift in Sources */,
+				9778568D2932776400CA8EB3 /* SesacReviewViewModel.swift in Sources */,
 				9796DEE5291943CF00D8C915 /* PhoneAuthView.swift in Sources */,
 				9752856F29289C290030403F /* MyListCollectionViewCell.swift in Sources */,
 				97B381F0291BE0DB009618A7 /* EmailView.swift in Sources */,
