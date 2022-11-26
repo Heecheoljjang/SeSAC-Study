@@ -88,6 +88,8 @@ enum ImageName {
     static let gps = "place"
     static let centerAnnotation = "map_marker"
     static let xmark = "xmark"
+    static let ellipsis = "ellipsis"
+    static let bell = "bell"
     static let retry = "retry"
     
     static let sesacFace = "sesacFace"

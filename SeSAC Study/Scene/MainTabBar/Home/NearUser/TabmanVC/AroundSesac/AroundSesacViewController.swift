@@ -50,7 +50,7 @@ final class AroundSesacViewController: ViewController {
             .drive(mainView.tableView.rx.items(cellIdentifier: ProfileTableViewCell.identifier, cellType: ProfileTableViewCell.self)) { [weak self] row, element, cell in
                 
                 print("row \(row) tag \(cell.nameView.clearButton.tag)")
-                
+
                 guard let backImage = BackgroundImage(rawValue: element.background)?.imageName,
                       let sesacImage = UserProfileImage(rawValue: element.sesac)?.image,
                 let reviewIsEmpty = self?.viewModel.checkReviewEmpty(reviews: element.reviews) else { return }
@@ -90,6 +90,16 @@ final class AroundSesacViewController: ViewController {
                 } else {
                     cell.reviewView.label.text = element.reviews[0]
                 }
+                
+                //요청하기 버튼
+//                cell.requestButton.addTarget(self, action: #selector(self?.tapRequestButton), for: .touchUpInside)
+                cell.requestButton.rx.tap
+                    .bind(onNext: { [weak self] _ in
+                        print("요청하기 탭탭")
+                        print(element.nick)
+                        self?.viewModel.studyRequest(uid: element.uid)
+                    })
+                    .disposed(by: cell.disposeBag)
                 
             }
             .disposed(by: disposeBag)
@@ -134,4 +144,7 @@ extension AroundSesacViewController {
 //        cell.setUpView(collapsed: !cell.isSelected)
         mainView.tableView.reloadData()
     }
+//    @objc private func tapRequestButton(_ sender: UIButton) {
+//        guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? ProfileTableViewCell else { return }
+//    }
 }

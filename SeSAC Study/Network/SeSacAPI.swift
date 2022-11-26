@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+//MARK: - 버전도 다 나누기 => API별로 나눠주고 base랑 version을 각각 두면 해결될듯
 enum SeSacAPI {
     
     static let baseUrl = "http://api.sesac.co.kr:1210/"
@@ -21,6 +22,7 @@ enum SeSacAPI {
     case stopQueueSearch
     case myQueueState
     case update(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
+    case studyRequest(otherUid: String)
     
     var url: URL {
         switch self {
@@ -36,6 +38,8 @@ enum SeSacAPI {
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/search")!
         case .myQueueState:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/myQueueState")!
+        case .studyRequest:
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/studyrequest")!
         }
     }
     
@@ -45,7 +49,7 @@ enum SeSacAPI {
         switch self {
         case .signIn, .withdraw, .myQueueState, .stopQueueSearch:
             return ["idtoken": token]
-        case .signUp, .queue, .queueSearch, .update:
+        case .signUp, .queue, .queueSearch, .update, .studyRequest:
             return [
                 "idtoken": token,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -84,6 +88,10 @@ enum SeSacAPI {
                 "ageMax": ageMax,
                 "gender": gender,
                 "study": study
+            ]
+        case .studyRequest(let otheruid):
+            return [
+                "otheruid": otheruid
             ]
         }
     }

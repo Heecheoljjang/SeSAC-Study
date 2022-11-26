@@ -38,6 +38,18 @@ final class AroundSesacViewModel {
         }
     }
     
+    func studyRequest(uid: String) {
+        let api = SeSacAPI.studyRequest(otherUid: uid)
+        
+        APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
+            guard let status = StudyRequestError(rawValue: statusCode) else {
+                print("에러 못가져왔어요 스터디리퀘스트")
+                return
+            }
+            print(statusCode)
+        }
+    }
+    
     func checkReviewEmpty(reviews: [String]) -> Bool {
         return reviews.isEmpty ? true : false
     }
