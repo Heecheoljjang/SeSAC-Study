@@ -23,6 +23,7 @@ enum SeSacAPI {
     case myQueueState
     case update(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     case studyRequest(otherUid: String)
+    case studyAccept(otherUid: String)
     
     var url: URL {
         switch self {
@@ -40,6 +41,8 @@ enum SeSacAPI {
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/myQueueState")!
         case .studyRequest:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/studyrequest")!
+        case .studyAccept:
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/studyaccept")!
         }
     }
     
@@ -49,7 +52,7 @@ enum SeSacAPI {
         switch self {
         case .signIn, .withdraw, .myQueueState, .stopQueueSearch:
             return ["idtoken": token]
-        case .signUp, .queue, .queueSearch, .update, .studyRequest:
+        case .signUp, .queue, .queueSearch, .update, .studyRequest, .studyAccept:
             return [
                 "idtoken": token,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -89,7 +92,7 @@ enum SeSacAPI {
                 "gender": gender,
                 "study": study
             ]
-        case .studyRequest(let otheruid):
+        case .studyRequest(let otheruid), .studyAccept(let otheruid):
             return [
                 "otheruid": otheruid
             ]

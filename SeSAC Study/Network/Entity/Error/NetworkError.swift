@@ -134,4 +134,55 @@ enum StudyRequestError: Int {
     case signUpRequired = 406
     case serverError = 500
     case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .requestSuccess:
+            return "스터디 요청을 보냈습니다."
+        case .studyAccept:
+            return "상대방도 스터디를 요청하여 매칭되었습니다. 잠시 후 채팅방으로 이동합니다."
+        case .cancelStudy:
+            return "상대방이 스터디 찾기를 그만두었습니다."
+        case .tokenError:
+            return "에러가 발생하였습니다."
+        case .signUpRequired:
+            return "회원가입이 필요합니다"
+        case .serverError:
+            return "서버에 이상이 있습니다."
+        case .clientError:
+            return "에러가 발생하였습니다."
+        }
+    }
+}
+
+enum StudyAcceptError: Int {
+    case acceptSuccess = 200
+    case alreadyOtherMatched = 201
+    case cancelStudy = 202
+    case alreadyMatched = 203
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .acceptSuccess:
+            return "수락 성공"
+        case .alreadyOtherMatched:
+            return "상대방이 이미 다른 새싹과 스터디를 함께 하는 중입니다."
+        case .cancelStudy:
+            return "상대방이 스터디 찾기를 그만두었습니다."
+        case .alreadyMatched:
+            return "앗! 누군가가 나의 스터디를 수락하였어요!"
+        case .tokenError:
+            return "에러가 발생하였습니다."
+        case .signUpRequired:
+            return "회원가입이 필요합니다"
+        case .serverError:
+            return "서버에 이상이 있습니다."
+        case .clientError:
+            return "에러가 발생하였습니다."
+        }
+    }
 }

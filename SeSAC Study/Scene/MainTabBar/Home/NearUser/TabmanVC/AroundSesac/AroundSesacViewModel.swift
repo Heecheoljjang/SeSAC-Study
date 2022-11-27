@@ -12,6 +12,8 @@ import CoreLocation
 
 final class AroundSesacViewModel {
     var sesacList = BehaviorRelay<[FromQueueDB]>(value: [])
+    var requestStatus = PublishRelay<StudyRequestError>()
+    var acceptStatus = PublishRelay<StudyAcceptError>()
 
     func startSeSacSearch() {
         
@@ -46,8 +48,27 @@ final class AroundSesacViewModel {
                 print("에러 못가져왔어요 스터디리퀘스트")
                 return
             }
+            print("요청하기 상태코드 \(statusCode)")
+            self?.requestStatus.accept(status)
+        }
+    }
+    
+    func studyAccept(uid: String) {
+        print("========uid=========\n\(uid)\n=========================")
+        let api = SeSacAPI.studyRequest(otherUid: uid)
+        
+        APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
+            guard let status = StudyAcceptError(rawValue: statusCode) else {
+                print("에러 못가져왔어요 스터디어셉트")
+                return
+            }
+            self?.acceptStatus.accept(status)
             print(statusCode)
         }
+    }
+    
+    func setOtherUid(uid: String) {
+        UserDefaultsManager.shared.setValue(value: uid, type: .otherUid)
     }
     
     func checkReviewEmpty(reviews: [String]) -> Bool {
