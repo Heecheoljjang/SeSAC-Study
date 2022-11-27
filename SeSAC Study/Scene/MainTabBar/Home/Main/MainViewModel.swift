@@ -36,6 +36,18 @@ final class MainViewModel {
                 guard let data = data else { return }
                 print("새싹친구 통신성공: \(data)")
                 self?.searchList.accept(data)
+            case .tokenError:
+                //MARK: - 토큰 재발급 후 다시 시도
+                FirebaseManager.shared.fetchIdToken { result in
+                    switch result {
+                    case .success(let token):
+                        UserDefaultsManager.shared.setValue(value: token, type: .idToken)
+                        self?.startSeSacSearch(location: location)
+                    case .failure(let error):
+                        print("아이디토큰 못받아옴 \(error)")
+                        return
+                    }
+                }
             default:
                 print("새싹 친구 검색에러: \(error)")
             }
