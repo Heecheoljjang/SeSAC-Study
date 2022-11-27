@@ -49,7 +49,7 @@ final class CustomAlertView: BaseView {
     let cancelButton: UIButton = {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
-        configuration.title = CustomAlert.nearUser.cancelTitle
+        configuration.title = CustomAlert.studyRequest.cancelTitle
         configuration.baseForegroundColor = .black
         configuration.baseBackgroundColor = .grayTwo
         button.layer.cornerRadius = 8
@@ -60,7 +60,7 @@ final class CustomAlertView: BaseView {
     let okButton: UIButton = {
         let button = UIButton()
         var configuration = UIButton.Configuration.filled()
-        configuration.title = CustomAlert.nearUser.okTitle
+        configuration.title = CustomAlert.studyRequest.okTitle
         configuration.baseForegroundColor = .white
         configuration.baseBackgroundColor = .brandGreen
         button.layer.cornerRadius = 8

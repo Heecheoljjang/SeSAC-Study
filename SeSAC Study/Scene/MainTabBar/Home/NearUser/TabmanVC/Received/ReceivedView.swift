@@ -19,7 +19,7 @@ final class ReceivedView: BaseView {
         view.separatorStyle = .none
         view.isScrollEnabled = false
 //        view.allowsMultipleSelection = true //MARK: test
-        view.register(ReceievedTableViewCell.self, forCellReuseIdentifier: ReceievedTableViewCell.identifier)
+        view.register(ReceivedTableViewCell.self, forCellReuseIdentifier: ReceivedTableViewCell.identifier)
         view.sectionHeaderTopPadding = 0
         view.rowHeight = UITableView.automaticDimension
         view.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)

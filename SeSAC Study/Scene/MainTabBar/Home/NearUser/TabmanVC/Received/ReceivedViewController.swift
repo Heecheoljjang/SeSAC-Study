@@ -28,15 +28,7 @@ final class ReceivedViewController: ViewController {
         super.viewWillAppear(animated)
         viewModel.startSeSacSearch()
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("바이루")
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("진짜 바이")
-    }
-    
+
     override func configure() {
         super.configure()
         
@@ -46,9 +38,7 @@ final class ReceivedViewController: ViewController {
     func bind() {
         viewModel.sesacList
             .asDriver(onErrorJustReturn: [])
-            .drive(mainView.tableView.rx.items(cellIdentifier: ReceievedTableViewCell.identifier, cellType: ReceievedTableViewCell.self)) { [weak self] row, element, cell in
-                
-                
+            .drive(mainView.tableView.rx.items(cellIdentifier: ReceivedTableViewCell.identifier, cellType: ReceivedTableViewCell.self)) { [weak self] row, element, cell in
                 
                 guard let backImage = BackgroundImage(rawValue: element.background)?.imageName,
                       let sesacImage = UserProfileImage(rawValue: element.sesac)?.image,
@@ -111,8 +101,8 @@ final class ReceivedViewController: ViewController {
                     .bind(onNext: { [weak self] _ in
                         print("수락하기 탭탭")
                         print(element.nick)
-                        //MARK: - 얼럿띄우고 확인 눌렀을때 studyAccept하도록
-                        self?.viewModel.studyAccept(uid: element.uid)
+                        self?.viewModel.setOtherUid(uid: element.uid)
+                        self?.showCustomAlert(title: CustomAlert.studyAccept.title, message: CustomAlert.studyAccept.message)
                     })
                     .disposed(by: cell.disposeBag)
             }
@@ -126,10 +116,17 @@ final class ReceivedViewController: ViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.studyStatus
+        viewModel.acceptStatus
             .asDriver(onErrorJustReturn: .clientError)
             .drive(onNext: { [weak self] value in
-                self?.checkStudyStatus(status: value)
+                self?.checkAcceptStatus(status: value)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.myQueueStatus
+            .asDriver(onErrorJustReturn: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
+            .drive(onNext: { [weak self] data in
+//                self?.checkMyQueueStatus(status: data)
             })
             .disposed(by: disposeBag)
     }
@@ -143,19 +140,57 @@ extension ReceivedViewController {
         mainView.noSesacView.isHidden = !emptyValue
     }
     
-    private func checkStudyStatus(status: StudyAcceptError) {
+    private func checkAcceptStatus(status: StudyAcceptError) {
         switch status {
         case .acceptSuccess:
             let vc = ChattingViewController()
             transition(vc, transitionStyle: .push)
         case .alreadyMatched:
-            presentHandlerToast(view: mainView, message: status.message) {
-                //MARK: myQueueState호출
-                print("호춯초훛ㄹ")
-            }
+            presentToast(view: mainView, message: status.message)
+            viewModel.fetchMyQueueState()
         default:
             presentToast(view: mainView, message: status.message)
         }
     }
+    
+    private func checkMyQueueStatus(data: MyQueueState) {
+        switch data.matched {
+        case 0:
+            guard let nick = data.matchedNick else { return }
+            presentHandlerToast(view: mainView, message: "\(nick)님과 매칭되셨습니다. 잠시 후 채팅방으로 이동합니다") {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    let chattingVC = ChattingViewController()
+                    self.transition(chattingVC, transitionStyle: .push)
+                }
+            }
+        default:
+            //에러발생했다고 띄우기
+            presentToast(view: mainView, message: StudyRequestError.tokenError.message)
+        }
+    }
 }
 
+extension ReceivedViewController: CustomAlertDelegate {
+    func ok() {
+        //MARK: accept통신
+        guard let uid = UserDefaultsManager.shared.fetchValue(type: .otherUid) as? String else { return }
+        viewModel.studyAccept(uid: uid)
+    }
+    
+    func cancel() {
+        print("취소누르고 아무일도 안일어남")
+    }
+}
+
+
+extension ReceivedViewController {
+    private func showCustomAlert(title: String, message: String) {
+        let alertVC = CustomAlertViewController()
+        alertVC.mainView.titleLabel.text = title
+        alertVC.delegate = self
+        alertVC.mainView.messagelabel.text = message
+        alertVC.modalTransitionStyle = .crossDissolve
+        alertVC.modalPresentationStyle = .overFullScreen
+        present(alertVC, animated: true)
+    }
+}

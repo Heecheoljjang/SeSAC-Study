@@ -264,7 +264,7 @@ extension AroundSesacViewController {
                     print(itemIdentifier.nick)
                     //MARK: 저장하고 커스텀 얼럿 띄우기
                     self?.viewModel.setOtherUid(uid: itemIdentifier.uid)
-                    self?.showCustomAlert(title: CustomAlert.nearUser.title, message: CustomAlert.nearUser.message)
+                    self?.showCustomAlert(title: CustomAlert.studyRequest.title, message: CustomAlert.studyRequest.message)
                 })
                 .disposed(by: cell.disposeBag)
             

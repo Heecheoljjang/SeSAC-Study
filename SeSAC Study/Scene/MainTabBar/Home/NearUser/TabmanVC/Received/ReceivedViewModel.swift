@@ -11,7 +11,8 @@ import RxSwift
 
 final class ReceivedViewModel {
     var sesacList = BehaviorRelay<[FromQueueDB]>(value: [])
-    var studyStatus = PublishRelay<StudyAcceptError>()
+    var acceptStatus = PublishRelay<StudyAcceptError>()
+    var myQueueStatus = PublishRelay<MyQueueState>()
 
     func startSeSacSearch() {
         
@@ -45,9 +46,35 @@ final class ReceivedViewModel {
                 print("에러 못가져왔어요 스터디어셉트")
                 return
             }
-            self?.studyStatus.accept(status)
+            self?.acceptStatus.accept(status)
             print(statusCode)
         }
+    }
+    
+    func fetchMyQueueState() {
+        print("queuestate 실행됨")
+        let api = SeSacAPI.myQueueState
+
+        APIService.shared.request(type: MyQueueState.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
+            print("queueState 상태코드 \(statusCode)")
+            guard let error = QueueStateError(rawValue: statusCode) else {
+                print("에러떠서 queuestate못가져옴")
+                return }
+            switch error {
+            case .checkSuccess, .normalState:
+                guard let data = data else {
+                    print("Queuestate통신 데이터 못가져옴")
+                    return }
+                print("상태 통신 성공", data, error)
+                self?.myQueueStatus.accept(data)
+            default:
+                print("노필요")
+            }
+        }
+    }
+    
+    func setOtherUid(uid: String) {
+        UserDefaultsManager.shared.setValue(value: uid, type: .otherUid)
     }
     
     func checkReviewEmpty(reviews: [String]) -> Bool {

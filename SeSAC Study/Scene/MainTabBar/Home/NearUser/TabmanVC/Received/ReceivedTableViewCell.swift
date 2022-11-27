@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ReceievedTableViewCell: ProfileTableViewCell {
+final class ReceivedTableViewCell: ProfileTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: AroundSesacTableViewCell.identifier)

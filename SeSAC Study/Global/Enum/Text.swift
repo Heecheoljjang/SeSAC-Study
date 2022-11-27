@@ -437,32 +437,36 @@ enum NavigationBarTitle {
 }
 
 enum CustomAlert {
-    case nearUser
+    case studyRequest, studyAccept
     
     var title: String {
         switch self {
-        case .nearUser:
+        case .studyRequest:
             return "스터디를 요청할게요!"
+        case .studyAccept:
+            return "스터디를 수락할까요?"
         }
     }
     
     var message: String {
         switch self {
-        case .nearUser:
+        case .studyRequest:
             return "상대방이 요청을 수락하면\n채팅창에서 대화를 나눌 수 있어요"
+        case .studyAccept:
+            return "요청을 수락하면 채팅창에서 대화를 나눌 수 있어요"
         }
     }
     
     var cancelTitle: String {
         switch self {
-        case .nearUser:
+        case .studyRequest, .studyAccept:
             return "취소"
         }
     }
     
     var okTitle: String {
         switch self {
-        case .nearUser:
+        case .studyRequest, .studyAccept:
             return "확인"
         }
     }
