@@ -28,7 +28,6 @@ final class CustomAlertView: BaseView {
         let label = UILabel()
         label.font = UIFont(name: CustomFont.medium, size: 16)
         label.textAlignment = .center
-        label.text = CustomAlert.nearUser.title
         return label
     }()
     let messagelabel: UILabel = {
@@ -37,7 +36,6 @@ final class CustomAlertView: BaseView {
         label.numberOfLines = 0
         label.font = UIFont(name: CustomFont.regular, size: 14)
         label.textColor = .graySeven
-        label.text = CustomAlert.nearUser.message
         return label
     }()
     
