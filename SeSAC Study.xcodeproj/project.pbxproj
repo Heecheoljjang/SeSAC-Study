@@ -88,6 +88,10 @@
 		9796DEE5291943CF00D8C915 /* PhoneAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEE4291943CF00D8C915 /* PhoneAuthView.swift */; };
 		9796DEE7291943D900D8C915 /* PhoneAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEE6291943D900D8C915 /* PhoneAuthViewController.swift */; };
 		9796DEE9291943E400D8C915 /* PhoneAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796DEE8291943E400D8C915 /* PhoneAuthViewModel.swift */; };
+		979A4DFD29347E44001A83FC /* YourChattingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A4DFC29347E44001A83FC /* YourChattingTableViewCell.swift */; };
+		979A4DFF29347E5A001A83FC /* MyChattingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A4DFE29347E5A001A83FC /* MyChattingTableViewCell.swift */; };
+		979A4E0129353610001A83FC /* VerticallyCenteredTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A4E0029353610001A83FC /* VerticallyCenteredTextView.swift */; };
+		979A4E032935487E001A83FC /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A4E022935487E001A83FC /* UITextView+Extension.swift */; };
 		979E79EC291E415000E9A89A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 979E79EB291E415000E9A89A /* FirebaseAuth */; };
 		979E79EE291E415000E9A89A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 979E79ED291E415000E9A89A /* FirebaseMessaging */; };
 		979E79F0291E626E00E9A89A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979E79EF291E626E00E9A89A /* OnboardingView.swift */; };
@@ -238,6 +242,10 @@
 		9796DEE4291943CF00D8C915 /* PhoneAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthView.swift; sourceTree = "<group>"; };
 		9796DEE6291943D900D8C915 /* PhoneAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthViewController.swift; sourceTree = "<group>"; };
 		9796DEE8291943E400D8C915 /* PhoneAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthViewModel.swift; sourceTree = "<group>"; };
+		979A4DFC29347E44001A83FC /* YourChattingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourChattingTableViewCell.swift; sourceTree = "<group>"; };
+		979A4DFE29347E5A001A83FC /* MyChattingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChattingTableViewCell.swift; sourceTree = "<group>"; };
+		979A4E0029353610001A83FC /* VerticallyCenteredTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyCenteredTextView.swift; sourceTree = "<group>"; };
+		979A4E022935487E001A83FC /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		979E79EF291E626E00E9A89A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		979E79F1291E627700E9A89A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		979E79F3291E628000E9A89A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -491,6 +499,8 @@
 		976C8AA4293196BA00F9D6E0 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				979A4DFC29347E44001A83FC /* YourChattingTableViewCell.swift */,
+				979A4DFE29347E5A001A83FC /* MyChattingTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -660,6 +670,7 @@
 				9752857529291F1B0030403F /* DynamicCollectionView.swift */,
 				97879DA6292A681600FF1628 /* MyInfoReusableView.swift */,
 				9784A683292257D700C0D999 /* ProfileReusableCardView */,
+				979A4E0029353610001A83FC /* VerticallyCenteredTextView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -684,6 +695,7 @@
 				979E79FF291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift */,
 				9784A6772922038700C0D999 /* UITableViewCell+Extension.swift */,
 				97FDC74D292434C500F3F59F /* UIView+Extension.swift */,
+				979A4E022935487E001A83FC /* UITextView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1008,6 +1020,7 @@
 				9796DEE9291943E400D8C915 /* PhoneAuthViewModel.swift in Sources */,
 				975BF1F129269C0400A2D084 /* MatchingStatus.swift in Sources */,
 				97E79DF12919846800254AC8 /* UIViewController+Extension.swift in Sources */,
+				979A4E0129353610001A83FC /* VerticallyCenteredTextView.swift in Sources */,
 				9796DECF29191BE800D8C915 /* BaseViewController.swift in Sources */,
 				9784A67C29221ECC00C0D999 /* ProfileView.swift in Sources */,
 				97A24C942921EC57009CE203 /* InfoViewModel.swift in Sources */,
@@ -1085,6 +1098,8 @@
 				975BF2002926A88F00A2D084 /* ChattingViewController.swift in Sources */,
 				977856892932775100CA8EB3 /* SesacReviewView.swift in Sources */,
 				97FF4A36291AB11300AF9A56 /* NicknameViewController.swift in Sources */,
+				979A4DFF29347E5A001A83FC /* MyChattingTableViewCell.swift in Sources */,
+				979A4E032935487E001A83FC /* UITextView+Extension.swift in Sources */,
 				97FF4A45291AE94A00AF9A56 /* NicknameCheck.swift in Sources */,
 				97C3DC29291FF71900E315FA /* MainView.swift in Sources */,
 				97F3DFE92920C8A90075582A /* UserStatus.swift in Sources */,
@@ -1108,6 +1123,7 @@
 				9752857629291F1B0030403F /* DynamicCollectionView.swift in Sources */,
 				97F3DFED292171DE0075582A /* typealias.swift in Sources */,
 				974EE401292CC01300F07DAC /* UserUpdate.swift in Sources */,
+				979A4DFD29347E44001A83FC /* YourChattingTableViewCell.swift in Sources */,
 				97BF633D292FF7C600777D3F /* AroundSesacView.swift in Sources */,
 				979E79F4291E628000E9A89A /* OnboardingViewController.swift in Sources */,
 				97B381EB291BB0B5009618A7 /* Date+Extension.swift in Sources */,
