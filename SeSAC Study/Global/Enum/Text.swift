@@ -100,6 +100,7 @@ enum ImageName {
     static let alarm = "setting_alarm"
     static let permit = "permit"
     static let emptySesac = "emptySesac"
+    static let sendButton = "sendButton"
 }
 
 enum ProfileImage {
@@ -338,6 +339,7 @@ enum PlaceHolder {
     static let searchBar = "띄어쓰기로 복수 입력이 가능해요"
     static let review = "첫 리뷰를 기다리는 중이에요!"
     static let myInfoStudy = "스터디를 입력해주세요"
+    static let chatting = "메세지를 입력하세요"
 }
 
 enum SearchStudySection {
