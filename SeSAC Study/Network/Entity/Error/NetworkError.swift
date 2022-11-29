@@ -7,16 +7,6 @@
 
 import Foundation
 
-enum NetworkError {
-    case LoginError
-    case WithdrawError
-    case UpdateError
-    case SesacRequestError
-    case SesacCancelError
-    case SesacSearchError
-    case QueueStateError
-}
-
 enum LoginError: Int, Error {
     case signUpSuccess = 200
     case alreadyExistUser = 201
@@ -186,3 +176,18 @@ enum StudyAcceptError: Int {
         }
     }
 }
+
+enum StudyDodgeError: Int {
+    case dodgeSuccess = 200
+    case wrongUid = 201
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var errorMessage: String {
+        return "에러가 발생하였습니다."
+    }
+}
+
+enum 

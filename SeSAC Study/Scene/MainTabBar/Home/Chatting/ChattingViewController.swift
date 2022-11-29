@@ -41,13 +41,16 @@ final class ChattingViewController: ViewController {
     
     func bind() {
         mainView.backButton.rx.tap
-            .bind(onNext: { [weak self] _ in
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
                 //MARK: 홈 화면 이동
+                vc.transition(vc, transitionStyle: .pop)
             })
             .disposed(by: disposeBag)
         mainView.menuBarButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 //MARK: 메뉴띄우기
+                self?.showMenu()
             })
             .disposed(by: disposeBag)
         RxKeyboard.instance.visibleHeight
@@ -67,8 +70,35 @@ final class ChattingViewController: ViewController {
                 }
             })
             .disposed(by: disposeBag)
-            
         
+        viewModel.myQueueStatus
+            .asDriver(onErrorJustReturn: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
+            .drive(onNext: { [weak self] status in
+                self?.checkMyStatus(status: status)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.menuView.cancelButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                //myqueue상태 체크해서 커스텀얼럿띄우기
+                self?.showCustomAlert()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.dodgeStatus
+            .asDriver(onErrorJustReturn: .clientError)
+            .drive(onNext: { [weak self] status in
+                self?.checkDodgeStatus(status: status)
+            })
+            .disposed(by: disposeBag)
+        
+        //버튼 색
+        mainView.textView.rx.text.orEmpty
+            .map { $0.count > 0 }
+            .bind(onNext: { [weak self] value in
+                self?.checkSendButtonEnable(value: value)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -131,6 +161,66 @@ extension ChattingViewController {
     
     private func checkTextViewLine() -> Bool {
         return mainView.textView.checkNumberOfLines() == 4 ? true : false
+    }
+    
+    private func showMenu() {
+        //MARK: - 일단 애니메이션빼고
+        mainView.menuView.isHidden = !mainView.menuView.isHidden
+    }
+    
+    private func checkMyStatus(status: MyQueueState) {
+        //스터디 취소를 기본으로 해놨기때문에 따로 설정 x
+        if status.dodged == 1 || status.reviewed == 1 {
+            mainView.menuView.cancelButton.configuration?.title = "스터디 종료"
+            return
+        }
+    }
+    
+    private func checkDodgeStatus(status: StudyDodgeError) {
+        switch status {
+        case .dodgeSuccess:
+            //성공이면 홈화면으로
+            transition(self, transitionStyle: .pop)
+        default:
+            presentToast(view: mainView, message: status.errorMessage)
+        }
+    }
+    
+    private func showCustomAlert() {
+        let isMatched = viewModel.checkMyQueueStatus()
+        let alertVC = CustomAlertViewController()
+        alertVC.delegate = self
+        alertVC.modalTransitionStyle = .crossDissolve
+        alertVC.modalPresentationStyle = .overFullScreen
+        
+        switch isMatched {
+        case true:
+            alertVC.mainView.titleLabel.text = CustomAlert.matched.title
+            alertVC.mainView.messagelabel.text = CustomAlert.matched.message
+        case false:
+            alertVC.mainView.titleLabel.text = CustomAlert.alreadyCanceled.title
+            alertVC.mainView.messagelabel.text = CustomAlert.alreadyCanceled.message
+        }
+        present(alertVC, animated: true)
+    }
+    
+    private func checkSendButtonEnable(value: Bool) {
+        switch value {
+        case true:
+            mainView.sendButton.configuration?.image = UIImage(named: ImageName.greenButton)
+        case false:
+            mainView.sendButton.configuration?.image = UIImage(named: ImageName.sendButton)
+        }
+    }
+}
+
+extension ChattingViewController: CustomAlertDelegate {
+    func ok() {
+        //취소 네트워킹, 종료인 경우엔 아마 그냥 닫는듯
+        viewModel.cancelStudy()
+    }
+    func cancel() {
+        print("아무것도 안하고")
     }
 }
 

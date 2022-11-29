@@ -101,6 +101,10 @@ enum ImageName {
     static let permit = "permit"
     static let emptySesac = "emptySesac"
     static let sendButton = "sendButton"
+    static let greenButton = "greenSendButton"
+    static let report = "siren"
+    static let cancelStudy = "cancel_match"
+    static let review = "write"
 }
 
 enum ProfileImage {
@@ -439,7 +443,7 @@ enum NavigationBarTitle {
 }
 
 enum CustomAlert {
-    case studyRequest, studyAccept
+    case studyRequest, studyAccept, matched, alreadyCanceled
     
     var title: String {
         switch self {
@@ -447,6 +451,10 @@ enum CustomAlert {
             return "스터디를 요청할게요!"
         case .studyAccept:
             return "스터디를 수락할까요?"
+        case .matched:
+            return "스터디를 취소하겠습니까?"
+        case .alreadyCanceled:
+            return "스터디를 종료하시겠습니까?"
         }
     }
     
@@ -455,21 +463,19 @@ enum CustomAlert {
         case .studyRequest:
             return "상대방이 요청을 수락하면\n채팅창에서 대화를 나눌 수 있어요"
         case .studyAccept:
-            return "요청을 수락하면 채팅창에서 대화를 나눌 수 있어요"
+            return "요청을 수락하면\n 채팅창에서 대화를 나눌 수 있어요"
+        case .matched:
+            return "스터디를 취소하시면 패널티가 부과됩니다"
+        case .alreadyCanceled:
+            return "상대방이 스터디를 취소했기때문에\n 패널티가 부과되지 않습니다"
         }
     }
     
     var cancelTitle: String {
-        switch self {
-        case .studyRequest, .studyAccept:
-            return "취소"
-        }
+        return "취소"
     }
     
     var okTitle: String {
-        switch self {
-        case .studyRequest, .studyAccept:
-            return "확인"
-        }
+        return "확인"
     }
 }

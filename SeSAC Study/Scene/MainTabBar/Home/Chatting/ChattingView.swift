@@ -12,6 +12,8 @@ final class ChattingView: BaseView {
     
     lazy var headerView = ChattingHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 112))
     
+    let menuView = ChattingMenuView()
+    
     let backButton = UIBarButtonItem(image: UIImage(named: ImageName.leftArrow), style: .plain, target: nil, action: nil)
     let menuBarButton = UIBarButtonItem(image: UIImage(systemName: ImageName.ellipsis), style: .plain, target: nil, action: nil)
 
@@ -64,9 +66,10 @@ final class ChattingView: BaseView {
         [textView, sendButton].forEach {
             messageView.addSubview($0)
         }
-        [tableView, messageView].forEach {
+        [tableView, messageView, menuView].forEach {
             addSubview($0)
         }
+        menuView.isHidden = true
     }
     
     override func setUpConstraints() {
@@ -90,6 +93,10 @@ final class ChattingView: BaseView {
             make.horizontalEdges.equalToSuperview().inset(16)
             make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-16)
             make.height.greaterThanOrEqualTo(52)
+        }
+        menuView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.horizontalEdges.bottom.equalToSuperview()
         }
     }
 }

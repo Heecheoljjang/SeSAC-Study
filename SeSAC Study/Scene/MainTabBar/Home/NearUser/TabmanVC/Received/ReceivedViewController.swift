@@ -126,7 +126,7 @@ final class ReceivedViewController: ViewController {
         viewModel.myQueueStatus
             .asDriver(onErrorJustReturn: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
             .drive(onNext: { [weak self] data in
-//                self?.checkMyQueueStatus(status: data)
+                self?.checkMyQueueStatus(data: data)
             })
             .disposed(by: disposeBag)
     }
@@ -155,11 +155,12 @@ extension ReceivedViewController {
     
     private func checkMyQueueStatus(data: MyQueueState) {
         switch data.matched {
-        case 0:
+        case 1:
             guard let nick = data.matchedNick else { return }
             presentHandlerToast(view: mainView, message: "\(nick)님과 매칭되셨습니다. 잠시 후 채팅방으로 이동합니다") {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     let chattingVC = ChattingViewController()
+                    chattingVC.title = nick
                     self.transition(chattingVC, transitionStyle: .push)
                 }
             }
