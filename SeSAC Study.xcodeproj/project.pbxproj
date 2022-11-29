@@ -126,6 +126,11 @@
 		97B381F0291BE0DB009618A7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381EF291BE0DB009618A7 /* EmailView.swift */; };
 		97B381F2291BE0E2009618A7 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381F1291BE0E2009618A7 /* EmailViewController.swift */; };
 		97B381F4291BE0E9009618A7 /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B381F3291BE0E9009618A7 /* EmailViewModel.swift */; };
+		97B66A6729362DCA00E0C067 /* ChattingMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B66A6629362DCA00E0C067 /* ChattingMenuView.swift */; };
+		97B66A6A2936739B00E0C067 /* ChatInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B66A692936739B00E0C067 /* ChatInfo.swift */; };
+		97B66A6D2936884E00E0C067 /* RxRealm in Frameworks */ = {isa = PBXBuildFile; productRef = 97B66A6C2936884E00E0C067 /* RxRealm */; };
+		97B66A6F293693F500E0C067 /* FetchChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B66A6E293693F500E0C067 /* FetchChat.swift */; };
+		97B66A722936A3C100E0C067 /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B66A712936A3C100E0C067 /* ChatData.swift */; };
 		97BF633D292FF7C600777D3F /* AroundSesacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BF633C292FF7C600777D3F /* AroundSesacView.swift */; };
 		97BF633F292FF7CF00777D3F /* AroundSesacViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BF633E292FF7CF00777D3F /* AroundSesacViewModel.swift */; };
 		97BF6341292FF96100777D3F /* NoSesacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BF6340292FF96100777D3F /* NoSesacView.swift */; };
@@ -277,6 +282,10 @@
 		97B381EF291BE0DB009618A7 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		97B381F1291BE0E2009618A7 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		97B381F3291BE0E9009618A7 /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
+		97B66A6629362DCA00E0C067 /* ChattingMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingMenuView.swift; sourceTree = "<group>"; };
+		97B66A692936739B00E0C067 /* ChatInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfo.swift; sourceTree = "<group>"; };
+		97B66A6E293693F500E0C067 /* FetchChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchChat.swift; sourceTree = "<group>"; };
+		97B66A712936A3C100E0C067 /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		97BF633C292FF7C600777D3F /* AroundSesacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundSesacView.swift; sourceTree = "<group>"; };
 		97BF633E292FF7CF00777D3F /* AroundSesacViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundSesacViewModel.swift; sourceTree = "<group>"; };
 		97BF6340292FF96100777D3F /* NoSesacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSesacView.swift; sourceTree = "<group>"; };
@@ -328,6 +337,7 @@
 				97ECAC0A29264A0500F3A626 /* RxCoreLocation in Frameworks */,
 				9796DEAF2919131900D8C915 /* SnapKit in Frameworks */,
 				979E79EC291E415000E9A89A /* FirebaseAuth in Frameworks */,
+				97B66A6D2936884E00E0C067 /* RxRealm in Frameworks */,
 				97B381E9291B87BF009618A7 /* RxGesture in Frameworks */,
 				97D7976F292B847700675C57 /* MultiSlider in Frameworks */,
 			);
@@ -379,6 +389,7 @@
 				97ECAC0D292680C800F3A626 /* AroundSesacSearch.swift */,
 				974EE400292CC01300F07DAC /* UserUpdate.swift */,
 				97E4FEC5292DEF9100F487F1 /* Queue.swift */,
+				97B66A682936732600E0C067 /* Chatting */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -453,6 +464,7 @@
 		975BF1F82926A85400A2D084 /* Chatting */ = {
 			isa = PBXGroup;
 			children = (
+				97B66A6529362D3A00E0C067 /* ChattingMenu */,
 				976C8AA4293196BA00F9D6E0 /* Cell */,
 				976C8AA22931921200F9D6E0 /* ChattingHeaderView.swift */,
 				976C8A9E29318A7300F9D6E0 /* ChattingView.swift */,
@@ -678,6 +690,7 @@
 		9796DED2291920AE00D8C915 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				97B66A702936A3AA00E0C067 /* Entity */,
 				979E79FE291F727300E9A89A /* Protocols */,
 				9796DECC29191B5E00D8C915 /* Utility */,
 				97FF4A3D291AB9B000AF9A56 /* Enum */,
@@ -823,6 +836,31 @@
 			path = Gender;
 			sourceTree = "<group>";
 		};
+		97B66A6529362D3A00E0C067 /* ChattingMenu */ = {
+			isa = PBXGroup;
+			children = (
+				97B66A6629362DCA00E0C067 /* ChattingMenuView.swift */,
+			);
+			path = ChattingMenu;
+			sourceTree = "<group>";
+		};
+		97B66A682936732600E0C067 /* Chatting */ = {
+			isa = PBXGroup;
+			children = (
+				97B66A692936739B00E0C067 /* ChatInfo.swift */,
+				97B66A6E293693F500E0C067 /* FetchChat.swift */,
+			);
+			path = Chatting;
+			sourceTree = "<group>";
+		};
+		97B66A702936A3AA00E0C067 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				97B66A712936A3C100E0C067 /* ChatData.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		97C3DC20291FE38F00E315FA /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -925,6 +963,7 @@
 				97D7976E292B847700675C57 /* MultiSlider */,
 				974EE405292D2FEE00F07DAC /* RxKeyboard */,
 				973F8797292E311900C70F7F /* Tabman */,
+				97B66A6C2936884E00E0C067 /* RxRealm */,
 			);
 			productName = "SeSAC Study";
 			productReference = 9796DE8D2918A36F00D8C915 /* SeSAC Study.app */;
@@ -965,6 +1004,7 @@
 				97D7976D292B847700675C57 /* XCRemoteSwiftPackageReference "MultiSlider" */,
 				974EE404292D2FEE00F07DAC /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 				973F8796292E311800C70F7F /* XCRemoteSwiftPackageReference "Tabman" */,
+				97B66A6B2936884E00E0C067 /* XCRemoteSwiftPackageReference "RxRealm" */,
 			);
 			productRefGroup = 9796DE8E2918A36F00D8C915 /* Products */;
 			projectDirPath = "";
@@ -1011,6 +1051,7 @@
 				970D1FB02933BDB100891787 /* CustomAlertDelegate.swift in Sources */,
 				97B381F4291BE0E9009618A7 /* EmailViewModel.swift in Sources */,
 				9784A68E292283D500C0D999 /* StudyTableView.swift in Sources */,
+				97B66A722936A3C100E0C067 /* ChatData.swift in Sources */,
 				979E7A00291F72B600E9A89A /* UICollectionViewCell+Extenstion.swift in Sources */,
 				9784A690292283EF00C0D999 /* ReviewView.swift in Sources */,
 				97B381ED291BDF13009618A7 /* BirthdayStatus.swift in Sources */,
@@ -1027,10 +1068,12 @@
 				9796DEE7291943D900D8C915 /* PhoneAuthViewController.swift in Sources */,
 				97BF6341292FF96100777D3F /* NoSesacView.swift in Sources */,
 				976C8A9F29318A7300F9D6E0 /* ChattingView.swift in Sources */,
+				97B66A6A2936739B00E0C067 /* ChatInfo.swift in Sources */,
 				979E79F2291E627700E9A89A /* OnboardingViewModel.swift in Sources */,
 				974EE3FF292CABFD00F07DAC /* MyInfoActionType.swift in Sources */,
 				97FBDC5A291A4FF1007CB321 /* AuthCheck.swift in Sources */,
 				97A24C862921EC1C009CE203 /* ShopViewController.swift in Sources */,
+				97B66A6729362DCA00E0C067 /* ChattingMenuView.swift in Sources */,
 				97879DAA292A6B8600FF1628 /* MyInfoReusableType.swift in Sources */,
 				973F879D292E4BD700C70F7F /* ReceivedViewController.swift in Sources */,
 				97FF4A34291AB05100AF9A56 /* NicknameView.swift in Sources */,
@@ -1045,6 +1088,7 @@
 				974CF65E291D626300B66CAC /* NetworkError.swift in Sources */,
 				97B381E6291B5B5A009618A7 /* DateReusableView.swift in Sources */,
 				9784A6A629241CDE00C0D999 /* DynamicTableView.swift in Sources */,
+				97B66A6F293693F500E0C067 /* FetchChat.swift in Sources */,
 				9796DEDF291938B300D8C915 /* PhoneNumberView.swift in Sources */,
 				97E4FEC6292DEF9100F487F1 /* Queue.swift in Sources */,
 				976211F3291C2A93008B00FE /* CommonViewModel.swift in Sources */,
@@ -1408,6 +1452,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		97B66A6B2936884E00E0C067 /* XCRemoteSwiftPackageReference "RxRealm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxRealm.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.5;
+			};
+		};
 		97D7976D292B847700675C57 /* XCRemoteSwiftPackageReference "MultiSlider" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yonat/MultiSlider.git";
@@ -1479,6 +1531,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 97B381E7291B87BF009618A7 /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
+		};
+		97B66A6C2936884E00E0C067 /* RxRealm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97B66A6B2936884E00E0C067 /* XCRemoteSwiftPackageReference "RxRealm" */;
+			productName = RxRealm;
 		};
 		97D7976E292B847700675C57 /* MultiSlider */ = {
 			isa = XCSwiftPackageProductDependency;
