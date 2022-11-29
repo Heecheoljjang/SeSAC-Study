@@ -50,7 +50,8 @@ final class ChattingViewController: ViewController {
         mainView.menuBarButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 //MARK: 메뉴띄우기
-                self?.showMenu()
+//                self?.showMenu()
+                self?.viewModel.fetchMyQueueState()
             })
             .disposed(by: disposeBag)
         RxKeyboard.instance.visibleHeight
@@ -97,6 +98,24 @@ final class ChattingViewController: ViewController {
             .map { $0.count > 0 }
             .bind(onNext: { [weak self] value in
                 self?.checkSendButtonEnable(value: value)
+            })
+            .disposed(by: disposeBag)
+        
+        //채팅보내기
+        mainView.sendButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                //텍스트뷰의 내용가지고 sendChat
+                print("채팅 보냈습니다 \(vc.mainView.textView.text)")
+                vc.viewModel.sendChat(chat: vc.mainView.textView.text)
+            })
+            .disposed(by: disposeBag)
+        
+        //채팅 보낸 상태
+        viewModel.sendChatStatus
+            .asDriver(onErrorJustReturn: .clientError)
+            .drive(onNext: { [weak self] status in
+                self?.checkSendChatStatus(status: status)
             })
             .disposed(by: disposeBag)
     }
@@ -172,6 +191,10 @@ extension ChattingViewController {
         //스터디 취소를 기본으로 해놨기때문에 따로 설정 x
         if status.dodged == 1 || status.reviewed == 1 {
             mainView.menuView.cancelButton.configuration?.title = "스터디 종료"
+            showMenu()
+            return
+        } else if status.matched == 1 {
+            showMenu()
             return
         }
     }
@@ -192,7 +215,7 @@ extension ChattingViewController {
         alertVC.delegate = self
         alertVC.modalTransitionStyle = .crossDissolve
         alertVC.modalPresentationStyle = .overFullScreen
-        
+        print("이스매치드 \(isMatched)")
         switch isMatched {
         case true:
             alertVC.mainView.titleLabel.text = CustomAlert.matched.title
@@ -210,6 +233,16 @@ extension ChattingViewController {
             mainView.sendButton.configuration?.image = UIImage(named: ImageName.greenButton)
         case false:
             mainView.sendButton.configuration?.image = UIImage(named: ImageName.sendButton)
+        }
+    }
+    
+    private func checkSendChatStatus(status: SendChattingError) {
+        switch status {
+        case .sendSuccess:
+            //MARK: 응답값 디비에 저장 후 테이블뷰 갱신
+            print("성공성공~")
+        default:
+            presentToast(view: mainView, message: status.message)
         }
     }
 }

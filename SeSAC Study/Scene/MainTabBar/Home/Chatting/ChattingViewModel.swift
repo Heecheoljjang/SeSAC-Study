@@ -13,15 +13,19 @@ final class ChattingViewModel {
 
     var myQueueStatus = BehaviorRelay<MyQueueState>(value: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
     var dodgeStatus = PublishRelay<StudyDodgeError>()
+    var sendChatStatus = PublishRelay<SendChattingError>()
+//    var chatData MARK: 추가해야함
+    
     //MARK: - 채팅 상단 메뉴 화면 -> myqueuestate, 스터디 취소, 리뷰등록
     func cancelStudy() {
         guard let uid = UserDefaultsManager.shared.fetchValue(type: .otherUid) as? String else { return }
-        
+        print("uid \(uid)")
         let api = SeSacAPI.dodge(otherUid: uid)
         APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
             guard let status = StudyDodgeError(rawValue: statusCode) else {
                 print("닷지에러")
                 return }
+            print("캔슬스터디 \(status)")
             self?.dodgeStatus.accept(status)
         }
     }
@@ -49,6 +53,7 @@ final class ChattingViewModel {
     }
     
     func checkMyQueueStatus() -> Bool {
+        print("체크마이큐 \(myQueueStatus.value.matched)")
         return myQueueStatus.value.matched == 1 ? true : false
     }
     
@@ -59,7 +64,26 @@ final class ChattingViewModel {
             return }
         let api = SeSacAPI.chatTo(ohterUid: uid, chat: chat)
         APIService.shared.request(type: SendChat.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] data, statusCode in
-            guard let status = 
+            guard let status = SendChattingError(rawValue: statusCode) else {
+                print("스테이터스 가져오지 모담")
+                return
+            }
+            switch status {
+            case .tokenError:
+                FirebaseManager.shared.fetchIdToken { result in
+                    switch result {
+                    case .success(let token):
+                        print("아이디토큰받아왔으므로 네트워크 통신하기: \(token)")
+                        UserDefaultsManager.shared.setValue(value: token, type: .idToken)
+                        self?.sendChatStatus.accept(.tokenError) //다시 눌러달라고 토스트띄우기. 재귀방지
+                    case .failure(let error):
+                        print("아이디토큰 못받아옴 \(error)")
+                        self?.sendChatStatus.accept(.clientError)
+                    }
+                }
+            default:
+                self?.sendChatStatus.accept(status)
+            }
         }
     }
 }

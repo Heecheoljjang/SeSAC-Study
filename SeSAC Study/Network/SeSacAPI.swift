@@ -24,6 +24,8 @@ enum SeSacAPI {
     case update(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     case studyRequest(otherUid: String)
     case studyAccept(otherUid: String)
+    case dodge(otherUid: String)
+    case chatTo(ohterUid: String, chat: String)
     
     var url: URL {
         switch self {
@@ -43,6 +45,10 @@ enum SeSacAPI {
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/studyrequest")!
         case .studyAccept:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/studyaccept")!
+        case .dodge:
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/dodge")!
+        case .chatTo(let uid):
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)chat/\(uid)")!
         }
     }
     
@@ -52,7 +58,7 @@ enum SeSacAPI {
         switch self {
         case .signIn, .withdraw, .myQueueState, .stopQueueSearch:
             return ["idtoken": token]
-        case .signUp, .queue, .queueSearch, .update, .studyRequest, .studyAccept:
+        case .signUp, .queue, .queueSearch, .update, .studyRequest, .studyAccept, .dodge, .chatTo:
             return [
                 "idtoken": token,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -92,9 +98,13 @@ enum SeSacAPI {
                 "gender": gender,
                 "study": study
             ]
-        case .studyRequest(let otheruid), .studyAccept(let otheruid):
+        case .studyRequest(let otheruid), .studyAccept(let otheruid), .dodge(let otheruid):
             return [
                 "otheruid": otheruid
+            ]
+        case .chatTo(_, let chat):
+            return [
+                "chat": chat
             ]
         }
     }

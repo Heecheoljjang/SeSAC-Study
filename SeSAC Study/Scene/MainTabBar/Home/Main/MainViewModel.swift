@@ -65,9 +65,12 @@ final class MainViewModel {
                 return }
             switch error {
             case .checkSuccess:
-                guard let data = data else {
+                guard let data = data, let uid = data.matchedUid else {
                     print("Queuestate통신 데이터 못가져옴")
                     return }
+            
+                UserDefaultsManager.shared.setValue(value: uid, type: .otherUid)
+                print("유아이디 저장완료 \(UserDefaultsManager.shared.fetchValue(type: .otherUid) as! String)")
                 print("상태 통신 성공", data, error)
                 switch data.matched {
                 case 0:
