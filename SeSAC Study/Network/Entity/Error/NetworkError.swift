@@ -190,4 +190,30 @@ enum StudyDodgeError: Int {
     }
 }
 
-enum 
+enum SendChattingError: Int {
+    case sendSuccess = 200
+    case sendFailure = 201
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .sendSuccess:
+            return "성공"
+        case .sendFailure:
+            return "스터디가 종료되어 채팅을 전송할 수 없습니다"
+        default:
+            return "에러가 발생하였습니다."
+        }
+    }
+}
+
+enum FetchChattingError: Int {
+    case fetchSuccess = 200
+    case tokenError = 401
+    case signUpRequired = 406
+    case serverError = 500
+    case clientError = 501
+}

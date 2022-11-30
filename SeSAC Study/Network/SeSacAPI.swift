@@ -26,6 +26,7 @@ enum SeSacAPI {
     case studyAccept(otherUid: String)
     case dodge(otherUid: String)
     case chatTo(ohterUid: String, chat: String)
+    case chatFrom(ohterUid: String, lastDate: String)
     
     var url: URL {
         switch self {
@@ -47,8 +48,10 @@ enum SeSacAPI {
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/studyaccept")!
         case .dodge:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/dodge")!
-        case .chatTo(let uid):
+        case .chatTo(let uid, _):
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)chat/\(uid)")!
+        case .chatFrom(let uid, let date):
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)chat/\(uid)?lastchatDate=\(date)")!
         }
     }
     
@@ -58,7 +61,7 @@ enum SeSacAPI {
         switch self {
         case .signIn, .withdraw, .myQueueState, .stopQueueSearch:
             return ["idtoken": token]
-        case .signUp, .queue, .queueSearch, .update, .studyRequest, .studyAccept, .dodge, .chatTo:
+        case .signUp, .queue, .queueSearch, .update, .studyRequest, .studyAccept, .dodge, .chatTo, .chatFrom:
             return [
                 "idtoken": token,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -68,8 +71,7 @@ enum SeSacAPI {
     
     var parameters: [String: Any]? {
         switch self {
-        case .signIn, .withdraw, .myQueueState, .stopQueueSearch:
-            return nil
+        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .chatFrom:            return nil
         case .signUp(let phoneNumber, let fcmToken, let nickname, let birth, let email, let gender):
             return [
                 "phoneNumber": phoneNumber,

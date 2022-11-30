@@ -10,13 +10,14 @@ import RxSwift
 import RxCocoa
 import RxKeyboard
 import SnapKit
+import RealmSwift
 
 final class ChattingViewController: ViewController {
     
     private var mainView = ChattingView()
     private let viewModel = ChattingViewModel()
     private let disposeBag = DisposeBag()
-        
+
     override func loadView() {
         view = mainView
     }
@@ -26,14 +27,18 @@ final class ChattingViewController: ViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.fetchChat()
+    }
+    
     override func configure() {
         super.configure()
         
         navigationItem.leftBarButtonItem = mainView.backButton
         navigationItem.rightBarButtonItem = mainView.menuBarButton
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = true
         mainView.tableView.addGestureRecognizer(tapGesture)
@@ -105,8 +110,6 @@ final class ChattingViewController: ViewController {
         mainView.sendButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { vc, _ in
-                //텍스트뷰의 내용가지고 sendChat
-                print("채팅 보냈습니다 \(vc.mainView.textView.text)")
                 vc.viewModel.sendChat(chat: vc.mainView.textView.text)
             })
             .disposed(by: disposeBag)
@@ -118,33 +121,28 @@ final class ChattingViewController: ViewController {
                 self?.checkSendChatStatus(status: status)
             })
             .disposed(by: disposeBag)
-    }
-}
-
-extension ChattingViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyChattingTableViewCell.identifier) as? MyChattingTableViewCell else { return UITableViewCell() }
-        switch indexPath.row {
-        case 0:
-            cell.messageLabel.text = "안ㄴㅇ란ㅇ리ㅏㄴㅇ머리ㅏㄴㅁ어리낭ㅁ러;ㅣㄴㅁㅇ러ㅣㅁㄴ;ㅏ얼ㄴ이마;렁ㄴㅁ;ㅣㅏ럼ㅇ니;ㅏ럼ㅇ;니ㅏ럼ㅇ니ㅏ;렁ㅁ니ㅏ;렁ㄴ미;렁"
-        case 1:
-            cell.messageLabel.text = "럼ㅇ니ㅏ;렁ㅁ니ㅏ;렁ㄴ미;렁"
-        case 2:
-            cell.messageLabel.text = "안ㄴㅇ란ㅇ리ㅏㄴㅇ머리ㅏㄴㅁ어리낭ㅁ러;ㅣㄴㅁㅇ러ㅣㅁㄴ;ㅏ얼ㄴ이마;렁ㄴㅁ;ㅣㅏ럼ㅇ니;ㅏ럼ㅇ;니ㅏ럼ㅇ니ㄴㅇ란ㅇ리ㅏㄴㅇ머리ㅏㄴㅁ어리낭ㅁ러;ㅣㄴㅁㅇ러ㅣㅁㄴ;ㅏ얼ㄴ이마;렁ㄴㅁ;ㅣㅏ럼ㅇ니;ㅏ럼ㅇ;니ㅏ럼ㅇ니ㅏ;렁ㄴㅇ란ㅇ리ㅏㄴㅇ머리ㅏㄴㅁ어리낭ㅁ러;ㅣㄴㅁㅇ러ㅣㅁㄴ;ㅏ얼ㄴ이마;렁ㄴㅁ;ㅣㅏ럼ㅇ니;ㅏ럼ㅇ;니ㅏ럼ㅇ니ㅏ;렁ㄴㅇ란ㅇ리ㅏㄴㅇ머리ㅏㄴㅁ어리낭ㅁ러;ㅣㄴㅁㅇ러ㅣㅁㄴ;ㅏ얼ㄴ이마;렁ㄴㅁ;ㅣㅏ럼ㅇ니;ㅏ럼ㅇ;니ㅏ럼ㅇ니ㅏ;렁ㅏ;렁ㅁ니ㅏ;렁ㄴ미;렁"
-        case 3:
-            cell.messageLabel.text = "렁"
-        case 4:
-            cell.messageLabel.text = "미;렁"
-        case 5:
-            cell.messageLabel.text = "럼ㅇ;니ㅏ럼ㅇ니ㅏ;렁ㅁ니ㅏ;렁ㄴ미;렁"
-        default:
-            cell.messageLabel.text = "안ㄴㅇ란ㅇ리ㅏㄴㅇ머리ㅏㄴㅁ어리낭ㅁ러;ㅣㄴㅁㅇ러ㅣㅁㄴ;ㅏ얼ㄴ이마;렁ㄴㅁ;ㅣㅏ럼ㅇ니;ㅏ럼ㅇ;니ㅏ럼ㅇ니ㅏ;렁ㅁ니ㅏ;렁ㄴ미;렁"
-        }
         
-        return cell
+        //테이블뷰 세팅
+        viewModel.totalChatData
+            .asDriver(onErrorJustReturn: [])
+            .drive(mainView.tableView.rx.items) { [weak self] tableView, row, element in
+                guard let uid = UserDefaultsManager.shared.fetchValue(type: .otherUid) as? String else { return UITableViewCell() }
+                
+                if element.from == uid {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: YourChattingTableViewCell.identifier) as? YourChattingTableViewCell else { return UITableViewCell() }
+                    
+                    cell.dateLabel.text = "\(row):11"
+                    cell.messageLabel.text = element.chat
+                    
+                    return cell
+                } else {
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: MyChattingTableViewCell.identifier) as? MyChattingTableViewCell else { return UITableViewCell() }
+                    cell.dateLabel.text = "\(row):22"
+                    cell.messageLabel.text = element.chat
+                    return cell
+                }
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -231,8 +229,10 @@ extension ChattingViewController {
         switch value {
         case true:
             mainView.sendButton.configuration?.image = UIImage(named: ImageName.greenButton)
+            mainView.sendButton.isUserInteractionEnabled = true
         case false:
             mainView.sendButton.configuration?.image = UIImage(named: ImageName.sendButton)
+            mainView.sendButton.isUserInteractionEnabled = false
         }
     }
     

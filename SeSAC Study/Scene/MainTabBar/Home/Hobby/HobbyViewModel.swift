@@ -173,4 +173,32 @@ final class HobbyViewModel {
     func fetchMyStudyListData(item: Int) -> String {
         return myStudyList.value[item]
     }
+    
+//    func testFetchQueueState() {
+//        print("queuestate 실행됨")
+//        let api = SeSacAPI.myQueueState
+//
+//        APIService.shared.request(type: MyQueueState.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
+//            print("queueState 상태코드 \(statusCode)")
+//            guard let error = QueueStateError(rawValue: statusCode) else {
+//                print("에러떠서 queuestate못가져옴")
+//                return }
+//            switch error {
+//            case .checkSuccess:
+//                guard let data = data, let uid = data.matchedUid else {
+//                    print("Queuestate통신 데이터 못가져옴")
+//                    return }
+//
+//                UserDefaultsManager.shared.setValue(value: uid, type: .otherUid)
+//                print("유아이디 저장완료 \(UserDefaultsManager.shared.fetchValue(type: .otherUid) as! String)")
+//                print("상태 통신 성공", data, error)
+//
+//            case .normalState:
+//                print("====\(data)=== \(error)")
+//                self?.currentStatus.accept(.normal)
+//            default:
+//                print("상태 에러남: \(error)")
+//            }
+//        }
+//    }
 }

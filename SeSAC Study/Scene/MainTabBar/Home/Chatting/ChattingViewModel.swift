@@ -8,9 +8,12 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RealmSwift
 
 final class ChattingViewModel {
-
+    
+    var totalChatData = BehaviorRelay<[ChatInfo]>(value: [])
+    
     var myQueueStatus = BehaviorRelay<MyQueueState>(value: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
     var dodgeStatus = PublishRelay<StudyDodgeError>()
     var sendChatStatus = PublishRelay<SendChattingError>()
@@ -62,9 +65,10 @@ final class ChattingViewModel {
         guard let uid = UserDefaultsManager.shared.fetchValue(type: .otherUid) as? String else {
             print("유아이디 못가져옴")
             return }
+        print("d유아이디 \(uid)")
         let api = SeSacAPI.chatTo(ohterUid: uid, chat: chat)
-        APIService.shared.request(type: SendChat.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] data, statusCode in
-            guard let status = SendChattingError(rawValue: statusCode) else {
+        APIService.shared.request(type: ChatInfo.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] data, statusCode in
+            guard let status = SendChattingError(rawValue: statusCode), let data = data else {
                 print("스테이터스 가져오지 모담")
                 return
             }
@@ -81,9 +85,55 @@ final class ChattingViewModel {
                         self?.sendChatStatus.accept(.clientError)
                     }
                 }
+            case .sendSuccess:
+                //MARK: - 응답값 디비에 저장
+                print("스테이터스샌드챗 \(status) 데이터 \(data)")
+                RealmManager.shared.saveChatToDB(chatInfo: data)
+                self?.sendChatStatus.accept(status)
             default:
                 self?.sendChatStatus.accept(status)
             }
+        }
+    }
+    
+    //데이터베이스 업데이트 후 불러오기
+    private func loadChat(uid: String) {
+        print("로드챗")
+        let chatData = RealmManager.shared.loadChatFromDB().filter { $0.from == uid || $0.to == uid }.sorted{ $0.createdAt < $1.createdAt }
+        print("챗데이터 \(chatData)")
+        totalChatData.accept(chatData)
+        
+        //MARK: 소켓연결
+        
+    }
+    
+    //MARK: - Realm
+    func fetchChat() {
+        //상대방uid가져오기
+        guard let uid = UserDefaultsManager.shared.fetchValue(type: .otherUid) as? String else {
+            print("유아이디 못가져옴")
+            return }
+        //상대방 채팅 데이터 가져오기
+        let chatData = RealmManager.shared.loadChatFromDB()
+            .filter { $0.from == uid }
+            .sorted { $0.createdAt < $1.createdAt }
+        let lastDate = chatData.last?.createdAt ?? "2000-01-01T00:00:00.000Z"
+        
+        //from호출
+        let api = SeSacAPI.chatFrom(ohterUid: uid, lastDate: lastDate)
+        
+        APIService.shared.request(type: FetchChat.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] data, statusCode in
+            guard let status = FetchChattingError(rawValue: statusCode), let data = data else {
+                print("채팅데이터 못가져옴")
+                return
+            }
+            print("채팅가져오기 상태 \(status), \(statusCode)\n데이터 \(data)")
+            data.payload.forEach {
+                RealmManager.shared.saveChatToDB(chatInfo: $0)
+                print("이거 뒤에 하하가 출력되어야해")
+            }
+            print("하하")
+            self?.loadChat(uid: uid)
         }
     }
 }
