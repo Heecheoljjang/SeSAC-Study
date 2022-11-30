@@ -33,6 +33,12 @@ final class ChattingViewController: ViewController {
         viewModel.fetchChat()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        viewModel.closeSocketConnection()
+    }
+    
     override func configure() {
         super.configure()
         
@@ -42,6 +48,8 @@ final class ChattingViewController: ViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = true
         mainView.tableView.addGestureRecognizer(tapGesture)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name("getMessage"), object: nil)
     }
     
     func bind() {
@@ -241,6 +249,7 @@ extension ChattingViewController {
         case .sendSuccess:
             //MARK: 응답값 디비에 저장 후 테이블뷰 갱신
             print("성공성공~")
+            mainView.tableView.scrollToRow(at: IndexPath(row: viewModel.tableViewCellCount() - 1, section: 0), at: .bottom, animated: false)
         default:
             presentToast(view: mainView, message: status.message)
         }
@@ -260,5 +269,19 @@ extension ChattingViewController: CustomAlertDelegate {
 extension ChattingViewController {
     @objc private func dismissKeyboard() {
         mainView.messageView.endEditing(true)
+    }
+    
+    @objc private func getMessage(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let id = userInfo["id"] as? String,
+              let chat = userInfo["chat"] as? String,
+              let createdAt = userInfo["createdAt"] as? String,
+              let from = userInfo["from"] as? String,
+              let to = userInfo["to"] as? String else { return }
+        
+        let chatData = ChatInfo(id: id, to: to, from: from, chat: chat, createdAt: createdAt)
+        //디비에 저장 후 데이터에 추가
+        viewModel.addToTotalChatData(chat: chatData)
+        mainView.tableView.scrollToRow(at: IndexPath(row: viewModel.tableViewCellCount() - 1, section: 0), at: .bottom, animated: false)
     }
 }

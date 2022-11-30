@@ -88,7 +88,8 @@ final class ChattingViewModel {
             case .sendSuccess:
                 //MARK: - 응답값 디비에 저장
                 print("스테이터스샌드챗 \(status) 데이터 \(data)")
-                RealmManager.shared.saveChatToDB(chatInfo: data)
+//                RealmManager.shared.saveChatToDB(chatInfo: data)
+                self?.addToTotalChatData(chat: data)
                 self?.sendChatStatus.accept(status)
             default:
                 self?.sendChatStatus.accept(status)
@@ -104,7 +105,7 @@ final class ChattingViewModel {
         totalChatData.accept(chatData)
         
         //MARK: 소켓연결
-        
+        SocketIOManager.shared.establishConnection()
     }
     
     //MARK: - Realm
@@ -135,5 +136,20 @@ final class ChattingViewModel {
             print("하하")
             self?.loadChat(uid: uid)
         }
+    }
+    
+    func tableViewCellCount() -> Int {
+        return totalChatData.value.count
+    }
+    
+    func addToTotalChatData(chat: ChatInfo) {
+        RealmManager.shared.saveChatToDB(chatInfo: chat)
+        var temp = totalChatData.value
+        temp.append(chat)
+        totalChatData.accept(temp)
+    }
+    
+    func closeSocketConnection() {
+        SocketIOManager.shared.closeConnection()
     }
 }
