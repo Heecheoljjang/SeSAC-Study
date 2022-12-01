@@ -13,6 +13,7 @@
 		97164BC92937CF0700B5437E /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97164BC82937CF0700B5437E /* SocketIOManager.swift */; };
 		97164BCC2937D43E00B5437E /* SocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97164BCB2937D43E00B5437E /* SocketAPI.swift */; };
 		97164BCF2937D6A700B5437E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 97164BCE2937D6A700B5437E /* RealmSwift */; };
+		973C11C92938E70400AF7E2D /* DateFormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C11C82938E70400AF7E2D /* DateFormatterHelper.swift */; };
 		973F8798292E311900C70F7F /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 973F8797292E311900C70F7F /* Tabman */; };
 		973F879B292E4BB500C70F7F /* AroundSesacViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F879A292E4BB500C70F7F /* AroundSesacViewController.swift */; };
 		973F879D292E4BD700C70F7F /* ReceivedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F879C292E4BD700C70F7F /* ReceivedViewController.swift */; };
@@ -178,6 +179,7 @@
 		97164BC3293755C100B5437E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		97164BC82937CF0700B5437E /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		97164BCB2937D43E00B5437E /* SocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketAPI.swift; sourceTree = "<group>"; };
+		973C11C82938E70400AF7E2D /* DateFormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHelper.swift; sourceTree = "<group>"; };
 		973F879A292E4BB500C70F7F /* AroundSesacViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundSesacViewController.swift; sourceTree = "<group>"; };
 		973F879C292E4BD700C70F7F /* ReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedViewController.swift; sourceTree = "<group>"; };
 		974CF651291D24B600B66CAC /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -926,6 +928,7 @@
 			children = (
 				97FBDC62291AA1DC007CB321 /* UserDefaultsManager.swift */,
 				97164BC3293755C100B5437E /* RealmManager.swift */,
+				973C11C82938E70400AF7E2D /* DateFormatterHelper.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1138,6 +1141,7 @@
 				9778567E2932263000CA8EB3 /* CustomAlertView.swift in Sources */,
 				97F3DFEB292170890075582A /* Bind.swift in Sources */,
 				974CF65B291D586600B66CAC /* APIService.swift in Sources */,
+				973C11C92938E70400AF7E2D /* DateFormatterHelper.swift in Sources */,
 				9778568B2932775900CA8EB3 /* SesacReviewViewController.swift in Sources */,
 				97ECAC0C29267CC700F3A626 /* MyQueueState.swift in Sources */,
 				97FF4A41291ACAB200AF9A56 /* LoginReusableView.swift in Sources */,
