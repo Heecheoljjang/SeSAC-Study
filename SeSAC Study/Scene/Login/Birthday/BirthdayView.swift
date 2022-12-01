@@ -35,10 +35,10 @@ final class BirthdayView: LoginReusableView {
         textField.tintColor = .clear
         return textField
     }()
-    
-    let yearView = DateReusableView(dateString: DateString.year.message, placeholder: Date().dateToString(type: .year))
-    let monthView = DateReusableView(dateString: DateString.month.message, placeholder: Date().dateToString(type: .month))
-    let dayView = DateReusableView(dateString: DateString.day.message, placeholder: Date().dateToString(type: .day))
+
+    let yearView = DateReusableView(dateString: DateString.year.message, placeholder: DateFormatterHelper.shared.dateToString(date: Date(), type: .year))
+    let monthView = DateReusableView(dateString: DateString.month.message, placeholder: DateFormatterHelper.shared.dateToString(date: Date(), type: .month))
+    let dayView = DateReusableView(dateString: DateString.day.message, placeholder: DateFormatterHelper.shared.dateToString(date: Date(), type: .day))
     
     override init(message: String, detailMessage: String, buttonTitle: String) {
         super.init(message: message, detailMessage: detailMessage, buttonTitle: buttonTitle)

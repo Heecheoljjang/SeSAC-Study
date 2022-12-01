@@ -49,7 +49,7 @@ final class BirthdayViewModel: CommonViewModel {
     }
     
     func setBirth(date: Date) {
-        let dateString = date.dateToString(type: .dateString)
+        let dateString = DateFormatterHelper.shared.dateToString(date: date, type: .dateString)
         UserDefaultsManager.shared.setValue(value: dateString, type: .birth)
     }
 
@@ -63,6 +63,6 @@ final class BirthdayViewModel: CommonViewModel {
 
     func fetchBirth() -> Date {
         guard let birth = UserDefaultsManager.shared.fetchValue(type: .birth) as? String else { return Date() }
-        return birth.stringToDate(type: .dateString)
+        return DateFormatterHelper.shared.stringToDate(string: birth, type: .dateString)
     }
 }

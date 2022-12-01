@@ -77,9 +77,10 @@ final class BirthdayViewController: ViewController {
     }
     
     private func setTextField(date: Date) {
-        mainView.yearView.dateTextField.text = date.dateToString(type: .year)
-        mainView.monthView.dateTextField.text = date.dateToString(type: .month)
-        mainView.dayView.dateTextField.text = date.dateToString(type: .day)
+
+        mainView.yearView.dateTextField.text = DateFormatterHelper.shared.dateToString(date: date, type: .year)
+        mainView.monthView.dateTextField.text = DateFormatterHelper.shared.dateToString(date: date, type: .month)
+        mainView.dayView.dateTextField.text = DateFormatterHelper.shared.dateToString(date: date, type: .day)
     }
     
     private func checkStatus(status: BirthdayStatus) {
