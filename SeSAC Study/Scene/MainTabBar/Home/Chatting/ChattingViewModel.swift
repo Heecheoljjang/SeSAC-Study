@@ -12,14 +12,11 @@ import RealmSwift
 
 final class ChattingViewModel {
     
-//    var totalChatData = BehaviorRelay<[ChatInfo]>(value: [])
-    
     var totalChatData = BehaviorRelay<[ChatData]>(value: [])
     
     var myQueueStatus = BehaviorRelay<MyQueueState>(value: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
     var dodgeStatus = PublishRelay<StudyDodgeError>()
     var sendChatStatus = PublishRelay<SendChattingError>()
-//    var chatData MARK: 추가해야함
     
     //MARK: - 채팅 상단 메뉴 화면 -> myqueuestate, 스터디 취소, 리뷰등록
     func cancelStudy() {
@@ -116,10 +113,10 @@ final class ChattingViewModel {
             return }
         //상대방 채팅 데이터 가져오기
         let chatData = RealmManager.shared.loadChatFromDB()
-            .filter { $0.from == uid }
+            .filter { $0.from == uid || $0.to == uid }
             .sorted { $0.createdAt < $1.createdAt }
         let lastDate = chatData.last?.createdAt ?? "2000-01-01T00:00:00.000Z"
-        
+
         //from호출
         let api = SeSacAPI.chatFrom(ohterUid: uid, lastDate: lastDate)
         
