@@ -59,17 +59,17 @@ final class MainViewModel {
         let api = SeSacAPI.myQueueState
 
         APIService.shared.request(type: MyQueueState.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
-            print("queueState 상태코드 \(statusCode)")
+            print("queueState 상태코드 \(statusCode), data: \(data)")
             guard let error = QueueStateError(rawValue: statusCode) else {
                 print("에러떠서 queuestate못가져옴")
                 return }
             switch error {
             case .checkSuccess:
-                guard let data = data, let uid = data.matchedUid else {
+                guard let data = data else {
                     print("Queuestate통신 데이터 못가져옴")
                     return }
             
-                UserDefaultsManager.shared.setValue(value: uid, type: .otherUid)
+                UserDefaultsManager.shared.setValue(value: data.matchedUid ?? "", type: .otherUid)
                 print("유아이디 저장완료 \(UserDefaultsManager.shared.fetchValue(type: .otherUid) as! String)")
                 print("상태 통신 성공", data, error)
                 switch data.matched {
