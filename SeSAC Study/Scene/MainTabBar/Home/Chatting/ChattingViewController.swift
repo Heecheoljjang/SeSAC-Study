@@ -37,6 +37,7 @@ final class ChattingViewController: ViewController {
         super.viewDidDisappear(animated)
         
         viewModel.closeSocketConnection()
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("getMessage"), object: nil)
     }
     
     override func configure() {
@@ -63,7 +64,6 @@ final class ChattingViewController: ViewController {
         mainView.menuBarButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 //MARK: 메뉴띄우기
-//                self?.showMenu()
                 self?.viewModel.fetchMyQueueState()
             })
             .disposed(by: disposeBag)
@@ -119,6 +119,7 @@ final class ChattingViewController: ViewController {
             .withUnretained(self)
             .bind(onNext: { vc, _ in
                 vc.viewModel.sendChat(chat: vc.mainView.textView.text)
+                vc.mainView.textView.text = ""
             })
             .disposed(by: disposeBag)
         
@@ -144,7 +145,6 @@ final class ChattingViewController: ViewController {
                     
                     return cell
                 } else {
-                    
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: MyChattingTableViewCell.identifier) as? MyChattingTableViewCell else { return UITableViewCell() }
                     cell.dateLabel.text = "\(row):22"
                     cell.messageLabel.text = element.chat
@@ -249,10 +249,16 @@ extension ChattingViewController {
         case .sendSuccess:
             //MARK: 응답값 디비에 저장 후 테이블뷰 갱신
             print("성공성공~")
-            mainView.tableView.scrollToRow(at: IndexPath(row: viewModel.tableViewCellCount() - 1, section: 0), at: .bottom, animated: false)
+            scrollToBottom()
         default:
             presentToast(view: mainView, message: status.message)
         }
+    }
+    
+    private func scrollToBottom() {
+        let row = viewModel.tableViewCellCount() - 1
+        let indexPath = IndexPath(row: row, section: 0)
+        mainView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
     }
 }
 

@@ -67,10 +67,16 @@ final class ChattingViewModel {
         print("d유아이디 \(uid)")
         let api = SeSacAPI.chatTo(ohterUid: uid, chat: chat)
         APIService.shared.request(type: ChatInfo.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] data, statusCode in
-            guard let status = SendChattingError(rawValue: statusCode), let data = data else {
-                print("스테이터스 가져오지 모담")
+            guard let status = SendChattingError(rawValue: statusCode) else {
+                print("스테이터스 못가져옴")
                 return
             }
+            print("ㅇㄴ라ㅣㅁㄴ어ㅜ리ㅏ \(status)")
+            guard let data = data else {
+                print("데이터 못가져옴")
+                return
+            }
+            print("dfanl;ds \(data)")
             switch status {
             case .tokenError:
                 FirebaseManager.shared.fetchIdToken { result in

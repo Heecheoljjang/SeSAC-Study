@@ -15,32 +15,29 @@ final class SocketIOManager {
     var socket: SocketIOClient!
     
     private init() {
-        manager = SocketManager(socketURL: URL(string: SocketAPI.url)!, config: [
+        manager = SocketManager(socketURL: URL(string: SeSacAPI.baseUrl)!, config: [
             
-            .log(true)
-            
+            .log(true),
+            .forceWebsockets(true)
         ])
         socket = manager.defaultSocket
         
-        socket.on(clientEvent: .connect) { [weak self] data, ack in
-            print("connect")
+        socket.on(clientEvent: .connect) { [weak self] dataArray, ack in
+            print("connectasdfasdfsd")
             guard let userData = UserDefaultsManager.shared.fetchValue(type: .userInfo) as? SignIn else {
                 print("유저정보 못가져왔음 여기는 소켓")
                 return
             }
             self?.socket.emit("changesocketid", userData.uid)
-            
-            /*
-             [{
-                 "_id" = 62038ce72cc3a112c6852227;
-                 chat = "안녕하세요. 스쿠버 다이빙 좋아하시는 것 같아 연락드렸습니다";
-                 createdAt = "2022-11-09T09:44:07.337Z";
-                 from = dDoxlskSoMcZQdvoyEeqilRgSiM2;
-                 to = 988TjxxzWkVcvxUfwfBNI7U0a322;
-             }]
-             */
-            
-            let data = data[0] as! NSDictionary
+        }
+        //연결 해제
+        socket.on(clientEvent: .disconnect) { data, ack in
+            print("소켓 연결 종료", data, ack)
+        }
+        //이벤트 수신
+        socket.on("chat") { dataArray, ack in
+            print("이벤트 받음", dataArray, ack)
+            let data = dataArray[0] as! NSDictionary
             let id = data["_id"] as! String
             let chat = data["chat"] as! String
             let createdAt = data["createdAt"] as! String
@@ -59,21 +56,14 @@ final class SocketIOManager {
                                                 ]
             )
         }
-        
-        //연결 해제
-        socket.on(clientEvent: .disconnect) { data, ack in
-            print("소켓 연결 종료", data, ack)
-        }
-        //이벤트 수신
-        socket.on("sesac") { data, ack in
-            print("이벤트 받음", data, ack)
-        }
     }
     func establishConnection() {
+        print("이스테")
         socket.connect()
     }
     
     func closeConnection() {
+        print("클로즈")
         socket.disconnect()
     }
 }

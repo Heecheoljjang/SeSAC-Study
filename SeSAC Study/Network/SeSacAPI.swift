@@ -11,8 +11,8 @@ import Alamofire
 //MARK: - 버전도 다 나누기 => API별로 나눠주고 base랑 version을 각각 두면 해결될듯
 enum SeSacAPI {
     
-    static let baseUrl = "http://api.sesac.co.kr:1210/"
-    static let version = "v1/"
+    static let baseUrl = "http://api.sesac.co.kr:1210"
+    static let version = "/v1/"
     
     case signIn
     case signUp(phoneNumber: String, fcmToken: String, nickname: String, birth: String, email: String, gender: Int)
