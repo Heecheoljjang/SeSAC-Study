@@ -71,7 +71,7 @@ final class ChattingViewController: ViewController {
             .drive(onNext: { [weak self] height in
                 self?.setUpConstraints(height: height)
                 UIView.animate(withDuration: 0.5) {
-                    self?.mainView.layoutIfNeeded()
+                    self?.mainView.messageView.layoutIfNeeded()
                 }
             })
             .disposed(by: disposeBag)
@@ -280,6 +280,7 @@ extension ChattingViewController {
               let to = userInfo["to"] as? String else { return }
         
         let chatData = ChatInfo(id: id, to: to, from: from, chat: chat, createdAt: createdAt)
+        print("메세지왔음 \(chatData)")
         //디비에 저장 후 데이터에 추가
         viewModel.addToTotalChatData(chat: chatData)
         mainView.tableView.scrollToRow(at: IndexPath(row: viewModel.tableViewCellCount() - 1, section: 0), at: .bottom, animated: false)

@@ -9,11 +9,20 @@ import RealmSwift
 import Foundation
 
 final class ChatData: Object {
-    @Persisted var chatData: Data?
+    @Persisted var id: String
+    @Persisted var chat: String
+    @Persisted var createdAt: String
+    @Persisted var from: String
+    @Persisted var to: String
+    
     @Persisted(primaryKey: true) var objectId: ObjectId
     
-    convenience init(chatData: Data?) {
+    convenience init(id: String, chat: String, createdAt: String, from: String, to: String) {
         self.init()
-        self.chatData = chatData
+        self.id = id
+        self.chat = chat
+        self.createdAt = createdAt
+        self.from = from
+        self.to = to
     }
 }

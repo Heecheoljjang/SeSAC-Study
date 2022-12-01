@@ -12,7 +12,9 @@ import RealmSwift
 
 final class ChattingViewModel {
     
-    var totalChatData = BehaviorRelay<[ChatInfo]>(value: [])
+//    var totalChatData = BehaviorRelay<[ChatInfo]>(value: [])
+    
+    var totalChatData = BehaviorRelay<[ChatData]>(value: [])
     
     var myQueueStatus = BehaviorRelay<MyQueueState>(value: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
     var dodgeStatus = PublishRelay<StudyDodgeError>()
@@ -88,8 +90,7 @@ final class ChattingViewModel {
             case .sendSuccess:
                 //MARK: - 응답값 디비에 저장
                 print("스테이터스샌드챗 \(status) 데이터 \(data)")
-//                RealmManager.shared.saveChatToDB(chatInfo: data)
-                self?.addToTotalChatData(chat: data)
+                self?.addToTotalChatData(chat: data) //accept하고 디비에저장
                 self?.sendChatStatus.accept(status)
             default:
                 self?.sendChatStatus.accept(status)
@@ -101,7 +102,6 @@ final class ChattingViewModel {
     private func loadChat(uid: String) {
         print("로드챗")
         let chatData = RealmManager.shared.loadChatFromDB().filter { $0.from == uid || $0.to == uid }.sorted{ $0.createdAt < $1.createdAt }
-        print("챗데이터 \(chatData)")
         totalChatData.accept(chatData)
         
         //MARK: 소켓연결
@@ -130,10 +130,13 @@ final class ChattingViewModel {
             }
             print("채팅가져오기 상태 \(status), \(statusCode)\n데이터 \(data)")
             data.payload.forEach {
-                RealmManager.shared.saveChatToDB(chatInfo: $0)
-                print("이거 뒤에 하하가 출력되어야해")
+                let chat = ChatData(id: $0.id,
+                                    chat: $0.chat,
+                                    createdAt: $0.createdAt,
+                                    from: $0.from,
+                                    to: $0.to)
+                RealmManager.shared.saveChatToDB(chatData: chat)
             }
-            print("하하")
             self?.loadChat(uid: uid)
         }
     }
@@ -143,9 +146,14 @@ final class ChattingViewModel {
     }
     
     func addToTotalChatData(chat: ChatInfo) {
-        RealmManager.shared.saveChatToDB(chatInfo: chat)
+        let chatData = ChatData(id: chat.id,
+                                chat: chat.chat,
+                                createdAt: chat.createdAt,
+                                from: chat.from,
+                                to: chat.to)
+        RealmManager.shared.saveChatToDB(chatData: chatData)
         var temp = totalChatData.value
-        temp.append(chat)
+        temp.append(chatData)
         totalChatData.accept(temp)
     }
     
