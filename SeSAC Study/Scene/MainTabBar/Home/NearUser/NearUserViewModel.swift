@@ -45,6 +45,7 @@ final class NearUserViewModel {
     func startSesacSearch() {
         let lat = Location.lat.value
         let long = Location.long.value
+        print("새싹찾기시작했어요 \(lat) \(long)")
         let api = SeSacAPI.queueSearch(lat: lat, lon: long)
 
         APIService.shared.request(type: AroundSesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in

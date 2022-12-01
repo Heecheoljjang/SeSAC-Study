@@ -165,5 +165,13 @@ final class MainViewModel {
             print("나머지")
         }
     }
+    
+    func setMapViewLocation(mapView: MKMapView) {
+        guard let lat = UserDefaultsManager.shared.fetchValue(type: .lat) as? Double,
+        let long = UserDefaultsManager.shared.fetchValue(type: .long) as? Double else { return }
+        let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 800, longitudinalMeters: 800)
+        mapView.setRegion(region, animated: true)
+    }
 }
 

@@ -38,7 +38,7 @@ final class MainViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
-        viewModel.fetchUserData() //유저디폴트에 데이터세팅
+        viewModel.fetchUserData() //유저디폴트에 데이터세팅 => 가져온 뒤에 myqueuestate를 하게 해야함
     }
     
     override func configure() {
@@ -52,7 +52,7 @@ final class MainViewController: ViewController {
         tabBarController?.tabBar.isHidden = false
         
         viewModel.fetchQueueState() //버튼 세팅
-        viewModel.setMapView(locationManager: locationManager, mapView: mainView.mapView)
+        viewModel.setMapViewLocation(mapView: mainView.mapView)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -78,6 +78,8 @@ final class MainViewController: ViewController {
 
         mainView.findButton.rx.tap
             .bind(onNext: { [weak self] _ in
+                //누르기 전에 현재 선택된 위치 유저디폴트에 저장
+//                self?.viewModel.setLocationUserDefaults()
                 self?.transitionViewController()
             })
             .disposed(by: disposeBag)
@@ -87,6 +89,7 @@ final class MainViewController: ViewController {
             .drive(onNext: { [weak self] value in
                 //위치로 서버통신해서 맵뷰에 표시 -> 데이터에 값이 들어왔을때 업데이트 해주는 형식으로 하면될듯
                 print("서치 진행 \(value)")
+                self?.viewModel.setLocationUserDefaults()
                 self?.viewModel.startSeSacSearch(location: value)
             })
             .disposed(by: disposeBag)
