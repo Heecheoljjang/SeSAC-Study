@@ -22,7 +22,7 @@ class ReusableButton: UIButton {
         
         self.configuration = configuration
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.graySix.cgColor
+        self.layer.borderColor = UIColor.grayFour.cgColor
         self.layer.cornerRadius = 8
         self.clipsToBounds = true
         self.isUserInteractionEnabled = false

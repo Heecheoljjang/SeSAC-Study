@@ -8,7 +8,7 @@
 import Foundation
 
 enum UserDefaultsKeys: String {
-    case verificationId, idToken, phoneNumber, fcmToken, nick, birth, email, gender, invalidNickname, otherUid
+    case verificationId, idToken, phoneNumber, fcmToken, nick, birth, email, gender, invalidNickname, otherUid, otherNick
     case lat, long
     case userInfo
 }

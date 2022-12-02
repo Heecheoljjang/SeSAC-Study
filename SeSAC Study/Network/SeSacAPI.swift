@@ -27,6 +27,7 @@ enum SeSacAPI {
     case dodge(otherUid: String)
     case chatTo(ohterUid: String, chat: String)
     case chatFrom(ohterUid: String, lastDate: String)
+    case rate(otherUid: String, reputation: [Int], comment: String)
     
     var url: URL {
         switch self {
@@ -48,6 +49,8 @@ enum SeSacAPI {
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/studyaccept")!
         case .dodge:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/dodge")!
+        case .rate(let uid, _, _):
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue/rate/\(uid)")!
         case .chatTo(let uid, _):
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)chat/\(uid)")!
         case .chatFrom(let uid, let date):
@@ -59,7 +62,7 @@ enum SeSacAPI {
         guard let token = UserDefaultsManager.shared.fetchValue(type: .idToken) as? String else { return [] }
         
         switch self {
-        case .signIn, .withdraw, .myQueueState, .stopQueueSearch:
+        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .rate:
             return ["idtoken": token]
         case .signUp, .queue, .queueSearch, .update, .studyRequest, .studyAccept, .dodge, .chatTo, .chatFrom:
             return [
@@ -107,6 +110,12 @@ enum SeSacAPI {
         case .chatTo(_, let chat):
             return [
                 "chat": chat
+            ]
+        case .rate(let uid, let reputation, let comment):
+            return [
+                "otheruid": uid,
+                "reputation": reputation,
+                "comment": comment
             ]
         }
     }

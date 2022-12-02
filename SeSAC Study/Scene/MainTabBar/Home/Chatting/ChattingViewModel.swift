@@ -59,6 +59,11 @@ final class ChattingViewModel {
         return myQueueStatus.value.matched == 1 ? true : false
     }
     
+    func fetchMatchedNick() -> String {
+        guard let nick = UserDefaultsManager.shared.fetchValue(type: .otherNick) as? String else { return "" }
+        return nick
+    }
+    
     //MARK: - 채팅
     func sendChat(chat: String) {
         guard let uid = UserDefaultsManager.shared.fetchValue(type: .otherUid) as? String else {

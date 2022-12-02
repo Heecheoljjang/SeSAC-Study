@@ -71,6 +71,7 @@ enum ButtonTitle {
     static let searchSesac = "새싹 찾기"
     static let stop = "찾기중단"
     static let changeStudy = "스터디 변경하기"
+    static let registerReview = "리뷰 등록하기"
 }
 
 enum ImageName {
@@ -344,6 +345,7 @@ enum PlaceHolder {
     static let review = "첫 리뷰를 기다리는 중이에요!"
     static let myInfoStudy = "스터디를 입력해주세요"
     static let chatting = "메세지를 입력하세요"
+    static let registerReview = "자세한 피드백은 다른 새싹들에게 도움이 됩니다\n(500자 이내 작성)"
 }
 
 enum SearchStudySection {
@@ -356,6 +358,7 @@ enum ToastMessage {
     static let tooMany = "최대 8개까지 등록할 수 있습니다."
     static let tooLong = "각 스터디는 최대 8글자까지 작성할 수 있습니다."
     static let tooShort = "최소 1글자 이상 작성해야합니다."
+    static let noReviewSelected = "최소 한 가지 이상의 항목을 선택해야 합니다."
 }
 
 enum SettingViewTitle {

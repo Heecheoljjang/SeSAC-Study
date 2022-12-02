@@ -70,6 +70,7 @@ final class MainViewModel {
                     return }
             
                 UserDefaultsManager.shared.setValue(value: data.matchedUid ?? "", type: .otherUid)
+                UserDefaultsManager.shared.setValue(value: data.matchedNick ?? "", type: .otherNick)
                 print("유아이디 저장완료 \(UserDefaultsManager.shared.fetchValue(type: .otherUid) as! String)")
                 print("상태 통신 성공", data, error)
                 switch data.matched {

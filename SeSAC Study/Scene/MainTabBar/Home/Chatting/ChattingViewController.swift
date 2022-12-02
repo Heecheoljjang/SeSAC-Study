@@ -42,9 +42,11 @@ final class ChattingViewController: ViewController {
     
     override func configure() {
         super.configure()
-        
+
         navigationItem.leftBarButtonItem = mainView.backButton
         navigationItem.rightBarButtonItem = mainView.menuBarButton
+        title = viewModel.fetchMatchedNick()
+        mainView.headerView.matchedLabel.text = "\(viewModel.fetchMatchedNick())님과 매칭되었습니다."
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = true
@@ -96,6 +98,12 @@ final class ChattingViewController: ViewController {
             .bind(onNext: { [weak self] _ in
                 //myqueue상태 체크해서 커스텀얼럿띄우기
                 self?.showCustomAlert()
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.menuView.reviewButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                self?.presentRegisterReview()
             })
             .disposed(by: disposeBag)
         
@@ -231,6 +239,14 @@ extension ChattingViewController {
             alertVC.mainView.messagelabel.text = CustomAlert.alreadyCanceled.message
         }
         present(alertVC, animated: true)
+    }
+    
+    private func presentRegisterReview() {
+        let reviewVC = RegisterReviewViewController()
+        reviewVC.modalTransitionStyle = .crossDissolve
+        reviewVC.modalPresentationStyle = .overFullScreen
+        mainView.menuView.isHidden = true
+        transition(reviewVC, transitionStyle: .present)
     }
     
     private func checkSendButtonEnable(value: Bool) {

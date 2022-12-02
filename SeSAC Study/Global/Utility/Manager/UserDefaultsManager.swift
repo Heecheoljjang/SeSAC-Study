@@ -29,7 +29,7 @@ final class UserDefaultsManager {
     
     func fetchValue(type: UserDefaultsKeys) -> Any {
         switch type {
-        case .idToken, .phoneNumber, .fcmToken, .nick, .birth, .email, .gender, .verificationId, .otherUid:
+        case .idToken, .phoneNumber, .fcmToken, .nick, .birth, .email, .gender, .verificationId, .otherUid, .otherNick:
             return UserDefaults.standard.string(forKey: type.rawValue) ?? ""
         case .invalidNickname:
             return UserDefaults.standard.bool(forKey: type.rawValue)
@@ -61,6 +61,7 @@ final class UserDefaultsManager {
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.lat.rawValue)
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.long.rawValue)
         UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.otherUid.rawValue)
+        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.otherNick.rawValue)
     }
     
     func removeAll() {
