@@ -190,6 +190,7 @@ enum InfoTable {
 
 enum DateString {
     case year, month, day, date, dateString
+    case todayChat, notTodayChat
     
     var message: String {
         switch self {

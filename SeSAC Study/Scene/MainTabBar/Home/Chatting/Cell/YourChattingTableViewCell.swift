@@ -29,7 +29,6 @@ final class YourChattingTableViewCell: BaseTableViewCell {
         let label = UILabel()
         label.font = UIFont(name: CustomFont.regular, size: 12)
         label.textColor = .graySix
-        label.text = "15:02"
         label.textAlignment = .center
         return label
     }()
@@ -50,9 +49,9 @@ final class YourChattingTableViewCell: BaseTableViewCell {
         super.setUpConstraints()
         
         outerView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
             make.leading.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-12)
+            make.verticalEdges.equalToSuperview().inset(12)
+            make.width.lessThanOrEqualToSuperview().multipliedBy(1)
         }
         messageLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
@@ -61,8 +60,7 @@ final class YourChattingTableViewCell: BaseTableViewCell {
         dateLabel.snp.makeConstraints { make in
             make.bottom.equalTo(outerView)
             make.leading.equalTo(outerView.snp.trailing).offset(8)
-            make.width.equalTo(32)
-            make.trailing.lessThanOrEqualToSuperview().offset(-52)
+            make.trailing.lessThanOrEqualTo(-12).priority(800)
         }
     }
 }
