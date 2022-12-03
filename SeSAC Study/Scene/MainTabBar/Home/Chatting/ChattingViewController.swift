@@ -53,9 +53,6 @@ final class ChattingViewController: ViewController {
         mainView.tableView.addGestureRecognizer(tapGesture)
         
         NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name("getMessage"), object: nil)
-        
-//        mainView.tableView.delegate = self
-//        mainView.tableView.dataSource = self
     }
     
     func bind() {
@@ -145,46 +142,34 @@ final class ChattingViewController: ViewController {
         //테이블뷰 세팅
         viewModel.totalChatData
             .asDriver(onErrorJustReturn: [])
-            .drive(mainView.tableView.rx.items) { [weak self] tableView, row, element in
+            .drive(mainView.tableView.rx.items) { tableView, row, element in
                 guard let uid = UserDefaultsManager.shared.fetchValue(type: .otherUid) as? String else { return UITableViewCell() }
 
                 if element.from == uid {
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: YourChattingTableViewCell.identifier) as? YourChattingTableViewCell else { return UITableViewCell() }
 
                     cell.dateLabel.text = DateFormatterHelper.shared.chatDateText(dateString: element.createdAt)
-//                    cell.dateLabel.text = DateFormatterHelper.shared.chatDateText(dateString: "2000-01-01T00:00:00.000Z")
                     cell.messageLabel.text = element.chat
 
                     return cell
                 } else {
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: MyChattingTableViewCell.identifier) as? MyChattingTableViewCell else { return UITableViewCell() }
-//                    cell.dateLabel.text = DateFormatterHelper.shared.chatDateText(dateString: "2022-12-03T14:22:30.000Z")
                     cell.dateLabel.text = DateFormatterHelper.shared.chatDateText(dateString: element.createdAt)
                     cell.messageLabel.text = element.chat
                     return cell
                 }
             }.disposed(by: disposeBag)
+        //MARK: viewWillAppear에서 동시에 하면 인덱스로 인해 런타임에러뜨므로 데이터 추가됐을때 테이블뷰를 스크롤하도록함
+        viewModel.chatLoadComplete
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] value in
+                if value {
+                    self?.scrollToBottom()
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
-
-//extension ChattingViewController: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 10
-//    }
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.row % 2 == 0 {
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: YourChattingTableViewCell.identifier) as? YourChattingTableViewCell else { return UITableViewCell() }
-//            cell.dateLabel.text = DateFormatterHelper.shared.chatDateText(dateString: "2000-01-01T00:00:00.000Z")
-//            cell.messageLabel.text = "바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보"
-//            return cell
-//        } else {
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyChattingTableViewCell.identifier) as? MyChattingTableViewCell else { return UITableViewCell() }
-//            cell.dateLabel.text = DateFormatterHelper.shared.chatDateText(dateString: "2022-12-03T14:22:30.000Z")
-//            cell.messageLabel.text = "바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보바보"
-//            return cell
-//        }
-//    }
-//}
 
 extension ChattingViewController {
     private func setUpConstraints(height: CGFloat) {

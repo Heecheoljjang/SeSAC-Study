@@ -13,6 +13,7 @@ import RealmSwift
 final class ChattingViewModel {
     
     var totalChatData = BehaviorRelay<[ChatData]>(value: [])
+    var chatLoadComplete = BehaviorRelay<Bool>(value: false)
     
     var myQueueStatus = BehaviorRelay<MyQueueState>(value: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
     var dodgeStatus = PublishRelay<StudyDodgeError>()
@@ -111,7 +112,7 @@ final class ChattingViewModel {
         print("로드챗")
         let chatData = RealmManager.shared.loadChatFromDB().filter { $0.from == uid || $0.to == uid }.sorted{ $0.createdAt < $1.createdAt }
         totalChatData.accept(chatData)
-        
+        chatLoadComplete.accept(true)
         //MARK: 소켓연결
         SocketIOManager.shared.establishConnection()
     }
@@ -132,6 +133,7 @@ final class ChattingViewModel {
         let api = SeSacAPI.chatFrom(ohterUid: uid, lastDate: lastDate)
         
         APIService.shared.request(type: FetchChat.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] data, statusCode in
+            print("스테이터스코드: \(statusCode)\n데이터: \(data)")
             guard let status = FetchChattingError(rawValue: statusCode), let data = data else {
                 print("채팅데이터 못가져옴")
                 return
