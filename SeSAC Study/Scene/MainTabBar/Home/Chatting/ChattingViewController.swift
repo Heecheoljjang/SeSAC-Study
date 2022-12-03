@@ -66,6 +66,7 @@ final class ChattingViewController: ViewController {
         mainView.menuBarButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 //MARK: 메뉴띄우기
+                self?.dismissKeyboard()
                 self?.viewModel.fetchMyQueueState()
             })
             .disposed(by: disposeBag)
@@ -77,15 +78,15 @@ final class ChattingViewController: ViewController {
                 }
             })
             .disposed(by: disposeBag)
-        mainView.textView.rx.text
-            .withUnretained(self)
-            .bind(onNext: { (vc, _) in
-                print(vc.checkTextViewLine())
-                if vc.checkTextViewLine() {
-                    vc.mainView.textView.isScrollEnabled = true
-                }
-            })
-            .disposed(by: disposeBag)
+//        mainView.textView.rx.text
+//            .withUnretained(self)
+//            .bind(onNext: { (vc, _) in
+//                print(vc.checkTextViewLine())
+//                if vc.checkTextViewLine() {
+//                    vc.mainView.textView.isScrollEnabled = true
+//                }
+//            })
+//            .disposed(by: disposeBag)
         
         viewModel.myQueueStatus
             .asDriver(onErrorJustReturn: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
@@ -165,6 +166,24 @@ final class ChattingViewController: ViewController {
             .drive(onNext: { [weak self] value in
                 if value {
                     self?.scrollToBottom()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        //텍스트뷰 플레이스홀더
+        mainView.textView.rx.didBeginEditing
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                if vc.mainView.textView.textColor == .graySeven {
+                    vc.setTextViewState(value: .enable)
+                }
+            })
+            .disposed(by: disposeBag)
+        mainView.textView.rx.didEndEditing
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                if vc.mainView.textView.text.isEmpty {
+                    vc.setTextViewState(value: .disable)
                 }
             })
             .disposed(by: disposeBag)
@@ -261,11 +280,24 @@ extension ChattingViewController {
     private func checkSendButtonEnable(value: Bool) {
         switch value {
         case true:
-            mainView.sendButton.configuration?.image = UIImage(named: ImageName.greenButton)
-            mainView.sendButton.isUserInteractionEnabled = true
+            if mainView.textView.textColor != .graySeven {
+                mainView.sendButton.configuration?.image = UIImage(named: ImageName.greenButton)
+                mainView.sendButton.isUserInteractionEnabled = true
+            }
         case false:
             mainView.sendButton.configuration?.image = UIImage(named: ImageName.sendButton)
             mainView.sendButton.isUserInteractionEnabled = false
+        }
+    }
+    
+    private func setTextViewState(value: ButtonStatus) {
+        switch value {
+        case .enable:
+            mainView.textView.text = ""
+            mainView.textView.textColor = .black
+        case .disable:
+            mainView.textView.text = PlaceHolder.chatting
+            mainView.textView.textColor = .graySeven
         }
     }
     
