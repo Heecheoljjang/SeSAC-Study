@@ -33,6 +33,18 @@ final class ReceivedViewModel {
                     return }
                 print("새싹친구 통신성공: \(data)")
                 self?.sesacList.accept(data.fromQueueDBRequested)
+            case .tokenError:
+                FirebaseManager.shared.fetchIdToken { result in
+                    switch result {
+                    case .success(let token):
+                        print("아이디토큰받아왔으므로 네트워크 통신하기: \(token)")
+                        UserDefaultsManager.shared.setValue(value: token, type: .idToken)
+                        self?.startSeSacSearch()
+                    case .failure(let error):
+                        print("아이디토큰 못받아옴 \(error)")
+                        self?.sesacList.accept([])
+                    }
+                }
             default:
                 print("새싹 친구 검색에러: \(error)")
             }
