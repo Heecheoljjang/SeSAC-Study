@@ -52,6 +52,7 @@ final class MyChattingTableViewCell: BaseTableViewCell {
             make.trailing.equalToSuperview().offset(-16)
             make.width.lessThanOrEqualToSuperview().multipliedBy(1)
         }
+        outerView.setContentCompressionResistancePriority(.init(rawValue: 749), for: .horizontal)
         messageLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.verticalEdges.equalToSuperview().inset(10)
@@ -59,7 +60,8 @@ final class MyChattingTableViewCell: BaseTableViewCell {
         dateLabel.snp.makeConstraints { make in
             make.bottom.equalTo(outerView)
             make.trailing.equalTo(outerView.snp.leading).offset(-8)
-            make.leading.greaterThanOrEqualTo(12).priority(800)
+            make.leading.greaterThanOrEqualTo(12)
         }
+        dateLabel.setContentCompressionResistancePriority(.init(rawValue: 751), for: .horizontal)
     }
 }
