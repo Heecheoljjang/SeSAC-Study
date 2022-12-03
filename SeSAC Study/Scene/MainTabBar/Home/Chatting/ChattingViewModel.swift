@@ -49,6 +49,18 @@ final class ChattingViewModel {
                     return }
                 print("상태 통신 성공", data, error)
                 self?.myQueueStatus.accept(data)
+            case .tokenError:
+                FirebaseManager.shared.fetchIdToken { result in
+                    switch result {
+                    case .success(let token):
+                        print("아이디토큰받아왔으므로 네트워크 통신하기: \(token)")
+                        UserDefaultsManager.shared.setValue(value: token, type: .idToken)
+                        self?.fetchMyQueueState()
+                    case .failure(let error):
+                        print("아이디토큰 못받아옴 \(error)")
+                        self?.myQueueStatus.accept(MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
+                    }
+                }
             default:
                 print("노필요")
             }
