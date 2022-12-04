@@ -13,6 +13,13 @@
 		97164BC92937CF0700B5437E /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97164BC82937CF0700B5437E /* SocketIOManager.swift */; };
 		97164BCC2937D43E00B5437E /* SocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97164BCB2937D43E00B5437E /* SocketAPI.swift */; };
 		97164BCF2937D6A700B5437E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 97164BCE2937D6A700B5437E /* RealmSwift */; };
+		972385A5293D01D700F7D59A /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385A4293D01D700F7D59A /* ShopVC.swift */; };
+		972385A7293D1D0B00F7D59A /* ShopSesacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385A6293D1D0B00F7D59A /* ShopSesacView.swift */; };
+		972385A9293D1D1700F7D59A /* ShopSesacViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385A8293D1D1700F7D59A /* ShopSesacViewModel.swift */; };
+		972385AB293D1D2200F7D59A /* ShopBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385AA293D1D2200F7D59A /* ShopBackgroundView.swift */; };
+		972385AD293D1D3300F7D59A /* ShopBackgroundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385AC293D1D3300F7D59A /* ShopBackgroundViewModel.swift */; };
+		972385AF293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385AE293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift */; };
+		972385B1293D1DFB00F7D59A /* ShopBackgroundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385B0293D1DFB00F7D59A /* ShopBackgroundTableViewCell.swift */; };
 		973C11C92938E70400AF7E2D /* DateFormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C11C82938E70400AF7E2D /* DateFormatterHelper.swift */; };
 		973F8798292E311900C70F7F /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 973F8797292E311900C70F7F /* Tabman */; };
 		973F879B292E4BB500C70F7F /* AroundSesacViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F879A292E4BB500C70F7F /* AroundSesacViewController.swift */; };
@@ -185,6 +192,13 @@
 		97164BC3293755C100B5437E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		97164BC82937CF0700B5437E /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		97164BCB2937D43E00B5437E /* SocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketAPI.swift; sourceTree = "<group>"; };
+		972385A4293D01D700F7D59A /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
+		972385A6293D1D0B00F7D59A /* ShopSesacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacView.swift; sourceTree = "<group>"; };
+		972385A8293D1D1700F7D59A /* ShopSesacViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacViewModel.swift; sourceTree = "<group>"; };
+		972385AA293D1D2200F7D59A /* ShopBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBackgroundView.swift; sourceTree = "<group>"; };
+		972385AC293D1D3300F7D59A /* ShopBackgroundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBackgroundViewModel.swift; sourceTree = "<group>"; };
+		972385AE293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacCollectionViewCell.swift; sourceTree = "<group>"; };
+		972385B0293D1DFB00F7D59A /* ShopBackgroundTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBackgroundTableViewCell.swift; sourceTree = "<group>"; };
 		973C11C82938E70400AF7E2D /* DateFormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHelper.swift; sourceTree = "<group>"; };
 		973F879A292E4BB500C70F7F /* AroundSesacViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundSesacViewController.swift; sourceTree = "<group>"; };
 		973F879C292E4BD700C70F7F /* ReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedViewController.swift; sourceTree = "<group>"; };
@@ -375,6 +389,14 @@
 				97164BCB2937D43E00B5437E /* SocketAPI.swift */,
 			);
 			path = Socket;
+			sourceTree = "<group>";
+		};
+		972385A3293D01BE00F7D59A /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				972385A4293D01D700F7D59A /* ShopVC.swift */,
+			);
+			path = Shop;
 			sourceTree = "<group>";
 		};
 		973F8799292E4A5500C70F7F /* TabmanVC */ = {
@@ -869,7 +891,10 @@
 		97A3212B293CD9B500074559 /* Sesac */ = {
 			isa = PBXGroup;
 			children = (
+				972385A6293D1D0B00F7D59A /* ShopSesacView.swift */,
 				97A3212D293CDA0C00074559 /* ShopSesacViewController.swift */,
+				972385A8293D1D1700F7D59A /* ShopSesacViewModel.swift */,
+				972385AE293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift */,
 			);
 			path = Sesac;
 			sourceTree = "<group>";
@@ -877,7 +902,10 @@
 		97A3212C293CD9BD00074559 /* Background */ = {
 			isa = PBXGroup;
 			children = (
+				972385AA293D1D2200F7D59A /* ShopBackgroundView.swift */,
 				97A3212F293CDA1B00074559 /* ShopBackgroundViewController.swift */,
+				972385AC293D1D3300F7D59A /* ShopBackgroundViewModel.swift */,
+				972385B0293D1DFB00F7D59A /* ShopBackgroundTableViewCell.swift */,
 			);
 			path = Background;
 			sourceTree = "<group>";
@@ -1009,6 +1037,7 @@
 				974CF651291D24B600B66CAC /* UserDefaults.swift */,
 				976211F0291C0FFC008B00FE /* Login */,
 				97ECAC0F29269B3700F3A626 /* Main */,
+				972385A3293D01BE00F7D59A /* Shop */,
 				97879DA8292A6B6800FF1628 /* Info */,
 			);
 			path = Enum;
@@ -1160,6 +1189,7 @@
 				97879DAA292A6B8600FF1628 /* MyInfoReusableType.swift in Sources */,
 				973F879D292E4BD700C70F7F /* ReceivedViewController.swift in Sources */,
 				97FF4A34291AB05100AF9A56 /* NicknameView.swift in Sources */,
+				972385AD293D1D3300F7D59A /* ShopBackgroundViewModel.swift in Sources */,
 				97E79DE429196B8100254AC8 /* String+Extension.swift in Sources */,
 				9784A676292201B200C0D999 /* BaseTableViewCell.swift in Sources */,
 				975285732928B1340030403F /* SesacStudyCollectionViewCell.swift in Sources */,
@@ -1173,6 +1203,7 @@
 				97A24C8A2921EC2E009CE203 /* FriendView.swift in Sources */,
 				974CF65E291D626300B66CAC /* NetworkError.swift in Sources */,
 				97B381E6291B5B5A009618A7 /* DateReusableView.swift in Sources */,
+				972385AB293D1D2200F7D59A /* ShopBackgroundView.swift in Sources */,
 				9784A6A629241CDE00C0D999 /* DynamicTableView.swift in Sources */,
 				97B66A6F293693F500E0C067 /* FetchChat.swift in Sources */,
 				9796DEDF291938B300D8C915 /* PhoneNumberView.swift in Sources */,
@@ -1192,6 +1223,7 @@
 				9784A68029221ED900C0D999 /* ProfileViewModel.swift in Sources */,
 				976C8AA129318A7C00F9D6E0 /* ChattingViewModel.swift in Sources */,
 				974CF660291D63ED00B66CAC /* SignIn.swift in Sources */,
+				972385A5293D01D700F7D59A /* ShopVC.swift in Sources */,
 				97B381E4291B5433009618A7 /* BirthdayViewModel.swift in Sources */,
 				97A3212E293CDA0C00074559 /* ShopSesacViewController.swift in Sources */,
 				9784A69C2922B6F000C0D999 /* ProfileReusableCardTableViewCell.swift in Sources */,
@@ -1204,6 +1236,7 @@
 				9778567E2932263000CA8EB3 /* CustomAlertView.swift in Sources */,
 				97F3DFEB292170890075582A /* Bind.swift in Sources */,
 				974CF65B291D586600B66CAC /* APIService.swift in Sources */,
+				972385B1293D1DFB00F7D59A /* ShopBackgroundTableViewCell.swift in Sources */,
 				973C11C92938E70400AF7E2D /* DateFormatterHelper.swift in Sources */,
 				9778568B2932775900CA8EB3 /* SesacReviewViewController.swift in Sources */,
 				97ECAC0C29267CC700F3A626 /* MyQueueState.swift in Sources */,
@@ -1219,6 +1252,7 @@
 				978B0F22292801540088199F /* HobbyView.swift in Sources */,
 				97A24C8C2921EC37009CE203 /* FriendViewController.swift in Sources */,
 				9796DED4291920BD00D8C915 /* Text.swift in Sources */,
+				972385A9293D1D1700F7D59A /* ShopSesacViewModel.swift in Sources */,
 				97B381E0291B5421009618A7 /* BirthdayView.swift in Sources */,
 				979AD7BE2939F104004CAF0D /* RegisterReviewView.swift in Sources */,
 				97A24C7F2921E660009CE203 /* MainTabBarController.swift in Sources */,
@@ -1257,6 +1291,7 @@
 				97FBDC58291A46FE007CB321 /* ButtonStatus.swift in Sources */,
 				97A8D405292F75CF00F31401 /* NearUserVIew.swift in Sources */,
 				9752857629291F1B0030403F /* DynamicCollectionView.swift in Sources */,
+				972385AF293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift in Sources */,
 				97F3DFED292171DE0075582A /* typealias.swift in Sources */,
 				974EE401292CC01300F07DAC /* UserUpdate.swift in Sources */,
 				979A4DFD29347E44001A83FC /* YourChattingTableViewCell.swift in Sources */,
@@ -1264,6 +1299,7 @@
 				979E79F4291E628000E9A89A /* OnboardingViewController.swift in Sources */,
 				97B381EB291BB0B5009618A7 /* Date+Extension.swift in Sources */,
 				979E79FD291F6F4A00E9A89A /* OnboardingCell.swift in Sources */,
+				972385A7293D1D0B00F7D59A /* ShopSesacView.swift in Sources */,
 				97D79766292B776200675C57 /* MyGenderView.swift in Sources */,
 				9778568D2932776400CA8EB3 /* SesacReviewViewModel.swift in Sources */,
 				9796DEE5291943CF00D8C915 /* PhoneAuthView.swift in Sources */,
