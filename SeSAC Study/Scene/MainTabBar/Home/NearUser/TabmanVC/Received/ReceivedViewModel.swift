@@ -51,15 +51,15 @@ final class ReceivedViewModel {
         }
     }
     func studyAccept(uid: String) {
-        let api = SeSacAPI.studyRequest(otherUid: uid)
+        let api = SeSacAPI.studyAccept(otherUid: uid)
         
         APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
             guard let status = StudyAcceptError(rawValue: statusCode) else {
                 print("에러 못가져왔어요 스터디어셉트")
                 return
             }
+            print("gklsdgjdlskafj \(statusCode)")
             self?.acceptStatus.accept(status)
-            print(statusCode)
         }
     }
     
