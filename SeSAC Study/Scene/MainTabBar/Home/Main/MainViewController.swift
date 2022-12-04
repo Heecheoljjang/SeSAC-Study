@@ -53,6 +53,7 @@ final class MainViewController: ViewController {
         
         viewModel.fetchQueueState() //버튼 세팅
         viewModel.setMapViewLocation(mapView: mainView.mapView)
+        locationManager.requestWhenInUseAuthorization()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

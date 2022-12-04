@@ -17,6 +17,7 @@ enum SeSacAPI {
     case signIn
     case signUp(phoneNumber: String, fcmToken: String, nickname: String, birth: String, email: String, gender: Int)
     case withdraw
+    case updateFCM(oldToken: String)
     case queue(lat: Double, lon: Double, studyList: [String])
     case queueSearch(lat: Double, lon: Double)
     case stopQueueSearch
@@ -37,6 +38,8 @@ enum SeSacAPI {
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/withdraw")!
         case .update:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/mypage")!
+        case .updateFCM:
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/update_fcm_token")!
         case .queue, .stopQueueSearch:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue")!
         case .queueSearch:
@@ -62,7 +65,7 @@ enum SeSacAPI {
         guard let token = UserDefaultsManager.shared.fetchValue(type: .idToken) as? String else { return [] }
         
         switch self {
-        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .rate:
+        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .rate, .updateFCM:
             return ["idtoken": token]
         case .signUp, .queue, .queueSearch, .update, .studyRequest, .studyAccept, .dodge, .chatTo, .chatFrom:
             return [
@@ -74,7 +77,8 @@ enum SeSacAPI {
     
     var parameters: [String: Any]? {
         switch self {
-        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .chatFrom:            return nil
+        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .chatFrom:
+            return nil
         case .signUp(let phoneNumber, let fcmToken, let nickname, let birth, let email, let gender):
             return [
                 "phoneNumber": phoneNumber,
@@ -83,6 +87,10 @@ enum SeSacAPI {
                 "birth": birth,
                 "email": email,
                 "gender": gender
+            ]
+        case .updateFCM(let oldToken):
+            return [
+                "FCMtoken": oldToken
             ]
         case .queue(let lat, let lon, let studyList):
             return [

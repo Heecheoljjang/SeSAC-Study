@@ -96,7 +96,7 @@ final class MainViewModel {
     
     func fetchUserData() {
         let api = SeSacAPI.signIn
-        APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { data, statusCode in
+        APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] data, statusCode in
             guard let status = LoginError(rawValue: statusCode) else { return }
             guard let data = data else { return }
             print("인포쪽 \(statusCode) \(data)")
@@ -104,6 +104,7 @@ final class MainViewModel {
             case .signUpSuccess:
                 print("성공적이죠?")
                 UserDefaultsManager.shared.setValue(value: data, type: .userInfo)
+                self?.checkFCMToken()
             default:
                 print("실패6548948")
             }
@@ -126,10 +127,37 @@ final class MainViewModel {
             map.addAnnotation(annotation)
         }
     }
+
+    private func checkFCMToken() {
+        guard let fcmToken = UserDefaultsManager.shared.fetchValue(type: .fcmToken) as? String else {
+            print("여기는 홈화면---fcm토큰 못가져옴")
+            return
+        }
+        guard let userData = UserDefaultsManager.shared.fetchValue(type: .userInfo) as? SignIn else {
+            print("여기는 홈화면---유저데이터 못가져옴")
+            return
+        }
+        if fcmToken != userData.fcMtoken {
+            updateFCMToken()
+        }
+    }
     
-//    func sendCurrentLocation(location: BehaviorRelay<CLLocationCoordinate2D>) {
-//        location.accept(selectedLocation.value)
-//    }
+    private func updateFCMToken() {
+        guard let fcmToken = UserDefaultsManager.shared.fetchValue(type: .fcmToken) as? String else {
+            print("홈화면-업데이트fcm메서드---토큰 못가져옴")
+            return
+        }
+        let api = SeSacAPI.updateFCM(oldToken: fcmToken)
+        APIService.shared.noResponseRequest(method: .put, url: api.url, parameters: api.parameters, headers: api.headers) { statusCode in
+            print("상태코드상태코드 \(statusCode)")
+            guard let status = UpdateError(rawValue: statusCode) else {
+                print("업데이트fcm토큰메서드---상태못가져옴")
+                return
+            }
+            print("스테이터스 \(status)")
+        }
+    }
+    
     func setLocationUserDefaults() {
         let location = selectedLocation.value
         let lat = location.latitude

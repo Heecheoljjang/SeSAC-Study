@@ -123,6 +123,8 @@
 		97A24C902921EC47009CE203 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A24C8F2921EC47009CE203 /* InfoView.swift */; };
 		97A24C922921EC4D009CE203 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A24C912921EC4D009CE203 /* InfoViewController.swift */; };
 		97A24C942921EC57009CE203 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A24C932921EC57009CE203 /* InfoViewModel.swift */; };
+		97A3212E293CDA0C00074559 /* ShopSesacViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A3212D293CDA0C00074559 /* ShopSesacViewController.swift */; };
+		97A32130293CDA1B00074559 /* ShopBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A3212F293CDA1B00074559 /* ShopBackgroundViewController.swift */; };
 		97A8D405292F75CF00F31401 /* NearUserVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8D404292F75CF00F31401 /* NearUserVIew.swift */; };
 		97A8D407292F7D1700F31401 /* NearUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8D406292F7D1700F31401 /* NearUserVC.swift */; };
 		97A8D409292FAD3200F31401 /* NearUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8D408292FAD3200F31401 /* NearUserViewModel.swift */; };
@@ -287,6 +289,8 @@
 		97A24C8F2921EC47009CE203 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		97A24C912921EC4D009CE203 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		97A24C932921EC57009CE203 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
+		97A3212D293CDA0C00074559 /* ShopSesacViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacViewController.swift; sourceTree = "<group>"; };
+		97A3212F293CDA1B00074559 /* ShopBackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBackgroundViewController.swift; sourceTree = "<group>"; };
 		97A8D404292F75CF00F31401 /* NearUserVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserVIew.swift; sourceTree = "<group>"; };
 		97A8D406292F7D1700F31401 /* NearUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserVC.swift; sourceTree = "<group>"; };
 		97A8D408292FAD3200F31401 /* NearUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserViewModel.swift; sourceTree = "<group>"; };
@@ -709,8 +713,8 @@
 				9784A6A529241CDE00C0D999 /* DynamicTableView.swift */,
 				9752857529291F1B0030403F /* DynamicCollectionView.swift */,
 				97879DA6292A681600FF1628 /* MyInfoReusableView.swift */,
-				9784A683292257D700C0D999 /* ProfileReusableCardView */,
 				979A4E0029353610001A83FC /* VerticallyCenteredTextView.swift */,
+				9784A683292257D700C0D999 /* ProfileReusableCardView */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -829,6 +833,7 @@
 				97A24C832921EC14009CE203 /* ShopView.swift */,
 				97A24C852921EC1C009CE203 /* ShopViewController.swift */,
 				97A24C872921EC23009CE203 /* ShopViewModel.swift */,
+				97A3212A293CD99700074559 /* TabmanVC */,
 			);
 			path = Shop;
 			sourceTree = "<group>";
@@ -850,6 +855,31 @@
 				9784A67A29221E5700C0D999 /* Profile */,
 			);
 			path = Info;
+			sourceTree = "<group>";
+		};
+		97A3212A293CD99700074559 /* TabmanVC */ = {
+			isa = PBXGroup;
+			children = (
+				97A3212B293CD9B500074559 /* Sesac */,
+				97A3212C293CD9BD00074559 /* Background */,
+			);
+			path = TabmanVC;
+			sourceTree = "<group>";
+		};
+		97A3212B293CD9B500074559 /* Sesac */ = {
+			isa = PBXGroup;
+			children = (
+				97A3212D293CDA0C00074559 /* ShopSesacViewController.swift */,
+			);
+			path = Sesac;
+			sourceTree = "<group>";
+		};
+		97A3212C293CD9BD00074559 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				97A3212F293CDA1B00074559 /* ShopBackgroundViewController.swift */,
+			);
+			path = Background;
 			sourceTree = "<group>";
 		};
 		97B381DE291B5405009618A7 /* Birthday */ = {
@@ -1139,6 +1169,7 @@
 				97D7976C292B778400675C57 /* TargetAgeView.swift in Sources */,
 				97164BC4293755C100B5437E /* RealmManager.swift in Sources */,
 				97A24C882921EC23009CE203 /* ShopViewModel.swift in Sources */,
+				97A32130293CDA1B00074559 /* ShopBackgroundViewController.swift in Sources */,
 				97A24C8A2921EC2E009CE203 /* FriendView.swift in Sources */,
 				974CF65E291D626300B66CAC /* NetworkError.swift in Sources */,
 				97B381E6291B5B5A009618A7 /* DateReusableView.swift in Sources */,
@@ -1162,6 +1193,7 @@
 				976C8AA129318A7C00F9D6E0 /* ChattingViewModel.swift in Sources */,
 				974CF660291D63ED00B66CAC /* SignIn.swift in Sources */,
 				97B381E4291B5433009618A7 /* BirthdayViewModel.swift in Sources */,
+				97A3212E293CDA0C00074559 /* ShopSesacViewController.swift in Sources */,
 				9784A69C2922B6F000C0D999 /* ProfileReusableCardTableViewCell.swift in Sources */,
 				97A24C842921EC14009CE203 /* ShopView.swift in Sources */,
 				9784A69529228DE100C0D999 /* StudyCollectionViewCell.swift in Sources */,
@@ -1376,9 +1408,10 @@
 				CODE_SIGN_ENTITLEMENTS = "SeSAC Study/SeSAC Study.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3C6U386B4C;
+				DEVELOPMENT_TEAM = 2EZ5QWFYX2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SeSAC Study/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "주변의 새싹들을 찾는데에 사용됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1389,7 +1422,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesacslp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesac1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1408,9 +1441,10 @@
 				CODE_SIGN_ENTITLEMENTS = "SeSAC Study/SeSAC Study.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3C6U386B4C;
+				DEVELOPMENT_TEAM = 2EZ5QWFYX2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SeSAC Study/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "주변의 새싹들을 찾는데에 사용됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1421,7 +1455,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesacslp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesac1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
