@@ -91,7 +91,7 @@ final class RegisterReviewViewModel: CommonViewModel {
         return Output(tapCancel: input.tapCancel, buttonValue: buttonValue, keyboard: input.keyboard, tapGood: tapGood, tapTime: tapTime, tapFast: tapFast, tapKind: tapKind, tapExpert: tapExpert, tapHelpful: tapHelpful, textViewIsEmpty: textViewIsEmpty, textViewCount: textViewCount, textViewEmptyStatus: textViewEmptyStatus, tapRegisterButton: input.tapRegisterButton, registerStatus: registerStatus)
     }
     
-    var buttonValue = BehaviorRelay<[ButtonStatus]>(value: Array(repeating: .disable, count: 10))
+    var buttonValue = BehaviorRelay<[ButtonStatus]>(value: Array(repeating: .disable, count: 9))
     var textViewIsEmpty = BehaviorRelay<EmptyStatus>(value: .empty)
     var registerStatus = PublishRelay<RegisterError>()
     

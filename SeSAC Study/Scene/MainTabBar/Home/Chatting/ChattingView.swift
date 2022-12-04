@@ -38,7 +38,6 @@ final class ChattingView: BaseView {
         let view = UITextView()
         view.textColor = .graySeven
         view.font = UIFont(name: CustomFont.regular, size: 14)
-        view.textContainer.maximumNumberOfLines = 3
         view.textContainer.lineBreakMode = .byTruncatingTail
         view.text = PlaceHolder.chatting
         view.textColor = .graySeven

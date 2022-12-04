@@ -180,7 +180,7 @@ final class ChattingViewController: ViewController {
             .disposed(by: disposeBag)
         
         //텍스트뷰 UI
-        mainView.textView.rx.text
+        mainView.textView.rx.didChange
             .withUnretained(self)
             .bind(onNext: { (vc, _) in
                 vc.checkTextViewLine()
@@ -324,7 +324,6 @@ extension ChattingViewController {
     //텍스트뷰
     private func remakeTextViewConstraintsThreeLines(lineHeight: CGFloat) {
         mainView.textView.isScrollEnabled = true
-        mainView.textView.textContainer.maximumNumberOfLines = 0
         mainView.textView.snp.remakeConstraints { make in
             make.verticalEdges.equalTo(mainView.messageView).inset(14)
             make.leading.equalToSuperview().offset(12)
