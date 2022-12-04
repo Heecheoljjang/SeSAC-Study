@@ -34,8 +34,8 @@ final class ChattingView: BaseView {
         view.backgroundColor = .grayOne
         return view
     }()
-    let textView: VerticallyCenteredTextView = {
-        let view = VerticallyCenteredTextView()
+    let textView: UITextView = {
+        let view = UITextView()
         view.textColor = .graySeven
         view.font = UIFont(name: CustomFont.regular, size: 14)
         view.textContainer.maximumNumberOfLines = 3
@@ -44,6 +44,7 @@ final class ChattingView: BaseView {
         view.textColor = .graySeven
         view.backgroundColor = .grayOne
         view.isScrollEnabled = false
+        view.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return view
     }()
     let sendButton: UIButton = {
@@ -51,9 +52,7 @@ final class ChattingView: BaseView {
         var configuration = UIButton.Configuration.plain()
         configuration.image = UIImage(named: ImageName.sendButton)
         configuration.baseForegroundColor = .graySix
-//        configuration.preferredSymbolConfigurationForImage = UIImage.
         button.configuration = configuration
-//        button.clipsToBounds = false
         return button
     }()
     

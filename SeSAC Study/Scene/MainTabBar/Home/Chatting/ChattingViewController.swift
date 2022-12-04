@@ -78,15 +78,6 @@ final class ChattingViewController: ViewController {
                 }
             })
             .disposed(by: disposeBag)
-//        mainView.textView.rx.text
-//            .withUnretained(self)
-//            .bind(onNext: { (vc, _) in
-//                print(vc.checkTextViewLine())
-//                if vc.checkTextViewLine() {
-//                    vc.mainView.textView.isScrollEnabled = true
-//                }
-//            })
-//            .disposed(by: disposeBag)
         
         viewModel.myQueueStatus
             .asDriver(onErrorJustReturn: MyQueueState(dodged: 0, matched: 0, reviewed: 0, matchedNick: nil, matchedUid: nil))
@@ -165,7 +156,7 @@ final class ChattingViewController: ViewController {
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] value in
                 if value {
-                    self?.scrollToBottom()
+//                    self?.scrollToBottom()
                 }
             })
             .disposed(by: disposeBag)
@@ -185,6 +176,14 @@ final class ChattingViewController: ViewController {
                 if vc.mainView.textView.text.isEmpty {
                     vc.setTextViewState(value: .disable)
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        //텍스트뷰 UI
+        mainView.textView.rx.text
+            .withUnretained(self)
+            .bind(onNext: { (vc, _) in
+                vc.checkTextViewLine()
             })
             .disposed(by: disposeBag)
     }
@@ -220,8 +219,12 @@ extension ChattingViewController {
         }
     }
     
-    private func checkTextViewLine() -> Bool {
-        return mainView.textView.checkNumberOfLines() == 4 ? true : false
+    private func checkTextViewLine() {
+
+        guard let lineHeight = mainView.textView.font?.lineHeight else { return }
+        let numberOfLine = mainView.textView.checkNumberOfLines()
+
+        numberOfLine >= 3 ? remakeTextViewConstraintsThreeLines(lineHeight: lineHeight) : remakeTextViewConstraintsLess()
     }
     
     private func showMenu() {
@@ -316,6 +319,28 @@ extension ChattingViewController {
         let row = viewModel.tableViewCellCount() - 1
         let indexPath = IndexPath(row: row, section: 0)
         mainView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+    }
+    
+    //텍스트뷰
+    private func remakeTextViewConstraintsThreeLines(lineHeight: CGFloat) {
+        mainView.textView.isScrollEnabled = true
+        mainView.textView.textContainer.maximumNumberOfLines = 0
+        mainView.textView.snp.remakeConstraints { make in
+            make.verticalEdges.equalTo(mainView.messageView).inset(14)
+            make.leading.equalToSuperview().offset(12)
+            make.trailing.equalTo(mainView.sendButton.snp.leading).offset(-10)
+            make.height.equalTo(lineHeight * 3)
+        }
+        mainView.textView.invalidateIntrinsicContentSize()
+    }
+    private func remakeTextViewConstraintsLess() {
+        mainView.textView.isScrollEnabled = false
+        mainView.textView.snp.remakeConstraints { make in
+            make.verticalEdges.equalTo(mainView.messageView).inset(14)
+            make.leading.equalToSuperview().offset(12)
+            make.trailing.equalTo(mainView.sendButton.snp.leading).offset(-10)
+        }
+        mainView.textView.invalidateIntrinsicContentSize()
     }
 }
 

@@ -9,9 +9,8 @@ import UIKit
 
 extension UITextView {
     func checkNumberOfLines() -> Int {
-        let textContainerHeight = self.textContainer.size.height
-        guard let lineHeight = self.font?.lineHeight else { return 0 }
-        
-        return Int(textContainerHeight / lineHeight)
+        let textViewContentHeight = self.contentSize.height
+        guard let lineHeight = self.font?.lineHeight else { return 1 }
+        return Int(textViewContentHeight / lineHeight)
     }
 }
