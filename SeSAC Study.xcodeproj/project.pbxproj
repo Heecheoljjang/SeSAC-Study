@@ -20,6 +20,10 @@
 		972385AD293D1D3300F7D59A /* ShopBackgroundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385AC293D1D3300F7D59A /* ShopBackgroundViewModel.swift */; };
 		972385AF293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385AE293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift */; };
 		972385B1293D1DFB00F7D59A /* ShopBackgroundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385B0293D1DFB00F7D59A /* ShopBackgroundTableViewCell.swift */; };
+		972793D1293DB9BE00BF0D7E /* ShopTabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972793D0293DB9BE00BF0D7E /* ShopTabmanViewController.swift */; };
+		972793D3293DBC3400BF0D7E /* ShopTabmanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972793D2293DBC3400BF0D7E /* ShopTabmanView.swift */; };
+		972793D5293DFCA800BF0D7E /* ShopSesacDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972793D4293DFCA800BF0D7E /* ShopSesacDelegate.swift */; };
+		972793D7293DFCB400BF0D7E /* ShopBackgroundDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972793D6293DFCB400BF0D7E /* ShopBackgroundDelegate.swift */; };
 		973C11C92938E70400AF7E2D /* DateFormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C11C82938E70400AF7E2D /* DateFormatterHelper.swift */; };
 		973F8798292E311900C70F7F /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 973F8797292E311900C70F7F /* Tabman */; };
 		973F879B292E4BB500C70F7F /* AroundSesacViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F879A292E4BB500C70F7F /* AroundSesacViewController.swift */; };
@@ -199,6 +203,10 @@
 		972385AC293D1D3300F7D59A /* ShopBackgroundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBackgroundViewModel.swift; sourceTree = "<group>"; };
 		972385AE293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacCollectionViewCell.swift; sourceTree = "<group>"; };
 		972385B0293D1DFB00F7D59A /* ShopBackgroundTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBackgroundTableViewCell.swift; sourceTree = "<group>"; };
+		972793D0293DB9BE00BF0D7E /* ShopTabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTabmanViewController.swift; sourceTree = "<group>"; };
+		972793D2293DBC3400BF0D7E /* ShopTabmanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTabmanView.swift; sourceTree = "<group>"; };
+		972793D4293DFCA800BF0D7E /* ShopSesacDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacDelegate.swift; sourceTree = "<group>"; };
+		972793D6293DFCB400BF0D7E /* ShopBackgroundDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBackgroundDelegate.swift; sourceTree = "<group>"; };
 		973C11C82938E70400AF7E2D /* DateFormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHelper.swift; sourceTree = "<group>"; };
 		973F879A292E4BB500C70F7F /* AroundSesacViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundSesacViewController.swift; sourceTree = "<group>"; };
 		973F879C292E4BD700C70F7F /* ReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedViewController.swift; sourceTree = "<group>"; };
@@ -835,6 +843,8 @@
 				976211F2291C2A93008B00FE /* CommonViewModel.swift */,
 				97F3DFEA292170890075582A /* Bind.swift */,
 				970D1FAF2933BDB100891787 /* CustomAlertDelegate.swift */,
+				972793D4293DFCA800BF0D7E /* ShopSesacDelegate.swift */,
+				972793D6293DFCB400BF0D7E /* ShopBackgroundDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -882,6 +892,8 @@
 		97A3212A293CD99700074559 /* TabmanVC */ = {
 			isa = PBXGroup;
 			children = (
+				972793D2293DBC3400BF0D7E /* ShopTabmanView.swift */,
+				972793D0293DB9BE00BF0D7E /* ShopTabmanViewController.swift */,
 				97A3212B293CD9B500074559 /* Sesac */,
 				97A3212C293CD9BD00074559 /* Background */,
 			);
@@ -1221,6 +1233,7 @@
 				979AD7C22939F11F004CAF0D /* RegisterReviewViewModel.swift in Sources */,
 				97C3DC22291FE3A500E315FA /* LaunchViewController.swift in Sources */,
 				9784A68029221ED900C0D999 /* ProfileViewModel.swift in Sources */,
+				972793D1293DB9BE00BF0D7E /* ShopTabmanViewController.swift in Sources */,
 				976C8AA129318A7C00F9D6E0 /* ChattingViewModel.swift in Sources */,
 				974CF660291D63ED00B66CAC /* SignIn.swift in Sources */,
 				972385A5293D01D700F7D59A /* ShopVC.swift in Sources */,
@@ -1246,6 +1259,7 @@
 				97ECAC0E292680C800F3A626 /* AroundSesacSearch.swift in Sources */,
 				97BF633F292FF7CF00777D3F /* AroundSesacViewModel.swift in Sources */,
 				97164BC92937CF0700B5437E /* SocketIOManager.swift in Sources */,
+				972793D7293DFCB400BF0D7E /* ShopBackgroundDelegate.swift in Sources */,
 				974CF662291D63F600B66CAC /* SignUp.swift in Sources */,
 				9796DED129191BEE00D8C915 /* BaseView.swift in Sources */,
 				97A24C922921EC4D009CE203 /* InfoViewController.swift in Sources */,
@@ -1261,6 +1275,7 @@
 				9796DE932918A36F00D8C915 /* SceneDelegate.swift in Sources */,
 				97FBDC63291AA1DC007CB321 /* UserDefaultsManager.swift in Sources */,
 				97A24C902921EC47009CE203 /* InfoView.swift in Sources */,
+				972793D5293DFCA800BF0D7E /* ShopSesacDelegate.swift in Sources */,
 				976211EF291C00D7008B00FE /* Gender.swift in Sources */,
 				978B0F242928015D0088199F /* HobbyViewModel.swift in Sources */,
 				974D983F2927E3AB0065E988 /* CustomAnnotationView.swift in Sources */,
@@ -1297,6 +1312,7 @@
 				979A4DFD29347E44001A83FC /* YourChattingTableViewCell.swift in Sources */,
 				97BF633D292FF7C600777D3F /* AroundSesacView.swift in Sources */,
 				979E79F4291E628000E9A89A /* OnboardingViewController.swift in Sources */,
+				972793D3293DBC3400BF0D7E /* ShopTabmanView.swift in Sources */,
 				97B381EB291BB0B5009618A7 /* Date+Extension.swift in Sources */,
 				979E79FD291F6F4A00E9A89A /* OnboardingCell.swift in Sources */,
 				972385A7293D1D0B00F7D59A /* ShopSesacView.swift in Sources */,

@@ -689,3 +689,17 @@ Xcode -> Product -> Edit Scheme -> Run -> Diagnostics -> Metal에서 APIValidati
     - 홈 화면에서 유저데이터를 가져왔을때 fcm토큰과 유저디폴트의 토큰이 다르다면 fcm토큰 갱신을 하도록함
 - 새싹샵에서 중간에 탭맨뷰컨이 있어야함. addBar에 at부분에서 .top이 아닌 .view를 이용하면 될 것 같음
     - 잘안됨....addChild로 구현해야할것같음
+
+### 12/5
+
+#### 내용
+
+- 새싹샵 화면
+    - UI
+    - 저장하기 버튼 로직 일부 구현
+
+#### 이슈
+
+- 새싹샵 뷰컨트롤러 안에 addChild로 TabmanViewController를 추가한 뒤, 컬렉션뷰와 테이블뷰만 있는 뷰컨을 탭맨의 뷰컨트롤러로 추가하면 스크롤뷰를 따로 사용할 필요도 없을 것 같음.
+    - 정리하면, ShopVC안에 이미지뷰와 컨테이너 뷰가 있고, ShopVC에서 컨테이너뷰에 addChild로 탭맨 뷰컨 추가하고 상단에 탭바달고 새싹과 배경 뷰컨을 설정
+- 실질적으로 ShopViewController에서 해주는 역할은 이미지 변경 메서드를 실행해주는 역할만 해줌. 이때 delegate를 사용하였고, info 등 shop에 관련된 API는 ShopSesac이나 ShopBackground의 viewWillAppear에서 실행해줄듯.
