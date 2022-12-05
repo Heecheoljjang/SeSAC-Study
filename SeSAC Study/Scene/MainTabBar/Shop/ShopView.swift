@@ -11,19 +11,7 @@ import Tabman
 import Pageboy
 
 final class ShopView: BaseView {
-//    
-//    let scrollView: UIScrollView = {
-//        let view = UIScrollView()
-////        view.backgroundColor = .red
-//        return view
-//    }()
-//    let contentView: UIView = {
-//        let view = UIView()
-////        view.backgroundColor = .blue
-//        return view
-//    }()
-        
-    //MARK: 배경이미지
+
     let imageSetView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -98,12 +86,5 @@ final class ShopView: BaseView {
             make.top.equalTo(imageSetView.snp.bottom).offset(4)
             make.horizontalEdges.bottom.equalTo(self.safeAreaLayoutGuide)
         }
-//        contentView.snp.makeConstraints { make in
-//            make.edges.equalToSuperview()
-//            make.centerX.equalToSuperview()
-//        }
-//        scrollView.snp.makeConstraints { make in
-//            make.edges.equalTo(self.safeAreaLayoutGuide)
-//        }
     }
 }

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ShopSesacDelegate: AnyObject {
-    func changeSesacImage()
+    func changeSesacImage(value: Int)
 }

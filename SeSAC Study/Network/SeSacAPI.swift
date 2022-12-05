@@ -30,6 +30,10 @@ enum SeSacAPI {
     case chatFrom(ohterUid: String, lastDate: String)
     case rate(otherUid: String, reputation: [Int], comment: String)
     
+    case shopMyInfo
+    case shopUpdateItem(sesac: Int, background: Int)
+    case shopPurchaseItem(receipt: String, product: String)
+    
     var url: URL {
         switch self {
         case .signIn, .signUp:
@@ -40,6 +44,12 @@ enum SeSacAPI {
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/mypage")!
         case .updateFCM:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/update_fcm_token")!
+        case .shopMyInfo:
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/shop/myinfo")!
+        case .shopUpdateItem:
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/shop/item")!
+        case .shopPurchaseItem:
+            return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)user/shop/ios")!
         case .queue, .stopQueueSearch:
             return URL(string: "\(SeSacAPI.baseUrl)\(SeSacAPI.version)queue")!
         case .queueSearch:
@@ -65,7 +75,7 @@ enum SeSacAPI {
         guard let token = UserDefaultsManager.shared.fetchValue(type: .idToken) as? String else { return [] }
         
         switch self {
-        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .rate, .updateFCM:
+        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .rate, .updateFCM, .shopMyInfo, .shopUpdateItem, .shopPurchaseItem:
             return ["idtoken": token]
         case .signUp, .queue, .queueSearch, .update, .studyRequest, .studyAccept, .dodge, .chatTo, .chatFrom:
             return [
@@ -77,7 +87,7 @@ enum SeSacAPI {
     
     var parameters: [String: Any]? {
         switch self {
-        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .chatFrom:
+        case .signIn, .withdraw, .myQueueState, .stopQueueSearch, .chatFrom, .shopMyInfo:
             return nil
         case .signUp(let phoneNumber, let fcmToken, let nickname, let birth, let email, let gender):
             return [
@@ -124,6 +134,16 @@ enum SeSacAPI {
                 "otheruid": uid,
                 "reputation": reputation,
                 "comment": comment
+            ]
+        case .shopUpdateItem(let sesac, let background):
+            return [
+                "sesac": sesac,
+                "background": background
+            ]
+        case .shopPurchaseItem(let receipt, let product):
+            return [
+                "receipt": receipt,
+                "product": product
             ]
         }
     }

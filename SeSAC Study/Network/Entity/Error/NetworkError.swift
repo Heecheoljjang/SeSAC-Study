@@ -228,3 +228,45 @@ enum RegisterError: Int {
         return "에러가 발생하였습니다."
     }
 }
+
+//MARK: Shop은 묶어보기
+
+enum ShopNetworkError {
+    enum MyInfo: Int {
+        case getInfoSuccess = 200
+        case tokenError = 401
+        case signUpRequired = 406
+        case serverError = 500
+        case clientError = 501
+    }
+
+    enum UpdateShopItem: Int {
+        case updateSuccess = 200
+        case beforePurchase = 201
+        case tokenError = 401
+        case signUpRequired = 406
+        case serverError = 500
+        case clientError = 501
+        
+        var message: String {
+            switch self {
+            case .updateSuccess:
+                return "성공적으로 저장되었습니다"
+            case .beforePurchase:
+                return "구매가 필요한 아이템이 있어요"
+            default:
+                return "에러가 발생하였습니다."
+            }
+        }
+    }
+    
+    enum PurchaseShopItem: Int {
+        case purchaseSuccess = 200
+        case invalidReceipt
+        case tokenError = 401
+        case signUpRequired = 406
+        case serverError = 500
+        case clientError = 501
+    }
+}
+

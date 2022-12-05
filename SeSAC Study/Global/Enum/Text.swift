@@ -72,6 +72,7 @@ enum ButtonTitle {
     static let stop = "찾기중단"
     static let changeStudy = "스터디 변경하기"
     static let registerReview = "리뷰 등록하기"
+    static let saveShop = "저장하기"
 }
 
 enum ImageName {
@@ -325,7 +326,7 @@ enum SeSacLocation {
 enum Annotation: Int {
     case basic, strong, mint, purple, gold
     
-    var image: String {
+    var imageName: String {
         switch self {
         case .basic:
             return "sesac_face_1"

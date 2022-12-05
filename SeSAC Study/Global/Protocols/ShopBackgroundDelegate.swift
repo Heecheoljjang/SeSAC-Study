@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ShopBackgroundDelegate: AnyObject {
-    func changeBackgroundImage()
+    func changeBackgroundImage(value: Int)
 }
