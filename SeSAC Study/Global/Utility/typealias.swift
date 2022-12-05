@@ -8,3 +8,4 @@
 import Foundation
 
 typealias ViewController = BaseViewController & Bind
+typealias ShopDelegate = ShopSesacDelegate & ShopBackgroundDelegate
