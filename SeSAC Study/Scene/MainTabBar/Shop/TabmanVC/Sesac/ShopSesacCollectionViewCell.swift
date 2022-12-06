@@ -26,26 +26,28 @@ final class ShopSesacCollectionViewCell: BaseCollectionViewCell {
         label.text = "윤희철새싹윤희철새싹윤희철새싹"
         return label
     }()
-    
-    let purchaseView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .grayTwo
-        view.layer.cornerRadius = 10
-        return view
-    }()
-    let purchaseLabel: UILabel = {
-        let label = UILabel()
-        label.text = "보유" //임시
-        label.font = UIFont(name: CustomFont.regular, size: 12)
-        label.textColor = .graySeven
-        return label
+
+    let priceButton: UIButton = {
+        let button = UIButton()
+        var configuration = UIButton.Configuration.filled()
+        configuration.cornerStyle = .capsule
+        configuration.title = "보유"
+        configuration.baseBackgroundColor = .grayTwo
+        configuration.baseForegroundColor = .graySeven
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { title in
+            var new = title
+            new.font = UIFont(name: CustomFont.regular, size: 12)
+            return new
+        }
+        button.configuration = configuration
+        return button
     }()
     
     let infoLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont(name: CustomFont.regular, size: 14)
-        label.text = "skfnasdlkfnsadlkfnsadlfnasdlfnsdalfnsdlfsdnlaskdnfals;dk"
+        label.lineBreakMode = .byCharWrapping
         return label
     }()
     
@@ -54,9 +56,8 @@ final class ShopSesacCollectionViewCell: BaseCollectionViewCell {
     }
     override func configure() {
         super.configure()
-        
-        purchaseView.addSubview(purchaseLabel)
-        [sesacImageView, nameLabel, purchaseView, infoLabel].forEach {
+
+        [sesacImageView, nameLabel, priceButton, infoLabel].forEach {
             contentView.addSubview($0)
         }
     }
@@ -72,18 +73,16 @@ final class ShopSesacCollectionViewCell: BaseCollectionViewCell {
         nameLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.equalTo(sesacImageView.snp.bottom).offset(8)
-            make.trailing.equalTo(purchaseView.snp.leading).offset(-8)
+            make.trailing.lessThanOrEqualTo(priceButton.snp.leading).offset(-8)
         }
-        purchaseView.setContentCompressionResistancePriority(.init(751), for: .horizontal)
-        purchaseView.snp.makeConstraints { make in
+
+        priceButton.setContentCompressionResistancePriority(.init(751), for: .horizontal)
+        priceButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-8)
             make.centerY.equalTo(nameLabel)
             make.height.equalTo(20)
         }
-        purchaseLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(12)
-            make.verticalEdges.equalToSuperview().inset(2)
-        }
+        
         infoLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(12)
             make.horizontalEdges.equalToSuperview()
