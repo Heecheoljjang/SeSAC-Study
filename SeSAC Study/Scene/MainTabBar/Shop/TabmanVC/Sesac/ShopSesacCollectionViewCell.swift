@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class ShopSesacCollectionViewCell: BaseCollectionViewCell {
     
@@ -51,6 +52,8 @@ final class ShopSesacCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
+    var disposeBag = DisposeBag()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -60,6 +63,10 @@ final class ShopSesacCollectionViewCell: BaseCollectionViewCell {
         [sesacImageView, nameLabel, priceButton, infoLabel].forEach {
             contentView.addSubview($0)
         }
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
     
     override func setUpConstraints() {

@@ -43,6 +43,16 @@ final class ShopViewModel {
         }
     }
     
+    func fetchCurrentSesacAndBackground() {
+        guard let data = UserDefaultsManager.shared.fetchValue(type: .userInfo) as? SignIn else {
+            print("내 데이터 못가져옴")
+            return
+        }
+        print("394320482340 \(data.sesac) \(data.background)")
+        sesacImage.accept(data.sesac)
+        backgroundImage.accept(data.background)
+    }
+    
     func setSesacImage(value: Int) {
         sesacImage.accept(value)
     }

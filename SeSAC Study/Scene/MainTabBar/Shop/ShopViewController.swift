@@ -25,6 +25,7 @@ final class ShopViewController: ViewController, ShopDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
+        viewModel.fetchCurrentSesacAndBackground()
     }
 
     override func viewWillAppear(_ animated: Bool) {
