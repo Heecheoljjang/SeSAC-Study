@@ -53,7 +53,7 @@ final class MainViewController: ViewController {
         
         viewModel.fetchQueueState() //버튼 세팅
         viewModel.setMapViewLocation(mapView: mainView.mapView)
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestWhenInUseAuthorization() //이거 처리하기
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -203,15 +203,15 @@ extension MainViewController: MKMapViewDelegate {
         
         switch annotation.imageNumber {
         case .basic:
-            annotationView?.image = UIImage(named: Annotation.basic.image)
+            annotationView?.image = UIImage(named: Annotation.basic.imageName)
         case .strong:
-            annotationView?.image = UIImage(named: Annotation.strong.image)
+            annotationView?.image = UIImage(named: Annotation.strong.imageName)
         case .mint:
-            annotationView?.image = UIImage(named: Annotation.mint.image)
+            annotationView?.image = UIImage(named: Annotation.mint.imageName)
         case .purple:
-            annotationView?.image = UIImage(named: Annotation.purple.image)
+            annotationView?.image = UIImage(named: Annotation.purple.imageName)
         case .gold:
-            annotationView?.image = UIImage(named: Annotation.gold.image)
+            annotationView?.image = UIImage(named: Annotation.gold.imageName)
         }
         
         return annotationView

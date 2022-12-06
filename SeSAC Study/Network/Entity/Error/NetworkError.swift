@@ -267,6 +267,15 @@ enum ShopNetworkError {
         case signUpRequired = 406
         case serverError = 500
         case clientError = 501
+        
+        var message: String {
+            switch self {
+            case .purchaseSuccess:
+                return "성공적으로 구매되었습니다"
+            default:
+                return "에러가 발생하였습니다."
+            }
+        }
     }
 }
 

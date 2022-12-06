@@ -27,7 +27,7 @@ final class ShopSesacViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.requestProductData()
+        viewModel.fetchPurchaseInfo()
     }
 
     override func configure() {
@@ -47,7 +47,11 @@ final class ShopSesacViewController: ViewController {
                 
                 cell.priceButton.rx.tap
                     .bind(onNext: { [weak self] _ in
-                        print("\(item)")
+                        //MARK: 인앱결제
+                        /*
+                         지금 맨 앞에 기본 새싹이 있으므로 product배열에서는 인덱스가 하나씩 뒤에 있음.
+                         */
+                        self?.viewModel.tapPriceButton(index: item)
                     })
                     .disposed(by: cell.disposeBag)
             }
@@ -56,6 +60,13 @@ final class ShopSesacViewController: ViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] value in
                 self?.viewModel.createShopSesacData(products: value)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.purchaseStatus
+            .asDriver(onErrorJustReturn: .clientError)
+            .drive(onNext: { [weak self] value in
+                self?.checkPurchaseStatus(status: value)
             })
             .disposed(by: disposeBag)
     }
@@ -68,15 +79,23 @@ extension ShopSesacViewController {
             button.configuration?.baseBackgroundColor = .grayTwo
             button.configuration?.baseForegroundColor = .graySeven
             button.configuration?.title = "보유"
+            button.isUserInteractionEnabled = false
         } else {
             button.configuration?.baseBackgroundColor = .brandGreen
             button.configuration?.baseForegroundColor = .white
             button.configuration?.title = "\(price)"
+            button.isUserInteractionEnabled = true
         }
     }
     
-    private func setCurrentImage() {
-        
+    private func checkPurchaseStatus(status: ShopNetworkError.PurchaseShopItem) {
+        switch status {
+        case .purchaseSuccess:
+            presentToast(view: mainView, message: status.message)
+            viewModel.fetchPurchaseInfo()
+        default:
+            presentToast(view: mainView, message: status.message)
+        }
     }
     
 }

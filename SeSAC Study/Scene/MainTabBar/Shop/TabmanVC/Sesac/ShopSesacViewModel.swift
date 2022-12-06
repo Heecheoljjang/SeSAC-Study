@@ -10,6 +10,10 @@ import StoreKit
 import RxCocoa
 import RxSwift
 
+/*
+ 인앱 결제를 시작하게되면 paymentQueue updatedTransaction에서 default쪽이 무조건 실행된 뒤에, 앱 내에서 구입 창이 뜸. 여기서 구입을 눌러 구입이 완료가 되면 success쪽이 실행이됨. 그래서 그 안에 있는 receiptValidation이 실행되고 finishTransaction이 실행되면 removedTransaction이 실행됨. 취소를 누르거나 다른 화면을 눌러 구입을 취소하면 failed 구문으로 가게되어 removedTransaction이 실행될 수 밖에 업승ㅁ. 로딩바 숨겨주는걸 이 메서드 안에 추가하면 될듯. finishTransaction을 실행하더라도 이후 코드가 실행되므로 이후에 서버와 통신하면 될듯
+ */
+
 final class ShopSesacViewModel: NSObject {
     
     enum ShopSesacImage: String {
@@ -34,23 +38,9 @@ final class ShopSesacViewModel: NSObject {
     
     var products = BehaviorRelay<[SKProduct]>(value: [])
     var shopSesacData = BehaviorRelay<[ShopSesacData]>(value: [])
-    var myInfoStatus = PublishRelay<LoginError>()
-
-    func requestProductData() {
-        LoadingIndicator.showLoading()
-        let sesacData: Set<String> = [IAPBundle.strong, IAPBundle.mint, IAPBundle.purple, IAPBundle.gold]
-        if SKPaymentQueue.canMakePayments() {
-            print("인앱결제가능")
-            let request = SKProductsRequest(productIdentifiers: sesacData)
-            request.delegate = self
-            request.start()
-        } else {
-            print("인앱결제 불가능")
-            LoadingIndicator.hideLoading()
-        }
-    }
+    var purchaseStatus = PublishRelay<ShopNetworkError.PurchaseShopItem>()
     
-    func fetchSesacImageName(name: String) -> String {
+    private func fetchSesacImageName(name: String) -> String {
         guard let imageNumber = ShopSesacImage(rawValue: name)?.imageNumber else {
             print("새싹샵 새싹이미지 넘버 못가져옴")
             return "sesac_face_1"
@@ -63,6 +53,8 @@ final class ShopSesacViewModel: NSObject {
     }
     
     func fetchPurchaseInfo() {
+        LoadingIndicator.showLoading()
+
         let api = SeSacAPI.shopMyInfo
         APIService.shared.request(type: SignIn.self, method: .get, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] data, statusCode in
             guard let status = LoginError(rawValue: statusCode) else {
@@ -77,6 +69,7 @@ final class ShopSesacViewModel: NSObject {
                 }
                 //데이터에 보유 상태 추가
                 UserDefaultsManager.shared.setValue(value: data, type: .userInfo)
+                self?.requestProductData()
             case .tokenError:
                 FirebaseManager.shared.fetchIdToken { result in
                     switch result {
@@ -89,6 +82,7 @@ final class ShopSesacViewModel: NSObject {
                     }
                 }
             default:
+                LoadingIndicator.hideLoading()
                 print("유저인퓨ㅗ")
             }
         }
@@ -110,32 +104,94 @@ final class ShopSesacViewModel: NSObject {
         LoadingIndicator.hideLoading()
         self.shopSesacData.accept(temp)
     }
+    
+    private func purchaseSuccess(receipt: String, identifier: String) {
+        let api = SeSacAPI.shopPurchaseItem(receipt: receipt, product: identifier)
+        
+        APIService.shared.noResponseRequest(method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] statusCode in
+            guard let status = ShopNetworkError.PurchaseShopItem(rawValue: statusCode) else {
+                print("퍼체이스아이템 상태 못가져옴 \(statusCode)")
+                return
+            }
+            switch status {
+            case .tokenError:
+                FirebaseManager.shared.fetchIdToken { result in
+                    switch result {
+                    case .success(let token):
+                        UserDefaultsManager.shared.setValue(value: token, type: .idToken)
+                        self?.purchaseSuccess(receipt: receipt, identifier: identifier)
+                    case .failure(let error):
+                        print("아이디토큰 못받아옴 \(error)")
+                        self?.purchaseStatus.accept(.clientError)
+                        return
+                    }
+                }
+            default:
+                self?.purchaseStatus.accept(status)
+            }
+        }
+    }
+}
+
+//MARK: - 인앱
+extension ShopSesacViewModel {
+    
+    func requestProductData() {
+//        LoadingIndicator.showLoading()
+        let sesacData: Set<String> = [IAPBundle.Sesac.strong.bundle, IAPBundle.Sesac.mint.bundle, IAPBundle.Sesac.purple.bundle, IAPBundle.Sesac.gold.bundle]
+        if SKPaymentQueue.canMakePayments() {
+            print("인앱결제가능")
+            let request = SKProductsRequest(productIdentifiers: sesacData)
+            request.delegate = self
+            request.start()
+        } else {
+            print("인앱결제 불가능")
+            LoadingIndicator.hideLoading()
+        }
+    }
+    
+    func tapPriceButton(index: Int) {
+        LoadingIndicator.showLoading()
+        let product = products.value[index - 1]
+        print("프로덕트 \(product.localizedTitle)")
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().add(payment)
+    }
 }
 
 extension ShopSesacViewModel {
     func receiptValidation(transaction: SKPaymentTransaction, productIdentifier: String) {
-        
+        print(#function)
         // 앱에서 애플이 만들어놓은 링크로 영수증 정보를 보내고 애플에서 응답으로 문제없다는 것을 보내고 그때부터 유저디폴트 등으로 확인해서 인앱결제를 했다안했다 확인가능
         // 스테이터스가 0이 아니라 cancellation뭐시기가뜨면 환불한것
         //스테이터스가 21007인 경우엔 테스트용 영수증. 실제 결제가 일어나지 않은것
         
-            // SandBox: “https://sandbox.itunes.apple.com/verifyReceipt”
-            // iTunes Store : “https://buy.itunes.apple.com/verifyReceipt”
-           
-            //구매 영수증 정보
-            let receiptFileURL = Bundle.main.appStoreReceiptURL
-            let receiptData = try? Data(contentsOf: receiptFileURL!)
-            let receiptString = receiptData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
-           
-            print(receiptString)
-            //거래 내역(transaction)을 큐에서 제거 => 결제가 중복으로 들어가거나 쌓일 수 있어서
-            SKPaymentQueue.default().finishTransaction(transaction)
-            
+        // SandBox: “https://sandbox.itunes.apple.com/verifyReceipt”
+        // iTunes Store : “https://buy.itunes.apple.com/verifyReceipt”
+        
+        //구매 영수증 정보
+        let receiptFileURL = Bundle.main.appStoreReceiptURL
+        let receiptData = try? Data(contentsOf: receiptFileURL!)
+        guard let receiptString = receiptData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0)) else {
+            print("영수증 데이터 못가져옴")
+            return
         }
+        
+        print(receiptString)
+        
+        purchaseSuccess(receipt: receiptString, identifier: productIdentifier)
+        
+        //거래 내역(transaction)을 큐에서 제거 => 결제가 중복으로 들어가거나 쌓일 수 있어서
+        SKPaymentQueue.default().finishTransaction(transaction)
+        
+    }
 }
 
 extension ShopSesacViewModel: SKProductsRequestDelegate {
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        print(#function)
+        
         let products = response.products
         
         if products.count > 0 {
@@ -153,27 +209,28 @@ extension ShopSesacViewModel: SKProductsRequestDelegate {
 
 extension ShopSesacViewModel: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        print(#function)
+        for transaction in transactions {
             
-            for transaction in transactions {
-            
-                switch transaction.transactionState {
-                     
-                case .purchased: //구매 승인 이후에 영수증 검증
-                    
-                    print("Transaction Approved. \(transaction.payment.productIdentifier)")
-                    receiptValidation(transaction: transaction, productIdentifier: transaction.payment.productIdentifier) //따로 만든 메서드
-                    
-                case .failed: //실패 토스트, transaction
-                    
-                    print("Transaction Failed")
-                    SKPaymentQueue.default().finishTransaction(transaction)
-               
-                default:
-                    break
-                }
+            switch transaction.transactionState {
+                
+            case .purchased: //구매 승인 이후에 영수증 검증
+                
+                print("Transaction Approved. \(transaction.payment.productIdentifier)")
+                receiptValidation(transaction: transaction, productIdentifier: transaction.payment.productIdentifier) //따로 만든 메서드
+                
+            case .failed: //실패 토스트, transaction
+                print("Transaction Failed")
+                SKPaymentQueue.default().finishTransaction(transaction)
+            default:
+                print("dkdkd")
+                break
             }
         }
+    }
     func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
-            print("removedTransactions")
-        }
+        print(#function)
+        LoadingIndicator.hideLoading()
+        print("removedTransactions")
+    }
 }
