@@ -703,3 +703,23 @@ Xcode -> Product -> Edit Scheme -> Run -> Diagnostics -> Metal에서 APIValidati
 - 새싹샵 뷰컨트롤러 안에 addChild로 TabmanViewController를 추가한 뒤, 컬렉션뷰와 테이블뷰만 있는 뷰컨을 탭맨의 뷰컨트롤러로 추가하면 스크롤뷰를 따로 사용할 필요도 없을 것 같음.
     - 정리하면, ShopVC안에 이미지뷰와 컨테이너 뷰가 있고, ShopVC에서 컨테이너뷰에 addChild로 탭맨 뷰컨 추가하고 상단에 탭바달고 새싹과 배경 뷰컨을 설정
 - 실질적으로 ShopViewController에서 해주는 역할은 이미지 변경 메서드를 실행해주는 역할만 해줌. 이때 delegate를 사용하였고, info 등 shop에 관련된 API는 ShopSesac이나 ShopBackground의 viewWillAppear에서 실행해줄듯.
+
+### 12/6
+
+#### 내용
+
+- 새싹샵 화면
+    - 상품 데이터 받아오기
+        - 보유 표시
+    - 셀 UI 수정
+        - 가격뷰를 버튼으로 변경
+    - 새싹 구매 로직 구현
+
+#### 이슈
+
+- 인앱결제 번들 ID가 네 개만 있으므로 SKProduct 배열로 받게 되면 기본 이미지에 대해서 처리를 할 수가 없음. 만약 하려고 한다면 로우한 값을 직접 추가하여 해야함. 구조체를 만들어서 기본값을 추가하려고해도 SKProduct타입의 값이 들어와야 결제가 진행되기때문에 따로 처리해야할듯.
+    - 구조체를 따로 만들고, 배열을 하나 더 만들어서 처리하는게 로직이 조금 더 들어가긴하지만 정확할 것 같음. 그래야 보유했는지에 대한 상태도 갖고 있을 수 있음.
+    - 셀을 탭했을때 SKProduct배열 값을 바로 결제 요청을 하게 하기 위해서 맨 앞에 SKProduct()를 추가해줬는데 자동으로 사라졌음. 따로 인스턴스를 만들어줄 수 없는 것 같음. 그래서 구조체를 안쓸수없음.
+- offset이 마이너스인 경우에는 lessThanOrEqual로 해야 자동으로 커짐
+- 인앱 결제를 진행할 때 최소 하나의 옵저버가 필요하기때문에 add(self)를 작성해주는 것 같음.
+- 인앱 결제를 시작하게되면 paymentQueue updatedTransaction에서 default쪽이 무조건 실행된 뒤에, 앱 내에서 구입 창이 뜸. 여기서 구입을 눌러 구입이 완료가 되면 success쪽이 실행이됨. 그래서 그 안에 있는 receiptValidation이 실행되고 finishTransaction이 실행되면 removedTransaction이 실행됨. 취소를 누르거나 다른 화면을 눌러 구입을 취소하면 failed 구문으로 가게되어 removedTransaction이 실행될 수 밖에 업승ㅁ. 로딩바 숨겨주는걸 이 메서드 안에 추가하면 될듯

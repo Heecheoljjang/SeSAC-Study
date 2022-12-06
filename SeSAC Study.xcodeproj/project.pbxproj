@@ -13,6 +13,9 @@
 		97164BC92937CF0700B5437E /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97164BC82937CF0700B5437E /* SocketIOManager.swift */; };
 		97164BCC2937D43E00B5437E /* SocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97164BCB2937D43E00B5437E /* SocketAPI.swift */; };
 		97164BCF2937D6A700B5437E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 97164BCE2937D6A700B5437E /* RealmSwift */; };
+		9722AB8A293F2F080082104E /* IAPBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9722AB89293F2F080082104E /* IAPBundle.swift */; };
+		9722AB8C293F88EB0082104E /* ShopSesacData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9722AB8B293F88EB0082104E /* ShopSesacData.swift */; };
+		9722AB8E293F88F50082104E /* ShopBackgroundData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9722AB8D293F88F50082104E /* ShopBackgroundData.swift */; };
 		972385A5293D01D700F7D59A /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385A4293D01D700F7D59A /* ShopVC.swift */; };
 		972385A7293D1D0B00F7D59A /* ShopSesacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385A6293D1D0B00F7D59A /* ShopSesacView.swift */; };
 		972385A9293D1D1700F7D59A /* ShopSesacViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972385A8293D1D1700F7D59A /* ShopSesacViewModel.swift */; };
@@ -196,6 +199,9 @@
 		97164BC3293755C100B5437E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		97164BC82937CF0700B5437E /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		97164BCB2937D43E00B5437E /* SocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketAPI.swift; sourceTree = "<group>"; };
+		9722AB89293F2F080082104E /* IAPBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPBundle.swift; sourceTree = "<group>"; };
+		9722AB8B293F88EB0082104E /* ShopSesacData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacData.swift; sourceTree = "<group>"; };
+		9722AB8D293F88F50082104E /* ShopBackgroundData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBackgroundData.swift; sourceTree = "<group>"; };
 		972385A4293D01D700F7D59A /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
 		972385A6293D1D0B00F7D59A /* ShopSesacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacView.swift; sourceTree = "<group>"; };
 		972385A8293D1D1700F7D59A /* ShopSesacViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSesacViewModel.swift; sourceTree = "<group>"; };
@@ -403,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				972385A4293D01D700F7D59A /* ShopVC.swift */,
+				9722AB89293F2F080082104E /* IAPBundle.swift */,
 			);
 			path = Shop;
 			sourceTree = "<group>";
@@ -974,6 +981,8 @@
 			isa = PBXGroup;
 			children = (
 				97B66A712936A3C100E0C067 /* ChatData.swift */,
+				9722AB8B293F88EB0082104E /* ShopSesacData.swift */,
+				9722AB8D293F88F50082104E /* ShopBackgroundData.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1212,6 +1221,7 @@
 				97164BC4293755C100B5437E /* RealmManager.swift in Sources */,
 				97A24C882921EC23009CE203 /* ShopViewModel.swift in Sources */,
 				97A32130293CDA1B00074559 /* ShopBackgroundViewController.swift in Sources */,
+				9722AB8C293F88EB0082104E /* ShopSesacData.swift in Sources */,
 				97A24C8A2921EC2E009CE203 /* FriendView.swift in Sources */,
 				974CF65E291D626300B66CAC /* NetworkError.swift in Sources */,
 				97B381E6291B5B5A009618A7 /* DateReusableView.swift in Sources */,
@@ -1237,6 +1247,7 @@
 				976C8AA129318A7C00F9D6E0 /* ChattingViewModel.swift in Sources */,
 				974CF660291D63ED00B66CAC /* SignIn.swift in Sources */,
 				972385A5293D01D700F7D59A /* ShopVC.swift in Sources */,
+				9722AB8E293F88F50082104E /* ShopBackgroundData.swift in Sources */,
 				97B381E4291B5433009618A7 /* BirthdayViewModel.swift in Sources */,
 				97A3212E293CDA0C00074559 /* ShopSesacViewController.swift in Sources */,
 				9784A69C2922B6F000C0D999 /* ProfileReusableCardTableViewCell.swift in Sources */,
@@ -1307,6 +1318,7 @@
 				97A8D405292F75CF00F31401 /* NearUserVIew.swift in Sources */,
 				9752857629291F1B0030403F /* DynamicCollectionView.swift in Sources */,
 				972385AF293D1DEE00F7D59A /* ShopSesacCollectionViewCell.swift in Sources */,
+				9722AB8A293F2F080082104E /* IAPBundle.swift in Sources */,
 				97F3DFED292171DE0075582A /* typealias.swift in Sources */,
 				974EE401292CC01300F07DAC /* UserUpdate.swift in Sources */,
 				979A4DFD29347E44001A83FC /* YourChattingTableViewCell.swift in Sources */,
