@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class ShopBackgroundTableViewCell: BaseTableViewCell {
     
@@ -26,7 +27,6 @@ final class ShopBackgroundTableViewCell: BaseTableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: CustomFont.regular, size: 14)
-        label.text = "윤희철새싹"
         return label
     }()
     
@@ -50,9 +50,10 @@ final class ShopBackgroundTableViewCell: BaseTableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont(name: CustomFont.regular, size: 14)
-        label.text = "skfnasdlkfnsadlkfnsadlfnasdlfnsdalfnsdlfsdnlaskdnfals;dk"
         return label
     }()
+    
+    var disposeBag = DisposeBag()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: ShopBackgroundTableViewCell.identifier)
@@ -66,6 +67,10 @@ final class ShopBackgroundTableViewCell: BaseTableViewCell {
         [backgroundImageView, infoView].forEach {
             contentView.addSubview($0)
         }
+    }
+    
+    override func prepareForReuse() {
+        disposeBag = DisposeBag()
     }
     
     override func setUpConstraints() {

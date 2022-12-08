@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct ShopBackgroundData {
+    let imageName: String
+    let title: String
+    let price: String
+    let info: String
+}

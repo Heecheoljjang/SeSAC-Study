@@ -396,6 +396,24 @@ enum BackgroundImage: Int {
             return "sesac_background_9"
         }
     }
+    
+    var name: String {
+        switch self {
+        case .first:
+            return "하늘 공원"
+        default:
+            return ""
+        }
+    }
+    
+    var info: String {
+        switch self {
+        case .first:
+            return "새싹들을 많이 마주치는 매력적인 하늘 공원입니다"
+        default:
+            return ""
+        }
+    }
 }
 
 enum AlertText {

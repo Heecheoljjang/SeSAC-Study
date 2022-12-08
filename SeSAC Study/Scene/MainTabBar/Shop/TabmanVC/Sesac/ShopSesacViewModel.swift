@@ -96,10 +96,10 @@ final class ShopSesacViewModel: NSObject {
     }
     
     func createShopSesacData(products: [SKProduct]) {
-        var temp: [ShopSesacData] = [ShopSesacData(imageName: UserProfileImage.basic.image, title: UserProfileImage.basic.name, price: "보유", info: UserProfileImage.basic.info, alreadyPurchased: 0)]
+        var temp: [ShopSesacData] = [ShopSesacData(imageName: UserProfileImage.basic.image, title: UserProfileImage.basic.name, price: "보유", info: UserProfileImage.basic.info)]
         for i in products {
             let image = fetchSesacImageName(name: i.localizedTitle)
-            temp.append(ShopSesacData(imageName: image, title: i.localizedTitle, price: "\(i.price)", info: i.localizedDescription, alreadyPurchased: 0))
+            temp.append(ShopSesacData(imageName: image, title: i.localizedTitle, price: "\(i.price)", info: i.localizedDescription))
         }
         LoadingIndicator.hideLoading()
         self.shopSesacData.accept(temp)
@@ -137,7 +137,6 @@ final class ShopSesacViewModel: NSObject {
 extension ShopSesacViewModel {
     
     func requestProductData() {
-//        LoadingIndicator.showLoading()
         let sesacData: Set<String> = [IAPBundle.Sesac.strong.bundle, IAPBundle.Sesac.mint.bundle, IAPBundle.Sesac.purple.bundle, IAPBundle.Sesac.gold.bundle]
         if SKPaymentQueue.canMakePayments() {
             print("인앱결제가능")
@@ -162,14 +161,7 @@ extension ShopSesacViewModel {
 
 extension ShopSesacViewModel {
     func receiptValidation(transaction: SKPaymentTransaction, productIdentifier: String) {
-        print(#function)
-        // 앱에서 애플이 만들어놓은 링크로 영수증 정보를 보내고 애플에서 응답으로 문제없다는 것을 보내고 그때부터 유저디폴트 등으로 확인해서 인앱결제를 했다안했다 확인가능
-        // 스테이터스가 0이 아니라 cancellation뭐시기가뜨면 환불한것
-        //스테이터스가 21007인 경우엔 테스트용 영수증. 실제 결제가 일어나지 않은것
-        
-        // SandBox: “https://sandbox.itunes.apple.com/verifyReceipt”
-        // iTunes Store : “https://buy.itunes.apple.com/verifyReceipt”
-        
+
         //구매 영수증 정보
         let receiptFileURL = Bundle.main.appStoreReceiptURL
         let receiptData = try? Data(contentsOf: receiptFileURL!)
@@ -190,7 +182,6 @@ extension ShopSesacViewModel {
 
 extension ShopSesacViewModel: SKProductsRequestDelegate {
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        print(#function)
         
         let products = response.products
         
@@ -209,7 +200,6 @@ extension ShopSesacViewModel: SKProductsRequestDelegate {
 
 extension ShopSesacViewModel: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        print(#function)
         for transaction in transactions {
             
             switch transaction.transactionState {
@@ -229,7 +219,6 @@ extension ShopSesacViewModel: SKPaymentTransactionObserver {
         }
     }
     func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
-        print(#function)
         LoadingIndicator.hideLoading()
         print("removedTransactions")
     }

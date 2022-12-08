@@ -29,11 +29,6 @@ final class ShopSesacViewController: ViewController {
         super.viewWillAppear(animated)
         viewModel.fetchPurchaseInfo()
     }
-
-    override func configure() {
-        super.configure()
-
-    }
     
     func bind() {
         viewModel.shopSesacData
@@ -97,5 +92,4 @@ extension ShopSesacViewController {
             presentToast(view: mainView, message: status.message)
         }
     }
-    
 }

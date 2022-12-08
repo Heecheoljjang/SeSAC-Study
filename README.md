@@ -723,3 +723,13 @@ Xcode -> Product -> Edit Scheme -> Run -> Diagnostics -> Metal에서 APIValidati
 - offset이 마이너스인 경우에는 lessThanOrEqual로 해야 자동으로 커짐
 - 인앱 결제를 진행할 때 최소 하나의 옵저버가 필요하기때문에 add(self)를 작성해주는 것 같음.
 - 인앱 결제를 시작하게되면 paymentQueue updatedTransaction에서 default쪽이 무조건 실행된 뒤에, 앱 내에서 구입 창이 뜸. 여기서 구입을 눌러 구입이 완료가 되면 success쪽이 실행이됨. 그래서 그 안에 있는 receiptValidation이 실행되고 finishTransaction이 실행되면 removedTransaction이 실행됨. 취소를 누르거나 다른 화면을 눌러 구입을 취소하면 failed 구문으로 가게되어 removedTransaction이 실행될 수 밖에 업승ㅁ. 로딩바 숨겨주는걸 이 메서드 안에 추가하면 될듯
+
+
+### 12/8
+
+#### 내용
+
+- 새싹샵
+    - 배경 구매 로직 구현
+
+#### 이슈

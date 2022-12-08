@@ -12,5 +12,4 @@ struct ShopSesacData {
     let title: String
     let price: String
     let info: String
-    let alreadyPurchased: Int
 }

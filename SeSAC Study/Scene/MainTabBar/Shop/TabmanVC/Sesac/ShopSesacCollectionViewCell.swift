@@ -24,7 +24,6 @@ final class ShopSesacCollectionViewCell: BaseCollectionViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: CustomFont.regular, size: 16)
-        label.text = "윤희철새싹윤희철새싹윤희철새싹"
         return label
     }()
 
