@@ -731,5 +731,3 @@ Xcode -> Product -> Edit Scheme -> Run -> Diagnostics -> Metal에서 APIValidati
 
 - 새싹샵
     - 배경 구매 로직 구현
-
-#### 이슈
