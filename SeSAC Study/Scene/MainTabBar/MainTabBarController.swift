@@ -10,7 +10,6 @@ import UIKit
 final class MainTabBarController: UITabBarController {
     private let homeVC = MainViewController()
     private let shopVC = ShopViewController()
-    private let friendVC = FriendViewController()
     private let infoVC = InfoViewController()
     
     override func viewDidLoad() {
@@ -33,17 +32,12 @@ final class MainTabBarController: UITabBarController {
         shopNav.tabBarItem.selectedImage = UIImage(named: TabBarData.shop.selectedIcon)
         shopNav.tabBarItem.title = TabBarData.shop.title
         
-        let friendNav = UINavigationController(rootViewController: friendVC)
-        friendNav.tabBarItem.image = UIImage(named: TabBarData.friend.baseIcon)
-        friendNav.tabBarItem.selectedImage = UIImage(named: TabBarData.friend.selectedIcon)
-        friendNav.tabBarItem.title = TabBarData.friend.title
-        
         let infoNav = UINavigationController(rootViewController: infoVC)
         infoNav.tabBarItem.image = UIImage(named: TabBarData.info.baseIcon)
         infoNav.tabBarItem.selectedImage = UIImage(named: TabBarData.info.selectedIcon)
         infoNav.tabBarItem.title = TabBarData.info.title
         
-        setViewControllers([homeNav, shopNav, friendNav, infoNav], animated: true)
+        setViewControllers([homeNav, shopNav, infoNav], animated: true)
     }
     
     private func setUpAppearance() {
