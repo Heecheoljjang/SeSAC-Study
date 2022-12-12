@@ -44,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        if let windowScene = scene as? UIWindowScene {
 //            let window = UIWindow(windowScene: windowScene)
 //
-//            let nav = UINavigationController(rootViewController: ProfileViewController())
+//            let nav = UINavigationController(rootViewController: ChattingViewController())
 //            window.rootViewController = nav
 //            self.window = window
 //            window.makeKeyAndVisible()
