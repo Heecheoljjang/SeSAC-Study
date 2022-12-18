@@ -731,3 +731,10 @@ Xcode -> Product -> Edit Scheme -> Run -> Diagnostics -> Metal에서 APIValidati
 
 - 새싹샵
     - 배경 구매 로직 구현
+
+### 12/18
+
+#### 내용
+
+- 로그인화면
+    - 뷰모델에서 처리할 수 있는 로직들은 굳이 뷰컨에서 하지 않도록 수정
