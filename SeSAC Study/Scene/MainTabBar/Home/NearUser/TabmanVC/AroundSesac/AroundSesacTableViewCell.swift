@@ -9,9 +9,7 @@ import UIKit
 import RxSwift
 
 final class AroundSesacTableViewCell: ProfileTableViewCell {
-    
-//    var row: Int?
-    
+        
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: AroundSesacTableViewCell.identifier)
         
@@ -24,15 +22,11 @@ final class AroundSesacTableViewCell: ProfileTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         print("prepareforreuse \(nameView.clearButton.isSelected)")
-//
-//        //버튼이 selected되어 있다면 setupview
-//        setUpView(collapsed: !nameView.clearButton.isSelected)
-//        disposeBag = DisposeBag()
+
     }
 }

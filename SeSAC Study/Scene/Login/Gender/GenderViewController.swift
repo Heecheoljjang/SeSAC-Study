@@ -66,10 +66,6 @@ final class GenderViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.tapDoneButton
-            .bind(onNext: { [weak self] _ in
-                self?.viewModel.checkStatus()
-            })
-            .disposed(by: disposeBag)
         
         output.genderStatus
             .drive(onNext: { [weak self] value in

@@ -31,12 +31,7 @@ final class PhoneNumberViewController: ViewController {
         let output = viewModel.transform(input: input)
         
         output.numberText
-            .bind(onNext: { [weak self] value in
-                self?.viewModel.setPhoneNumber(number: value)
-                self?.viewModel.checkPhoneNumber(number: value)
-            })
-            .disposed(by: disposeBag)
-
+    
         output.phoneNumber
             .drive(onNext: { [weak self] value in
                 self?.mainView.numberTextField.text = value.pretty()
@@ -50,10 +45,6 @@ final class PhoneNumberViewController: ViewController {
             .disposed(by: disposeBag)
 
         output.tapDoneButton
-            .bind(onNext: { [weak self] _ in
-                self?.viewModel.sendPhoneAuth()
-            })
-            .disposed(by: disposeBag)
         
         output.sendAuthCheck
             .drive(onNext: { [weak self] value in

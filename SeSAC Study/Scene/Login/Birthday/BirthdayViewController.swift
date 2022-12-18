@@ -40,10 +40,6 @@ final class BirthdayViewController: ViewController {
         let output = viewModel.transform(input: input)
         
         output.selectedDate
-            .bind(onNext: { [weak self] value in
-                self?.viewModel.setBirthday(date: value)
-            })
-            .disposed(by: disposeBag)
         
         output.birthday
             .drive(onNext: { [weak self] value in
@@ -60,10 +56,6 @@ final class BirthdayViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.tapDoneButton
-            .bind(onNext: { [weak self] _ in
-                self?.viewModel.setCheckStatus()
-            })
-            .disposed(by: disposeBag)
         
         output.checkStatus
             .drive(onNext: { [weak self] value in

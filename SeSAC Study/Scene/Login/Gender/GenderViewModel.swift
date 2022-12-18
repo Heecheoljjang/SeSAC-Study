@@ -12,15 +12,16 @@ import FirebaseAuth
 
 final class GenderViewModel: CommonViewModel {
     
+    let disposeBag = DisposeBag()
+    
     struct Input {
         let tapDoneButton: ControlEvent<Void>
     }
     struct Output {
         let gender: Driver<Gender>
         let buttonStatus: Driver<ButtonStatus>
-        let tapDoneButton: ControlEvent<Void>
+        let tapDoneButton: Void
         let genderStatus: Driver<GenderStatus>
-//        let errorStatus: Driver<LoginErrorString>
         let errorStatus: Driver<LoginError>
     }
     func transform(input: Input) -> Output {
@@ -28,17 +29,17 @@ final class GenderViewModel: CommonViewModel {
         let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
         let genderStatus = genderStatus.asDriver(onErrorJustReturn: .unselected)
         let errorStatus = errorStatus.asDriver(onErrorJustReturn: .clientError)
+        let tapDoneButton: Void = input.tapDoneButton.bind(onNext: { [weak self] _ in
+            self?.checkStatus()
+        })
+        .disposed(by: disposeBag)
         
-        return Output(gender: gender, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, genderStatus: genderStatus, errorStatus: errorStatus)
+        return Output(gender: gender, buttonStatus: buttonStatus, tapDoneButton: tapDoneButton, genderStatus: genderStatus, errorStatus: errorStatus)
     }
     
     var gender = PublishRelay<Gender>()
-    
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: ButtonStatus.disable)
-    
     var genderStatus = BehaviorRelay<GenderStatus>(value: .unselected)
-    
-//    var errorStatus = PublishRelay<LoginErrorString>()
     var errorStatus = PublishRelay<LoginError>()
     
     func setGenderMan() {

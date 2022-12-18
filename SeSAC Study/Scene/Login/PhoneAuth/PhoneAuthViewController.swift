@@ -40,10 +40,6 @@ final class PhoneAuthViewController: ViewController {
         let output = viewModel.transform(input: input)
         
         output.authCode
-            .bind(onNext: { [weak self] value in
-                value ? self?.viewModel.setButtonStatus(value: ButtonStatus.enable) : self?.viewModel.setButtonStatus(value: ButtonStatus.disable)
-            })
-            .disposed(by: disposeBag)
         
         output.buttonStatus
             .drive(onNext: { [unowned self] value in
@@ -71,10 +67,6 @@ final class PhoneAuthViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.tapRetryButton
-            .bind(onNext: { [weak self] _ in
-                self?.viewModel.requestAgain()
-            })
-            .disposed(by: disposeBag)
         
         output.phoneNumberCheck
             .asDriver(onErrorJustReturn: .fail)

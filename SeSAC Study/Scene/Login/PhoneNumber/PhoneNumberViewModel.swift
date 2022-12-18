@@ -12,30 +12,38 @@ import RxCocoa
 
 final class PhoneNumberViewModel: CommonViewModel {
     
+    let disposeBag = DisposeBag()
+    
     struct Input {
         let numberText: ControlProperty<String?>
         let tapDoneButton: ControlEvent<Void>
     }
     struct Output {
-        let numberText: ControlProperty<String>
+        let numberText: Void
         let phoneNumber: Driver<String>
         let buttonStatus: Driver<ButtonStatus>
-        let tapDoneButton: ControlEvent<Void>
+        let tapDoneButton: Void
         let sendAuthCheck: Driver<AuthCheck>
     }
     func transform(input: Input) -> Output {
-        let numberText = input.numberText.orEmpty
+        let numberText: Void = input.numberText.orEmpty.bind(onNext: { [weak self] value in
+            self?.setPhoneNumber(number: value)
+            self?.checkPhoneNumber(number: value)
+        })
+        .disposed(by: disposeBag)
         let phoneNumber = phoneNumber.asDriver(onErrorJustReturn: "")
         let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
         let sendAuthCheck = sendAuthCheck.asDriver(onErrorJustReturn: .fail)
+        let tapDoneButton: Void = input.tapDoneButton.bind(onNext: { [weak self] _ in
+            self?.sendPhoneAuth()
+        })
+        .disposed(by: disposeBag)
         
-        return Output(numberText: numberText, phoneNumber: phoneNumber, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, sendAuthCheck: sendAuthCheck)
+        return Output(numberText: numberText, phoneNumber: phoneNumber, buttonStatus: buttonStatus, tapDoneButton: tapDoneButton, sendAuthCheck: sendAuthCheck)
     }
     
     var sendAuthCheck = PublishRelay<AuthCheck>()
-
     var phoneNumber = BehaviorRelay<String>(value: "")
-    
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: ButtonStatus.disable)
         
     func sendPhoneAuth() {

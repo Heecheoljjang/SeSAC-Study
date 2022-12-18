@@ -11,23 +11,33 @@ import RxCocoa
 
 final class BirthdayViewModel: CommonViewModel {
     
+    let disposeBag = DisposeBag()
+    
     struct Input {
         let date: ControlProperty<Date>
         let tapDoneButton: ControlEvent<Void>
     }
     struct Output {
-        let selectedDate: ControlProperty<Date>
+        let selectedDate: Void
         let birthday: Driver<Date>
         let buttonStatus: Driver<ButtonStatus>
-        let tapDoneButton: ControlEvent<Void>
+        let tapDoneButton: Void
         let checkStatus: Driver<BirthdayStatus>
     }
     func transform(input: Input) -> Output {
+        let selectedDate: Void = input.date.bind(onNext: { [weak self] value in
+            self?.setBirthday(date: value)
+        })
+        .disposed(by: disposeBag)
         let birthday = birthday.asDriver(onErrorJustReturn: Date())
         let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
         let checkStatus = checkStatus.asDriver(onErrorJustReturn: .disable)
+        let tapDoneButton = input.tapDoneButton.bind(onNext: { [weak self] _ in
+            self?.setCheckStatus()
+        })
+        .disposed(by: disposeBag)
         
-        return Output(selectedDate: input.date, birthday: birthday, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, checkStatus: checkStatus)
+        return Output(selectedDate: selectedDate, birthday: birthday, buttonStatus: buttonStatus, tapDoneButton: tapDoneButton, checkStatus: checkStatus)
     }
     
     var birthday = PublishRelay<Date>()

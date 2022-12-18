@@ -17,9 +17,7 @@ final class AroundSesacView: BaseView {
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
         view.separatorStyle = .none
-        view.isScrollEnabled = false
-//        view.allowsMultipleSelection = true //MARK: test
-//        view.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
+        view.isScrollEnabled = true
         view.register(AroundSesacTableViewCell.self, forCellReuseIdentifier: AroundSesacTableViewCell.identifier)
         view.sectionHeaderTopPadding = 0
         view.rowHeight = UITableView.automaticDimension

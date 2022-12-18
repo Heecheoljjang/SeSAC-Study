@@ -11,26 +11,34 @@ import RxCocoa
 
 final class EmailViewModel: CommonViewModel {
     
+    let disposeBag = DisposeBag()
+    
     struct Input {
         let emailText: ControlProperty<String?>
-        let doneButtonTap: ControlEvent<Void>
+        let tapDoneButton: ControlEvent<Void>
     }
     struct Output {
-        let emailText: ControlProperty<String>
+        let emailText: Void
         let buttonStatus: Driver<ButtonStatus>
-        let doneButtonTap: ControlEvent<Void>
+        let tapDoneButton: Void
         let emailStatus: Driver<EmailStatus>
     }
     func transform(input: Input) -> Output {
-        let emailText = input.emailText.orEmpty
+        let emailText: Void = input.emailText.orEmpty.bind(onNext: { [weak self] value in
+            self?.checkEmail(email: value)
+        })
+        .disposed(by: disposeBag)
         let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
         let emailStatus = emailStatus.asDriver(onErrorJustReturn: .invalid)
+        let tapDoneButton: Void = input.tapDoneButton.bind(onNext: { [weak self] _ in
+            self?.setEmailStatus()
+        })
+        .disposed(by: disposeBag)
         
-        return Output(emailText: emailText, buttonStatus: buttonStatus, doneButtonTap: input.doneButtonTap, emailStatus: emailStatus)
+        return Output(emailText: emailText, buttonStatus: buttonStatus, tapDoneButton: tapDoneButton, emailStatus: emailStatus)
     }
     
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: .disable)
-    
     var emailStatus = BehaviorRelay<EmailStatus>(value: .invalid)
     
     func checkEmail(email: String) {
