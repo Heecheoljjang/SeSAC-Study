@@ -36,15 +36,10 @@ final class EmailViewController: ViewController {
     }
     
     func bind() {
-        let input = EmailViewModel.Input(emailText: mainView.emailTextField.rx.text, doneButtonTap: mainView.doneButton.rx.tap)
+        let input = EmailViewModel.Input(emailText: mainView.emailTextField.rx.text, tapDoneButton: mainView.doneButton.rx.tap)
         let output = viewModel.transform(input: input)
 
         output.emailText
-            .bind(onNext: { [weak self] value in
-                print("이메일: \(value)")
-                self?.viewModel.checkEmail(email: value)
-            })
-            .disposed(by: disposeBag)
 
         output.buttonStatus
             .drive(onNext: { [unowned self] value in
@@ -52,11 +47,7 @@ final class EmailViewController: ViewController {
             })
             .disposed(by: disposeBag)
 
-        output.doneButtonTap
-            .bind(onNext: { [weak self] _ in
-                self?.viewModel.setEmailStatus()
-            })
-            .disposed(by: disposeBag)
+        output.tapDoneButton
 
         output.emailStatus
             .drive(onNext: { [weak self] value in

@@ -24,10 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             switch status {
             case .satisfied:
                 self?.removeNetworkErrorWindow()
-                print("네트워크 연결됨")
+//                print("네트워크 연결됨")
             case .unsatisfied:
                 self?.loadNetworkErrorWindow(on: scene)
-                print("네트워크 끊김")
+//                print("네트워크 끊김")
             default:
                 break
             }

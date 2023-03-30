@@ -14,14 +14,15 @@ final class AroundSesacViewModel {
     var sesacList = BehaviorRelay<[FromQueueDB]>(value: [])
     var requestStatus = PublishRelay<StudyRequestError>()
     var acceptStatus = PublishRelay<StudyAcceptError>()
-
+    var selectStatus = BehaviorRelay<[Bool]>(value: [])
+    
     func startSeSacSearch() {
         
         let lat = Location.lat.value
         let long = Location.long.value
         print("(&ㅕ)$(#*& 가져온 위치 \(lat) \(long)")
         let api = SeSacAPI.queueSearch(lat: lat, lon: long)
-
+        
         APIService.shared.request(type: AroundSesacSearch.self, method: .post, url: api.url, parameters: api.parameters, headers: api.headers) { [weak self] (data, statusCode) in
             print(statusCode)
             guard let error = SesacSearchError(rawValue: statusCode) else {
@@ -81,6 +82,20 @@ final class AroundSesacViewModel {
     
     func setOtherUid(uid: String) {
         UserDefaultsManager.shared.setValue(value: uid, type: .otherUid)
+    }
+    
+    func setSelectStatus(row: Int) {
+        var temp = selectStatus.value
+        print(temp, "이전")
+        temp[row].toggle()
+        print(temp, "이후")
+        selectStatus.accept(temp)
+    }
+    func initSelectStatus(count: Int) {
+        selectStatus.accept([Bool](repeating: true, count: count))
+    }
+    func fetchSelectStatus(row: Int) -> Bool {
+        return selectStatus.value[row]
     }
     
     func checkReviewEmpty(reviews: [String]) -> Bool {

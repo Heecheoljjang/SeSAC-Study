@@ -54,10 +54,6 @@ final class NicknameViewController: ViewController {
         let output = viewModel.transform(input: input)
         
         output.validNicknameCount
-            .bind(onNext: { [weak self] value in
-                value ? self?.viewModel.setButtonStatus(value: ButtonStatus.enable) : self?.viewModel.setButtonStatus(value: ButtonStatus.disable)
-            })
-            .disposed(by: disposeBag)
         
         output.longNickname
             .bind(onNext: { [unowned self] value in
@@ -75,11 +71,7 @@ final class NicknameViewController: ViewController {
             .disposed(by: disposeBag)
         
         output.tapDoneButton
-            .bind(onNext: { [weak self] _ in
-                self?.viewModel.checkIsEnable()
-            })
-            .disposed(by: disposeBag)
-            
+
         output.enableNickname
             .drive(onNext: { [weak self] value in
                 self?.nicknameCheck(isEnable: value)

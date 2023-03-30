@@ -11,33 +11,41 @@ import RxCocoa
 
 final class NickNameViewModel: CommonViewModel {
     
+    let disposeBag = DisposeBag()
+    
     struct Input {
         let nickNameText: ControlProperty<String?>
         let tapDoneButton: ControlEvent<Void>
     }
     struct Output {
-        let validNicknameCount: Observable<Bool>
+        let validNicknameCount: Void
         let longNickname: Observable<Bool>
         let buttonStatus: Driver<ButtonStatus>
-        let tapDoneButton: ControlEvent<Void>
+        let tapDoneButton: Void
         let enableNickname: Driver<NicknameCheck>
     }
     func transform(input: Input) -> Output {
-        let validNickNameCount = input.nickNameText.orEmpty
+        let validNickNameCount: Void = input.nickNameText.orEmpty
             .map { $0.count >= 1 && $0.count <= 10 }
-            .share()
+            .share().bind(onNext: { [weak self] value in
+                value ? self?.setButtonStatus(value: ButtonStatus.enable) : self?.setButtonStatus(value: ButtonStatus.disable)
+            })
+            .disposed(by: disposeBag)
         let longNickname = input.nickNameText.orEmpty
             .observe(on: MainScheduler.asyncInstance)
             .map { $0.count > 10 }
             .share()
         let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
         let enableNickname = isEnable.asDriver(onErrorJustReturn: .fail)
+        let tapDoneButton: Void = input.tapDoneButton.bind(onNext: { [weak self] _ in
+            self?.checkIsEnable()
+        })
+        .disposed(by: disposeBag)
         
-        return Output(validNicknameCount: validNickNameCount, longNickname: longNickname, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, enableNickname: enableNickname)
+        return Output(validNicknameCount: validNickNameCount, longNickname: longNickname, buttonStatus: buttonStatus, tapDoneButton: tapDoneButton, enableNickname: enableNickname)
     }
     
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: .disable)
-    
     var isEnable = PublishRelay<NicknameCheck>()
     
     func setButtonStatus(value: ButtonStatus) {

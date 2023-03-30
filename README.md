@@ -1,5 +1,32 @@
 # SeSAC_Study
 
+사용자의 위치를 기반으로 원하는 조건의 스터디메이트를 매칭해주는 서비스입니다.
+
+매칭된 상대와 실시간으로 채팅할 수 있으며, 인앱결제를 이용하여 다양한 아바타와 배경을 구매할 수 있습니다.
+
+<img width="600" alt="Untitled-3" src="https://user-images.githubusercontent.com/77842318/228952447-fe54d56c-9c1d-40d0-8665-b5cb0b6e27ef.png">
+
+- 전화번호 인증을 통해 회원가입을 진행해요
+- 사용자의 위치를 기반으로 주변의 스터디메이트를 지도에 표시해요
+- 원하는 스터디 조건을 정할 수 있어요
+- 매칭된 사용자와 실시간 채팅이 가능해요
+- 다양한 아바타와 배경을 구매할 수 있어요
+
+## Skill
+`MVVM` `Realm` `SnapKit`
+
+`RxSwift` `RxCocoa` `RxCoreLocation` `RxGesture` `RxKeyboard`
+
+`MapKit` `StoreKit` `Alamofire` `SocketIO`
+
+`FirebaseAuth`
+
+---
+
+<details>
+<summary>개발일지</summary>
+
+<!--summary 아래 빈칸 공백 두고 내용을 적는공간-->
 ### 11/7
 
 #### 내용
@@ -731,3 +758,7 @@ Xcode -> Product -> Edit Scheme -> Run -> Diagnostics -> Metal에서 APIValidati
 
 - 새싹샵
     - 배경 구매 로직 구현
+
+</details>
+
+

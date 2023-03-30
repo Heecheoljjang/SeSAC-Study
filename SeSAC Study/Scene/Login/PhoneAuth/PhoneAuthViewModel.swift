@@ -13,38 +13,42 @@ import Alamofire
 
 final class PhoneAuthViewModel: CommonViewModel {
         
+    let disposeBag = DisposeBag()
+    
     struct Input {
         let authCode: ControlProperty<String?>
         let tapDoneButton: ControlEvent<Void>
         let tapRetryButton: ControlEvent<Void>
     }
     struct Output {
-        let authCode: Observable<Bool>
+        let authCode: Void
         let buttonStatus: Driver<ButtonStatus>
         let tapDoneButton: ControlEvent<Void>
         let authCodeCheck: Driver<AuthCodeCheck>
-//        let errorStatus: Driver<LoginErrorString>
         let errorStatus: Driver<LoginError>
-        let tapRetryButton: ControlEvent<Void>
+        let tapRetryButton: Void
         let phoneNumberCheck: Driver<AuthCheck>
     }
     func transform(input: Input) -> Output {
-        let authCode = input.authCode.orEmpty.map{$0.count == 6}
+        let authCode: Void = input.authCode.orEmpty.map{$0.count == 6}.bind(onNext: { [weak self] value in
+            value ? self?.setButtonStatus(value: ButtonStatus.enable) : self?.setButtonStatus(value: ButtonStatus.disable)
+        })
+        .disposed(by: disposeBag)
         let buttonStatus = buttonStatus.asDriver(onErrorJustReturn: .disable)
         let authCodeCheck = authCodeCheck.asDriver(onErrorJustReturn: .fail)
         let errorStatus = errorStatus.asDriver(onErrorJustReturn: .clientError)
         let phoneNumberCheck = phoneNumberCheck.asDriver(onErrorJustReturn: .fail)
+        let tapRetryButton: Void = input.tapRetryButton.bind(onNext: { [weak self] _ in
+            self?.requestAgain()
+        })
+        .disposed(by: disposeBag)
         
-        return Output(authCode: authCode, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, authCodeCheck: authCodeCheck, errorStatus: errorStatus, tapRetryButton: input.tapRetryButton, phoneNumberCheck: phoneNumberCheck)
+        return Output(authCode: authCode, buttonStatus: buttonStatus, tapDoneButton: input.tapDoneButton, authCodeCheck: authCodeCheck, errorStatus: errorStatus, tapRetryButton: tapRetryButton, phoneNumberCheck: phoneNumberCheck)
     }
     
     var buttonStatus = BehaviorRelay<ButtonStatus>(value: ButtonStatus.disable)
-        
     var authCodeCheck = PublishRelay<AuthCodeCheck>()
-    
-//    var errorStatus = PublishRelay<LoginErrorString>()
     var errorStatus = PublishRelay<LoginError>()
-    
     var phoneNumberCheck = PublishRelay<AuthCheck>()
     
     func checkAuth(code: String) {
