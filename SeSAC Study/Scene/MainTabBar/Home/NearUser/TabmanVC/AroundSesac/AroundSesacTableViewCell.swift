@@ -26,7 +26,13 @@ final class AroundSesacTableViewCell: ProfileTableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("prepareforreuse \(nameView.clearButton.isSelected)")
-
+//        print(isSelected, "@@")
     }
+//    
+//    override var isSelected: Bool {
+//        didSet {
+//            print(isSelected, "###값값")
+//            isSelected ? setUpView(collapsed: !isSelected) : setUpView(collapsed: isSelected)
+//        }
+//    }
 }

@@ -44,10 +44,27 @@ final class AroundSesacViewController: ViewController {
     }
     
     func bind() {
+        viewModel.selectStatus
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] value in
+                print("바뀜바뀜", value)
+                self?.mainView.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.sesacList
+            .map { $0.count }
+            .asDriver(onErrorJustReturn: 0)
+            .drive(onNext: { [weak self] count in
+                //새싹리스트 개수 바뀌면 selectStatus개수 다시 init
+                self?.viewModel.initSelectStatus(count: count)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.sesacList
             .asDriver(onErrorJustReturn: [])
             .drive(mainView.tableView.rx.items(cellIdentifier: AroundSesacTableViewCell.identifier, cellType: AroundSesacTableViewCell.self)) { [weak self] row, element, cell in
-
+                print("리로드리로드")
                 guard let backImage = BackgroundImage(rawValue: element.background)?.imageName,
                       let sesacImage = UserProfileImage(rawValue: element.sesac)?.image,
                 let reviewIsEmpty = self?.viewModel.checkReviewEmpty(reviews: element.reviews) else { return }
@@ -56,7 +73,7 @@ final class AroundSesacViewController: ViewController {
 //                cell.nameView.clearButton.addTarget(self, action: #selector(self?.touchToggleButton(_:)), for: .touchUpInside)
 //                cell.nameView.clearButton.isSelected ? cell.setUpView(collapsed: false) : cell.setUpView(collapsed: true)
 
-                cell.setUpView(collapsed: !cell.nameView.clearButton.isSelected)
+                cell.setUpView(collapsed: self?.viewModel.fetchSelectStatus(row: row) ?? false)
                 cell.backgroundImageView.image = UIImage(named: backImage)
                 cell.sesacImageView.image = UIImage(named: sesacImage)
                 cell.nameView.nameLabel.text = element.nick
@@ -95,22 +112,21 @@ final class AroundSesacViewController: ViewController {
                     })
                     .disposed(by: cell.disposeBag)
 
-//                cell.setUpView(collapsed: !cell.nameView.clearButton.isSelected)
-                cell.setUpView(collapsed: true)
-//                cell.nameView.clearButton.rx.tap
-//                    .bind(onNext: { [weak self] _ in
-//                        print("탭해따 row \(row)")
+                cell.nameView.clearButton.rx.tap
+                    .bind(onNext: { [weak self] _ in
+                        print("탭해따 row \(row)")
 //                        print("탭상태 \(cell.nameView.clearButton.isSelected)")
-////                        cell.setUpView(collapsed: false)
-////                        cell.nameView.clearButton.isSelected = !cell.nameView.clearButton.isSelected
-//
-////                        self?.mainView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-////                        let cell = self?.mainView.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! AroundSesacTableViewCell
+//                        cell.setUpView(collapsed: false)
+//                        cell.nameView.clearButton.isSelected = !cell.nameView.clearButton.isSelected
+
+//                        self?.mainView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+//                        let cell = self?.mainView.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! AroundSesacTableViewCell
 //                        cell.nameView.clearButton.isSelected = !cell.nameView.clearButton.isSelected
 //                        cell.setUpView(collapsed: !cell.nameView.clearButton.isSelected)
+                        self?.viewModel.setSelectStatus(row: row)
 //                        self?.mainView.tableView.reloadSections(IndexSet(), with: .none)
-//                    })
-//                    .disposed(by: cell.disposeBag)
+                    })
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         

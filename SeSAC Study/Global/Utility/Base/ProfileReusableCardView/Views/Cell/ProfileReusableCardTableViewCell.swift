@@ -130,6 +130,7 @@ class ProfileTableViewCell: BaseTableViewCell {
 //MARK: 주변새싹에서 사용. 내 정보에서는 하고싶은 스터디가 없으므로 사용 안함
 extension ProfileTableViewCell {
     func setUpView(collapsed: Bool) {
+        print(#function)
         sesacTitleView.isHidden = collapsed
         reviewView.isHidden = collapsed
         studyView.isHidden = collapsed
